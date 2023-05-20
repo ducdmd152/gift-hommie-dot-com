@@ -17,4 +17,6 @@ public interface ProductService {
 	boolean checkExist(int productId);
 
 	boolean delete(int productId);
+
+	Product getProductById(int productId);
 }

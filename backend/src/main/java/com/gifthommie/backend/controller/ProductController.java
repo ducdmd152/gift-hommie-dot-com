@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Product;
+import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.ProductService;
 
 @RestController
@@ -27,6 +28,14 @@ public class ProductController {
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize
 			) {
 		return productService.getPageableProducts(pageNo, pageSize);
+	}
+	
+	@GetMapping("/{productId}")
+	public Product getProduct(@PathVariable int productId) {
+		if(productService.checkExist(productId) == false) {
+			throw new NotFoundException("Product not found!!!");
+		}
+		return productService.getProductById(productId);
 	}
 	
 	@PostMapping

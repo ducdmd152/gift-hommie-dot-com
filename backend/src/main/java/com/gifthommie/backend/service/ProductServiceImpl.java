@@ -1,5 +1,7 @@
 package com.gifthommie.backend.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +44,16 @@ public class ProductServiceImpl implements ProductService {
 			return false;
 		productRepository.deleteById(productId);
 		return true;
+	}
+
+	@Override
+	public Product getProductById(int productId) {
+		Optional<Product> result = productRepository.findById(productId);
+		if(result.isPresent()) {
+			return result.get();
+		}
+		
+		return null;
 	}
 	
 	

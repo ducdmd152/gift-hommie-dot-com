@@ -19,4 +19,16 @@ public class GlobalRestExceptionHandler {
 		// reuturn ResponseEntity
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException exc) {
+		ErrorResponse error = new ErrorResponse();
+
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		// reuturn ResponseEntity
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
 }
