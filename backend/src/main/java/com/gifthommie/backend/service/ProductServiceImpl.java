@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.gifthommie.backend.dto.APIPageableResponse;
+import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.repository.ProductRepository;
 
@@ -16,11 +16,11 @@ public class ProductServiceImpl implements ProductService {
 	ProductRepository productRepository;
 	
 	@Override
-	public APIPageableResponse<Product> getPageableProducts(int pageNo, int size) {
+	public APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize) {
 		Page<Product> page = productRepository.findAll(
-				PageRequest.of(pageNo, size, Sort.by("id").descending())
+				PageRequest.of(pageNo, pageSize)
 				);
-		return new APIPageableResponse<Product>(page);
+		return new APIPageableResponseDTO<Product>(page);
 	}
 
 	@Override

@@ -11,37 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthommie.backend.dto.APIPageableResponse;
+import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.service.ProductService;
 
 @RestController
-@RequestMapping("/staff")
-public class StaffController {
+@RequestMapping("/staff/product")
+public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/product")
-	public APIPageableResponse<Product> getProductList(
+	@GetMapping
+	public APIPageableResponseDTO<Product> getProductList(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize
 			) {
 		return productService.getPageableProducts(pageNo, pageSize);
 	}
 	
-	@PostMapping("/product")
+	@PostMapping
 	public Product addProduct(@RequestBody Product product) {
 		Product result = productService.save(product);
 		return result;
 	}
 	
-	@PutMapping("/product")
-	public Product updateProduct(@RequestBody Product product) {
+	@PutMapping("/{productId}")
+	public Product updateProduct(@PathVariable int productId, @RequestBody Product product) {
+		product.setId(productId);
 		Product result = productService.save(product);
 		return result;
 	}
 	
-	@DeleteMapping("/product/{productId}")
+	@DeleteMapping("/{productId}")
 	public void deleteCustomerById(@PathVariable int productId) {
 		if (productService.checkExist(productId) == false) {
 			throw new RuntimeException("Customer is not found: " + productId);

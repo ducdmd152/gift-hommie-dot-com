@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-public class APIPageableResponse<T> {
+public class APIPageableResponseDTO<T> {
 	public List<T> content;
 	public APIPageableDTO pageable;
 	
-	public APIPageableResponse() {
+	public APIPageableResponseDTO() {
 	}
 	
-	public APIPageableResponse(Page<T> page) {
+	public APIPageableResponseDTO(Page<T> page) {
 		setContent(page.getContent());
 		setPageable(new APIPageableDTO(page));
 	}

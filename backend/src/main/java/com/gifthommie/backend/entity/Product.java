@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -28,6 +30,7 @@ public class Product {
 	private float price;
 	
 	@Column(name = "status")
+	@JsonIgnore
 	private boolean status;
 	
 	@Column(name = "category_id")
