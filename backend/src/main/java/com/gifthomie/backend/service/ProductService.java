@@ -9,6 +9,6 @@ import com.gifthomie.backend.entity.Product;
 
 public interface ProductService {
 
-	APIPageableResponse<Product> getPageableProducts(int pageNo, int size);
+	APIPageableResponse<Product> getPageableProducts(int pageNo, int pageSize);
 //	APIPageableResponse<Product> getPageableProducts(int page, int size, Sort sort);
 }

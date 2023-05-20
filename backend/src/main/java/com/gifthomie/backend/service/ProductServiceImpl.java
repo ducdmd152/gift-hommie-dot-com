@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	public APIPageableResponse<Product> getPageableProducts(int pageNo, int size) {
 		Page<Product> page = productRepository.findAll(
 				PageRequest.of(pageNo, size, Sort.by("id").descending())
-				);		
+				);
 		return new APIPageableResponse<Product>(page);
 	}
 

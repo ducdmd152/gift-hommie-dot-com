@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthomie.backend.dto.APIPageableResponse;
@@ -18,7 +19,10 @@ public class StaffController {
 	ProductService productService;
 	
 	@GetMapping("/product")
-	public APIPageableResponse<Product> getProductList() {
-		return productService.getPageableProducts(0, 12);
+	public APIPageableResponse<Product> getProductList(
+			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize
+			) {
+		return productService.getPageableProducts(pageNo, pageSize);
 	}
 }
