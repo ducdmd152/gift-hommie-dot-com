@@ -1,4 +1,4 @@
-package com.gifthomie.backend.controller;
+package com.gifthommie.backend.controller;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthomie.backend.entity.User;
-import com.gifthomie.backend.repository.UserRepository;
+import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.repository.UserRepository;
 
 @RestController
 @RequestMapping("/test")
