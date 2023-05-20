@@ -1,4 +1,4 @@
-package com.gifthomie.backend.entity;
+package com.gifthommie.backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

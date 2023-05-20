@@ -1,4 +1,4 @@
-package com.gifthomie.backend;
+package com.gifthommie.backend;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

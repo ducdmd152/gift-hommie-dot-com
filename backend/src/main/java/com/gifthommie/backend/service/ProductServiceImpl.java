@@ -1,4 +1,4 @@
-package com.gifthomie.backend.service;
+package com.gifthommie.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -6,9 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.gifthomie.backend.dto.APIPageableResponse;
-import com.gifthomie.backend.entity.Product;
-import com.gifthomie.backend.repository.ProductRepository;
+import com.gifthommie.backend.dto.APIPageableResponse;
+import com.gifthommie.backend.entity.Product;
+import com.gifthommie.backend.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,6 +22,29 @@ public class ProductServiceImpl implements ProductService {
 				);
 		return new APIPageableResponse<Product>(page);
 	}
+
+	@Override
+	public Product save(Product product) {
+		Product result = productRepository.save(product);
+		return result;
+	}
+
+	@Override
+	public boolean checkExist(int productId) {
+		if(productRepository.existsById(productId))
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean delete(int productId) {
+		if(checkExist(productId) == false)
+			return false;
+		productRepository.deleteById(productId);
+		return true;
+	}
+	
+	
 
 
 }

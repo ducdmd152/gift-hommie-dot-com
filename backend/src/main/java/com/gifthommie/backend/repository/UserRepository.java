@@ -1,10 +1,10 @@
-package com.gifthomie.backend.repository;
+package com.gifthommie.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.gifthomie.backend.entity.User;
+import com.gifthommie.backend.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 

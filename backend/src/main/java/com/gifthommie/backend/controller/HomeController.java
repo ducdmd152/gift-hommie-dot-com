@@ -1,4 +1,4 @@
-package com.gifthomie.backend.controller;
+package com.gifthommie.backend.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

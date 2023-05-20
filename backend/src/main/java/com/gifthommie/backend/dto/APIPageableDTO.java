@@ -1,4 +1,4 @@
-package com.gifthomie.backend.dto;
+package com.gifthommie.backend.dto;
 
 import java.io.Serializable;
 

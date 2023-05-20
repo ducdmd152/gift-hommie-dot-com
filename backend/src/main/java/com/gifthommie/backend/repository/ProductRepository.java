@@ -1,8 +1,8 @@
-package com.gifthomie.backend.repository;
+package com.gifthommie.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.gifthomie.backend.entity.Product;
+import com.gifthommie.backend.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
