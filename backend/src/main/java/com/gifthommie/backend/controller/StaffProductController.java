@@ -18,7 +18,7 @@ import com.gifthommie.backend.service.ProductService;
 
 @RestController
 @RequestMapping("/staff/product")
-public class ProductController {
+public class StaffProductController {
 	@Autowired
 	ProductService productService;
 	
