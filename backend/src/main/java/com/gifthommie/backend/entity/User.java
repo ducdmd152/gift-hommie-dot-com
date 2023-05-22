@@ -2,9 +2,9 @@ package com.gifthommie.backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +16,11 @@ public class User {
 	@Id
 	@Column(name = "email")
 	private String email;
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Role role;
 
 	@Column(name = "username")
 	private String username;
@@ -27,6 +32,8 @@ public class User {
 	@Column(name = "enabled")
 	@JsonIgnore
 	private boolean enabled;
+	
+	
 	
 	public String getEmail() {
 		return email;
@@ -51,6 +58,17 @@ public class User {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public Role getRole() {
+		return role;
+	}
+	
+	public String getAuthority() {
+		return role.getName();
+	}
+	
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	

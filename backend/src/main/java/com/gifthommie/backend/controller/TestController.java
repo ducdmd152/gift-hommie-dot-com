@@ -1,23 +1,22 @@
 package com.gifthommie.backend.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthommie.backend.entity.User;
-import com.gifthommie.backend.repository.UserRepository;
-
 @RestController
-@RequestMapping("/test")
-public class TestController {
-	@Autowired
-	UserRepository userRepository;
+public class TestController {	
+	@GetMapping("/customer/test")
+	public String customer() {
+		return "Welcome to CUSTOMER APIs!!!";
+	}
 	
-	@GetMapping("/user")
-	public List<User> getUserList() {
-		return userRepository.findAll();
+	@GetMapping("/staff/test")
+	public String staff() {
+		return "Welcome to STAFF APIs!!!";
+	}
+	
+	@GetMapping("/manager/test")
+	public String manager() {
+		return "Welcome to MANAGER APIs!!!";
 	}
 }
