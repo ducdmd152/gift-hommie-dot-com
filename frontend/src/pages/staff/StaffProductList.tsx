@@ -2,6 +2,8 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
 import useFetchStaffProduct from "../../hooks/useFetchStaffProduct";
+import Header from "../../components/header/Header";
+import StaffProductMain from "../../components/staff/StaffProductMain";
 
 function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
   const [user, setUser] = useState<HttpUser | null>(null);
@@ -26,17 +28,16 @@ function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
       }}
       h="100%"
     >
-      <GridItem area="header" background={"blue"} height="100px"></GridItem>
+      <GridItem area="header" height="100px">
+        <Header />
+      </GridItem>
       {/* <Show above="sm"> */}
       <GridItem area="aside-left" className="aside-left" background={"green"}>
         Category
       </GridItem>
       {/* </Show> */}
-      <GridItem area="main" className="main" background={"gray"}>
-        <h1>Hello</h1>
-        {products.map((product) => (
-          <h1>{product.name}</h1>
-        ))}
+      <GridItem area="main" className="main">
+        <StaffProductMain products={products} />
       </GridItem>
     </Grid>
   );
