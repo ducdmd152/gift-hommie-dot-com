@@ -7,8 +7,6 @@ function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
   const [user, setUser] = useState<HttpUser | null>(null);
   const { products, isLoading, error } = useFetchStaffProduct(null);
 
-  console.log(products);
-
   useEffect(() => {
     const userJSON = sessionStorage.getItem("user");
     if (userJSON) setUser(JSON.parse(userJSON));
@@ -17,29 +15,29 @@ function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
   return (
     <Grid
       templateAreas={{
-        base: `"main aside-right"`,
-        sm: `"aside-left main aside-right"`,
-        lg: `"aside-left main aside-right"`,
+        base: `"header header" "aside-left main"`,
+        // sm: `"header header" "aside-left main"`,
+        // lg: `"header header" "aside-left main"`,
       }}
       templateColumns={{
-        base: `1fr 60px`,
-        sm: `60px 1fr 180px`,
-        md: `80px 1fr 200px`,
-        lg: "240px 1fr 240px",
+        base: `200px 1fr`,
+        // sm: `"1fr" "200px 1fr"`,
+        // lg: `"1fr" "200px 1fr"`,
       }}
       h="100%"
     >
-      <Show above="sm">
-        <GridItem area="aside-left" className="aside-left">
-          <h1>Hello</h1>
-          {products.map((product) => (
-            <h1>{product.name}</h1>
-          ))}
-        </GridItem>
-      </Show>
-
-      <GridItem area="main" className="main"></GridItem>
-      <GridItem area="aside-right" className="aside-right"></GridItem>
+      <GridItem area="header" background={"blue"} height="100px"></GridItem>
+      {/* <Show above="sm"> */}
+      <GridItem area="aside-left" className="aside-left" background={"green"}>
+        Category
+      </GridItem>
+      {/* </Show> */}
+      <GridItem area="main" className="main" background={"gray"}>
+        <h1>Hello</h1>
+        {products.map((product) => (
+          <h1>{product.name}</h1>
+        ))}
+      </GridItem>
     </Grid>
   );
 }
