@@ -17,7 +17,13 @@ const SearchInput = ({ onSearch }: Props) => {
     >
       <InputGroup>
         <InputLeftElement children={<BsSearch />} />
-        <Input ref={ref} placeholder="Search ..." size="md" letterSpacing={1} />
+        <Input
+          ref={ref}
+          placeholder="Tìm kiếm..."
+          fontStyle={"italic"}
+          size="md"
+          letterSpacing={1}
+        />
       </InputGroup>
     </form>
   );
