@@ -1,19 +1,26 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
-import useFetchStaffProduct from "../../hooks/useFetchStaffProduct";
+import useFetchStaffProduct, {
+  StaffProductQuery,
+} from "../../hooks/useFetchStaffProduct";
 import Header from "../../components/header/Header";
 import StaffProductMain from "../../components/staff/staff-product-list-page/StaffProductListMain";
 import StaffProductListFilter from "../../components/staff/staff-product-list-page/StaffProductListAction";
+import { PaginationQuery } from "../../components/Pagination";
+import CategoryDTO from "../../type/CategoryDTO";
 
 const HEADER_HEIGHT = "100px";
+
 function StaffProductListPage({
   setRoute,
 }: {
   setRoute: (route: string) => void;
 }) {
   const [user, setUser] = useState<HttpUser | null>(null);
-  const { products, isLoading, error } = useFetchStaffProduct(null);
+  const [staffProductQuery, setStaffProductQuery] = useState<StaffProductQuery>(
+    {} as StaffProductQuery
+  );
 
   useEffect(() => {
     const userJSON = sessionStorage.getItem("user");
@@ -53,7 +60,10 @@ function StaffProductListPage({
       </GridItem>
       {/* </Show> */}
       <GridItem area="main" className="main" marginTop={HEADER_HEIGHT}>
-        <StaffProductMain products={products} />
+        <StaffProductMain
+          staffProductQuery={staffProductQuery}
+          setStaffProductQuery={setStaffProductQuery}
+        />
       </GridItem>
     </Grid>
   );

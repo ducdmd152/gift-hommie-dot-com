@@ -36,14 +36,17 @@ const StaffProductListItem = ({ product }: Props) => {
           <Heading fontSize="xl">{product.name}</Heading>
 
           <HStack>
-            <Badge colorScheme="blue"> {product.categoryId}</Badge>
+            <Badge colorScheme="gray" variant="outline">
+              {" "}
+              {product.categoryId}
+            </Badge>
 
-            <Badge colorScheme="blue">
+            <Badge colorScheme="gray" variant="outline">
               {" "}
               {"Quantity: "} {product.quantity}
             </Badge>
 
-            <Badge colorScheme="blue">
+            <Badge colorScheme="gray" variant="outline">
               {" "}
               {"Price: "} {product.price / 1000} {".000"}
             </Badge>

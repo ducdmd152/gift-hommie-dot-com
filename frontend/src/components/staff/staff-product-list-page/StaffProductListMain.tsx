@@ -4,18 +4,30 @@ import { StaffProductDTO } from "../../../services/staff-product-service";
 import { Stack, Box, VStack, HStack } from "@chakra-ui/react";
 import StaffProductListItems from "./StaffProductListItems";
 import Pagination from "../../Pagination";
+import useFetchStaffProduct, {
+  StaffProductQuery,
+} from "../../../hooks/useFetchStaffProduct";
 interface Props {
-  products: StaffProductDTO[];
+  staffProductQuery: StaffProductQuery;
+  setStaffProductQuery: (staffProductQuery: StaffProductQuery) => void;
 }
-const StaffProductMain = ({ products }: Props) => {
+const StaffProductMain = ({
+  staffProductQuery,
+  setStaffProductQuery,
+}: Props) => {
   return (
-    <Box p="4" mb={24}>
+    <Box p="4" ml={2} mb={24}>
       <SearchInput onSearch={() => {}} />
 
-      <StaffProductListItems products={products} />
+      <StaffProductListItems staffProductQuery={staffProductQuery} />
 
       <HStack justifyContent={"center"} mt={4} mb={8}>
-        <Pagination />
+        <Pagination
+          // currentIndex={staffProductQuery?.page || 0}
+          onSelectPageIndex={(index: number) =>
+            setStaffProductQuery({ ...staffProductQuery, page: index })
+          }
+        />
       </HStack>
     </Box>
   );
