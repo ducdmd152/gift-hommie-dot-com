@@ -1,0 +1,10 @@
+package com.gifthommie.backend.service;
+
+import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.entity.User;
+
+public interface UserService {
+	
+	public APIPageableResponseDTO<User> getPageableUsers(int pageNo, int pageSize, Integer roleId);
+	
+}
