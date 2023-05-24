@@ -7,4 +7,5 @@ public interface UserService {
 	
 	public APIPageableResponseDTO<User> getPageableUsers(int pageNo, int pageSize, Integer roleId);
 	
+	public User getUserByEmail(String email);
 }

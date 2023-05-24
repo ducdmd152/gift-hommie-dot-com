@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService{
 		return new APIPageableResponseDTO<User>(page);
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		return userRepository.getUserByEmail(email);
+	}
+
 	
 	
 }
