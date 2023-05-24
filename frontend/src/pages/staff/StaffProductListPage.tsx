@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
 import useFetchStaffProduct from "../../hooks/useFetchStaffProduct";
 import Header from "../../components/header/Header";
-import StaffProductMain from "../../components/staff/StaffProductMain";
+import StaffProductMain from "../../components/staff/staff-product-list-page/StaffProductListMain";
+import StaffProductListFilter from "../../components/staff/staff-product-list-page/StaffProductListAction";
 
-function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
+const HEADER_HEIGHT = "100px";
+function StaffProductListPage({
+  setRoute,
+}: {
+  setRoute: (route: string) => void;
+}) {
   const [user, setUser] = useState<HttpUser | null>(null);
   const { products, isLoading, error } = useFetchStaffProduct(null);
 
@@ -22,25 +28,35 @@ function StaffProductList({ setRoute }: { setRoute: (route: string) => void }) {
         // lg: `"header header" "aside-left main"`,
       }}
       templateColumns={{
-        base: `200px 1fr`,
+        base: `280px 1fr`,
         // sm: `"1fr" "200px 1fr"`,
         // lg: `"1fr" "200px 1fr"`,
       }}
       h="100%"
     >
-      <GridItem area="header" height="100px">
+      <GridItem
+        area="header"
+        position="fixed"
+        w="100%"
+        backgroundColor="white"
+        zIndex={999}
+      >
         <Header />
       </GridItem>
       {/* <Show above="sm"> */}
-      <GridItem area="aside-left" className="aside-left" background={"green"}>
-        Category
+      <GridItem
+        area="aside-left"
+        className="aside-left"
+        marginTop={HEADER_HEIGHT}
+      >
+        <StaffProductListFilter />
       </GridItem>
       {/* </Show> */}
-      <GridItem area="main" className="main">
+      <GridItem area="main" className="main" marginTop={HEADER_HEIGHT}>
         <StaffProductMain products={products} />
       </GridItem>
     </Grid>
   );
 }
 
-export default StaffProductList;
+export default StaffProductListPage;

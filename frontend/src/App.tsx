@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Community from "./pages/staff/StaffProductList";
-import StaffProductList from "./pages/staff/StaffProductList";
+import Community from "./pages/staff/StaffProductListPage";
+import StaffProductList from "./pages/staff/StaffProductListPage";
 
 function App() {
   const [route, setRoute] = useState("home");
