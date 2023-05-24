@@ -2,7 +2,7 @@ import { AxiosRequestConfig, CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import { HttpEntity, HttpService } from "../services/http-service";
 import FetchResponse from "../type/FetchResponse";
-import PagableDTO from "../type/PagableDTO";
+import PagableDTO from "../type/PageableDTO";
 
 const useFetchEntities = <E extends HttpEntity>(
   service: HttpService<E>,
@@ -10,7 +10,7 @@ const useFetchEntities = <E extends HttpEntity>(
   deps?: any[]
 ) => {
   const [entities, setEntities] = useState<E[]>([]);
-  const [pagable, setPagable] = useState<PagableDTO | null>(null);
+  const [pageable, setPageable] = useState<PagableDTO>({} as PagableDTO);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +25,7 @@ const useFetchEntities = <E extends HttpEntity>(
       request
         .then((response) => {
           setEntities(response.data.content);
-          setPagable(response.data.pagable);
+          setPageable(response.data.pageable);
           setIsLoading(false); // hide the loader
         })
         .catch((err) => {
@@ -39,7 +39,7 @@ const useFetchEntities = <E extends HttpEntity>(
     deps ? [...deps] : []
   );
 
-  return { entities, error, isLoading, setEntities, setError };
+  return { entities, error, isLoading, pageable, setEntities, setError };
 };
 
 export default useFetchEntities;

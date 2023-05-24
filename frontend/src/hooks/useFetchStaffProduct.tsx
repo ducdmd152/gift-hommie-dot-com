@@ -1,23 +1,27 @@
+import { PaginationQuery } from "../components/Pagination";
 import staffProductService, {
   StaffProductDTO,
 } from "../services/staff-product-service";
+import CategoryDTO from "../type/CategoryDTO";
+import HttpRequestQuery from "../type/HttpRequestQuery";
 import useFetchEntities from "./useFetchEntities";
 
-export interface RequestQuery {
-  sort: string;
-  order: string;
-  searchText: string;
+export interface StaffProductQuery extends HttpRequestQuery, PaginationQuery {
+  category: CategoryDTO | null;
 }
 
-const useFetchStaffProduct = (requestQuery: RequestQuery | null) => {
-  const { entities, error, isLoading, setEntities, setError } =
+const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
+  const { entities, pageable, error, isLoading, setEntities, setError } =
     useFetchEntities<StaffProductDTO>(
       staffProductService,
       {
         params: {
+          page: requestQuery?.page,
+          size: requestQuery?.size,
           _sort: requestQuery?.sort,
           _order: requestQuery?.order,
-          username_like: requestQuery?.searchText,
+          _search: requestQuery?.search,
+          _category: requestQuery?.category?.id,
         },
       },
       [requestQuery]
@@ -25,6 +29,7 @@ const useFetchStaffProduct = (requestQuery: RequestQuery | null) => {
 
   return {
     products: entities,
+    pageable,
     isLoading,
     error,
     // setError,

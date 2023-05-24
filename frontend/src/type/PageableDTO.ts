@@ -1,4 +1,4 @@
-export default interface PagableDTO {
+export default interface PageableDTO {
   pageNumber: number;
   pageSize: number;
   offset: number;

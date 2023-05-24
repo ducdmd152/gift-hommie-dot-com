@@ -7,7 +7,6 @@ const endpoint = "users";
 export interface HttpUser {
   id: number;
   username: string;
-  avt: string;
 }
 
 export default createHttpService<HttpUser>(apiClient, endpoint);
