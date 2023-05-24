@@ -12,11 +12,7 @@ import CategoryDTO from "../../type/CategoryDTO";
 
 const HEADER_HEIGHT = "100px";
 
-function StaffProductListPage({
-  setRoute,
-}: {
-  setRoute: (route: string) => void;
-}) {
+function StaffProductListPage() {
   const [user, setUser] = useState<HttpUser | null>(null);
   const [staffProductQuery, setStaffProductQuery] = useState<StaffProductQuery>(
     {} as StaffProductQuery
