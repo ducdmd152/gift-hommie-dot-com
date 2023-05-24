@@ -7,6 +7,8 @@ import HeaderUser from "./HeaderUser";
 const Header = () => {
   return (
     <Flex
+      width="100%"
+      maxW={"1280px"}
       justifyContent={"space-between"}
       paddingX="8"
       paddingY="4"

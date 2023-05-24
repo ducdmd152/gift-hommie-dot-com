@@ -45,6 +45,7 @@ const HeaderUser = () => {
 
   return (
     <HStack>
+      User actions
       <FaUserAlt />
     </HStack>
   );

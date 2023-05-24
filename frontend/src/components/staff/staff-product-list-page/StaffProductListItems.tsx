@@ -6,11 +6,9 @@ import useFetchStaffProduct, {
   StaffProductQuery,
 } from "../../../hooks/useFetchStaffProduct";
 interface Props {
-  staffProductQuery: StaffProductQuery;
+  products: StaffProductDTO[];
 }
-const StaffProductListItems = ({ staffProductQuery }: Props) => {
-  const { products, isLoading, error } =
-    useFetchStaffProduct(staffProductQuery);
+const StaffProductListItems = ({ products }: Props) => {
   return (
     <VStack width="100%" marginTop={8}>
       {products?.map((product) => (

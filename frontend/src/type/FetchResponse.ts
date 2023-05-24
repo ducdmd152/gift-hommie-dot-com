@@ -1,8 +1,8 @@
-import PagableDTO from "./PagableDTO";
+import PagableDTO from "./PageableDTO";
 
 type FetchResponse<T> = {
   content: Array<T>;
-  pagable: PagableDTO;
+  pageable: PagableDTO;
 };
 
 export default FetchResponse;

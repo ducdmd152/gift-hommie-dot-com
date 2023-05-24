@@ -11,7 +11,7 @@ export interface StaffProductQuery extends HttpRequestQuery, PaginationQuery {
 }
 
 const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
-  const { entities, error, isLoading, setEntities, setError } =
+  const { entities, pageable, error, isLoading, setEntities, setError } =
     useFetchEntities<StaffProductDTO>(
       staffProductService,
       {
@@ -29,6 +29,7 @@ const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
 
   return {
     products: entities,
+    pageable,
     isLoading,
     error,
     // setError,
