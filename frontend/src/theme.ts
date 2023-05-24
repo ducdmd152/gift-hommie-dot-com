@@ -7,8 +7,8 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   fonts: {
-    heading: `'Open Sans', sans-serif`,
-    body: `'Open Sans', sans-serif`,
+    heading: `'Inter', 'Open Sans', sans-serif`,
+    body: `'Inter', 'Open Sans', sans-serif`,
   },
   colors: {
     gray: {
