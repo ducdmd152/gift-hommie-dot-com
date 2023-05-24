@@ -6,13 +6,18 @@ import useFetchStaffProduct, {
   StaffProductQuery,
 } from "../../../hooks/useFetchStaffProduct";
 interface Props {
+  setCurrentProductId: (productId: number) => void;
   products: StaffProductDTO[];
 }
-const StaffProductListItems = ({ products }: Props) => {
+const StaffProductListItems = ({ products, setCurrentProductId }: Props) => {
   return (
     <VStack width="100%" marginTop={8}>
       {products?.map((product) => (
-        <StaffProductListItem key={product.id} product={product} />
+        <StaffProductListItem
+          key={product.id}
+          product={product}
+          setCurrentProductId={setCurrentProductId}
+        />
       ))}
     </VStack>
   );

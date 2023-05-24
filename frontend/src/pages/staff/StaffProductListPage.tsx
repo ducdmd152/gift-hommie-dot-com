@@ -10,13 +10,10 @@ import StaffProductListFilter from "../../components/staff/staff-product-list-pa
 import { PaginationQuery } from "../../components/Pagination";
 import CategoryDTO from "../../type/CategoryDTO";
 
-const HEADER_HEIGHT = "100px";
-
-function StaffProductListPage({
-  setRoute,
-}: {
-  setRoute: (route: string) => void;
-}) {
+interface Props {
+  setCurrentProductId: (productId: number) => void;
+}
+function StaffProductListPage({ setCurrentProductId }: Props) {
   const [user, setUser] = useState<HttpUser | null>(null);
   const [staffProductQuery, setStaffProductQuery] = useState<StaffProductQuery>(
     {} as StaffProductQuery
@@ -30,7 +27,7 @@ function StaffProductListPage({
   return (
     <Grid
       templateAreas={{
-        base: `"header header" "aside-left main"`,
+        base: `"aside-left main"`,
         // sm: `"header header" "aside-left main"`,
         // lg: `"header header" "aside-left main"`,
       }}
@@ -41,28 +38,16 @@ function StaffProductListPage({
       }}
       h="100%"
     >
-      <GridItem
-        area="header"
-        position="fixed"
-        w="100%"
-        backgroundColor="white"
-        zIndex={999}
-      >
-        <Header />
-      </GridItem>
       {/* <Show above="sm"> */}
-      <GridItem
-        area="aside-left"
-        className="aside-left"
-        marginTop={HEADER_HEIGHT}
-      >
+      <GridItem area="aside-left" className="aside-left">
         <StaffProductListFilter />
       </GridItem>
       {/* </Show> */}
-      <GridItem area="main" className="main" marginTop={HEADER_HEIGHT}>
+      <GridItem area="main" className="main">
         <StaffProductMain
           staffProductQuery={staffProductQuery}
           setStaffProductQuery={setStaffProductQuery}
+          setCurrentProductId={setCurrentProductId}
         />
       </GridItem>
     </Grid>

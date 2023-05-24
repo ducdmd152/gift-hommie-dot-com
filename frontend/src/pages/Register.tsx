@@ -6,12 +6,11 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import authService from "../services/auth-service";
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
-import devConfig from "../../devConfig";
 
-const Register = ({ setRoute }: { setRoute: (route: string) => void }) => {
+const Register = () => {
   let authenticated = sessionStorage.getItem("user");
   if (authenticated) {
-    setRoute("community");
+    //setRoute("community");
     return null;
     // useEffect(() => {
     //   setTimeout(() => setRoute("community"), 100);
@@ -49,7 +48,7 @@ const Register = ({ setRoute }: { setRoute: (route: string) => void }) => {
       );
 
       if (res) {
-        setRoute("community");
+        //setRoute("community");
       } else {
         setRegisterStatus("Fail to register, try again.");
       }
@@ -118,7 +117,7 @@ const Register = ({ setRoute }: { setRoute: (route: string) => void }) => {
               color="gray.500"
               fontWeight="500"
               variant={"link"}
-              onClick={() => setRoute("login")}
+              // onClick={() => setRoute("login")}
             >
               Login
             </Button>
@@ -130,7 +129,7 @@ const Register = ({ setRoute }: { setRoute: (route: string) => void }) => {
             fontWeight="300"
             fontStyle="italic"
             variant={"link"}
-            onClick={() => setRoute("community")}
+            // onClick={() => setRoute("community")}
           >
             ---Continue without login---
           </Button>

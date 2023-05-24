@@ -4,13 +4,12 @@ import { Input } from "@chakra-ui/input";
 import { Flex, HStack, Heading, Text } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import devConfig from "../../devConfig";
 import authService from "../services/auth-service";
 
-const Login = ({ setRoute }: { setRoute: (route: string) => void }) => {
+const Login = () => {
   let authenticated = sessionStorage.getItem("user");
   if (authenticated) {
-    setRoute("community");
+    //setRoute("community");
     return null;
     // useEffect(() => {
     //   setTimeout(() => setRoute("community"), 100);
@@ -40,7 +39,7 @@ const Login = ({ setRoute }: { setRoute: (route: string) => void }) => {
       };
       if (username === guest.username && password === guest.password) {
         sessionStorage.setItem("user", JSON.stringify(guest));
-        setRoute("community");
+        //setRoute("community");
         return;
       }
 
@@ -51,7 +50,7 @@ const Login = ({ setRoute }: { setRoute: (route: string) => void }) => {
       }
       let res = await authService.login(username, password);
       if (res) {
-        setRoute("community");
+        //setRoute("community");
       } else {
         setLoginStatus("Username or password go to wrong.");
       }
@@ -101,7 +100,7 @@ const Login = ({ setRoute }: { setRoute: (route: string) => void }) => {
               color="gray.500"
               fontWeight="500"
               variant={"link"}
-              onClick={() => setRoute("register")}
+              // onClick={() => setRoute("register")}
             >
               Register
             </Button>
@@ -113,7 +112,7 @@ const Login = ({ setRoute }: { setRoute: (route: string) => void }) => {
             fontWeight="300"
             fontStyle="italic"
             variant={"link"}
-            onClick={() => setRoute("community")}
+            // onClick={() => setRoute("community")}
           >
             ---Continue without login---
           </Button>

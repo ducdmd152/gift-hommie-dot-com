@@ -9,10 +9,12 @@ import useFetchStaffProduct, {
 } from "../../../hooks/useFetchStaffProduct";
 import PageableDTO from "../../../type/PageableDTO";
 interface Props {
+  setCurrentProductId: (productId: number) => void;
   staffProductQuery: StaffProductQuery;
   setStaffProductQuery: (staffProductQuery: StaffProductQuery) => void;
 }
 const StaffProductMain = ({
+  setCurrentProductId,
   staffProductQuery,
   setStaffProductQuery,
 }: Props) => {
@@ -23,7 +25,10 @@ const StaffProductMain = ({
     <Box p="4" ml={2} mb={24}>
       <SearchInput onSearch={() => {}} />
 
-      <StaffProductListItems products={products} />
+      <StaffProductListItems
+        products={products}
+        setCurrentProductId={setCurrentProductId}
+      />
 
       <HStack justifyContent={"center"} mt={4} mb={8}>
         <Pagination
