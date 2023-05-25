@@ -24,10 +24,9 @@ public class AuthController {
 	// tạm thời dùng repo để tránh sửa service gây conflict với other members đang dùng service
 	@PostMapping("/login")
 	public User login(@RequestBody AuthUserRequestDTO loginDTO) {
-		System.out.println("Login....");
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
-		System.out.println(username + " " + password);
+		System.out.println(username + " : " + password);
 		Authentication auth = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(username, password)
 				);

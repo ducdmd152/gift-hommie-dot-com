@@ -10,7 +10,6 @@ const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
 
   const setCurrentProductId = (id: number) => {
-    console.log(id);
     setProductId(id);
   };
 

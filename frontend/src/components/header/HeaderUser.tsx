@@ -2,6 +2,7 @@ import { Button, HStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
 import { FaUserAlt } from "react-icons/fa";
+import authService from "../../services/auth-service";
 
 const HeaderUser = () => {
   const [user, setUser] = useState<HttpUser | null>(null);
@@ -44,7 +45,7 @@ const HeaderUser = () => {
     );
 
   return (
-    <HStack>
+    <HStack onClick={() => authService.logout()}>
       User actions
       <FaUserAlt />
     </HStack>

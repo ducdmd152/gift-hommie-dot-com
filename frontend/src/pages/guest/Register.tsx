@@ -4,7 +4,7 @@ import { Input } from "@chakra-ui/input";
 import { Flex, HStack, Heading, Text } from "@chakra-ui/layout";
 import { FieldValues, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import authService from "../services/auth-service";
+import authService from "../../services/auth-service";
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
 
 const Register = () => {
