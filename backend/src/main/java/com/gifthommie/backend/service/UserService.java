@@ -5,13 +5,15 @@ import com.gifthommie.backend.entity.User;
 
 public interface UserService {
 	
-	public APIPageableResponseDTO<User> getPageableUsers(int pageNo, int pageSize, Integer roleId);
+	public APIPageableResponseDTO<User> getPageableUsers(int pageNo, int pageSize, Integer roleId, boolean enabled);
 	
-	public User getUserByEmail(String email);
+	public boolean checkExistUser(String check);	
 	
-	public boolean editEnabledUserByEmail(String email, boolean enabled);
+	public User getUserByEmailOrUsername(String check, boolean enabled);
 	
-	public boolean saveUser(User user);
+	public boolean setEnabledUserByEmail(String email, boolean enabled);
 	
-//	public boolean updateUserProfileByEmail(String email, User newProfile);
+	public User saveUser(User user);
+	
+	public boolean updateUserProfileByEmail(String email, User newProfile);
 }
