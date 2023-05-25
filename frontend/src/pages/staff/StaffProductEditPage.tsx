@@ -18,134 +18,216 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import staffProductService, {
+  StaffProductDTO,
+} from "../../services/staff-product-service";
+import CATEGORIES from "../../data/Categories";
+import { FieldValues, useForm } from "react-hook-form";
 
 interface Props {
   currentProductId: number | null;
 }
+
+interface FormData extends StaffProductDTO {}
+
 const StaffProductEditPage = ({ currentProductId }: Props) => {
+  const [product, setProduct] = useState<StaffProductDTO>(
+    {} as StaffProductDTO
+  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    let id = 0;
+    if (currentProductId == null || currentProductId === undefined) {
+      navigate("/product");
+    } else {
+      id = currentProductId;
+    }
+
+    staffProductService
+      .get(id)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        navigate("/product");
+      });
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormData>();
+
+  const onSubmit = (data: FieldValues) => {
+    const updateProduct = data as StaffProductDTO;
+    updateProduct.id = product.id;
+    console.log(updateProduct);
+    navigate("/product/detail");
+  };
+
   return (
     <>
-      <Card m="12" p="8" border="1px lightgray solid">
-        <HStack justifyContent="space-between">
-          <VStack alignItems="start">
-            <Badge variant="outline" display="inline-block">
-              {"id >> 1"}
-            </Badge>
-            <HStack>
-              <Heading size="lg" colorScheme="gray">
-                Tên sản phẩm
-              </Heading>
-              <Badge colorScheme="yellow" fontSize="md">
-                Edit
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <button type="submit">Submit</button>
+        <Card m="12" p="8" border="1px lightgray solid">
+          <HStack justifyContent="space-between">
+            <VStack alignItems="start">
+              <Badge variant="outline" display="inline-block">
+                {"id >> 1"}
               </Badge>
-            </HStack>
-          </VStack>
+              <HStack>
+                <Heading size="lg" colorScheme="gray">
+                  {product.name}
+                </Heading>
+                <Badge colorScheme="yellow" fontSize="md">
+                  Edit
+                </Badge>
+              </HStack>
+            </VStack>
 
-          <HStack>
-            <Link to={"/product/edit"}>
-              <Button colorScheme="blue" size="md">
+            <HStack>
+              <Button type="submit" colorScheme="blue" size="md">
                 Cập nhật
               </Button>
-            </Link>
-            <Link to={"/product/detail"}>
-              <Button colorScheme="red" variant="outline" size="md">
-                Hủy
-              </Button>
-            </Link>
+              <Link to={"/product/detail"}>
+                <Button colorScheme="red" variant="outline" size="md">
+                  Hủy
+                </Button>
+              </Link>
+            </HStack>
           </HStack>
-        </HStack>
-        <VStack mt={6} p="4">
-          <Flex width="100%" gap="8">
-            <VStack spacing="8" flex="1">
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  ID
-                </FormLabel>
-                <Input
-                  value="P-001"
-                  isDisabled
-                  color="blue"
-                  fontWeight="bold"
-                />
-              </FormControl>
+          <VStack mt={6} p="4">
+            <Flex width="100%" gap="8">
+              <VStack spacing="8" flex="1">
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    ID
+                  </FormLabel>
+                  <Input
+                    value={product.id}
+                    isDisabled
+                    color="blue"
+                    fontWeight="bold"
+                  />
+                </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Tên sản phẩm
-                </FormLabel>
-                <Input
-                  isReadOnly
-                  value="P-001"
-                  color="black"
-                  fontWeight="bold"
-                />
-              </FormControl>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Tên sản phẩm
+                  </FormLabel>
+                  <Input
+                    {...register("name", { required: true, minLength: 3 })}
+                    color="black"
+                    defaultValue={product.name}
+                    fontWeight="bold"
+                  />
+                </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Giá
-                </FormLabel>
-                <NumberInput isReadOnly min={1000}>
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Giá
+                  </FormLabel>
+                  <Input
+                    {...register("price", { required: true, min: 1000 })}
+                    color="black"
+                    type="number"
+                    min={1000}
+                    defaultValue={product.price}
+                    fontWeight="bold"
+                  />
+                </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Số lượng
-                </FormLabel>
-                <NumberInput isReadOnly min={0}>
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Số lượng
+                  </FormLabel>
+                  <Input
+                    {...register("quantity", {
+                      required: true,
+                      min: 0,
+                    })}
+                    color="black"
+                    type="number"
+                    min={0}
+                    defaultValue={product.quantity}
+                    fontWeight="bold"
+                  />
+                </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Danh mục sản phẩm
-                </FormLabel>
-                <Select isReadOnly placeholder="Lựa chọn danh mục">
-                  <option value="option1" defaultChecked>
-                    Option 1
-                  </option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </Select>
-              </FormControl>
-            </VStack>
-            <VStack flex="1" h="100%" px="8" spacing="8">
-              <Box>
-                <Image
-                  borderRadius="8px"
-                  boxSize="100%"
-                  objectFit="cover"
-                  src="https://bit.ly/dan-abramov"
-                  alt="Dan Abramov"
-                />
-              </Box>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Danh mục sản phẩm
+                  </FormLabel>
+                  <Select
+                    {...register("categoryId", {
+                      required: true,
+                    })}
+                    required
+                    color="black"
+                    placeholder="Lựa chọn danh mục"
+                    value={product.categoryId}
+                    onChange={(e) =>
+                      setProduct({
+                        ...product,
+                        categoryId: parseInt(e.target.value),
+                      })
+                    }
+                  >
+                    {CATEGORIES.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
+              </VStack>
+              <VStack flex="1" h="100%" px="8" spacing="8">
+                <Box>
+                  <Image
+                    borderRadius="8px"
+                    boxSize="100%"
+                    objectFit="cover"
+                    src={product.avatar}
+                    alt={product.name}
+                  />
+                </Box>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  IMAGE URL
-                </FormLabel>
-                <Input isReadOnly value="P-001.png" fontWeight="bold" />
-              </FormControl>
-            </VStack>
-          </Flex>
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold" mt="4">
-              Mô tả sản phẩm
-            </FormLabel>
-            <Textarea
-              isReadOnly
-              fontWeight="medium"
-              fontStyle="italic"
-              letterSpacing="1"
-            />
-          </FormControl>
-        </VStack>
-      </Card>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    IMAGE URL
+                  </FormLabel>
+                  <Input
+                    {...register("avatar", {
+                      required: true,
+                    })}
+                    color="black"
+                    value={product.avatar}
+                    fontWeight="bold"
+                  />
+                </FormControl>
+              </VStack>
+            </Flex>
+            <FormControl>
+              <FormLabel size="md" fontWeight="bold" mt="4">
+                Mô tả sản phẩm
+              </FormLabel>
+              <Textarea
+                {...register("description", {
+                  required: true,
+                })}
+                color="black"
+                fontWeight="medium"
+                fontStyle="italic"
+                letterSpacing="1"
+                value={product.description}
+              />
+            </FormControl>
+          </VStack>
+        </Card>
+      </form>
     </>
   );
 };

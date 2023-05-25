@@ -23,6 +23,7 @@ import { Link, useNavigate } from "react-router-dom";
 import staffProductService, {
   StaffProductDTO,
 } from "../../services/staff-product-service";
+import { getCategoryName } from "../../data/Categories";
 
 interface Props {
   currentProductId: number | null;
@@ -146,10 +147,8 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   value={product.categoryId}
                 >
                   <option value={product.categoryId}>
-                    {product.categoryName}
+                    {getCategoryName(product.categoryId)}
                   </option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
                 </Select>
               </FormControl>
             </VStack>
