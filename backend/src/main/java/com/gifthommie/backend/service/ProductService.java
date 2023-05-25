@@ -22,4 +22,6 @@ public interface ProductService {
 	Product getProductById(int productId);
 
 	Product update(int productId, ProductRequestDTO productRequestDTO);
+
+	boolean remove(int productId);
 }

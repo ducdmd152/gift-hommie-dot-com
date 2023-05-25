@@ -33,6 +33,8 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
     {} as StaffProductDTO
   );
   const navigate = useNavigate();
+
+  // fetch product from API
   useEffect(() => {
     let id = 0;
     if (currentProductId == null || currentProductId === undefined) {
@@ -51,9 +53,39 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
       });
   }, []);
 
+  // delete product action
+  const onDeleteProduct = (id: number) => {
+    if (
+      confirm(
+        `Bạn có muốn xóa "${product.name}" khỏi danh sách sản phẩm không?`
+      )
+    ) {
+      // Save it!
+      staffProductService
+        .delete(product.id)
+        .then(() => {
+          alert(`Đã xóa "${product.name}" khỏi danh sách sản phẩm.`);
+          navigate("/product");
+        })
+        .catch(() => {
+          alert(
+            `Không thể xóa "${product.name}" khỏi danh sách sản phẩm. \n Vui lòng thử lại.`
+          );
+        });
+    } else {
+      // Do nothing!
+    }
+  };
+
   return (
     <>
-      <Card m="12" p="8" border="1px lightgray solid">
+      <Link to="/product">
+        <Button colorScheme="teal" size="sm" ml="12">
+          {"<< Danh sách sản phẩm"}
+        </Button>
+      </Link>
+
+      <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
         <HStack justifyContent="space-between">
           <VStack alignItems="start">
             <Badge variant="outline" display="inline-block">
@@ -76,7 +108,11 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               </Button>
             </Link>
 
-            <Button colorScheme="red" size="md">
+            <Button
+              colorScheme="red"
+              size="md"
+              onClick={() => onDeleteProduct(product.id)}
+            >
               Xóa
             </Button>
           </HStack>

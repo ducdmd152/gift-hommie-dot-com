@@ -25,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize) {
-		Page<Product> page = productRepository.findAll(
+		Page<Product> page = productRepository.findAllByStatus(
+				true,
 				PageRequest.of(pageNo, pageSize)
 				);
 		return new APIPageableResponseDTO<Product>(page);
@@ -79,6 +80,16 @@ public class ProductServiceImpl implements ProductService {
 		
 		productRepository.save(product);
 		return product;
+	}
+
+	@Override
+	public boolean remove(int productId) {
+		if(checkExist(productId) == false)
+			return false;
+		Product product = productRepository.findById(productId).get();
+		product.setStatus(false);
+		productRepository.save(product);
+		return true;
 	}
 	
 	

@@ -64,7 +64,6 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
   const onSubmit = (data: FieldValues) => {
     const updateProduct = data as StaffProductDTO;
     updateProduct.id = product.id;
-    console.log(updateProduct);
     staffProductService
       .update(updateProduct)
       .then(() => {})
@@ -74,8 +73,13 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
 
   return (
     <>
+      <Link to="/product">
+        <Button colorScheme="teal" size="sm" ml="12">
+          {"<< Danh sách sản phẩm"}
+        </Button>
+      </Link>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card m="12" p="8" border="1px lightgray solid">
+        <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
           <HStack justifyContent="space-between">
             <VStack alignItems="start">
               <Badge variant="outline" display="inline-block">
@@ -203,6 +207,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     IMAGE URL
                   </FormLabel>
                   <Input
+                    isReadOnly
                     {...register("avatar", {
                       required: true,
                     })}

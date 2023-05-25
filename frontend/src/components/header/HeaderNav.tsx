@@ -1,18 +1,19 @@
 import { Button, HStack } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 const linkRoleMap = {
   ROLE_STAFF: [
     {
       label: "Trang chủ",
-      link: "/staff/product-management",
+      link: "/",
     },
     {
       label: "Quản lí sản phẩm",
-      link: "/staff/product-management",
+      link: "/product",
     },
     {
       label: "Quản lí đơn hàng",
-      link: "/staff/order-management",
+      link: "/order",
     },
   ],
 };
@@ -22,17 +23,18 @@ const HeaderNav = () => {
   return (
     <HStack height="100%" paddingX="10" justifyContent={"center"}>
       {navs.map((nav) => (
-        <Button
-          key={nav.label}
-          fontSize="md"
-          fontWeight={"medium"}
-          variant="link"
-          whiteSpace="normal"
-          textAlign="left"
-          paddingRight={8}
-        >
-          {nav.label}
-        </Button>
+        <Link key={nav.label} to={nav.link}>
+          <Button
+            fontSize="md"
+            fontWeight={"medium"}
+            variant="link"
+            whiteSpace="normal"
+            textAlign="left"
+            paddingRight={8}
+          >
+            {nav.label}
+          </Button>
+        </Link>
       ))}
     </HStack>
   );
