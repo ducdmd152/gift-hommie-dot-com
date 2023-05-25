@@ -27,7 +27,12 @@ export class HttpService<T extends HttpEntity> {
   }
 
   get(id: number) {
-    return this.apiClient.get(this.endpoint + "/" + id);
+    return this.apiClient.get(this.endpoint + "/" + id, {
+      auth: {
+        username: "staff",
+        password: "123456",
+      },
+    });
   }
 
   create(entity: T) {

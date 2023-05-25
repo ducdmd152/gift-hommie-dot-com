@@ -106,7 +106,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   Danh mục sản phẩm
                 </FormLabel>
                 <Select isReadOnly placeholder="Lựa chọn danh mục">
-                  <option value="option1" selected>
+                  <option value="option1" defaultChecked>
                     Option 1
                   </option>
                   <option value="option2">Option 2</option>

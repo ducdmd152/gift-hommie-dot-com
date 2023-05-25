@@ -18,13 +18,38 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import staffProductService, {
+  StaffProductDTO,
+} from "../../services/staff-product-service";
 
 interface Props {
   currentProductId: number | null;
 }
 const StaffProductDetailPage = ({ currentProductId }: Props) => {
+  const [product, setProduct] = useState<StaffProductDTO>(
+    {} as StaffProductDTO
+  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    let id = 0;
+    if (currentProductId == null || currentProductId === undefined) {
+      navigate("/product");
+    } else {
+      id = currentProductId;
+    }
+
+    staffProductService
+      .get(id)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        navigate("/product");
+      });
+  }, []);
+
   return (
     <>
       <Card m="12" p="8" border="1px lightgray solid">
@@ -35,7 +60,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
             </Badge>
             <HStack>
               <Heading size="lg" colorScheme="gray">
-                Tên sản phẩm
+                {product.name}
               </Heading>
               <Badge colorScheme="green" fontSize="md">
                 View
@@ -63,7 +88,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   ID
                 </FormLabel>
                 <Input
-                  value="P-001"
+                  value={product.id}
                   isDisabled
                   color="blue"
                   fontWeight="bold"
@@ -77,7 +102,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <Input
                   isReadOnly
                   color="gray"
-                  value="P-001"
+                  value={product.name}
                   fontWeight="bold"
                 />
               </FormControl>
@@ -86,7 +111,12 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Giá
                 </FormLabel>
-                <NumberInput isReadOnly color="gray" min={1000}>
+                <NumberInput
+                  value={product.price}
+                  isReadOnly
+                  color="gray"
+                  min={1000}
+                >
                   <NumberInputField />
                 </NumberInput>
               </FormControl>
@@ -95,8 +125,13 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Số lượng
                 </FormLabel>
-                <NumberInput isReadOnly color="gray" min={0}>
-                  <NumberInputField />
+                <NumberInput
+                  value={product.quantity}
+                  isReadOnly
+                  color="gray"
+                  min={0}
+                >
+                  <NumberInputField defaultValue={product.quantity} />
                 </NumberInput>
               </FormControl>
 
@@ -104,9 +139,14 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Danh mục sản phẩm
                 </FormLabel>
-                <Select isReadOnly color="gray" placeholder="Lựa chọn danh mục">
-                  <option value="option1" selected>
-                    Option 1
+                <Select
+                  isDisabled
+                  color="gray"
+                  placeholder="Lựa chọn danh mục"
+                  value={product.categoryId}
+                >
+                  <option value={product.categoryId}>
+                    {product.categoryId}
                   </option>
                   <option value="option2">Option 2</option>
                   <option value="option3">Option 3</option>
@@ -147,6 +187,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               fontWeight="medium"
               fontStyle="italic"
               letterSpacing="1"
+              value={product.description}
             />
           </FormControl>
         </VStack>
