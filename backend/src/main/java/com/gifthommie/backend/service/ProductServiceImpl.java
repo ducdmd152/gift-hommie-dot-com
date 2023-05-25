@@ -13,6 +13,7 @@ import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.ProductImage;
+import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.ProductRepository;
 
@@ -32,6 +33,13 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
+	@Override
+	public APIPageableResponseDTO<Product> SearchProductsByName(int pageNo, int pageSize, String search) {
+		Page<Product> page = productRepository.finfAllByName(
+				PageRequest.of(pageNo, pageSize), search);
+		return new APIPageableResponseDTO<Product>(page);
+	}
+	
 	@Override
 	public Product save(Product product) {
 		Product result = productRepository.save(product);
@@ -91,6 +99,12 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.save(product);
 		return true;
 	}
+
+
+
+	
+
+	
 	
 	
 

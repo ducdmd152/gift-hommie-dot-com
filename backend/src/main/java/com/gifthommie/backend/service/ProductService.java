@@ -13,6 +13,9 @@ public interface ProductService {
 	APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize);
 //	APIPageableResponse<Product> getPageableProducts(int page, int size, Sort sort);
 
+	APIPageableResponseDTO<Product> SearchProductsByName(int pageNo, int pageSize, String Search);
+	
+	
 	Product save(Product product);
 
 	boolean checkExist(int productId);
