@@ -159,8 +159,8 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   borderRadius="8px"
                   boxSize="100%"
                   objectFit="cover"
-                  src="https://bit.ly/dan-abramov"
-                  alt="Dan Abramov"
+                  src={product.avatar}
+                  alt={product.name}
                 />
               </Box>
 
@@ -171,7 +171,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <Input
                   isReadOnly
                   color="gray"
-                  value="P-001.png"
+                  value={product.avatar}
                   fontWeight="bold"
                 />
               </FormControl>

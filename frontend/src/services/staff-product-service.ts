@@ -12,6 +12,7 @@ export interface StaffProductDTO {
   price: number;
   categoryId: number;
   categoryName: string;
+  avatar: string;
 }
 
 export default createHttpService<StaffProductDTO>(apiClient, endpoint);
