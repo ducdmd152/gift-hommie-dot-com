@@ -33,6 +33,14 @@ public class UserServiceImpl implements UserService{
 		return userRepository.editEnabledByEmail(email, enabled) > 0;
 	}
 
+	@Override
+	public boolean saveUser(User user) {
+		
+		userRepository.save(user);
+		
+		return true;
+	}
+
 	
 	
 }

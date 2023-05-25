@@ -14,6 +14,7 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Role;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
+import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.RoleService;
 import com.gifthommie.backend.service.UserService;
 
@@ -25,6 +26,9 @@ public class ManagerStaffController {
 	
 	@Autowired
 	RoleService roleService;
+	
+	//Default Password for new Staff is 123456
+	final String DEFAULT_PASSWORD = "$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG";
 	
 	//2 ROLE_STAFF IN DATABASE
 	final String ROLE_STAFF = "ROLE_STAFF";
@@ -59,13 +63,15 @@ public class ManagerStaffController {
 		return userService.editEnabledUserByEmail(email, BAN_ENABLED);
 	}
 	
-//	@PostMapping
-//	public User createUser(@RequestBody User user) {
-//		user.setRole(ROLE_STAFF);
-//		
-//		
-//		
-//		return user;
-//	}
+	@PostMapping
+	public boolean createUser(@RequestBody User user) {
+		Role role = roleService.getRoleByRoleName(ROLE_STAFF);
+		
+		user.setPassword(DEFAULT_PASSWORD);
+		user.setEnabled(true);
+		user.setRole(role);
+		
+		return userService.saveUser(user);
+	}
 	
 }

@@ -10,4 +10,6 @@ public interface UserService {
 	public User getUserByEmail(String email);
 	
 	public boolean editEnabledUserByEmail(String email, boolean enabled);
+	
+	public boolean saveUser(User user);
 }
