@@ -4,6 +4,7 @@ import { Grid, GridItem, Text } from "@chakra-ui/react";
 import Header from "../../components/header/Header";
 import { Link, Route, Routes } from "react-router-dom";
 import StaffProductEditPage from "./StaffProductEditPage";
+import StaffProductDetailPage from "./StaffProductDetailPage";
 const HEADER_HEIGHT = "100px";
 const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
@@ -46,6 +47,10 @@ const StaffPage = () => {
             element={
               <StaffProductListPage setCurrentProductId={setCurrentProductId} />
             }
+          />
+          <Route
+            path="/product/detail"
+            element={<StaffProductDetailPage currentProductId={productId} />}
           />
           <Route
             path="/product/edit"

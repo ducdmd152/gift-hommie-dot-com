@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 interface Props {
   currentProductId: number | null;
 }
-const StaffProductEditPage = ({ currentProductId }: Props) => {
+const StaffProductDetailPage = ({ currentProductId }: Props) => {
   return (
     <>
       <Card m="12" p="8" border="1px lightgray solid">
@@ -37,8 +37,8 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
               <Heading size="lg" colorScheme="gray">
                 Tên sản phẩm
               </Heading>
-              <Badge colorScheme="yellow" fontSize="md">
-                Edit
+              <Badge colorScheme="green" fontSize="md">
+                View
               </Badge>
             </HStack>
           </VStack>
@@ -46,14 +46,13 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
           <HStack>
             <Link to={"/product/edit"}>
               <Button colorScheme="blue" size="md">
-                Cập nhật
+                Chỉnh sửa
               </Button>
             </Link>
-            <Link to={"/product/detail"}>
-              <Button colorScheme="red" variant="outline" size="md">
-                Hủy
-              </Button>
-            </Link>
+
+            <Button colorScheme="red" size="md">
+              Xóa
+            </Button>
           </HStack>
         </HStack>
         <VStack mt={6} p="4">
@@ -150,4 +149,4 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
   );
 };
 
-export default StaffProductEditPage;
+export default StaffProductDetailPage;

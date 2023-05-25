@@ -55,7 +55,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
           </HStack>
         </VStack>
         <Box>
-          <Link to={"/product/edit"}>
+          <Link to={"/product/detail"}>
             <Button
               colorScheme="blue"
               onClick={() => {
