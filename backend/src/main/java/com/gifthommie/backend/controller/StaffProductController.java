@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.ProductService;
@@ -45,9 +46,8 @@ public class StaffProductController {
 	}
 	
 	@PutMapping("/{productId}")
-	public Product updateProduct(@PathVariable int productId, @RequestBody Product product) {
-		product.setId(productId);
-		Product result = productService.save(product);
+	public Product updateProduct(@PathVariable int productId, @RequestBody ProductRequestDTO productRequestDTO) {
+		Product result = productService.update(productId, productRequestDTO);
 		return result;
 	}
 	

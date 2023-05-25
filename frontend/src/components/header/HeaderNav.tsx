@@ -23,6 +23,7 @@ const HeaderNav = () => {
     <HStack height="100%" paddingX="10" justifyContent={"center"}>
       {navs.map((nav) => (
         <Button
+          key={nav.label}
           fontSize="md"
           fontWeight={"medium"}
           variant="link"

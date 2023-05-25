@@ -26,7 +26,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
         <Image
           boxSize="100px"
           objectFit="cover"
-          src={IMG_URL_EXAMPLE}
+          src={product.avatar}
           alt={product.name}
         />
         <VStack flex={1} alignItems={"start"}>
@@ -55,7 +55,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
           </HStack>
         </VStack>
         <Box>
-          <Link to={"/product/edit"}>
+          <Link to={"/product/detail"}>
             <Button
               colorScheme="blue"
               onClick={() => {

@@ -1,10 +1,19 @@
 package com.gifthommie.backend.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gifthommie.backend.entity.Category;
+import com.gifthommie.backend.repository.CategoryRepository;
+
 @RestController
 public class TestController {
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@GetMapping("/public/test")
 	public String publicx() {
 		return "Welcome to APIs!!!";
@@ -22,5 +31,10 @@ public class TestController {
 	@GetMapping("/manager/test")
 	public String manager() {
 		return "Welcome to MANAGER APIs!!!";
+	}
+	
+	@GetMapping("/public/categories")
+	public List<Category> getCategories() {
+		return categoryRepository.findAll();
 	}
 }
