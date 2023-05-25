@@ -53,10 +53,8 @@ public class StaffProductController {
 	
 	@DeleteMapping("/{productId}")
 	public void deleteCustomerById(@PathVariable int productId) {
-		if (productService.checkExist(productId) == false) {
-			throw new RuntimeException("Customer is not found: " + productId);
+		if (productService.remove(productId) == false) {
+			throw new RuntimeException("Fail to remove the product: " + productId);
 		}
-		
-		productService.delete(productId);
 	}
 }

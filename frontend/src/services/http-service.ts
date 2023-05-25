@@ -53,8 +53,8 @@ export class HttpService<T extends HttpEntity> {
     });
   }
 
-  delete(entity: T) {
-    return this.apiClient.delete(this.endpoint + "/" + entity.id, {
+  delete(id: number) {
+    return this.apiClient.delete(this.endpoint + "/" + id, {
       auth: {
         username: "staff",
         password: "123456",

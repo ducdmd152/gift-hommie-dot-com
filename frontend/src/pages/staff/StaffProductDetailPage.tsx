@@ -33,6 +33,8 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
     {} as StaffProductDTO
   );
   const navigate = useNavigate();
+
+  // fetch product from API
   useEffect(() => {
     let id = 0;
     if (currentProductId == null || currentProductId === undefined) {
@@ -50,6 +52,30 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
         navigate("/product");
       });
   }, []);
+
+  // delete product action
+  const onDeleteProduct = (id: number) => {
+    if (
+      confirm(
+        `Bạn có muốn xóa "${product.name}" khỏi danh sách sản phẩm không?`
+      )
+    ) {
+      // Save it!
+      staffProductService
+        .delete(product.id)
+        .then(() => {
+          alert(`Đã xóa "${product.name}" khỏi danh sách sản phẩm.`);
+          navigate("/product");
+        })
+        .catch(() => {
+          alert(
+            `Không thể xóa "${product.name}" khỏi danh sách sản phẩm. \n Vui lòng thử lại.`
+          );
+        });
+    } else {
+      // Do nothing!
+    }
+  };
 
   return (
     <>
@@ -82,7 +108,11 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               </Button>
             </Link>
 
-            <Button colorScheme="red" size="md">
+            <Button
+              colorScheme="red"
+              size="md"
+              onClick={() => onDeleteProduct(product.id)}
+            >
               Xóa
             </Button>
           </HStack>
