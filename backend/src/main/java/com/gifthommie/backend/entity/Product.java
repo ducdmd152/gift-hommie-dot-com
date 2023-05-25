@@ -12,11 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gifthommie.backend.service.ProductService;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product { 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -48,6 +51,9 @@ public class Product {
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	@JsonIgnore
 	private List<ProductImage> productImages;
+	
+	@Column(name = "avatar")
+	private String avatar;
 
 	public Integer getId() {
 		return id;
@@ -126,10 +132,20 @@ public class Product {
 		this.productImages = productImages;
 	}
 	
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public String getAvatar() {
+		if(avatar != null) {
+			System.out.println("Updated product successfully!!!");
+			return avatar;
+		}
+		
 		if(productImages != null) {
 			for(ProductImage productImage : productImages) {
 				if(productImage.isMain()) {
+					setAvatar(productImage.getUrl());
 					return productImage.getUrl();
 				}
 			}

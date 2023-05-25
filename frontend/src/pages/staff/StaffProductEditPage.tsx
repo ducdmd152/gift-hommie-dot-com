@@ -71,12 +71,11 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <button type="submit">Submit</button>
         <Card m="12" p="8" border="1px lightgray solid">
           <HStack justifyContent="space-between">
             <VStack alignItems="start">
               <Badge variant="outline" display="inline-block">
-                {"id >> 1"}
+                {"id >> " + product.id}
               </Badge>
               <HStack>
                 <Heading size="lg" colorScheme="gray">

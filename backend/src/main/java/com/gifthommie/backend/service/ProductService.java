@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Product;
 
 public interface ProductService {
@@ -19,4 +20,6 @@ public interface ProductService {
 	boolean delete(int productId);
 
 	Product getProductById(int productId);
+
+	Product update(int productId, ProductRequestDTO productRequestDTO);
 }

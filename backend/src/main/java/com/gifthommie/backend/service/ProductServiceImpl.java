@@ -9,13 +9,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.ProductRequestDTO;
+import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Product;
+import com.gifthommie.backend.entity.ProductImage;
+import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductRepository productRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	@Override
 	public APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize) {
@@ -54,6 +60,25 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Product update(int productId, ProductRequestDTO productRequestDTO) {
+		if(productRepository.existsById(productId) == false) {
+			throw new RuntimeException("Product Not Exist!!!");
+		}
+		
+		Product product = productRepository.findById(productId).get();
+		product.setName(productRequestDTO.getName());
+		product.setDescription(productRequestDTO.getDescription());
+		product.setPrice(productRequestDTO.getPrice());
+		product.setQuantity(productRequestDTO.getQuantity());
+		product.setAvatar(productRequestDTO.getAvatar());
+		Category category = categoryRepository.findById(productRequestDTO.getCategoryId()).get();
+		product.setCategory(category);
+		
+		productRepository.save(product);
+		return product;
 	}
 	
 	
