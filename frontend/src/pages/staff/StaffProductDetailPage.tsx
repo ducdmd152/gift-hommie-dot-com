@@ -53,7 +53,13 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
 
   return (
     <>
-      <Card m="12" p="8" border="1px lightgray solid">
+      <Link to="/product">
+        <Button colorScheme="teal" size="sm" ml="12">
+          {"<< Danh sách sản phẩm"}
+        </Button>
+      </Link>
+
+      <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
         <HStack justifyContent="space-between">
           <VStack alignItems="start">
             <Badge variant="outline" display="inline-block">
