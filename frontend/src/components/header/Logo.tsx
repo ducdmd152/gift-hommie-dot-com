@@ -1,8 +1,17 @@
-import { Text, useColorModeValue, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Text,
+  useColorModeValue,
+  useBreakpointValue,
+  Heading,
+} from "@chakra-ui/react";
 import React from "react";
 
 const Logo = () => {
-  return <Text className="logo primary-color">Hommie</Text>;
+  return (
+    <Heading size="md" letterSpacing={2} fontWeight="medium">
+      HOMMIE
+    </Heading>
+  );
 };
 
 export default Logo;

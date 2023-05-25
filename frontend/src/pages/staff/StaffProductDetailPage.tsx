@@ -64,7 +64,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 </FormLabel>
                 <Input
                   value="P-001"
-                  isReadOnly
+                  isDisabled
                   color="blue"
                   fontWeight="bold"
                 />
@@ -76,8 +76,8 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 </FormLabel>
                 <Input
                   isReadOnly
+                  color="gray"
                   value="P-001"
-                  color="black"
                   fontWeight="bold"
                 />
               </FormControl>
@@ -86,7 +86,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Giá
                 </FormLabel>
-                <NumberInput isReadOnly min={1000}>
+                <NumberInput isReadOnly color="gray" min={1000}>
                   <NumberInputField />
                 </NumberInput>
               </FormControl>
@@ -95,7 +95,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Số lượng
                 </FormLabel>
-                <NumberInput isReadOnly min={0}>
+                <NumberInput isReadOnly color="gray" min={0}>
                   <NumberInputField />
                 </NumberInput>
               </FormControl>
@@ -104,7 +104,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   Danh mục sản phẩm
                 </FormLabel>
-                <Select isReadOnly placeholder="Lựa chọn danh mục">
+                <Select isReadOnly color="gray" placeholder="Lựa chọn danh mục">
                   <option value="option1" selected>
                     Option 1
                   </option>
@@ -128,7 +128,12 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 <FormLabel size="md" fontWeight="bold">
                   IMAGE URL
                 </FormLabel>
-                <Input isReadOnly value="P-001.png" fontWeight="bold" />
+                <Input
+                  isReadOnly
+                  color="gray"
+                  value="P-001.png"
+                  fontWeight="bold"
+                />
               </FormControl>
             </VStack>
           </Flex>
@@ -138,6 +143,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
             </FormLabel>
             <Textarea
               isReadOnly
+              color="gray"
               fontWeight="medium"
               fontStyle="italic"
               letterSpacing="1"

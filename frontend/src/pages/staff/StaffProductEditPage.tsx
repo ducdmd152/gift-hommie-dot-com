@@ -65,7 +65,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 </FormLabel>
                 <Input
                   value="P-001"
-                  isReadOnly
+                  isDisabled
                   color="blue"
                   fontWeight="bold"
                 />
