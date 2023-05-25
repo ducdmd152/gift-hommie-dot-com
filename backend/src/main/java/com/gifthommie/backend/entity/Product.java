@@ -138,7 +138,6 @@ public class Product {
 
 	public String getAvatar() {
 		if(avatar != null) {
-			System.out.println("Updated product successfully!!!");
 			return avatar;
 		}
 		

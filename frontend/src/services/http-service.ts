@@ -36,15 +36,30 @@ export class HttpService<T extends HttpEntity> {
   }
 
   create(entity: T) {
-    return this.apiClient.post(this.endpoint, entity);
+    return this.apiClient.post(this.endpoint, entity, {
+      auth: {
+        username: "staff",
+        password: "123456",
+      },
+    });
   }
 
   update(entity: T) {
-    return this.apiClient.patch(this.endpoint + "/" + entity.id, entity);
+    return this.apiClient.put(this.endpoint + "/" + entity.id, entity, {
+      auth: {
+        username: "staff",
+        password: "123456",
+      },
+    });
   }
 
   delete(entity: T) {
-    return this.apiClient.delete(this.endpoint + "/" + entity.id);
+    return this.apiClient.delete(this.endpoint + "/" + entity.id, {
+      auth: {
+        username: "staff",
+        password: "123456",
+      },
+    });
   }
 }
 

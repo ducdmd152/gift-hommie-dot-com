@@ -65,6 +65,10 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
     const updateProduct = data as StaffProductDTO;
     updateProduct.id = product.id;
     console.log(updateProduct);
+    staffProductService
+      .update(updateProduct)
+      .then(() => {})
+      .catch(() => {});
     navigate("/product/detail");
   };
 
