@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService{
 		return userRepository.getUserByEmail(email);
 	}
 
+	@Override
+	public boolean editEnabledUserByEmail(String email, boolean enabled) {
+		return userRepository.editEnabledByEmail(email, enabled) > 0;
+	}
+
 	
 	
 }

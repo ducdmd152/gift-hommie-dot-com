@@ -1,15 +1,20 @@
 package com.gifthommie.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.entity.Role;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
+import com.gifthommie.backend.service.RoleService;
 import com.gifthommie.backend.service.UserService;
 
 @RestController
@@ -18,8 +23,13 @@ public class ManagerStaffController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	RoleService roleService;
+	
 	//2 ROLE_STAFF IN DATABASE
-	final int role_id = 2;
+	final String ROLE_STAFF = "ROLE_STAFF";
+	// Delete ENABLED
+	final boolean BAN_ENABLED = false;
 	
 	//View All Staff
 	@GetMapping
@@ -27,9 +37,11 @@ public class ManagerStaffController {
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize
 			) {
-		return userService.getPageableUsers(pageNo, pageSize, role_id);
+		Role role = roleService.getRoleByRoleName(ROLE_STAFF);
+		return userService.getPageableUsers(pageNo, pageSize, role.getId());
 	}
 	
+	//View a staff by email
 	@GetMapping("/{email}")
 	public User getStaff(@PathVariable String email) {
 		User u = userService.getUserByEmail(email);
@@ -39,5 +51,21 @@ public class ManagerStaffController {
 		
 		return u;
 	}
+	
+	//Delete a staff
+	@DeleteMapping("/{email}")
+	public boolean deleteStaff(@PathVariable String email) {
+		//Delete staff by changing enabled = 0
+		return userService.editEnabledUserByEmail(email, BAN_ENABLED);
+	}
+	
+//	@PostMapping
+//	public User createUser(@RequestBody User user) {
+//		user.setRole(ROLE_STAFF);
+//		
+//		
+//		
+//		return user;
+//	}
 	
 }

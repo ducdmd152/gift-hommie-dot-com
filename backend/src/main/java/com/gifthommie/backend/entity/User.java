@@ -130,6 +130,5 @@ public class User {
 	public void setWardId(Integer wardId) {
 		this.wardId = wardId;
 	}
-
 	
 }
