@@ -12,4 +12,6 @@ public interface UserService {
 	public boolean editEnabledUserByEmail(String email, boolean enabled);
 	
 	public boolean saveUser(User user);
+	
+//	public boolean updateUserProfileByEmail(String email, User newProfile);
 }

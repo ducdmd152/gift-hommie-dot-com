@@ -75,14 +75,5 @@ public class ManagerStaffController {
 		return userService.saveUser(user);
 	}
 	
-	//Update a staff user
-	@PutMapping
-	public boolean updateUser(@RequestBody User user) {
-		
-		if (userService.getUserByEmail(user.getEmail()) != null)
-			return userService.saveUser(user);
-		
-		return false;
-	}
 	
 }

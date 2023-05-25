@@ -27,6 +27,5 @@ public interface UserRepository extends JpaRepository<User, String> {
 	@Modifying
 	@Query("UPDATE User u SET u.enabled = :enabled WHERE u.email = :email")
 	public int editEnabledByEmail(@Param("email") String email, @Param("enabled") boolean enabled);
-	
-	
+
 }

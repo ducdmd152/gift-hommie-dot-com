@@ -36,8 +36,6 @@ public class TestController {
 	
 	@GetMapping("/manager/test")
 	public Role manager() {
-		
 		return roleRepository.getRoleByRoleName("ROLE_STAFF");
-	
 	}
 }
