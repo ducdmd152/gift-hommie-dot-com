@@ -81,6 +81,9 @@ public class User {
 		return role;
 	}
 	
+	public Integer getRoleId() {
+		return role.getId();
+	}
 	public String getAuthority() {
 		return role.getName();
 	}

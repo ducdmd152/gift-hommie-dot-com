@@ -1,23 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Register from "./pages/guest/Register";
 import Community from "./pages/staff/StaffProductListPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StaffProductList from "./pages/staff/StaffProductListPage";
 import StaffProductListPage from "./pages/staff/StaffProductListPage";
 import { HttpUser } from "./services/user-service";
 import StaffPage from "./pages/staff/StaffPage";
+import UserDTO from "./type/UserDTO";
+import GuestPage from "./pages/guest/GuestPage";
 
 function App() {
-  const [user, setUser] = useState<HttpUser | null>(null);
-  const [route, setRoute] = useState("home");
+  const [user, setUser] = useState<UserDTO | null>(null);
+  if (user == null) {
+    const userJSON = sessionStorage.getItem("USER");
+    if (userJSON) setUser(JSON.parse(userJSON) as UserDTO);
+  }
 
-  if (route === "home") {
+  if (user == null) {
+    return <GuestPage />;
+  }
+  if (user.authority == "ROLE_STAFF") {
     return <StaffPage />;
   }
-  if (route === "login") return <Login />;
-  if (route === "register") return <Register />;
 
   return <div>Welcome to the community</div>;
 }

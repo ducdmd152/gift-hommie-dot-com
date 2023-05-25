@@ -1,10 +1,11 @@
 package com.gifthommie.backend.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-public class APIPageableResponseDTO<T> {
+public class APIPageableResponseDTO<T> implements Serializable {
 	public List<T> content;
 	public APIPageableDTO pageable;
 	

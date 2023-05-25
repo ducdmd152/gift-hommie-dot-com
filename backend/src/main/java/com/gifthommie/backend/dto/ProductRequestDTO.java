@@ -1,6 +1,8 @@
 package com.gifthommie.backend.dto;
 
-public class ProductRequestDTO {
+import java.io.Serializable;
+
+public class ProductRequestDTO implements Serializable {
 	private Integer id;
 	private String name;
 	private String description;

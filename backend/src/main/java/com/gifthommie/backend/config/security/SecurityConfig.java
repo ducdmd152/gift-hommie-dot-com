@@ -45,7 +45,7 @@ public class SecurityConfig {
             // Our public endpoints
         	.antMatchers("/").permitAll()
             .antMatchers("/public/**").permitAll()
-            .antMatchers("/authentication/**").permitAll()
+            .antMatchers("/auth/**").permitAll()
             // Our private endpoints
             .antMatchers("/customer/**").hasRole("CUSTOMER") // customer 123456
             .antMatchers("/staff/**").hasRole("STAFF") // staff 123456

@@ -16,3 +16,14 @@
 .primary-background-color {
   color: #0fc6f1;
 }
+
+.logo-light {
+  font-family: "DM Sans", sans-serif;
+  letter-spacing: 4px;
+  text-shadow: 3px 3px 3px #99c2ff, -2px 1px 3px #99c2ff;
+}
+
+.logo-light:hover {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}

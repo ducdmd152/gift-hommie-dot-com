@@ -1,17 +1,17 @@
 import { AxiosInstance } from "axios";
 import apiClient from "./api-client";
 import avatarService from "./avatar-service";
+import UserDTO from "../type/UserDTO";
 
 interface AuthEndpoints {
   login: string;
   register: string;
 }
 
-export interface Auth {
+export interface AuthRequestDTO {
   usename: string;
-  email: string;
+  email?: string;
   password: string;
-  avt?: string;
 }
 
 class AuthService {
@@ -20,40 +20,47 @@ class AuthService {
   constructor(
     apiClient: AxiosInstance,
     endpoints: AuthEndpoints = {
-      login: "login",
-      register: "register",
+      login: "auth/login",
+      register: "auth/register",
     }
   ) {
     this.apiClient = apiClient;
     this.endpoints = endpoints;
   }
 
-  login(username: String, password: String) {
+  login(username: string, password: string) {
     let auth = {
       username,
-      email: username + "@dsocial.com",
-      password: password,
+      password,
     };
 
     return this.apiClient
       .post(this.endpoints.login, auth)
       .then((response) => {
-        const { accessToken, user } = response.data;
+        // const { accessToken, user } = response.data;
 
-        this.apiClient.defaults.params = {
-          ...this.apiClient.defaults.params,
-          accessToken: accessToken,
-        };
+        // this.apiClient.defaults.params = {
+        //   ...this.apiClient.defaults.params,
+        //   accessToken: accessToken,
+        // };
 
-        sessionStorage.setItem("user", JSON.stringify(user));
+        const user = response.data as UserDTO;
+        user.password = password;
+        sessionStorage.setItem("USER", JSON.stringify(user));
 
         return true;
       })
       .catch((err) => {
+        console.log(err);
+
         return false;
       });
   }
 
+  logout() {
+    sessionStorage.removeItem("USER");
+    window.location.href = "/";
+  }
   register(username: String, password: String, isMale: boolean) {
     let auth = {
       username,
