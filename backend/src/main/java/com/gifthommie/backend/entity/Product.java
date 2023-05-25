@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,8 +35,12 @@ public class Product {
 	@JsonIgnore
 	private boolean status;
 	
-	@Column(name = "category_id")
-	private Integer categoryId;
+	@ManyToOne
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Category category;
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -84,19 +90,25 @@ public class Product {
 		this.status = status;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	
 	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", quantity=" + quantity
-				+ ", price=" + price + ", status=" + status + ", categoryId=" + categoryId + "]";
+		return category.getId();
 	}
 	
+	public String getCategoryName() {
+		return category.getName();
+	}
 	
 }

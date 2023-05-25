@@ -146,7 +146,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   value={product.categoryId}
                 >
                   <option value={product.categoryId}>
-                    {product.categoryId}
+                    {product.categoryName}
                   </option>
                   <option value="option2">Option 2</option>
                   <option value="option3">Option 3</option>
