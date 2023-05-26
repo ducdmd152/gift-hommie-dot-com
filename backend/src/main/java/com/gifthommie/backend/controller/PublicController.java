@@ -38,7 +38,7 @@ public class PublicController {
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search
 			) {
-		return productService.SearchProductsByName(pageNo, pageSize, search);
+		return productService.searchProductsByName(pageNo, pageSize, search);
 	}
 	
 	//View Product Detail: get product by id

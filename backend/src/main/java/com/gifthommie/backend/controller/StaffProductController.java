@@ -26,9 +26,11 @@ public class StaffProductController {
 	@GetMapping
 	public APIPageableResponseDTO<Product> getProductList(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
-			@RequestParam(defaultValue = "12", name = "size") Integer pageSize
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+			@RequestParam(defaultValue = "", name = "search") String search
 			) {
-		return productService.getPageableProducts(pageNo, pageSize);
+		return productService.searchProductsByName(pageNo, pageSize, search);
+		
 	}
 	
 	@GetMapping("/{productId}")

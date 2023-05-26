@@ -18,9 +18,9 @@ const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
         params: {
           page: requestQuery?.page,
           size: requestQuery?.size,
+          search: requestQuery?.search,
           _sort: requestQuery?.sort,
           _order: requestQuery?.order,
-          _search: requestQuery?.search,
           _category: requestQuery?.category?.id,
         },
       },
