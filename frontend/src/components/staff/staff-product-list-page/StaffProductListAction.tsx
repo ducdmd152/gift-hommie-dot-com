@@ -28,6 +28,9 @@ const StaffProductListAction = ({
           field="Category"
           choices={CATEGORIES}
           onSelect={(id: number) => {
+            if (isNaN(id)) {
+              id = 0;
+            }
             setStaffProductQuery({ ...staffProductQuery, category: id });
           }}
         />

@@ -28,9 +28,9 @@ public class StaffProductController {
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search,
-			@RequestParam(name = "category") Integer category
+			@RequestParam(name = "category", required = false) Integer category
 			) {
-		if(category == null) {
+		if(category == null || category==0) {
 			return productService.searchProductsByName(pageNo, pageSize, search);
 		}
 		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category);
