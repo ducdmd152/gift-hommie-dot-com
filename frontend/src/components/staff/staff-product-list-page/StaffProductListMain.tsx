@@ -23,7 +23,14 @@ const StaffProductMain = ({
 
   return (
     <Box p="4" ml={2} mb={24}>
-      <SearchInput onSearch={() => {}} />
+      <SearchInput
+        onSearch={(text: string) => {
+          setStaffProductQuery({
+            ...staffProductQuery,
+            search: text,
+          });
+        }}
+      />
 
       <StaffProductListItems
         products={products}
