@@ -1,6 +1,7 @@
 import { Box, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 import Selector from "../../Selector";
+import CATEGORIES from "../../../data/Categories";
 
 const StaffProductListAction = () => {
   return (
@@ -15,7 +16,13 @@ const StaffProductListAction = () => {
           Filter
         </Heading>
 
-        <Selector field="Category" />
+        <Selector
+          field="Category"
+          choices={CATEGORIES}
+          onSelect={(id: number) => {
+            console.log(id);
+          }}
+        />
       </Box>
       <Box border="2px solid lightgray" borderRadius="md" width="100%" p={4}>
         <Heading
@@ -27,7 +34,7 @@ const StaffProductListAction = () => {
           Sort
         </Heading>
 
-        <Selector field="Sort by" />
+        {/* <Selector field="Sort by" /> */}
       </Box>
     </VStack>
   );
