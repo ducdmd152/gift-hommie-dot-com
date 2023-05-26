@@ -29,4 +29,7 @@ public interface ProductService {
 	Product update(int productId, ProductRequestDTO productRequestDTO);
 
 	boolean remove(int productId);
+
+	APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize, String search,
+			Integer category);
 }
