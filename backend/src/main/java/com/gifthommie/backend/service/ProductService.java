@@ -13,7 +13,9 @@ public interface ProductService {
 	APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize);
 //	APIPageableResponse<Product> getPageableProducts(int page, int size, Sort sort);
 
-	APIPageableResponseDTO<Product> SearchProductsByName(int pageNo, int pageSize, String Search);
+	// cái method này nên theo camelConvention nhé, tại mình đang dùng Java (Q chơi ngay C# convention) ^^
+	// APIPageableResponseDTO<Product> SearchProductsByName(int pageNo, int pageSize, String Search);
+	APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String Search);
 	
 	
 	Product save(Product product);
