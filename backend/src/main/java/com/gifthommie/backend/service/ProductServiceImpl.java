@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search) {
 		Page<Product> page = productRepository.finfAllByName(
-				PageRequest.of(pageNo, pageSize), search);
+				PageRequest.of(pageNo, pageSize), search, true);
 		return new APIPageableResponseDTO<Product>(page);
 	}
 	
