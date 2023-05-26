@@ -100,6 +100,13 @@ public class ProductServiceImpl implements ProductService {
 		return true;
 	}
 
+	@Override
+	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
+			String search, Integer category) {
+		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, PageRequest.of(pageNo, pageSize));
+		return new APIPageableResponseDTO<Product>(page);
+	}
+
 
 
 	

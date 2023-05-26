@@ -40,7 +40,10 @@ function StaffProductListPage({ setCurrentProductId }: Props) {
     >
       {/* <Show above="sm"> */}
       <GridItem area="aside-left" className="aside-left">
-        <StaffProductListFilter />
+        <StaffProductListFilter
+          staffProductQuery={staffProductQuery}
+          setStaffProductQuery={setStaffProductQuery}
+        />
       </GridItem>
       {/* </Show> */}
       <GridItem area="main" className="main">
