@@ -1,74 +1,37 @@
-package com.gifthommie.backend.entity;
+package com.gifthommie.backend.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gifthommie.backend.dto.UserProfileDTO;
+import com.gifthommie.backend.entity.Role;
 
-@Entity
-@Table(name = "user")
-public class User {
-	@Id
-	@Column(name = "email")
+public class UserProfileDTO {
 	private String email;
+	
+	private Integer roleId;
 
-	@ManyToOne
-	@JoinColumn(name = "role_id", referencedColumnName = "id")
-	@JsonIgnore
-	private Role role;
-
-	@Column(name = "username")
 	private String username;
-
-	@Column(name = "password")
-	@JsonIgnore
+	
 	private String password;
-
-	@Column(name = "first_name")
+	
 	private String firstName;
-
-	@Column(name = "last_name")
+	
 	private String lastName;
-
-	@Column(name = "phone")
+	
 	private String phone;
-
-	@Column(name = "yob")
+	
 	private Integer yob;
-
-	@Column(name = "avatar")
+	
 	private String avatar;
-
-	@Column(name = "address")
+	
 	private String address;
-
-	@Column(name = "ward_id")
+	
 	private Integer wardId;
-
-	@Column(name = "enabled")
-	@JsonIgnore
+	
 	private boolean enabled;
-
-	// SEND DATA TO EDIT PROFILE
-	public boolean editProfile(UserProfileDTO userProfile, Role role) {
-		email = userProfile.getEmail();
-		firstName = userProfile.getFirstName();
-		lastName = userProfile.getLastName();
-		password = userProfile.getPassword();
-		this.role = role;
-		phone = userProfile.getPhone();
-		yob = userProfile.getYob();
-		avatar = userProfile.getAvatar();
-		address = userProfile.getAddress();
-		wardId = userProfile.getWardId();
-
-		return true;
-	}
 
 	public String getEmail() {
 		return email;
@@ -76,6 +39,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getUsername() {
@@ -92,30 +63,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public Integer getRoleId() {
-		return role.getId();
-	}
-
-	public String getAuthority() {
-		return role.getName();
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public String getFirstName() {
@@ -174,4 +121,13 @@ public class User {
 		this.wardId = wardId;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	
 }
