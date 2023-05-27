@@ -5,6 +5,7 @@ import Header from "../../components/header/Header";
 import { Link, Route, Routes } from "react-router-dom";
 import StaffProductEditPage from "./StaffProductEditPage";
 import StaffProductDetailPage from "./StaffProductDetailPage";
+import StaffProductCreatePage from "./StaffProductCreatePage";
 const HEADER_HEIGHT = "100px";
 const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
@@ -54,6 +55,14 @@ const StaffPage = () => {
           <Route
             path="/product/edit"
             element={<StaffProductEditPage currentProductId={productId} />}
+          />
+          <Route
+            path="/product/create"
+            element={
+              <StaffProductCreatePage
+                setCurrentProductId={setCurrentProductId}
+              />
+            }
           />
         </Routes>
       </GridItem>

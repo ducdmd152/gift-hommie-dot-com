@@ -117,10 +117,16 @@ public class Product {
 
 	
 	public Integer getCategoryId() {
+		if(category == null) {
+			return 0;
+		}
 		return category.getId();
 	}
 	
 	public String getCategoryName() {
+		if(category == null) {
+			return "";
+		}
 		return category.getName();
 	}
 

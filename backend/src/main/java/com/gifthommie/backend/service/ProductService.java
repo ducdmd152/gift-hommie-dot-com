@@ -32,4 +32,6 @@ public interface ProductService {
 
 	APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize, String search,
 			Integer category);
+
+	Product createNewProductFrom(ProductRequestDTO productRequestDTO);
 }

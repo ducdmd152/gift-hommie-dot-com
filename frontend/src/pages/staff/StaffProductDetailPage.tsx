@@ -192,7 +192,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               <Box>
                 <Image
                   borderRadius="8px"
-                  boxSize="100%"
+                  height="200px"
                   objectFit="cover"
                   src={product.avatar}
                   alt={product.name}
