@@ -23,6 +23,15 @@ public class StaffProductController {
 	@Autowired
 	ProductService productService;
 	
+	
+	//List Product 				            : http://localhost:8080/staff/product
+	//List Product By Category              : http://localhost:8080/staff/product?category=1
+	//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name
+	//List Product Filter Sort By Price     : http://localhost:8080/staff/product?sort=price
+	
+	//List Product By Category and Filter Sort By Price  : http://localhost:8080/staff/product?category=1&sort=price
+	//List Product By Category and Filter Sort By Name   : http://localhost:8080/staff/product?category=1&sort=name
+	
 	@GetMapping
 	public APIPageableResponseDTO<Product> getProductList(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
@@ -34,7 +43,7 @@ public class StaffProductController {
 			) {
 		
 		if(category == null || category==0) {
-			return productService.searchProductsByName(pageNo, pageSize, search);
+			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
 		}
 		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
 	}
