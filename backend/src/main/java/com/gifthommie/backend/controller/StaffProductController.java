@@ -45,8 +45,8 @@ public class StaffProductController {
 	}
 	
 	@PostMapping
-	public Product addProduct(@RequestBody Product product) {
-		Product result = productService.save(product);
+	public Product addProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+		Product result = productService.createNewProductFrom(productRequestDTO);
 		return result;
 	}
 	

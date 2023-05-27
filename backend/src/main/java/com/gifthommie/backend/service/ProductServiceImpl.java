@@ -107,6 +107,23 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
+	@Override
+	public Product createNewProductFrom(ProductRequestDTO productRequestDTO) {
+		Product product = new Product();
+		product.setId(0);
+		product.setName(productRequestDTO.getName());
+		product.setDescription(productRequestDTO.getDescription());
+		product.setPrice(productRequestDTO.getPrice());
+		product.setQuantity(productRequestDTO.getQuantity());
+		product.setAvatar(productRequestDTO.getAvatar());
+		Category category = categoryRepository.findById(productRequestDTO.getCategoryId()).get();
+		product.setCategory(category);
+		
+		product = productRepository.save(product);
+		
+		return product;
+	}
+
 
 
 	
