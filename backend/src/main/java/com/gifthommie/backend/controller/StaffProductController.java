@@ -28,12 +28,15 @@ public class StaffProductController {
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search,
-			@RequestParam(name = "category", required = false) Integer category
+			@RequestParam(name = "category", required = false) Integer category,
+			@RequestParam(name = "sort", defaultValue = "id") String sortField,
+			@RequestParam(name = "order", required = false) Boolean sortOrder
 			) {
+		
 		if(category == null || category==0) {
 			return productService.searchProductsByName(pageNo, pageSize, search);
 		}
-		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category);
+		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
 	}
 	
 	@GetMapping("/{productId}")

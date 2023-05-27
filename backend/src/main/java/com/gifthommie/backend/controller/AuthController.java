@@ -26,7 +26,7 @@ public class AuthController {
 	public User login(@RequestBody AuthUserRequestDTO loginDTO) {
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
-		System.out.println(username + " : " + password);
+//		System.out.println(username + " : " + password);
 		Authentication auth = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(username, password)
 				);

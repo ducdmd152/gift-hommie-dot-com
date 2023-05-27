@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -102,8 +103,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
-			String search, Integer category) {
-		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, PageRequest.of(pageNo, pageSize));
+			String search, Integer category, String sortField) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
 		return new APIPageableResponseDTO<Product>(page);
 	}
 

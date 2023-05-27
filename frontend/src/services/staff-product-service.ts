@@ -11,6 +11,7 @@ export interface StaffProductDTO {
   quantity: 20;
   price: number;
   categoryId: number;
+  categoryName: string;
   avatar: string;
 }
 
