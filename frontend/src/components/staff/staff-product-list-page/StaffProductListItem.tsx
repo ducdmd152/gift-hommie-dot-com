@@ -40,7 +40,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
           <HStack>
             <Badge colorScheme="gray" variant="outline">
               {" "}
-              {product.categoryId}
+              {product.categoryName}
             </Badge>
 
             <Badge colorScheme="gray" variant="outline">
