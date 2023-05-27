@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gifthommie.backend.config.security.MyUserDetails;
 import com.gifthommie.backend.entity.Category;
+import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
+import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
 public class TestController {
