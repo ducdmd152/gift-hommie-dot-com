@@ -25,6 +25,7 @@ import staffProductService, {
 } from "../../services/staff-product-service";
 import CATEGORIES from "../../data/Categories";
 import { FieldValues, set, useForm } from "react-hook-form";
+import imageService from "../../services/image-service";
 
 interface FormData extends StaffProductDTO {}
 interface Props {
@@ -32,6 +33,9 @@ interface Props {
 }
 const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
   const navigate = useNavigate();
+  const [productAvatarURL, setProductAvatarURL] = useState<string>(
+    imageService.getDefaultProductAvatarURL()
+  );
   const {
     register,
     handleSubmit,
@@ -160,9 +164,9 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                 <Box>
                   <Image
                     borderRadius="8px"
-                    boxSize="100%"
+                    boxSize="240px"
                     objectFit="cover"
-                    // src={product.avatar}
+                    src={productAvatarURL}
                   />
                 </Box>
 
@@ -171,12 +175,14 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     IMAGE URL
                   </FormLabel>
                   <Input
-                    isReadOnly
                     {...register("avatar", {
                       // required: true,
                     })}
                     color="black"
-                    // value={product.avatar}
+                    value={productAvatarURL}
+                    onChange={(event) => {
+                      setProductAvatarURL(event.target.value);
+                    }}
                     fontWeight="bold"
                   />
                 </FormControl>
