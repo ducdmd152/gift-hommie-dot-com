@@ -1,13 +1,18 @@
 package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "order")
@@ -46,18 +51,18 @@ public class Order {
 	private String message;
 	
 	@Column(name = "status")
-	private String status;
+	private Integer status;
 	
 	@Column(name = "status_comment")
 	private String statusComment;
-	
+
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
 	
 	public Order() {
 		
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -138,11 +143,11 @@ public class Order {
 		this.message = message;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "order_detail")
@@ -16,8 +20,10 @@ public class OrderDetail {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "order_id")
-	private Integer orderId;
+	@ManyToOne
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Order order;
 	
 	@Column(name = "product_id")
 	private Integer productId;
@@ -36,12 +42,12 @@ public class OrderDetail {
 		this.id = id;
 	}
 
-	public Integer getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order orderId) {
+		this.order = orderId;
 	}
 
 	public Integer getProductId() {
@@ -67,13 +73,5 @@ public class OrderDetail {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-
-	@Override
-	public String toString() {
-		return "OrderDetail [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", price=" + price
-				+ ", quantity=" + quantity + "]";
-	}
-	
-	
 
 }
