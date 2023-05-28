@@ -81,6 +81,10 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
+	
+	public String getId() {
+		return username;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -119,7 +123,7 @@ public class User {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstName == null ? "" : firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -127,7 +131,7 @@ public class User {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastName == null ? "" : lastName;
 	}
 
 	public void setLastName(String lastName) {
