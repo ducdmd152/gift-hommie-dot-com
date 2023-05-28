@@ -9,6 +9,7 @@ import { HttpUser } from "./services/user-service";
 import StaffPage from "./pages/staff/StaffPage";
 import UserDTO from "./type/UserDTO";
 import GuestPage from "./pages/guest/GuestPage";
+import ManagerPage from "./pages/manager/ManagerPage";
 
 function App() {
   const [user, setUser] = useState<UserDTO | null>(null);
@@ -22,6 +23,10 @@ function App() {
   }
   if (user.authority == "ROLE_STAFF") {
     return <StaffPage />;
+  }
+
+  if (user.authority == "ROLE_MANAGER") {
+    return <ManagerPage />;
   }
 
   return <div>Welcome to the community</div>;
