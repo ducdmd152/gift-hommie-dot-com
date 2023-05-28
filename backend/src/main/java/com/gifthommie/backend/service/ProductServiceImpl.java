@@ -35,11 +35,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search) {
-		Page<Product> page = productRepository.finfAllByName(
-				PageRequest.of(pageNo, pageSize), search, true);
+	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+		Page<Product> page = productRepository.finfAllByName(true, search, pageable);		
 		return new APIPageableResponseDTO<Product>(page);
 	}
+	
+	@Override
+	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
+			String search, Integer category, String sortField) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
+		return new APIPageableResponseDTO<Product>(page);
+	}
+
 	
 	@Override
 	public Product save(Product product) {
@@ -101,14 +110,7 @@ public class ProductServiceImpl implements ProductService {
 		return true;
 	}
 
-	@Override
-	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
-			String search, Integer category, String sortField) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
-		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
-		return new APIPageableResponseDTO<Product>(page);
-	}
-
+	
 	@Override
 	public Product createNewProductFrom(ProductRequestDTO productRequestDTO) {
 		Product product = new Product();
