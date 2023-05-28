@@ -2,84 +2,113 @@ import React from "react";
 import {
   Badge, Box, Button, Card, CardBody, FormControl, FormHelperText,
   FormLabel, HStack, Heading, Input, NumberInput, NumberInputField,
-  Select, Textarea, VStack, Image, Flex,
+  Select, Textarea, VStack, Image, Flex, Link, Center, RadioGroup, Stack, Radio
 } from "@chakra-ui/react";
 
 const ManagerStaffEditPage = () => {
   return (
-    <VStack mt={6} p="4">
-      <Flex width="100%" gap="8">
-        <VStack spacing="8" flex="1">
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold">
-              ID
-            </FormLabel>
-            <Input
-              // value={product.id}
-              isDisabled
-              color="blue"
-              fontWeight="bold"
-            />
-          </FormControl>
+    <Box border="1px lightgray solid">
+      <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+        <Box>
+          <Image
+            borderRadius="8px"
+            boxSize="120px"
+            objectFit="cover"
+          // src={productAvatarURL}
+          />
+        </Box>
+        <Heading size="sm" textAlign="center" marginBottom="4">
+          @UseName
+        </Heading>
+      </VStack>
 
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold">
-              Tên sản phẩm
-            </FormLabel>
-            <Input
-              isReadOnly
-              color="gray"
-              // value={product.name}
-              fontWeight="bold"
-            />
-          </FormControl>
 
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold">
-              Giá
-            </FormLabel>
-            <NumberInput
-              // value={product.price}
-              isReadOnly
-              color="gray"
-              min={1000}
-            >
-              <NumberInputField />
-            </NumberInput>
-          </FormControl>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          FullName
+        </FormLabel>
+        <Input
+          maxW="450px"
+          color="gray"
+          // value={product.name}
+          fontWeight="bold"
+        />
+      </FormControl>
 
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold">
-              Số lượng
-            </FormLabel>
-            <NumberInput
-              // value={product.quantity}
-              isReadOnly
-              color="gray"
-              min={0}
-            >
-              {/* <NumberInputField defaultValue={product.quantity} /> */}
-            </NumberInput>
-          </FormControl>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          UserName
+        </FormLabel>
+        <Input
+          maxW="450px"
+          color="gray"
+          // value={product.name}
+          fontWeight="bold"
+        />
+      </FormControl>
 
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold">
-              Danh mục sản phẩm
-            </FormLabel>
-            <Select
-              isDisabled
-              color="gray"
-              placeholder="Lựa chọn danh mục"
-            // value={product.categoryId}
-            >
-              {/* <option value={product.categoryId}>
-                    {getCategoryName(product.categoryId)}
-                  </option> */}
-            </Select>
-          </FormControl>
-        </VStack>
-      </Flex>
-    </VStack>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          Email
+        </FormLabel>
+        <Input
+          maxW="450px"
+          color="gray"
+          // value={product.name}
+          fontWeight="bold"
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          Phone
+        </FormLabel>
+        <NumberInput
+          // value={product.price}
+          maxW="450px"
+          color="gray"
+          min={0}
+        >
+          <NumberInputField />
+        </NumberInput>
+      </FormControl>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          Gender
+        </FormLabel>
+        <RadioGroup >
+          <Stack direction='row'>
+            <Radio value='1'>Male</Radio>
+            <Radio value='2'>Female</Radio>
+            <Radio value='3'>Other</Radio>
+          </Stack>
+        </RadioGroup>
+      </FormControl>
+      <FormControl>
+        <FormLabel size="md" fontWeight="bold">
+          Birth Year
+        </FormLabel>
+        <Input
+          placeholder="YYYY"
+          maxW="450px"
+          color="gray"
+          // value={product.name}
+          fontWeight="bold"
+        />
+      </FormControl>
+
+
+
+      <HStack justifyContent='center' marginTop='10px'>
+        <Button type="submit" colorScheme="blue" size="md">
+          Save
+        </Button>
+        <Link>
+          <Button colorScheme="red" variant="outline" size="md">
+            Cancel
+          </Button>
+        </Link>
+      </HStack>
+    </Box>
   )
 };
 
