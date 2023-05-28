@@ -78,7 +78,7 @@ const ManagerStaffDetailPage = () => {
 
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
-                  FirstName
+                  Phone
                 </FormLabel>
                 <NumberInput
                   // value={ }
@@ -92,7 +92,7 @@ const ManagerStaffDetailPage = () => {
 
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
-                  LastName
+                  Yob
                 </FormLabel>
                 <NumberInput
                   // value={ }
@@ -117,7 +117,22 @@ const ManagerStaffDetailPage = () => {
                   <NumberInputField />
                 </NumberInput>
               </FormControl>
+
+              <FormControl>
+                <FormLabel size="md" fontWeight="bold">
+                  Address
+                </FormLabel>
+                <NumberInput
+                  // value={ }
+                  isReadOnly
+                  color="gray"
+                  min={0}
+                >
+                  <NumberInputField />
+                </NumberInput>
+              </FormControl>
             </VStack>
+
             <VStack flex="1" h="100%" px="8" spacing="8">
               <Box>
                 <Image
@@ -140,19 +155,6 @@ const ManagerStaffDetailPage = () => {
               </FormControl>
             </VStack>
           </Flex>
-          <FormControl>
-            <FormLabel size="md" fontWeight="bold" mt="4">
-              Mô tả sản phẩm
-            </FormLabel>
-            <Textarea
-              isReadOnly
-              color="gray"
-              fontWeight="medium"
-              fontStyle="italic"
-              letterSpacing="1"
-            //value={ }
-            />
-          </FormControl>
         </VStack>
       </Card>
     </>
