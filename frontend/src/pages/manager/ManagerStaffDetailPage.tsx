@@ -54,7 +54,7 @@ const ManagerStaffDetailPage = () => {
             <VStack spacing="8" flex="1">
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
-                  ID
+                  UserName
                 </FormLabel>
                 <Input
                   // value={}
@@ -66,7 +66,7 @@ const ManagerStaffDetailPage = () => {
 
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
-                  Tên nhân viên
+                  FullName
                 </FormLabel>
                 <Input
                   isReadOnly
@@ -137,19 +137,25 @@ const ManagerStaffDetailPage = () => {
               <Box>
                 <Image
                   borderRadius="8px"
-                  height="200px"
+                  boxSize="240px"
                   objectFit="cover"
-                //src={ }
-                //alt={ }
+                // src={productAvatarURL}
                 />
               </Box>
+
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
+                  IMAGE URL
                 </FormLabel>
                 <Input
-                  isReadOnly
-                  color="gray"
-                  //value={ }
+                  // {...register("avatar", {
+                  //   // required: true,
+                  // })}
+                  color="black"
+                  // value={productAvatarURL}
+                  // onChange={(event) => {
+                  //   setProductAvatarURL(event.target.value);
+                  // }}
                   fontWeight="bold"
                 />
               </FormControl>
