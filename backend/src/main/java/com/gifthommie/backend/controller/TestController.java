@@ -40,4 +40,8 @@ public class TestController {
 	public List<Category> getCategories() {
 		return categoryRepository.findAll();
 	}
+	@GetMapping("/public/test-login")
+	public String testLogin() {
+		return SecurityUtils.getPrincipal().getPassword();
+	}
 }
