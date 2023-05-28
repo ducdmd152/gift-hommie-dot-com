@@ -1,10 +1,14 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/header/Header";
 import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
+import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
 const HEADER_HEIGHT = "100px";
 const GuestShopPage = () => {
+  const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>(
+    {} as ShopProductQuery
+  );
   return (
     <>
       <Box position="fixed" w="100%" backgroundColor="white" zIndex={999}>
@@ -30,7 +34,10 @@ const GuestShopPage = () => {
         </GridItem>
         {/* </Show> */}
         <GridItem area="main" className="main">
-          <ShopProductListMain />
+          <ShopProductListMain
+            shopProductQuery={shopProductQuery}
+            setShopProductQuery={setShopProductQuery}
+          />
         </GridItem>
       </Grid>
     </>
