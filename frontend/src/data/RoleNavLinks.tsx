@@ -35,7 +35,24 @@ const ROLE_NAV_LINKS: tplotOptions = {
       link: "/statistics",
     },
   ],
-  GUEST: [],
+  GUEST: [
+    {
+      label: "Trang chủ",
+      link: "/",
+    },
+    {
+      label: "Cửa hàng",
+      link: "/shop",
+    },
+    {
+      label: "Đăng nhập",
+      link: "/login",
+    },
+    {
+      label: "Thông tin cửa hàng",
+      link: "/about",
+    },
+  ],
 };
 
 export default ROLE_NAV_LINKS;

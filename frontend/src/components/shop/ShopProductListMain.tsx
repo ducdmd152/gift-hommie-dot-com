@@ -1,40 +1,45 @@
 import React from "react";
 import SearchInput from "../SearchInput";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, HStack, VStack } from "@chakra-ui/react";
 import ShopProductListItems from "./ShopProductListItems";
 import Pagination from "../Pagination";
 import PageableDTO from "../../type/PageableDTO";
-// interface Props {
-//   shopProductQuery: ShopProductQuery;
-//   setShopProductQuery: (shopProductQuery: ShopProductQuery) => void;
-// }
+import useFetchShopProduct, {
+  ShopProductQuery,
+} from "../../hooks/useFetchShopProduct";
+interface Props {
+  shopProductQuery: ShopProductQuery;
+  setShopProductQuery: (shopProductQuery: ShopProductQuery) => void;
+}
 
-const ShopProductListMain = () => {
-  // const { products, pageable, isLoading, error } =
-  //   useFetchStaffProduct(staffProductQuery);
+const ShopProductListMain = ({
+  shopProductQuery,
+  setShopProductQuery,
+}: Props) => {
+  const { products, pageable, isLoading, error } =
+    useFetchShopProduct(shopProductQuery);
+  console.log(products);
 
-  let pageable = {} as PageableDTO;
   return (
     <Box p="4" ml={2} mb={24}>
       <SearchInput
         onSearch={(text: string) => {
-          // setStaffProductQuery({
-          //   ...staffProductQuery,
-          //   search: text,
-          // });
+          setShopProductQuery({
+            ...shopProductQuery,
+            search: text,
+          });
         }}
       />
 
-      <ShopProductListItems
-      // products={products}
-      />
+      <Box marginTop="8">
+        <ShopProductListItems products={products} />
+      </Box>
 
       <HStack justifyContent={"center"} mt={4} mb={8}>
         <Pagination
           pageable={pageable}
-          onSelectPageIndex={
-            (index: number) => index
-            // setStaffProductQuery({ ...staffProductQuery, page: index })
+          onSelectPageIndex={(index: number) =>
+            setShopProductQuery({ ...shopProductQuery, page: index })
           }
         />
       </HStack>

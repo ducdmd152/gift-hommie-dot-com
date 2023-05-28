@@ -12,17 +12,18 @@ export class HttpService<T extends HttpEntity> {
     this.apiClient = apiClient;
     this.endpoint = endpoint;
   }
+
   getAll<FetchResponse>(requestConfig?: AxiosRequestConfig) {
     const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = JSON.parse(userJSON) as UserDTO;
+    let USER = null;
+    if (userJSON) {
+      USER = JSON.parse(userJSON);
+    }
 
     const controller = new AbortController();
     const request = this.apiClient.get<FetchResponse>(this.endpoint, {
       signal: controller.signal,
-      auth: {
-        username: USER?.username,
-        password: USER?.password,
-      },
+      auth: USER,
       ...requestConfig,
     });
     return { request, cancel: () => controller.abort() };
@@ -30,45 +31,47 @@ export class HttpService<T extends HttpEntity> {
 
   get(id: number) {
     const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = JSON.parse(userJSON) as UserDTO;
+    let USER = null;
+    if (userJSON) {
+      USER = JSON.parse(userJSON);
+    }
 
     return this.apiClient.get(this.endpoint + "/" + id, {
-      auth: {
-        username: USER?.username,
-        password: USER?.password,
-      },
+      auth: USER,
     });
   }
 
   create(entity: T) {
     const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = JSON.parse(userJSON) as UserDTO;
+    let USER = null;
+    if (userJSON) {
+      USER = JSON.parse(userJSON);
+    }
 
     return this.apiClient.post(this.endpoint, entity, {
-      auth: {
-        username: USER?.username,
-        password: USER?.password,
-      },
+      auth: USER,
     });
   }
 
   update(entity: T) {
     const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = JSON.parse(userJSON) as UserDTO;
+    let USER = null;
+    if (userJSON) {
+      USER = JSON.parse(userJSON);
+    }
     return this.apiClient.put(this.endpoint + "/" + entity.id, entity, {
-      auth: {
-        username: USER?.username,
-        password: USER?.password,
-      },
+      auth: USER,
     });
   }
 
   delete(id: number) {
+    const userJSON = sessionStorage.getItem("USER") || "";
+    let USER = null;
+    if (userJSON) {
+      USER = JSON.parse(userJSON);
+    }
     return this.apiClient.delete(this.endpoint + "/" + id, {
-      auth: {
-        username: "staff",
-        password: "123456",
-      },
+      auth: USER,
     });
   }
 }
