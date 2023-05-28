@@ -1,5 +1,7 @@
 package com.gifthommie.backend.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,14 @@ public interface CartRepository extends JpaRepository<Cart, Integer>{
 			+ "AND cart.product.id = :productId")
 	public Cart findCartByEmailAndProductId(@Param("email") String email, 
 								@Param("productId") int productId);
+	@Query("SELECT c FROM Cart c WHERE "
+			+ "c.email = :email "
+			+ "AND c.id = :cartId")
+	public Cart findCartByEmailAndCartId(@Param("email") String email, 
+								@Param("cartId") int cartId);
+	
+	@Query("SELECT c FROM Cart c WHERE "
+			+ "c.email = :email ")
+	public Page<Cart> findAllByEmail(@Param("email") String email,PageRequest pageRequest);
 	
 }
