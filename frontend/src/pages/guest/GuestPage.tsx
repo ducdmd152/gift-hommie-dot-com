@@ -3,6 +3,7 @@ import { Grid, GridItem, Text } from "@chakra-ui/react";
 import Header from "../../components/header/Header";
 import { Link, Route, Routes } from "react-router-dom";
 import Login from "./Login";
+import GuestShopPage from "./GuestShopPage";
 
 const GuestPage = () => {
   return (
@@ -27,8 +28,9 @@ const GuestPage = () => {
 
       <GridItem area="main">
         <Routes>
-          <Route index element={<Login />} />
+          <Route index element={<GuestShopPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/shop" element={<GuestShopPage />} />
         </Routes>
       </GridItem>
     </Grid>
