@@ -13,8 +13,16 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
+import useFetchManagerStaff, {
+  ManagerStaffQuery,
+} from "../../../hooks/useFetchManagerStaff";
+import { ManagerStaffDTO } from "../../../services/manager-staff-service";
+import { Link } from "react-router-dom";
 
-const ManagerStaffTable = () => {
+interface Props {
+  staffs: ManagerStaffDTO[];
+}
+const ManagerStaffTable = ({ staffs }: Props) => {
   return (
     <Box paddingTop="6">
       <TableContainer borderRadius="12" border="solid 1px gray">
@@ -33,35 +41,26 @@ const ManagerStaffTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>ID</Td>
-              <Td>Tên</Td>
-              <Td>Năm sinh</Td>
-              <Td>Tên đăng nhập</Td>
-              <Td>Email</Td>
-              <Td>Điện thoại</Td>
-              <Td>Địa chỉ</Td>
-              <Td>
-                <Button colorScheme="blue" paddingX="4" size="sm">
-                  Chi tiết
-                </Button>
-              </Td>
-            </Tr>
-
-            <Tr>
-              <Td>ID</Td>
-              <Td>Tên</Td>
-              <Td>Năm sinh</Td>
-              <Td>Tên đăng nhập</Td>
-              <Td>Email</Td>
-              <Td>Điện thoại</Td>
-              <Td>Địa chỉ</Td>
-              <Td>
-                <Button colorScheme="blue" paddingX="4" size="sm">
-                  Chi tiết
-                </Button>
-              </Td>
-            </Tr>
+            {staffs.map((staff) => {
+              return (
+                <Tr>
+                  <Td>{staff.id}</Td>
+                  <Td>{staff.firstName + " " + staff.lastName}</Td>
+                  <Td>{staff.yob}</Td>
+                  <Td>{staff.username}</Td>
+                  <Td>{staff.email}</Td>
+                  <Td>{staff.phone}</Td>
+                  <Td>{staff.address}</Td>
+                  <Td>
+                    <Link to="/staff/detail">
+                      <Button colorScheme="blue" paddingX="4" size="sm">
+                        Chi tiết
+                      </Button>
+                    </Link>
+                  </Td>
+                </Tr>
+              );
+            })}
           </Tbody>
           <Tfoot>
             {/* <Tr>

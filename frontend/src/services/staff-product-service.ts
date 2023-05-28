@@ -1,4 +1,3 @@
-// game-service.ts
 import apiClient from "./api-client";
 import createHttpService from "./http-service";
 

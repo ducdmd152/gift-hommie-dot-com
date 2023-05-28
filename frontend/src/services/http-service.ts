@@ -1,7 +1,7 @@
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 import UserDTO from "../type/UserDTO";
 export interface HttpEntity {
-  id: number;
+  id: number | string;
 }
 
 export class HttpService<T extends HttpEntity> {
