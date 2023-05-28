@@ -15,4 +15,5 @@ public interface CartService {
 	
 	public Cart save(Cart cart);
 	
+	boolean deleteCart(String email, int cartId);
 }
