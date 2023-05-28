@@ -1,15 +1,21 @@
 import React from "react";
 import { ShopProductDTO } from "../../services/shop-product-service";
+import { SimpleGrid } from "@chakra-ui/react";
+import ShopProductListItem from "./ShopProductListItem";
 interface Props {
   products: ShopProductDTO[];
 }
 const ShopProductListItems = ({ products }: Props) => {
   return (
-    <div>
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+      spacing={6}
+      padding="10px"
+    >
       {products.map((product) => (
-        <h2>{product.name}</h2>
+        <ShopProductListItem product={product}></ShopProductListItem>
       ))}
-    </div>
+    </SimpleGrid>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import SearchInput from "../SearchInput";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, HStack, VStack } from "@chakra-ui/react";
 import ShopProductListItems from "./ShopProductListItems";
 import Pagination from "../Pagination";
 import PageableDTO from "../../type/PageableDTO";
@@ -24,14 +24,16 @@ const ShopProductListMain = ({
     <Box p="4" ml={2} mb={24}>
       <SearchInput
         onSearch={(text: string) => {
-          // setStaffProductQuery({
-          //   ...staffProductQuery,
-          //   search: text,
-          // });
+          setShopProductQuery({
+            ...shopProductQuery,
+            search: text,
+          });
         }}
       />
 
-      <ShopProductListItems products={products} />
+      <Box marginTop="8">
+        <ShopProductListItems products={products} />
+      </Box>
 
       <HStack justifyContent={"center"} mt={4} mb={8}>
         <Pagination

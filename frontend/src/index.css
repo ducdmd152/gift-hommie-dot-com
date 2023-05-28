@@ -27,3 +27,22 @@
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transition: all 0.3s ease-in-out;
+  scale: 1.02;
+  color: rgb(54, 113, 214);
+}
+
+.product-cart-icon {
+}
+
+.product-cart-icon:hover {
+  transition: all 0.3s ease-in-out;
+  scale: 1.4;
+  color: teal;
+}
