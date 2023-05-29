@@ -33,7 +33,7 @@ const ManagerStaffEditPage = () => {
         <VStack >
           <FormControl maxW="600px">
             <HStack >
-              <FormLabel size="md" fontWeight="bold">
+              <FormLabel size="md" fontWeight="bold" marginRight='100px'>
                 FullName
               </FormLabel>
               <Input
@@ -46,7 +46,7 @@ const ManagerStaffEditPage = () => {
 
           <FormControl maxW="600px">
             <HStack>
-              <FormLabel size="md" fontWeight="bold">
+              <FormLabel size="md" fontWeight="bold" marginRight='90px'>
                 UserName
               </FormLabel>
               <Input
@@ -59,7 +59,7 @@ const ManagerStaffEditPage = () => {
 
           <FormControl maxW="600px">
             <HStack>
-              <FormLabel size="md" fontWeight="bold">
+              <FormLabel size="md" fontWeight="bold" marginRight='130px'>
                 Email
               </FormLabel>
               <Input
@@ -71,7 +71,7 @@ const ManagerStaffEditPage = () => {
           </FormControl>
           <FormControl maxW="600px">
             <HStack>
-              <FormLabel size="md" fontWeight="bold">
+              <FormLabel size="md" fontWeight="bold" marginRight='123px'>
                 Phone
               </FormLabel>
               <Input
@@ -95,7 +95,7 @@ const ManagerStaffEditPage = () => {
         </FormControl> */}
           <FormControl maxW="600px" >
             <HStack>
-              <FormLabel size="md" fontWeight="bold">
+              <FormLabel size="md" fontWeight="bold" marginRight='120px'>
                 Birth Year
               </FormLabel>
               <Input
@@ -107,7 +107,7 @@ const ManagerStaffEditPage = () => {
             </HStack>
           </FormControl>
         </VStack>
-        <HStack justifyContent='center' marginTop='10px'>
+        <HStack justifyContent='center' marginTop='10px' marginLeft='400px'>
           <Button type="submit" colorScheme="blue" size="md">
             Save
           </Button>
