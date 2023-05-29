@@ -53,6 +53,19 @@ const ShopProductListFilter = ({
           ))}
         </List>
       </Box>
+
+      <Box border="2px solid lightgray" borderRadius="md" width="100%" p={4}>
+        <Heading
+          fontSize="lg"
+          textAlign="center"
+          paddingBottom="2"
+          borderBottom="1px solid lightgray"
+        >
+          Sort
+        </Heading>
+
+        {/* <Selector field="Sort by" /> */}
+      </Box>
     </VStack>
   );
 };
