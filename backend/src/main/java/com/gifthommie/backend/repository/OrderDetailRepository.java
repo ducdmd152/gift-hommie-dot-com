@@ -10,6 +10,6 @@ import com.gifthommie.backend.entity.OrderDetail;
 
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer>{
 	
-	@Query("SELECT o FROM OrderDetail o WHERE o.productId = :product_id AND o.order.status != :status")
-	public List<OrderDetail> findOrderDetailByProductIdWithoutStatus(@Param("product_id") int productId, @Param("status") int status);
+	@Query("SELECT o FROM OrderDetail o WHERE o.productId = :productId")
+	public List<OrderDetail> getOrderDetailsByProductId(@Param("productId") Integer productId);
 }

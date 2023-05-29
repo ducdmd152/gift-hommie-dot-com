@@ -20,10 +20,9 @@ public class OrderDetail {
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	@JsonIgnore
-	private Order order;
+//	@ManyToOne
+//	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	private Integer orderId;
 	
 	@Column(name = "product_id")
 	private Integer productId;
@@ -42,12 +41,20 @@ public class OrderDetail {
 		this.id = id;
 	}
 
-	public Order getOrder() {
-		return order;
+//	public Order getOrder() {
+//		return order;
+//	}
+//
+//	public void setOrder(Order order) {
+//		this.order = order;
+//	}
+
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrder(Order orderId) {
-		this.order = orderId;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 	public Integer getProductId() {

@@ -14,8 +14,8 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	OrderDetailRepository orderDetailRepository;
 
 	@Override
-	public List<OrderDetail> getOrderDetailByProductIdWithoutStatus(int productId, int status) {
-		return orderDetailRepository.findOrderDetailByProductIdWithoutStatus(productId, status);
+	public List<OrderDetail> getOrderDetailsByProductId(int productId) {
+		return orderDetailRepository.getOrderDetailsByProductId(productId);
 	}
 
 }

@@ -1,21 +1,24 @@
 package com.gifthommie.backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthommie.backend.config.security.MyUserDetails;
 import com.gifthommie.backend.entity.Category;
-import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.entity.Order;
 import com.gifthommie.backend.repository.CategoryRepository;
+import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
 public class TestController {
 	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	OrderRepository orderRepository;
 	
 	@GetMapping("/public/test")
 	public String publicx() {
@@ -43,5 +46,10 @@ public class TestController {
 	@GetMapping("/public/test-login")
 	public String testLogin() {
 		return SecurityUtils.getPrincipal().getPassword();
+	}
+	
+	@GetMapping("public/test-order")
+	public Optional<Order> getOrder() {
+		return orderRepository.findOrderByOrderId(3);
 	}
 }

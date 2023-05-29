@@ -1,10 +1,8 @@
 package com.gifthommie.backend.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.entity.Cart;
+import com.gifthommie.backend.entity.Order;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Product;
 //import com.gifthommie.backend.entity.Cart;
@@ -25,6 +24,7 @@ import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.OrderDetailService;
+import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.ProductService;
 //import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.utils.SecurityUtils;
@@ -40,21 +40,28 @@ public class CustomerCartController {
 
 	@Autowired
 	OrderDetailService orderDetailService;
+	
+	@Autowired
+	OrderService orderService;
 
 	private final int DEFAULT_QUANTITY = 1;
-	private final int ORDER_CANCEL_STATUS = 0;
+	private final String ORDER_CANCEL_STATUS = "CANCEL";
 
 	private int getAvailableProductQuantity(int productId) {
 
-		List<OrderDetail> orderDetailList = orderDetailService.getOrderDetailByProductIdWithoutStatus(productId,
-				ORDER_CANCEL_STATUS);
+		List<OrderDetail> orderDetailList = orderDetailService.getOrderDetailsByProductId(productId);
 
-		int availableQuantity = 0;
+		int orderedProductQuantity = 0;
 
-		for (OrderDetail orderDetail : orderDetailList)
-			availableQuantity += orderDetail.getQuantity();
+//		if (orderDetailList != null)
+//			for (OrderDetail orderDetail : orderDetailList) {
+//				Order order = orderService.getOrderByOrderId(orderDetail.getOrderId());
+//
+//				if (order != null && !order.getStatus().equals(ORDER_CANCEL_STATUS))
+//					orderedProductQuantity += orderDetail.getQuantity();
+//			}
 
-		return availableQuantity - productService.getProductById(productId).getQuantity();
+		return productService.getProductById(productId).getQuantity() - orderedProductQuantity;
 	}
 
 	// http://localhost:8080/customer/cart
@@ -98,7 +105,6 @@ public class CustomerCartController {
 		// GET PRODUCT ID
 		Integer productId = cartInfo.getProductId();
 
-//		Integer quantity = cartInfo.getQuantity();
 		// GET EXIST CART
 		Cart existCart = cartService.getCartByEmailAndProductId(email, productId);
 
@@ -108,7 +114,7 @@ public class CustomerCartController {
 		if (existCart != null) {
 			// INCREASE one quantity
 			existCart.setQuantity(existCart.getQuantity() + 1);
-			
+
 			if (availableQuantity < existCart.getQuantity())
 				throw new RuntimeException("QUANTITY CANNOT MORE THAN AVAILABLE QUANTITY");
 
@@ -132,17 +138,25 @@ public class CustomerCartController {
 	public Cart editCartQuantity(@RequestBody CartRequestDTO cartDTO) {
 		// GET LOGIN EMAIL
 		String email = SecurityUtils.getPrincipal().getUser().getEmail();
-		// GET PRODUCT ID
-		int productId = cartDTO.getProductId();
+		// GET CART ID
+		int id = cartDTO.getId();
+
+		Cart cart = cartService.getCartByEmailAndCartId(email, id);
+
+		if (cart == null)
+			throw new RuntimeException("PRODUCT IS NOT EXIST IN CART");
+		
+		//GET PRODUCT ID
+		int productId = cart.getProduct().getId();
+		
 		int availableQuantity = getAvailableProductQuantity(productId);
-		
-		Cart cart = cartService.getCartByEmailAndCartId(email, productId);
-		// SET NEW QUANTITY FOR CART
+
+//		SET NEW QUANTITY FOR CART
 		cart.setQuantity(cartDTO.getQuantity());
-		
+
 		if (availableQuantity < cart.getQuantity())
 			throw new RuntimeException("QUANTITY CANNOT MORE THAN AVAILABLE QUANTITY");
-		
+
 		return cartService.save(cart);
 	}
 
