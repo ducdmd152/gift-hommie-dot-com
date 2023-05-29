@@ -10,6 +10,7 @@ import StaffPage from "./pages/staff/StaffPage";
 import UserDTO from "./type/UserDTO";
 import GuestPage from "./pages/guest/GuestPage";
 import ManagerPage from "./pages/manager/ManagerPage";
+import CustomerPage from "./pages/customer/CustomerPage";
 
 function App() {
   const [user, setUser] = useState<UserDTO | null>(null);
@@ -20,6 +21,10 @@ function App() {
 
   if (user == null) {
     return <GuestPage />;
+  }
+
+  if (user.authority == "ROLE_CUSTOMER") {
+    return <CustomerPage />;
   }
   if (user.authority == "ROLE_STAFF") {
     return <StaffPage />;

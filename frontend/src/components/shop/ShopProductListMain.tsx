@@ -26,6 +26,7 @@ const ShopProductListMain = ({
         onSearch={(text: string) => {
           setShopProductQuery({
             ...shopProductQuery,
+            page: 0,
             search: text,
           });
         }}

@@ -13,10 +13,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { BsFillCartPlusFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import utilService from "../../services/util-service";
 interface Props {
   product: ShopProductDTO;
 }
 const ShopProductListItem = ({ product }: Props) => {
+  const navigate = useNavigate();
   return (
     <Card className="cursor-pointer product-card">
       <Image height="160px" src={product.avatar} objectFit="cover" />
@@ -38,7 +41,15 @@ const ShopProductListItem = ({ product }: Props) => {
         </HStack>
         <HStack justifyContent="space-between" alignItems="top" spacing="2">
           <Heading fontSize="xl">{product.name}</Heading>
-          <Box width="22px" className="product-cart-icon">
+          <Box
+            width="22px"
+            className="product-cart-icon"
+            onClick={() => {
+              utilService.getCurrentUser()
+                ? navigate("/cart")
+                : navigate("/login");
+            }}
+          >
             <BsFillCartPlusFill size="22px" />
           </Box>
         </HStack>
