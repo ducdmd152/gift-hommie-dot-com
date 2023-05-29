@@ -19,10 +19,11 @@ const ShopProductListFilter = ({
           textAlign="center"
           paddingBottom="2"
           borderBottom="1px solid lightgray"
+          marginBottom="2"
         >
           Categories
         </Heading>
-        <List spacing="1" marginTop="2">
+        <List spacing="1">
           {CATEGORIES.map((category) => (
             <ListItem
               key={category.id}
@@ -60,11 +61,24 @@ const ShopProductListFilter = ({
           textAlign="center"
           paddingBottom="2"
           borderBottom="1px solid lightgray"
+          marginBottom="2"
         >
-          Sort
+          Sắp xếp
         </Heading>
 
-        {/* <Selector field="Sort by" /> */}
+        <Selector
+          field="Sắp xếp theo"
+          onSelect={(field) => {
+            setShopProductQuery({
+              ...shopProductQuery,
+              sort: field as string,
+            });
+          }}
+          choices={[
+            { id: "name", name: "Tên" },
+            { id: "price", name: "Giá" },
+          ]}
+        />
       </Box>
     </VStack>
   );
