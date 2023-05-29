@@ -24,6 +24,28 @@ const ShopProductListFilter = ({
           Categories
         </Heading>
         <List spacing="1">
+          <ListItem
+            key={0}
+            // paddingX="2"
+            // paddingY="1"
+            // border="1px solid lightgray"
+            // borderRadius="4"
+            className="cursor-pointer"
+            onClick={() => {
+              let id = 0;
+              if (isNaN(id)) {
+                id = 0;
+              }
+              setShopProductQuery({ ...shopProductQuery, category: id });
+            }}
+          >
+            <Button
+              variant={shopProductQuery.category ? "outline" : "solid"}
+              width="100%"
+            >
+              Tất cả
+            </Button>
+          </ListItem>
           {CATEGORIES.map((category) => (
             <ListItem
               key={category.id}
@@ -63,7 +85,7 @@ const ShopProductListFilter = ({
           borderBottom="1px solid lightgray"
           marginBottom="2"
         >
-          Sắp xếp
+          Sắp xếp theo
         </Heading>
 
         <Selector
