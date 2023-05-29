@@ -46,3 +46,8 @@
   scale: 1.4;
   color: teal;
 }
+
+.none-text-transform {
+  text-transform: unset !important;
+  /* text-decoration: lowercase !important; */
+}
