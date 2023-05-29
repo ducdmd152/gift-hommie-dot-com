@@ -1,16 +1,5 @@
 import {
-  Box,
-  Button,
-  Heading,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
+  Box,Button,Heading,Table,TableCaption,TableContainer,Tbody,Td,Tfoot,Th,Thead,Tr,
 } from "@chakra-ui/react";
 import React from "react";
 import useFetchManagerStaff, {

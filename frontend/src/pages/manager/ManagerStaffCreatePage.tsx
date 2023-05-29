@@ -6,6 +6,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 
+
 const ManagerStaffCreatePage = () => {
   return (
     <>
@@ -42,6 +43,17 @@ const ManagerStaffCreatePage = () => {
           <VStack mt={6} p="4">
             <Flex width="100%" gap="8">
               <VStack spacing="8" flex="1">
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    UserName
+                  </FormLabel>
+                  <Input
+                    //{...register("name", { required: true, minLength: 3 })}
+                    color="black"
+                    placeholder="UserName..."
+                    fontWeight="bold"
+                  />
+                </FormControl>
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     FirstName
@@ -82,7 +94,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Ngày Sinh
+                    Năm Sinh
                   </FormLabel>
                   <Input
                     // {...register("quantity", {
@@ -92,7 +104,7 @@ const ManagerStaffCreatePage = () => {
                     color="black"
                     type="number"
                     min={0}
-                    placeholder="Ngày sinh..."
+                    placeholder="Năm sinh..."
                     fontWeight="bold"
                   />
                 </FormControl>
