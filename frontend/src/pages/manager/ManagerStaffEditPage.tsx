@@ -107,7 +107,6 @@ const ManagerStaffEditPage = () => {
           </HStack>
         </FormControl>
       </VStack>
-
       <HStack justifyContent='center' marginTop='10px'>
         <Button type="submit" colorScheme="blue" size="md">
           Save
