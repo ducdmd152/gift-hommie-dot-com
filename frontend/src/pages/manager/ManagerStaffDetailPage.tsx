@@ -44,7 +44,7 @@ const ManagerStaffDetailPage = () => {
           <VStack >
             <FormControl maxW="600px">
               <HStack >
-                <FormLabel size="md" fontWeight="bold">
+                <FormLabel size="md" fontWeight="bold" marginRight='100px'>
                   FullName
                 </FormLabel>
                 <Input
@@ -58,7 +58,7 @@ const ManagerStaffDetailPage = () => {
 
             <FormControl maxW="600px">
               <HStack>
-                <FormLabel size="md" fontWeight="bold">
+                <FormLabel size="md" fontWeight="bold" marginRight='90px'>
                   UserName
                 </FormLabel>
                 <Input
@@ -72,7 +72,7 @@ const ManagerStaffDetailPage = () => {
 
             <FormControl maxW="600px">
               <HStack>
-                <FormLabel size="md" fontWeight="bold">
+                <FormLabel size="md" fontWeight="bold" marginRight='130px'>
                   Email
                 </FormLabel>
                 <Input
@@ -85,7 +85,7 @@ const ManagerStaffDetailPage = () => {
             </FormControl>
             <FormControl maxW="600px">
               <HStack>
-                <FormLabel size="md" fontWeight="bold">
+                <FormLabel size="md" fontWeight="bold" marginRight='123px'>
                   Phone
                 </FormLabel>
                 <Input
@@ -110,7 +110,7 @@ const ManagerStaffDetailPage = () => {
         </FormControl> */}
             <FormControl maxW="600px" >
               <HStack>
-                <FormLabel size="md" fontWeight="bold">
+                <FormLabel size="md" fontWeight="bold" marginRight='120px'>
                   Birth Year
                 </FormLabel>
                 <Input
@@ -123,7 +123,7 @@ const ManagerStaffDetailPage = () => {
             </FormControl>
           </VStack>
 
-          <HStack justifyContent='center' marginTop='10px'>
+          <HStack justifyContent='center' marginLeft='400px' marginTop='10px'>
             <Link to={"/staff/edit"}>
               <Button colorScheme="blue" size="md">
                 Chỉnh sửa
