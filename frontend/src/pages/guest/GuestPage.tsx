@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import { Link, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import GuestShopPage from "./GuestShopPage";
+import CustomerPage from "../customer/CustomerPage";
 
 const GuestPage = () => {
   return (
@@ -30,7 +31,7 @@ const GuestPage = () => {
         <Routes>
           <Route index element={<GuestShopPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/shop" element={<GuestShopPage />} />
+          <Route path="/shop" element={<CustomerPage />} />
         </Routes>
       </GridItem>
     </Grid>

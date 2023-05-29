@@ -35,6 +35,24 @@ const ROLE_NAV_LINKS: tplotOptions = {
       link: "/statistics",
     },
   ],
+  ROLE_CUSTOMER: [
+    {
+      label: "Trang chủ",
+      link: "/",
+    },
+    {
+      label: "Cửa hàng",
+      link: "/shop",
+    },
+    {
+      label: "Đơn mua",
+      link: "/order",
+    },
+    {
+      label: "Tài khoản",
+      link: "/account",
+    },
+  ],
   GUEST: [
     {
       label: "Trang chủ",

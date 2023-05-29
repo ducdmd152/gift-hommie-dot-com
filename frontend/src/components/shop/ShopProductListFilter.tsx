@@ -36,7 +36,12 @@ const ShopProductListFilter = ({
               if (isNaN(id)) {
                 id = 0;
               }
-              setShopProductQuery({ ...shopProductQuery, category: id });
+              setShopProductQuery({
+                ...shopProductQuery,
+                page: 0,
+                search: "",
+                category: id,
+              });
             }}
           >
             <Button
@@ -56,12 +61,17 @@ const ShopProductListFilter = ({
               className="cursor-pointer"
               onClick={() => {
                 let id = category.id;
-                console.log(id);
+                // console.log(id);page: 0,
 
                 if (isNaN(id)) {
                   id = 0;
                 }
-                setShopProductQuery({ ...shopProductQuery, category: id });
+                setShopProductQuery({
+                  ...shopProductQuery,
+                  page: 0,
+                  search: "",
+                  category: id,
+                });
               }}
             >
               <Button

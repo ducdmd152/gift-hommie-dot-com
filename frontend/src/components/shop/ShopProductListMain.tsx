@@ -23,9 +23,11 @@ const ShopProductListMain = ({
   return (
     <Box p="4" ml={2} mb={24}>
       <SearchInput
+        defaultText={shopProductQuery.search}
         onSearch={(text: string) => {
           setShopProductQuery({
             ...shopProductQuery,
+            page: 0,
             search: text,
           });
         }}
