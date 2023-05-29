@@ -23,11 +23,8 @@ const ManagerStaffCreatePage = () => {
               </Badge>
               <HStack>
                 <Heading size="lg" colorScheme="gray">
-                  {"Create new staff"}
+                  {"Tạo mới nhân viên"}
                 </Heading>
-                <Badge colorScheme="blue" fontSize="md">
-                  CREATE
-                </Badge>
               </HStack>
             </VStack>
 
@@ -71,7 +68,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Phone
+                    Số điện thoại
                   </FormLabel>
                   <Input
                     // {...register("price", { required: true, min: 1000 })}
@@ -85,7 +82,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Yob
+                    Ngày Sinh
                   </FormLabel>
                   <Input
                     // {...register("quantity", {
@@ -115,7 +112,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Address
+                    Địa chỉ
                   </FormLabel>
                   <Input
                     // {...register("name", { required: true, minLength: 3 })}
