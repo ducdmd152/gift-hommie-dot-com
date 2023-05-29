@@ -22,7 +22,7 @@ public interface UserService {
 	public User updateUserProfile(User user);
 	
 	//note: Overloading funtion updateUserProfile to get value from RequestBody by UserProfileDTO
-	public User updateUserProfile(UserProfileDTO user);
+	public User updateUserProfileDTO(UserProfileDTO user);
 	
 	public User createUser(User user);
 }

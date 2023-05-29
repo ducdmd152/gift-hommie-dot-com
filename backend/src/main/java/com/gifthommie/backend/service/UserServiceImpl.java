@@ -9,12 +9,15 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.UserProfileDTO;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.UserRepository;
+import com.gifthommie.backend.utils.SecurityUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
 
+	final String DEFAULT_PASSWORD = "$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG";
+	
 	// getPageableUsers by role
 	@Override
 	public APIPageableResponseDTO<User> getPageableUsers(int pageNo, int pageSize, Integer roleId) {
@@ -83,13 +86,21 @@ public class UserServiceImpl implements UserService {
 
 	// updateUserProfile : get value from RequestBody by UserProfileDTO
 	@Override
-	public User updateUserProfile(UserProfileDTO user) {
+	public User updateUserProfileDTO(UserProfileDTO userDTO) {
+		User user = SecurityUtils.getPrincipal().getUser();
+		user.setUsername(userDTO.getUsername());
+		user.setPassword(DEFAULT_PASSWORD);
+		user.setFirstName(userDTO.getFirstName());
+		user.setLastName(userDTO.getLastName());
+		user.setPhone(userDTO.getPhone());
+		user.setYob(userDTO.getYob());
+		user.setAvatar(userDTO.getAvatar());
+		user.setAddress(userDTO.getAddress());
+		user.setWardId(userDTO.getWardId());
 		
+		userRepository.save(user);
 		
-		
-		
-		
-		return null;
+		return user;
 	}
 
 	
