@@ -6,6 +6,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 
+
 const ManagerStaffCreatePage = () => {
   return (
     <>
@@ -23,11 +24,8 @@ const ManagerStaffCreatePage = () => {
               </Badge>
               <HStack>
                 <Heading size="lg" colorScheme="gray">
-                  {"Create new staff"}
+                  {"Tạo mới nhân viên"}
                 </Heading>
-                <Badge colorScheme="blue" fontSize="md">
-                  CREATE
-                </Badge>
               </HStack>
             </VStack>
 
@@ -45,6 +43,17 @@ const ManagerStaffCreatePage = () => {
           <VStack mt={6} p="4">
             <Flex width="100%" gap="8">
               <VStack spacing="8" flex="1">
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    UserName
+                  </FormLabel>
+                  <Input
+                    //{...register("name", { required: true, minLength: 3 })}
+                    color="black"
+                    placeholder="UserName..."
+                    fontWeight="bold"
+                  />
+                </FormControl>
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     FirstName
@@ -71,7 +80,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Phone
+                    Số điện thoại
                   </FormLabel>
                   <Input
                     // {...register("price", { required: true, min: 1000 })}
@@ -85,7 +94,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Yob
+                    Năm Sinh
                   </FormLabel>
                   <Input
                     // {...register("quantity", {
@@ -95,7 +104,7 @@ const ManagerStaffCreatePage = () => {
                     color="black"
                     type="number"
                     min={0}
-                    placeholder="Ngày sinh..."
+                    placeholder="Năm sinh..."
                     fontWeight="bold"
                   />
                 </FormControl>
@@ -115,7 +124,7 @@ const ManagerStaffCreatePage = () => {
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
-                    Address
+                    Địa chỉ
                   </FormLabel>
                   <Input
                     // {...register("name", { required: true, minLength: 3 })}
