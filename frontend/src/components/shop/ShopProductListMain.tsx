@@ -18,7 +18,7 @@ const ShopProductListMain = ({
 }: Props) => {
   const { products, pageable, isLoading, error } =
     useFetchShopProduct(shopProductQuery);
-  console.log(products);
+  // console.log(products);
 
   return (
     <Box p="4" ml={2} mb={24}>

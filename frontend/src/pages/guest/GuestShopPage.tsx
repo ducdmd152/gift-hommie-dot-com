@@ -30,7 +30,10 @@ const GuestShopPage = () => {
       >
         {/* <Show above="sm"> */}
         <GridItem area="aside-left" className="aside-left">
-          <ShopProductListFilter />
+          <ShopProductListFilter
+            shopProductQuery={shopProductQuery}
+            setShopProductQuery={setShopProductQuery}
+          />
         </GridItem>
         {/* </Show> */}
         <GridItem area="main" className="main">
