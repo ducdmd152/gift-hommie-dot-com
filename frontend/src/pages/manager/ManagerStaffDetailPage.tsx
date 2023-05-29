@@ -29,7 +29,7 @@ const ManagerStaffDetailPage = () => {
                   />{' '}
                 </WrapItem>
                 <Heading size="sm" textAlign="center" marginBottom="4">
-                  @UseName
+                  @UserName
                 </Heading>
               </Box>
             </Wrap>
