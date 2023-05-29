@@ -22,81 +22,86 @@ const ManagerStaffEditPage = () => {
         </Heading>
       </VStack>
 
+      <VStack alignItems='center'>
+        <FormControl maxW="450px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              FullName
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
 
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          FullName
-        </FormLabel>
-        <Input
-          maxW="450px"
-          color="gray"
-          // value={product.name}
-          fontWeight="bold"
-        />
-      </FormControl>
+        <FormControl maxW="450px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              UserName
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
 
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          UserName
-        </FormLabel>
-        <Input
-          maxW="450px"
-          color="gray"
-          // value={product.name}
-          fontWeight="bold"
-        />
-      </FormControl>
+        <FormControl maxW="450px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Email
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        <FormControl maxW="450px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Phone
+            </FormLabel>
+            <NumberInput
+              // value={product.price} 
+              color="gray"
+              fontWeight="bold"
+            >
+              <NumberInputField />
+            </NumberInput>
+          </HStack>
+        </FormControl>
+        {/* <FormControl>
+          <FormLabel size="md" fontWeight="bold">
+            Gender
+          </FormLabel>
+          <RadioGroup >
+            <Stack direction='row'>
+              <Radio value='1'>Male</Radio>
+              <Radio value='2'>Female</Radio>
+              <Radio value='3'>Other</Radio>
+            </Stack>
+          </RadioGroup>
+        </FormControl> */}
+        <FormControl maxW="450px" >
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Birth Year
+            </FormLabel>
+            <Input
+              placeholder="YYYY"
 
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          Email
-        </FormLabel>
-        <Input
-          maxW="450px"
-          color="gray"
-          // value={product.name}
-          fontWeight="bold"
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          Phone
-        </FormLabel>
-        <NumberInput
-          // value={product.price}
-          maxW="450px"
-          color="gray"
-          min={0}
-        >
-          <NumberInputField />
-        </NumberInput>
-      </FormControl>
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          Gender
-        </FormLabel>
-        <RadioGroup >
-          <Stack direction='row'>
-            <Radio value='1'>Male</Radio>
-            <Radio value='2'>Female</Radio>
-            <Radio value='3'>Other</Radio>
-          </Stack>
-        </RadioGroup>
-      </FormControl>
-      <FormControl>
-        <FormLabel size="md" fontWeight="bold">
-          Birth Year
-        </FormLabel>
-        <Input
-          placeholder="YYYY"
-          maxW="450px"
-          color="gray"
-          // value={product.name}
-          fontWeight="bold"
-        />
-      </FormControl>
-
-
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+      </VStack>
 
       <HStack justifyContent='center' marginTop='10px'>
         <Button type="submit" colorScheme="blue" size="md">
