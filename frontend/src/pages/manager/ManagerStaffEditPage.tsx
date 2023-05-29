@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText,
+  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, Wrap, Avatar, WrapItem,
   FormLabel, HStack, Heading, Input, NumberInput, NumberInputField,
   Select, Textarea, VStack, Image, Flex, Link, Center, RadioGroup, Stack, Radio
 } from "@chakra-ui/react";
@@ -9,22 +9,29 @@ const ManagerStaffEditPage = () => {
   return (
     <Box border="1px lightgray solid">
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
-        <Box>
-          <Image
-            borderRadius="8px"
-            boxSize="120px"
-            objectFit="cover"
-          // src={productAvatarURL}
-          />
-        </Box>
-        <Heading size="sm" textAlign="center" marginBottom="4">
-          @UseName
-        </Heading>
+        <Wrap>
+          <Box>
+            {/* <Image
+              borderRadius="8px"
+              boxSize="120px"
+              objectFit="cover"
+            // src={productAvatarURL}
+            /> */}
+            <WrapItem>
+              <Avatar size='xl' name='' src=''
+                border="1px lightgray solid"
+              />{' '}
+            </WrapItem>
+            <Heading size="sm" textAlign="center" marginBottom="4">
+              @UseName
+            </Heading>
+          </Box>
+        </Wrap>
       </VStack>
 
-      <VStack alignItems='center'>
-        <FormControl maxW="450px">
-          <HStack>
+      <VStack >
+        <FormControl maxW="600px">
+          <HStack >
             <FormLabel size="md" fontWeight="bold">
               FullName
             </FormLabel>
@@ -36,7 +43,7 @@ const ManagerStaffEditPage = () => {
           </HStack>
         </FormControl>
 
-        <FormControl maxW="450px">
+        <FormControl maxW="600px">
           <HStack>
             <FormLabel size="md" fontWeight="bold">
               UserName
@@ -49,7 +56,7 @@ const ManagerStaffEditPage = () => {
           </HStack>
         </FormControl>
 
-        <FormControl maxW="450px">
+        <FormControl maxW="600px">
           <HStack>
             <FormLabel size="md" fontWeight="bold">
               Email
@@ -61,18 +68,16 @@ const ManagerStaffEditPage = () => {
             />
           </HStack>
         </FormControl>
-        <FormControl maxW="450px">
+        <FormControl maxW="600px">
           <HStack>
             <FormLabel size="md" fontWeight="bold">
               Phone
             </FormLabel>
-            <NumberInput
-              // value={product.price} 
+            <Input
               color="gray"
+              // value={product.name}
               fontWeight="bold"
-            >
-              <NumberInputField />
-            </NumberInput>
+            />
           </HStack>
         </FormControl>
         {/* <FormControl>
@@ -87,14 +92,13 @@ const ManagerStaffEditPage = () => {
             </Stack>
           </RadioGroup>
         </FormControl> */}
-        <FormControl maxW="450px" >
+        <FormControl maxW="600px" >
           <HStack>
             <FormLabel size="md" fontWeight="bold">
               Birth Year
             </FormLabel>
             <Input
               placeholder="YYYY"
-
               color="gray"
               // value={product.name}
               fontWeight="bold"
