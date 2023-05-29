@@ -23,10 +23,10 @@ const CATEGORIES = [
     id: 3,
     name: "Đồng Hồ",
   },
-  {
-    id: 7,
-    name: "Khác",
-  },
+  // {
+  //   id: 7,
+  //   name: "Khác",
+  // },
 ];
 export default CATEGORIES;
 

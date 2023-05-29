@@ -41,7 +41,12 @@ const ShopProductListFilter = ({
                 setShopProductQuery({ ...shopProductQuery, category: id });
               }}
             >
-              <Button variant="outline" width="100%">
+              <Button
+                variant={
+                  category.id == shopProductQuery.category ? "solid" : "outline"
+                }
+                width="100%"
+              >
                 {category.name}
               </Button>
             </ListItem>
