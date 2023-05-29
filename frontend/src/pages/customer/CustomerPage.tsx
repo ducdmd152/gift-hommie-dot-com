@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../../components/header/Header";
 import { Route, Routes } from "react-router-dom";
 import utilService from "../../services/util-service";
-import CustomerProductListPage from "./CustomerProductListPage";
+import CustomerShopPage from "./CustomerShopPage";
 import CustomerCartPage from "./CustomerCartPage";
 
 const CustomerPage = () => {
@@ -29,8 +29,8 @@ const CustomerPage = () => {
 
       <GridItem area="main" mt={utilService.HEADER_HEIGHT}>
         <Routes>
-          <Route index element={<CustomerProductListPage />} />
-          <Route path="/shop" element={<CustomerProductListPage />} />
+          <Route index element={<CustomerShopPage />} />
+          <Route path="/shop" element={<CustomerShopPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
         </Routes>
       </GridItem>

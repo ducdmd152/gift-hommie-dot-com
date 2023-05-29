@@ -39,6 +39,7 @@ const ShopProductListFilter = ({
               setShopProductQuery({
                 ...shopProductQuery,
                 page: 0,
+                search: "",
                 category: id,
               });
             }}
@@ -68,6 +69,7 @@ const ShopProductListFilter = ({
                 setShopProductQuery({
                   ...shopProductQuery,
                   page: 0,
+                  search: "",
                   category: id,
                 });
               }}

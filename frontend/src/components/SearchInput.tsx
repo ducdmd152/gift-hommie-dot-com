@@ -4,9 +4,10 @@ import { BsSearch } from "react-icons/bs";
 
 interface Props {
   onSearch: (searchText: string) => void;
+  defaultText?: string;
 }
 
-const SearchInput = ({ onSearch }: Props) => {
+const SearchInput = ({ onSearch, defaultText }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <form
@@ -23,6 +24,7 @@ const SearchInput = ({ onSearch }: Props) => {
           fontStyle={"italic"}
           size="md"
           letterSpacing={1}
+          value={defaultText}
         />
       </InputGroup>
     </form>
