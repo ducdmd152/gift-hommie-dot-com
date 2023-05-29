@@ -12,12 +12,6 @@ const ManagerStaffEditPage = () => {
         <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
           <Wrap>
             <Box>
-              {/* <Image
-              borderRadius="8px"
-              boxSize="120px"
-              objectFit="cover"
-            // src={productAvatarURL}
-            /> */}
               <WrapItem>
                 <Avatar size='xl' name='' src=''
                   border="1px lightgray solid"
