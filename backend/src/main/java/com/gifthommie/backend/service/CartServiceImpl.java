@@ -27,7 +27,6 @@ public class CartServiceImpl implements CartService{
 	public Cart save(Cart cart) {
 		//SET LOCALTIME
 		cart.setLastTimeUpdate(LocalDateTime.now());
-	
 		return cartRepository.save(cart);
 	}
 	
@@ -40,6 +39,12 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public Cart getCartByEmailAndCartId(String emai, int cartId) {
 		return cartRepository.findCartByEmailAndCartId(emai, cartId);
+	}
+
+	@Override
+	public boolean deleteCart(String email, int cartId) {
+		cartRepository.deleteById(cartId);
+		return true;
 	}
 
 	
