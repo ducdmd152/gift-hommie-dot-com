@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel,
+  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
   HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea,
   VStack, Image, Flex,
 } from "@chakra-ui/react";
@@ -12,158 +12,121 @@ import staffProductService from "../../services/staff-product-service";
 
 const ManagerStaffDetailPage = () => {
   return (
-    <>
-      <Link to="/staff">
-        <Button colorScheme="teal" size="sm" ml="12">
-          {"<< Danh sách nhân viên"}
-        </Button>
-      </Link>
 
-      <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
-        <HStack justifyContent="space-between">
-          <VStack alignItems="start">
-            <Badge variant="outline" display="inline-block">
-              {"id >> 1"}
-            </Badge>
-            <HStack>
-              <Heading size="lg" colorScheme="gray">
-                { }
-              </Heading>
-              <Badge colorScheme="green" fontSize="md">
-                View
-              </Badge>
-            </HStack>
-          </VStack>
+    <Box border="1px lightgray solid">
+      <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+        <Wrap>
+          <Box>
+            {/* <Image
+              borderRadius="8px"
+              boxSize="120px"
+              objectFit="cover"
+            // src={productAvatarURL}
+            /> */}
+            <WrapItem>
+              <Avatar size='xl' name='' src=''
+                border="1px lightgray solid"
+              />{' '}
+            </WrapItem>
+            <Heading size="sm" textAlign="center" marginBottom="4">
+              @UseName
+            </Heading>
+          </Box>
+        </Wrap>
+      </VStack>
 
-          <HStack>
-            <Link to={"/staff/edit"}>
-              <Button colorScheme="blue" size="md">
-                Chỉnh sửa
-              </Button>
-            </Link>
-            <Button
-              colorScheme="red"
-              size="md"
-            >
-              Xóa
-            </Button>
+      <VStack >
+        <FormControl maxW="600px">
+          <HStack >
+            <FormLabel size="md" fontWeight="bold">
+              FullName
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
           </HStack>
-        </HStack>
-        <VStack mt={6} p="4">
-          <Flex width="100%" gap="8">
-            <VStack spacing="8" flex="1">
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  UserName
-                </FormLabel>
-                <Input
-                  // value={}
-                  isDisabled
-                  color="gray"
-                  fontWeight="bold"
-                />
-              </FormControl>
+        </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  FullName
-                </FormLabel>
-                <Input
-                  isReadOnly
-                  color="gray"
-                  // value={ }
-                  fontWeight="bold"
-                />
-              </FormControl>
+        <FormControl maxW="600px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              UserName
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Phone
-                </FormLabel>
-                <NumberInput
-                  // value={ }
-                  isReadOnly
-                  color="gray"
-                  min={1000}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
+        <FormControl maxW="600px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Email
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        <FormControl maxW="600px">
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Phone
+            </FormLabel>
+            <Input
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        {/* <FormControl>
+          <FormLabel size="md" fontWeight="bold">
+            Gender
+          </FormLabel>
+          <RadioGroup >
+            <Stack direction='row'>
+              <Radio value='1'>Male</Radio>
+              <Radio value='2'>Female</Radio>
+              <Radio value='3'>Other</Radio>
+            </Stack>
+          </RadioGroup>
+        </FormControl> */}
+        <FormControl maxW="600px" >
+          <HStack>
+            <FormLabel size="md" fontWeight="bold">
+              Birth Year
+            </FormLabel>
+            <Input
+              placeholder="YYYY"
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+      </VStack>
 
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Yob
-                </FormLabel>
-                <NumberInput
-                  // value={ }
-                  isReadOnly
-                  color="gray"
-                  min={0}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Email
-                </FormLabel>
-                <NumberInput
-                  // value={ }
-                  isReadOnly
-                  color="gray"
-                  min={0}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Address
-                </FormLabel>
-                <NumberInput
-                  // value={ }
-                  isReadOnly
-                  color="gray"
-                  min={0}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
-            </VStack>
-
-            <VStack flex="1" h="100%" px="8" spacing="8">
-              <Box>
-                <Image
-                  borderRadius="8px"
-                  boxSize="240px"
-                  objectFit="cover"
-                // src={productAvatarURL}
-                />
-              </Box>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  IMAGE URL
-                </FormLabel>
-                <Input
-                  // {...register("avatar", {
-                  //   // required: true,
-                  // })}
-                  color="black"
-                  // value={productAvatarURL}
-                  // onChange={(event) => {
-                  //   setProductAvatarURL(event.target.value);
-                  // }}
-                  fontWeight="bold"
-                />
-              </FormControl>
-            </VStack>
-          </Flex>
-        </VStack>
-      </Card>
-    </>
+      <HStack justifyContent='center' marginTop='10px'>
+        <Link to={"/staff/edit"}>
+          <Button colorScheme="blue" size="md">
+            Chỉnh sửa
+          </Button>
+        </Link>
+        <Button
+          colorScheme="red"
+          size="md"
+        >
+          Xóa
+        </Button>
+      </HStack>
+    </Box>
   );
 
 
