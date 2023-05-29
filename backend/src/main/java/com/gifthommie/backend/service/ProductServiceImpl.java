@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	CategoryRepository categoryRepository;
 	
+	// getPageableProducts
 	@Override
 	public APIPageableResponseDTO<Product> getPageableProducts(int pageNo, int pageSize) {
 		Page<Product> page = productRepository.findAllByStatus(
@@ -34,6 +35,8 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
+	
+	// searchProductsByName
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
 		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
@@ -41,6 +44,8 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 	
+	
+	// searchProductsByNameInCategory
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
 			String search, Integer category, String sortField) {
@@ -50,12 +55,16 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
+	
+	// save product
 	@Override
 	public Product save(Product product) {
 		Product result = productRepository.save(product);
 		return result;
 	}
 
+	
+	// checkExist product by id
 	@Override
 	public boolean checkExist(int productId) {
 		if(productRepository.existsById(productId))
@@ -63,6 +72,8 @@ public class ProductServiceImpl implements ProductService {
 		return false;
 	}
 
+	
+	// delete product by id
 	@Override
 	public boolean delete(int productId) {
 		if(checkExist(productId) == false)
@@ -71,6 +82,8 @@ public class ProductServiceImpl implements ProductService {
 		return true;
 	}
 
+	
+	// getProductById
 	@Override
 	public Product getProductById(int productId) {
 		Optional<Product> result = productRepository.findById(productId);
@@ -81,6 +94,8 @@ public class ProductServiceImpl implements ProductService {
 		return null;
 	}
 
+	
+	// Update product by id
 	@Override
 	public Product update(int productId, ProductRequestDTO productRequestDTO) {
 		if(productRepository.existsById(productId) == false) {
@@ -100,6 +115,8 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+	
+	// remove product by id (disable status)
 	@Override
 	public boolean remove(int productId) {
 		if(checkExist(productId) == false)
@@ -110,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 		return true;
 	}
 
-	
+	// createNewProduct
 	@Override
 	public Product createNewProductFrom(ProductRequestDTO productRequestDTO) {
 		Product product = new Product();

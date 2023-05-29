@@ -1,6 +1,7 @@
 package com.gifthommie.backend.service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.UserProfileDTO;
 import com.gifthommie.backend.entity.User;
 
 public interface UserService {
@@ -17,7 +18,11 @@ public interface UserService {
 	
 	public boolean setEnabledUserByEmail(String email, boolean enabled);
 	
+	// Hàm này đã có lớp khác sử dụng 
 	public User updateUserProfile(User user);
+	
+	//note: Overloading funtion updateUserProfile to get value from RequestBody by UserProfileDTO
+	public User updateUserProfileDTO(UserProfileDTO user);
 	
 	public User createUser(User user);
 }
