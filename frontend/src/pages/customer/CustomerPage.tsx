@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import utilService from "../../services/util-service";
 import CustomerShopPage from "./CustomerShopPage";
 import CustomerCartPage from "./CustomerCartPage";
+import CustomerShopDetailPage from "./CustomerShopDetailPage";
 
 const CustomerPage = () => {
   return (
@@ -31,6 +32,7 @@ const CustomerPage = () => {
         <Routes>
           <Route index element={<CustomerShopPage />} />
           <Route path="/shop" element={<CustomerShopPage />} />
+          <Route path="/shop/detail" element={<CustomerShopDetailPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
         </Routes>
       </GridItem>

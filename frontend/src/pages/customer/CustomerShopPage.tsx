@@ -11,7 +11,7 @@ const CustomerShopPage = () => {
   );
   return (
     <Grid
-      marginTop={utilService.HEADER_HEIGHT}
+      // marginTop={utilService.HEADER_HEIGHT}
       templateAreas={{
         base: `"aside-left main"`,
         // sm: `"header header" "aside-left main"`,
