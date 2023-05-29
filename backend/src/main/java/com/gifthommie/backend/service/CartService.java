@@ -13,6 +13,8 @@ public interface CartService {
 	
 	public Cart getCartByEmailAndCartId(String emai, int cartId);
 	
+	public Cart refresh(Cart cart);
+	
 	public Cart save(Cart cart);
 	
 	boolean deleteCart(String email, int cartId);

@@ -1,11 +1,11 @@
 package com.gifthommie.backend.service;
 
-import java.util.Optional;
+import java.util.List;
 
-import com.gifthommie.backend.entity.Order;
+import com.gifthommie.backend.entity.Orders;
 
 public interface OrderService {
 	
-	public Optional<Order> getOrderByOrderId(Integer orderId);
+	public Orders getOrderByOrderId(Integer orderId);
 	
 }

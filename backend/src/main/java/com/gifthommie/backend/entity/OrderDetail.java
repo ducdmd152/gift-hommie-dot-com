@@ -20,8 +20,7 @@ public class OrderDetail {
 	@Column(name = "id")
 	private Integer id;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@Column(name = "order_id")
 	private Integer orderId;
 	
 	@Column(name = "product_id")

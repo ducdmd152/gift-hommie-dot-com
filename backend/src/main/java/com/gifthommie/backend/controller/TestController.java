@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.entity.Category;
-import com.gifthommie.backend.entity.Order;
+import com.gifthommie.backend.entity.OrderDetail;
+import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.utils.SecurityUtils;
@@ -49,7 +50,7 @@ public class TestController {
 	}
 	
 	@GetMapping("public/test-order")
-	public Optional<Order> getOrder() {
+	public Orders getOrder() {
 		return orderRepository.findOrderByOrderId(3);
 	}
 }

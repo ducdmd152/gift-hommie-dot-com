@@ -1,17 +1,23 @@
 package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,6 +27,11 @@ public class Order {
 	
 	@Column(name = "payment_id")
 	private Integer paymentId;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@JsonIgnore
+	private List<OrderDetail> orderDetails;
 	
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
@@ -70,6 +81,14 @@ public class Order {
 
 	public Integer getPaymentId() {
 		return paymentId;
+	}
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	public void setPaymentId(Integer paymentId) {
@@ -156,5 +175,11 @@ public class Order {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
+				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone
+				+ ", address=" + address + ", wardId=" + wardId + ", message=" + message + ", status=" + status
+				+ ", statusComment=" + statusComment + ", lastUpdatedTime=" + lastUpdatedTime + "]";
+	}
 }

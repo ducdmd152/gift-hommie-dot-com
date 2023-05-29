@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.entity.Cart;
-import com.gifthommie.backend.entity.Order;
+import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Product;
 //import com.gifthommie.backend.entity.Cart;
@@ -37,32 +37,12 @@ public class CustomerCartController {
 
 	@Autowired
 	ProductService productService;
-
-	@Autowired
-	OrderDetailService orderDetailService;
 	
 	@Autowired
 	OrderService orderService;
 
 	private final int DEFAULT_QUANTITY = 1;
 	private final String ORDER_CANCEL_STATUS = "CANCEL";
-
-	private int getAvailableProductQuantity(int productId) {
-
-		List<OrderDetail> orderDetailList = orderDetailService.getOrderDetailsByProductId(productId);
-
-		int orderedProductQuantity = 0;
-
-//		if (orderDetailList != null)
-//			for (OrderDetail orderDetail : orderDetailList) {
-//				Order order = orderService.getOrderByOrderId(orderDetail.getOrderId());
-//
-//				if (order != null && !order.getStatus().equals(ORDER_CANCEL_STATUS))
-//					orderedProductQuantity += orderDetail.getQuantity();
-//			}
-
-		return productService.getProductById(productId).getQuantity() - orderedProductQuantity;
-	}
 
 	// http://localhost:8080/customer/cart
 	@GetMapping
@@ -108,15 +88,10 @@ public class CustomerCartController {
 		// GET EXIST CART
 		Cart existCart = cartService.getCartByEmailAndProductId(email, productId);
 
-		int availableQuantity = getAvailableProductQuantity(productId);
-
 		// PRODUCT IS EXIST
 		if (existCart != null) {
 			// INCREASE one quantity
 			existCart.setQuantity(existCart.getQuantity() + 1);
-
-			if (availableQuantity < existCart.getQuantity())
-				throw new RuntimeException("QUANTITY CANNOT MORE THAN AVAILABLE QUANTITY");
 
 			return cartService.save(existCart);
 		}
@@ -127,9 +102,6 @@ public class CustomerCartController {
 		existCart.setQuantity(DEFAULT_QUANTITY);
 		existCart.setProduct(product);
 		existCart.setEmail(email);
-
-		if (availableQuantity < existCart.getQuantity())
-			throw new RuntimeException("QUANTITY CANNOT MORE THAN AVAILABLE QUANTITY");
 
 		return cartService.save(existCart);
 	}
@@ -149,13 +121,8 @@ public class CustomerCartController {
 		//GET PRODUCT ID
 		int productId = cart.getProduct().getId();
 		
-		int availableQuantity = getAvailableProductQuantity(productId);
-
 //		SET NEW QUANTITY FOR CART
 		cart.setQuantity(cartDTO.getQuantity());
-
-		if (availableQuantity < cart.getQuantity())
-			throw new RuntimeException("QUANTITY CANNOT MORE THAN AVAILABLE QUANTITY");
 
 		return cartService.save(cart);
 	}
