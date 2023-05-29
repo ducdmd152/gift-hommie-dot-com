@@ -27,7 +27,7 @@ public class CustomerAccountController {
 	 * Data Example: update UserDATA
 	 * 
 	 {
-           	"username": "Tôi là Thượng Đế",
+           	"username": "customer",
             "firstName": "Khách Hàng là",
             "lastName": "Thượng Đế",
             "phone": "0123456789",
