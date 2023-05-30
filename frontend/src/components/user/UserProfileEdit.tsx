@@ -116,10 +116,10 @@ const UserProfileEdit = () => {
           </FormControl>
 
         </VStack>
-        <FormControl maxW="400px" >
-          <HStack marginTop='20'>
+        <FormControl maxW="400px">
+          <HStack marginTop='20' >
             <FormLabel size="md" fontWeight="bold" marginLeft='60px' marginRight='130px'>
-              Birth Year
+              Birth Year 
             </FormLabel>
             <Input
               placeholder="YYYY"

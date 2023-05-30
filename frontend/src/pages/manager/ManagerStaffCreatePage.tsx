@@ -1,6 +1,6 @@
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select,
+  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack,
+  HStack, Heading, Input, NumberInput, NumberInputField, Select, Wrap, WrapItem, Avatar,
   Textarea, VStack, Image, Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -9,165 +9,152 @@ import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 const ManagerStaffCreatePage = () => {
   return (
-    <>
-      <Link to="/staff">
-        <Button colorScheme="teal" size="sm" ml="12">
-          {"<< Danh sách nhân viên"}
-        </Button>
-      </Link>
-      <form>
-        <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
-          <HStack justifyContent="space-between">
-            <VStack alignItems="start">
-              <Badge variant="outline" display="inline-block">
-                {"id >> " + "new"}
-              </Badge>
-              <HStack>
-                <Heading size="lg" colorScheme="gray">
-                  {"Tạo mới nhân viên"}
-                </Heading>
-              </HStack>
-            </VStack>
 
-            <HStack>
-              <Button type="submit" colorScheme="blue" size="md">
-                Hoàn tất
-              </Button>
-              <Link to={"/staff"}>
-                <Button colorScheme="red" variant="outline" size="md">
-                  Hủy
-                </Button>
-              </Link>
-            </HStack>
+    <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+      <HStack justifyContent="space-between">
+        <VStack alignItems="start">
+          <Badge variant="outline" display="inline-block">
+            {"id >> " + "new"}
+          </Badge>
+          <HStack>
+            <Heading size="lg" colorScheme="gray">
+              {"Tạo mới nhân viên"}
+            </Heading>
           </HStack>
-          <VStack mt={6} p="4">
-            <Flex width="100%" gap="8">
-              <VStack spacing="8" flex="1">
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    UserName
-                  </FormLabel>
-                  <Input
-                    //{...register("name", { required: true, minLength: 3 })}
-                    color="black"
-                    placeholder="UserName..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    FirstName
-                  </FormLabel>
-                  <Input
-                    // {...register("name", { required: true, minLength: 3 })}
-                    color="black"
-                    placeholder="FirstName..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+        </VStack>
 
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    LastName
-                  </FormLabel>
-                  <Input
-                    // {...register("name", { required: true, minLength: 3 })}
-                    color="black"
-                    placeholder="LastName..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+        <HStack>
+          <Button type="submit" colorScheme="blue" size="md">
+            Hoàn tất
+          </Button>
+          <Link to={"/staff"}>
+            <Button colorScheme="red" size="md">
+              Hủy
+            </Button>
+          </Link>
+        </HStack>
+      </HStack>
 
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Số điện thoại
-                  </FormLabel>
-                  <Input
-                    // {...register("price", { required: true, min: 1000 })}
-                    color="black"
-                    type="number"
-                    min={1000}
-                    placeholder="Phone..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+      <Box>
+        <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+          <Wrap>
+            <Box>
+              <WrapItem justifyContent='center'>
+                <Avatar size='2xl'
+                  border="1px lightgray solid"
+                />{' '}
+              </WrapItem>
+              {/* <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
+                @UserName
+              </Heading> */}
 
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Năm Sinh
-                  </FormLabel>
-                  <Input
-                    // {...register("quantity", {
-                    //   required: true,
-                    //   min: 0,
-                    // })}
-                    color="black"
-                    type="number"
-                    min={0}
-                    placeholder="Năm sinh..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+            </Box>
+          </Wrap>
+        </VStack>
+        <FormControl maxW='550px'>
+          <HStack marginTop='20px' marginLeft='200px'>
+            <FormLabel size="md" fontWeight="bold">
+              IMAGE URL
+            </FormLabel>
+            <Input
+              // {...register("avatar", {
+              //   // required: true,
+              // })}
+              color="black"
+              // value={productAvatarURL}
+              // onChange={(event) => {
+              //   setProductAvatarURL(event.target.value);
+              // }}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='20px'>
+        </Heading>
+        <VStack marginTop='10'>
+          <FormControl maxW="700px">
+            <HStack >
+              <FormLabel size="md" fontWeight="bold" marginRight='100px'>
+                FullName
+              </FormLabel>
+              <Input
+                color="gray"
+                // value={product.name}
+                fontWeight="bold"
+              />
+            </HStack>
+          </FormControl>
 
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
+              <FormLabel size="md" fontWeight="bold" marginRight='90px'>
+                UserName
+              </FormLabel>
+              <Input
+                color="gray"
+                // value={product.name}
+                fontWeight="bold"
+              />
+            </HStack>
+          </FormControl>
 
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Email
-                  </FormLabel>
-                  <Input
-                    // {...register("name", { required: true, minLength: 3 })}
-                    color="black"
-                    placeholder="Email..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
+              <FormLabel size="md" fontWeight="bold" marginRight='130px'>
+                Email
+              </FormLabel>
+              <Input
+                color="gray"
+                // value={product.name}
+                fontWeight="bold"
+              />
+            </HStack>
+          </FormControl>
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
+              <FormLabel size="md" fontWeight="bold" marginRight='123px'>
+                Phone
+              </FormLabel>
+              <Input
+                color="gray"
+                // value={product.name}
+                fontWeight="bold"
+              />
+            </HStack>
+          </FormControl>
 
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Địa chỉ
-                  </FormLabel>
-                  <Input
-                    // {...register("name", { required: true, minLength: 3 })}
-                    color="black"
-                    placeholder="Address..."
-                    fontWeight="bold"
-                  />
-                </FormControl>
+          <FormControl maxW="400px">
+            <HStack marginTop='20'>
+              <FormLabel size="md" fontWeight="bold" marginLeft='-150px' marginRight='130px'>
+                Gender
+              </FormLabel>
+              <RadioGroup >
+                <Stack direction='row' spacing={100}>
+                  <Radio value='1'>Male</Radio>
+                  <Radio value='2'>Female</Radio>
+                  <Radio value='3'>Other</Radio>
+                </Stack>
+              </RadioGroup>
+            </HStack>
+          </FormControl>
 
-              </VStack>
-              <VStack flex="1" h="100%" px="8" spacing="8">
-                <Box>
-                  <Image
-                    borderRadius="8px"
-                    boxSize="240px"
-                    objectFit="cover"
-                  // src={productAvatarURL}
-                  />
-                </Box>
-
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    IMAGE URL
-                  </FormLabel>
-                  <Input
-                    // {...register("avatar", {
-                    //   // required: true,
-                    // })}
-                    color="black"
-                    // value={productAvatarURL}
-                    // onChange={(event) => {
-                    //   setProductAvatarURL(event.target.value);
-                    // }}
-                    fontWeight="bold"
-                  />
-                </FormControl>
-              </VStack>
-            </Flex>
-          </VStack>
-        </Card>
-      </form>
-    </>
-  );
+        </VStack>
+        <FormControl maxW="400px">
+          <HStack marginTop='20' >
+            <FormLabel size="md" fontWeight="bold" marginLeft='60px' marginRight='130px'>
+              Birth Year
+            </FormLabel>
+            <Input
+              placeholder="YYYY"
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+      </Box>
+    </Card>
+  )
 };
 
 export default ManagerStaffCreatePage;
