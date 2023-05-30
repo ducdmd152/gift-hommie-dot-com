@@ -17,19 +17,37 @@ const UserProfileEdit = () => {
           <Wrap>
             <Box>
               <WrapItem justifyContent='center'>
-                <Avatar size='xl' name='' src=''
+                <Avatar size='2xl' name='' src=''
                   border="1px lightgray solid"
                 />{' '}
               </WrapItem>
-              <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
-                @UseName
-              </Heading>
-              <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }}>
-              </Heading>
+              {/* <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
+                @UserName
+              </Heading> */}
+
             </Box>
           </Wrap>
         </VStack>
-
+        <FormControl maxW='550px'>
+          <HStack marginTop='20px' marginLeft='200px'>
+            <FormLabel size="md" fontWeight="bold">
+              IMAGE URL
+            </FormLabel>
+            <Input
+              // {...register("avatar", {
+              //   // required: true,
+              // })}
+              color="black"
+              // value={productAvatarURL}
+              // onChange={(event) => {
+              //   setProductAvatarURL(event.target.value);
+              // }}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='20px'>
+        </Heading>
         <VStack marginTop='10'>
           <FormControl maxW="700px">
             <HStack >
@@ -100,7 +118,7 @@ const UserProfileEdit = () => {
         </VStack>
         <FormControl maxW="400px" >
           <HStack marginTop='20'>
-            <FormLabel size="md" fontWeight="bold" marginLeft='90px' marginRight='130px'>
+            <FormLabel size="md" fontWeight="bold" marginLeft='60px' marginRight='130px'>
               Birth Year
             </FormLabel>
             <Input
@@ -116,7 +134,7 @@ const UserProfileEdit = () => {
             Save
           </Button>
           <Link to={"/staff/detail"}>
-            <Button colorScheme="red" variant="outline" size="md">
+            <Button colorScheme="red" size="md">
               Cancel
             </Button>
           </Link>
