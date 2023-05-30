@@ -24,6 +24,7 @@ const StaffProductMain = ({
   return (
     <Box p="4" ml={2} mb={24}>
       <SearchInput
+        defaultText={staffProductQuery.search}
         onSearch={(text: string) => {
           setStaffProductQuery({
             ...staffProductQuery,

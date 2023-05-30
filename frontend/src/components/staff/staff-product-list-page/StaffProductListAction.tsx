@@ -41,6 +41,8 @@ const StaffProductListAction = ({
             }
             setStaffProductQuery({
               ...staffProductQuery,
+              search: "",
+              page: 0,
               category: id as number,
             });
           }}
