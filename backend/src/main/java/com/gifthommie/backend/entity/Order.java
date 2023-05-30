@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,10 +15,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "orders")
-public class Orders {
+@Table(name = "order")
+public class Order {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "email")
@@ -27,11 +28,6 @@ public class Orders {
 	
 	@Column(name = "payment_id")
 	private Integer paymentId;
-	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	@JsonIgnore
-	private List<OrderDetail> orderDetails;
 	
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
@@ -55,14 +51,18 @@ public class Orders {
 	private String message;
 	
 	@Column(name = "status")
-	private String status;
+	private Integer status;
 	
 	@Column(name = "status_comment")
 	private String statusComment;
-	
+
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
-
+	
+	public Order() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,14 +81,6 @@ public class Orders {
 
 	public Integer getPaymentId() {
 		return paymentId;
-	}
-
-	public List<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
 	}
 
 	public void setPaymentId(Integer paymentId) {
@@ -151,11 +143,11 @@ public class Orders {
 		this.message = message;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -174,12 +166,15 @@ public class Orders {
 	public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
-				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone
-				+ ", address=" + address + ", wardId=" + wardId + ", message=" + message + ", status=" + status
-				+ ", statusComment=" + statusComment + ", lastUpdatedTime=" + lastUpdatedTime + "]";
+		return "Order [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderTime=" + orderTime
+				+ ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone + ", address=" + address
+				+ ", wardId=" + wardId + ", message=" + message + ", status=" + status + ", statusComment="
+				+ statusComment + ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
+	
+	
+	
 }

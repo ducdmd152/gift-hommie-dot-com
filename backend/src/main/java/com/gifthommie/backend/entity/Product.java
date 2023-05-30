@@ -46,6 +46,7 @@ public class Product {
 	@JsonIgnore
 	private Category category;
 	
+	
 	@OneToMany
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	@JsonIgnore

@@ -1,16 +1,10 @@
 package com.gifthommie.backend.dto;
 
 public class CartRequestDTO {
-	private Integer id;
+	
 	private Integer productId;
 	private int quantity;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public Integer getProductId() {
 		return productId;
 	}

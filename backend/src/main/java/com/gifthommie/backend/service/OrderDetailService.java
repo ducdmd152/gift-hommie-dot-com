@@ -6,6 +6,6 @@ import com.gifthommie.backend.entity.OrderDetail;
 
 public interface OrderDetailService {
 	
-	public List<OrderDetail> getOrderDetailsByProductId(int productId);
+	public List<OrderDetail> getOrderDetailByProductIdWithoutStatus(int productId, int status);
 	
 }
