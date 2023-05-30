@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea,
+  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
   VStack, Image, Flex,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,25 +11,27 @@ import staffProductService from "../../services/staff-product-service";
 
 const UserProfileEdit = () => {
   return (
-    <Card marginX="20" marginY="6" p="8" border="1px lightgray solid">
+    <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
       <Box>
         <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
           <Wrap>
             <Box>
-              <WrapItem>
+              <WrapItem justifyContent='center'>
                 <Avatar size='xl' name='' src=''
                   border="1px lightgray solid"
                 />{' '}
               </WrapItem>
-              <Heading size="sm" textAlign="center" marginBottom="4">
+              <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
                 @UseName
+              </Heading>
+              <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }}>
               </Heading>
             </Box>
           </Wrap>
         </VStack>
 
-        <VStack >
-          <FormControl maxW="600px">
+        <VStack marginTop='10'>
+          <FormControl maxW="700px">
             <HStack >
               <FormLabel size="md" fontWeight="bold" marginRight='100px'>
                 FullName
@@ -42,8 +44,8 @@ const UserProfileEdit = () => {
             </HStack>
           </FormControl>
 
-          <FormControl maxW="600px">
-            <HStack>
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
               <FormLabel size="md" fontWeight="bold" marginRight='90px'>
                 UserName
               </FormLabel>
@@ -55,8 +57,8 @@ const UserProfileEdit = () => {
             </HStack>
           </FormControl>
 
-          <FormControl maxW="600px">
-            <HStack>
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
               <FormLabel size="md" fontWeight="bold" marginRight='130px'>
                 Email
               </FormLabel>
@@ -67,8 +69,8 @@ const UserProfileEdit = () => {
               />
             </HStack>
           </FormControl>
-          <FormControl maxW="600px">
-            <HStack>
+          <FormControl maxW="700px">
+            <HStack marginTop='20'>
               <FormLabel size="md" fontWeight="bold" marginRight='123px'>
                 Phone
               </FormLabel>
@@ -79,33 +81,37 @@ const UserProfileEdit = () => {
               />
             </HStack>
           </FormControl>
-          {/* <FormControl>
-          <FormLabel size="md" fontWeight="bold">
-            Gender
-          </FormLabel>
-          <RadioGroup >
-            <Stack direction='row'>
-              <Radio value='1'>Male</Radio>
-              <Radio value='2'>Female</Radio>
-              <Radio value='3'>Other</Radio>
-            </Stack>
-          </RadioGroup>
-        </FormControl> */}
-          <FormControl maxW="600px" >
-            <HStack>
-              <FormLabel size="md" fontWeight="bold" marginRight='120px'>
-                Birth Year
+
+          <FormControl maxW="400px">
+            <HStack marginTop='20'>
+              <FormLabel size="md" fontWeight="bold" marginLeft='-150px' marginRight='130px'>
+                Gender
               </FormLabel>
-              <Input
-                placeholder="YYYY"
-                color="gray"
-                // value={product.name}
-                fontWeight="bold"
-              />
+              <RadioGroup >
+                <Stack direction='row' spacing={100}>
+                  <Radio value='1'>Male</Radio>
+                  <Radio value='2'>Female</Radio>
+                  <Radio value='3'>Other</Radio>
+                </Stack>
+              </RadioGroup>
             </HStack>
           </FormControl>
+
         </VStack>
-        <HStack justifyContent='center' marginTop='10px' marginLeft='400px'>
+        <FormControl maxW="400px" >
+          <HStack marginTop='20'>
+            <FormLabel size="md" fontWeight="bold" marginLeft='90px' marginRight='130px'>
+              Birth Year
+            </FormLabel>
+            <Input
+              placeholder="YYYY"
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+        <HStack justifyContent='center' marginTop='60px' marginLeft='400px'>
           <Button type="submit" colorScheme="blue" size="md">
             Save
           </Button>

@@ -18,7 +18,7 @@ const UserProfileView = () => {
                     {"<< Danh sách nhân viên"}
                 </Button>
             </Link>
-            <Card marginX="150" marginY="6" p="8" border="1px lightgray solid">
+            <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
                 <HStack justifyContent='flex-end' marginTop='10px'>
                     <Link to={"/staff/edit"}>
                         <Button colorScheme="blue" size="md">
@@ -36,13 +36,15 @@ const UserProfileView = () => {
                     <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
                         <Wrap>
                             <Box>
-                                <WrapItem>
+                                <WrapItem justifyContent='center'>
                                     <Avatar size='2xl' name='' src=''
                                         border="1px lightgray solid"
                                     />{' '}
                                 </WrapItem>
-                                <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
+                                <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8' >
                                     @UserName
+                                </Heading>
+                                <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }}>
                                 </Heading>
                             </Box>
                         </Wrap>
@@ -120,7 +122,7 @@ const UserProfileView = () => {
                 </Box>
                 <FormControl maxW="400px" >
                     <HStack marginTop='20'  >
-                        <FormLabel size="md" fontWeight="bold" marginLeft='80px' marginRight='130px'>
+                        <FormLabel size="md" fontWeight="bold" marginLeft='90px' marginRight='130px'>
                             Năm Sinh
                         </FormLabel>
                         <Input
