@@ -50,6 +50,7 @@ const StaffProductListAction = ({
       </Box>
       <Box border="2px solid lightgray" borderRadius="md" width="100%" p={4}>
         <Heading
+          margin="2"
           fontSize="lg"
           textAlign="center"
           paddingBottom="2"
@@ -58,7 +59,19 @@ const StaffProductListAction = ({
           Sắp xếp theo
         </Heading>
 
-        {/* <Selector field="Sort by" /> */}
+        <Selector
+          field="Sắp xếp theo"
+          onSelect={(field) => {
+            setStaffProductQuery({
+              ...staffProductQuery,
+              sort: field as string,
+            });
+          }}
+          choices={[
+            { id: "name", name: "Tên" },
+            { id: "price", name: "Giá" },
+          ]}
+        />
       </Box>
     </VStack>
   );
