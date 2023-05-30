@@ -57,3 +57,16 @@
   text-transform: unset !important;
   /* text-decoration: lowercase !important; */
 }
+
+.box-shadow {
+  box-shadow: 3px 3px 3px #99c2ff, -2px 3px 4px #99c2ff !important;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.border-radius {
+  border-radius: 1rem;
+  border: 1px solid blue;
+}
