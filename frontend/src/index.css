@@ -47,6 +47,12 @@
   color: teal;
 }
 
+.badge-button:hover {
+  transition: all 0.2s ease-in-out;
+  scale: 1.01;
+  transform: translate(1px, -1px);
+}
+
 .none-text-transform {
   text-transform: unset !important;
   /* text-decoration: lowercase !important; */

@@ -23,22 +23,26 @@ const StaffProductListAction = ({
 
       <Box border="2px solid lightgray" borderRadius="md" width="100%" p={4}>
         <Heading
+          marginBottom="2"
           fontSize="lg"
           textAlign="center"
           paddingBottom="2"
           borderBottom="1px solid lightgray"
         >
-          Filter
+          Bộ lọc
         </Heading>
 
         <Selector
-          field="Category"
+          field="Danh mục"
           choices={CATEGORIES}
-          onSelect={(id: number) => {
-            if (isNaN(id)) {
+          onSelect={(id) => {
+            if (isNaN(id as number)) {
               id = 0;
             }
-            setStaffProductQuery({ ...staffProductQuery, category: id });
+            setStaffProductQuery({
+              ...staffProductQuery,
+              category: id as number,
+            });
           }}
         />
       </Box>
@@ -49,7 +53,7 @@ const StaffProductListAction = ({
           paddingBottom="2"
           borderBottom="1px solid lightgray"
         >
-          Sort
+          Sắp xếp theo
         </Heading>
 
         {/* <Selector field="Sort by" /> */}
