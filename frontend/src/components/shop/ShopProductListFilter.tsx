@@ -21,7 +21,7 @@ const ShopProductListFilter = ({
           borderBottom="1px solid lightgray"
           marginBottom="2"
         >
-          Categories
+          Danh mục
         </Heading>
         <List spacing="1">
           <ListItem

@@ -8,4 +8,8 @@ export default {
     }
     return USER;
   },
+  logout() {
+    sessionStorage.removeItem("USER");
+    window.location.href = "/";
+  },
 };
