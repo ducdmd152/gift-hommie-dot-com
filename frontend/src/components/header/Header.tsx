@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import Nav from "./HeaderNav";
 import HeaderNav from "./HeaderNav";
 import HeaderUser from "./HeaderUser";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <HStack
@@ -16,7 +17,10 @@ const Header = () => {
       borderStyle={"solid"}
       borderColor={useColorModeValue("gray.200", "gray.900")}
     >
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
+
       <Box flex="1">
         <HeaderNav />
       </Box>

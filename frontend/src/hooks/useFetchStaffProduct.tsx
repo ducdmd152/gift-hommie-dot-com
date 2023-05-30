@@ -20,7 +20,7 @@ const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
           size: requestQuery?.size,
           search: requestQuery?.search,
           category: requestQuery?.category,
-          _sort: requestQuery?.sort,
+          sort: requestQuery?.sort,
           _order: requestQuery?.order,
         },
       },
