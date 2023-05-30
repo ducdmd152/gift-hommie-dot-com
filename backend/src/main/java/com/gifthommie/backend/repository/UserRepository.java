@@ -35,4 +35,13 @@ public interface UserRepository extends JpaRepository<User, String> {
 	@Modifying
 	@Query("UPDATE User u SET u.enabled = :enabled WHERE u.email = :email")
 	public int setEnabledByEmail(@Param("email") String email, @Param("enabled") boolean enabled);
+	
+	//FILTER USER BY USERNAME, EMAIL, NAME
+	@Query("SELECT u FROM User u "
+			+ "WHERE u.role.id = :roleId "
+			+ "AND u.enabled = :enabled AND (u.username LIKE %:search% "
+			+ "OR u.email LIKE %:search% OR (u.firstName || ' ' || u.lastName LIKE %:search%))")
+	public Page<User> filterUsersByRoleId(Pageable pageable, @Param("roleId") int roleId, 
+								@Param("enabled") boolean enabled, 
+								@Param("search") String search);
 }

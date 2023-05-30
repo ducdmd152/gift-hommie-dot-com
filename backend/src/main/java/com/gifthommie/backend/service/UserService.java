@@ -25,4 +25,6 @@ public interface UserService {
 	public User updateUserProfileDTO(UserProfileDTO user);
 	
 	public User createUser(User user);
+	
+	public APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, boolean enabled, String search);
 }
