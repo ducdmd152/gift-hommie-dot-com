@@ -5,6 +5,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import GuestShopPage from "./GuestShopPage";
 import CustomerPage from "../customer/CustomerPage";
+import Register from "./Register";
 
 const GuestPage = () => {
   return (
@@ -31,6 +32,7 @@ const GuestPage = () => {
         <Routes>
           <Route index element={<GuestShopPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<CustomerPage />} />
         </Routes>
       </GridItem>

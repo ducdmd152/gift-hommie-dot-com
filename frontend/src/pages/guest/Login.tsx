@@ -8,7 +8,28 @@ import authService from "../../services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { VStack } from "@chakra-ui/react";
 import navigationService from "../../services/navigation-service";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+const schema = z.object({
+  username: z
+    .string({
+      required_error: "Vui lòng nhập tên đăng nhập.",
+      invalid_type_error: "First name must be a string",
+    })
+    .min(3, {
+      message: "Vui lòng nhập tên đăng nhập ít nhất 3 kí tự.",
+    }),
+  password: z
+    .string({
+      required_error: "Vui lòng nhập mật khẩu.",
+      invalid_type_error: "First name must be a string",
+    })
+    .min(6, {
+      message: "Vui lòng nhập mật khẩu ít nhất 6 kí tự.",
+    }),
+});
 
+type FormData = z.infer<typeof schema>;
 const Login = () => {
   const onAuthenticated = () => {
     window.location.href = "/";
@@ -23,7 +44,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const [loginStatus, setLoginStatus] = useState("");
   const formBackground = useColorModeValue("gray.100", "gray.700");
@@ -31,17 +52,11 @@ const Login = () => {
   const onSubmit = (data: FieldValues) => {
     const checkLogin = async () => {
       const { username, password } = data;
-
-      // check real users
-      if (username.length == 0 || password.length == 0) {
-        setLoginStatus("Both username and password are required.");
-        return;
-      }
       let res = await authService.login(username, password);
       if (res) {
         onAuthenticated();
       } else {
-        setLoginStatus("Wrong username or password.");
+        setLoginStatus("Tên đăng nhập hoặc mật khẩu không đúng.");
       }
     };
 
@@ -96,7 +111,20 @@ const Login = () => {
             <Text color="tomato" fontStyle="italic" mt={0} mb={2}>
               {loginStatus}
             </Text>
-            <Button colorScheme="teal" mb={8} type="submit">
+
+            <Button
+              colorScheme="teal"
+              mb={8}
+              type="submit"
+              onClick={() => {
+                if (errors.password) {
+                  setLoginStatus(errors.password.message as string);
+                }
+                if (errors.username) {
+                  setLoginStatus(errors.username.message as string);
+                }
+              }}
+            >
               Đăng nhập
             </Button>
 
