@@ -25,6 +25,21 @@ const ShopProductListItem = ({ product }: Props) => {
       <Card className="cursor-pointer product-card">
         <Image height="160px" src={product.avatar} objectFit="cover" />
         <CardBody>
+          <HStack justifyContent="space-between" alignItems="top" spacing="2">
+            <Heading fontSize="md" height="40px">
+              {product.name}
+            </Heading>
+            <Box
+              width="22px"
+              className="product-cart-icon"
+              onClick={(e) => {
+                e.preventDefault();
+                if (!utilService.getCurrentUser()) navigate("/login");
+              }}
+            >
+              <BsFillCartPlusFill size="22px" />
+            </Box>
+          </HStack>
           <HStack justifyContent="space-between" marginBottom={3}>
             <Badge colorScheme="blue" fontSize="sm">
               {" "}
@@ -39,19 +54,6 @@ const ShopProductListItem = ({ product }: Props) => {
               <AiFillStar color="gold" />
               <AiFillStar color="gold" />
             </HStack>
-          </HStack>
-          <HStack justifyContent="space-between" alignItems="top" spacing="2">
-            <Heading fontSize="xl">{product.name}</Heading>
-            <Box
-              width="22px"
-              className="product-cart-icon"
-              onClick={(e) => {
-                e.preventDefault();
-                if (!utilService.getCurrentUser()) navigate("/login");
-              }}
-            >
-              <BsFillCartPlusFill size="22px" />
-            </Box>
           </HStack>
         </CardBody>
       </Card>
