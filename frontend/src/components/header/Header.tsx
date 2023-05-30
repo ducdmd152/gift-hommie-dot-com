@@ -6,7 +6,7 @@ import HeaderNav from "./HeaderNav";
 import HeaderUser from "./HeaderUser";
 const Header = () => {
   return (
-    <Flex
+    <HStack
       width="100%"
       maxW={"1280px"}
       justifyContent={"space-between"}
@@ -22,7 +22,7 @@ const Header = () => {
       </Box>
 
       <HeaderUser />
-    </Flex>
+    </HStack>
   );
 };
 

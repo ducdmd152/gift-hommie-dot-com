@@ -1,28 +1,19 @@
-import { Button, HStack } from "@chakra-ui/react";
+import { Badge, Button, HStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
 import { FaUserAlt } from "react-icons/fa";
 import authService from "../../services/auth-service";
+import utilService from "../../services/util-service";
+import UserDTO from "../../type/UserDTO";
 
 const HeaderUser = () => {
-  const [user, setUser] = useState<HttpUser | null>(null);
+  const USER = utilService.getCurrentUser() as UserDTO;
 
-  useEffect(() => {
-    const userJSON = sessionStorage.getItem("user");
-    if (userJSON) setUser(JSON.parse(userJSON));
-  }, []);
-
-  if (user == null) {
-    setUser({
-      id: 0,
-      username: "staff",
-    });
-  }
-
-  if (user == null)
+  if (USER == null)
     return (
       <div>
-        <Button
+        <Badge
+          cursor="pointer"
           marginRight="12px"
           paddingX="2"
           paddingY="2"
@@ -31,8 +22,9 @@ const HeaderUser = () => {
           fontSize="sm"
         >
           Đăng nhập
-        </Button>
-        <Button
+        </Badge>
+        <Badge
+          cursor="pointer"
           paddingX="2"
           paddingY="2"
           colorScheme="twitter"
@@ -40,7 +32,7 @@ const HeaderUser = () => {
           fontSize="sm"
         >
           Đăng kí
-        </Button>
+        </Badge>
       </div>
     );
 
