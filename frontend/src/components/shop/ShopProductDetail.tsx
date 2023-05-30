@@ -25,7 +25,7 @@ import { BsFillCartPlusFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 const ShopProductDetail = () => {
   return (
-    <Card paddingY="2" margin="2">
+    <Card paddingY="2">
       <Box
         overflow="hidden"
         borderRadius="8"
