@@ -2,7 +2,7 @@
 import React from "react";
 import {
     Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-    HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea,
+    HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
     VStack, Image, Flex,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,19 +37,19 @@ const UserProfileView = () => {
                         <Wrap>
                             <Box>
                                 <WrapItem>
-                                    <Avatar size='xl' name='' src=''
+                                    <Avatar size='2xl' name='' src=''
                                         border="1px lightgray solid"
                                     />{' '}
                                 </WrapItem>
                                 <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
-                                    @UseName
+                                    @UserName
                                 </Heading>
                             </Box>
                         </Wrap>
                     </VStack>
 
-                    <VStack >
-                        <FormControl maxW="600px">
+                    <VStack marginTop='10'>
+                        <FormControl maxW="700px">
                             <HStack >
                                 <FormLabel size="md" fontWeight="bold" marginRight='100px'>
                                     FullName
@@ -63,8 +63,8 @@ const UserProfileView = () => {
                             </HStack>
                         </FormControl>
 
-                        <FormControl maxW="600px">
-                            <HStack>
+                        <FormControl maxW="700px" >
+                            <HStack marginTop='20'>
                                 <FormLabel size="md" fontWeight="bold" marginRight='90px'>
                                     UserName
                                 </FormLabel>
@@ -77,8 +77,8 @@ const UserProfileView = () => {
                             </HStack>
                         </FormControl>
 
-                        <FormControl maxW="600px">
-                            <HStack>
+                        <FormControl maxW="700px">
+                            <HStack marginTop='20'>
                                 <FormLabel size="md" fontWeight="bold" marginRight='130px'>
                                     Email
                                 </FormLabel>
@@ -90,8 +90,8 @@ const UserProfileView = () => {
                                 />
                             </HStack>
                         </FormControl>
-                        <FormControl maxW="600px">
-                            <HStack>
+                        <FormControl maxW="700px">
+                            <HStack marginTop='20'>
                                 <FormLabel size="md" fontWeight="bold" marginRight='123px'>
                                     Phone
                                 </FormLabel>
@@ -104,32 +104,33 @@ const UserProfileView = () => {
                             </HStack>
                         </FormControl>
                         {/* <FormControl>
-          <FormLabel size="md" fontWeight="bold">
-            Gender
-          </FormLabel>
-          <RadioGroup >
-            <Stack direction='row'>
-              <Radio value='1'>Male</Radio>
-              <Radio value='2'>Female</Radio>
-              <Radio value='3'>Other</Radio>
-            </Stack>
-          </RadioGroup>
-        </FormControl> */}
-                        <FormControl maxW="600px" >
-                            <HStack>
-                                <FormLabel size="md" fontWeight="bold" marginRight='120px'>
-                                    Birth Year
-                                </FormLabel>
-                                <Input
-                                    isReadOnly
-                                    color="gray"
-                                    // value={product.name}
-                                    fontWeight="bold"
-                                />
-                            </HStack>
-                        </FormControl>
+                            <FormLabel size="md" fontWeight="bold">
+                                Gender
+                            </FormLabel>
+                            <RadioGroup >
+                                <Stack direction='row'>
+                                    <Radio value='1'>Male</Radio>
+                                    <Radio value='2'>Female</Radio>
+                                    <Radio value='3'>Other</Radio>
+                                </Stack>
+                            </RadioGroup>
+                        </FormControl> */}
+
                     </VStack>
                 </Box>
+                <FormControl maxW="400px" >
+                    <HStack marginTop='20'  >
+                        <FormLabel size="md" fontWeight="bold" marginLeft='80px' marginRight='130px'>
+                            Năm Sinh
+                        </FormLabel>
+                        <Input
+                            isReadOnly
+                            color="gray"
+                            // value={product.name}
+                            fontWeight="bold"
+                        />
+                    </HStack>
+                </FormControl>
             </Card>
         </>
     );
