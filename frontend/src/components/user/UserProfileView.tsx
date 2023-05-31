@@ -6,9 +6,6 @@ import {
     VStack, Image, Flex,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import managerStaffService, {
-} from "../../services/staff-product-service";
-import staffProductService from "../../services/staff-product-service";
 
 const UserProfileView = () => {
     return (
