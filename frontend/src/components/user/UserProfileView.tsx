@@ -63,7 +63,7 @@ const UserProfileView = () => {
                         </HStack>
                     </FormControl>
 
-                    <FormControl marginTop='40px'>
+                    <FormControl marginTop='50px'>
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold" >
                                 Tên Đăng Nhập
@@ -78,7 +78,7 @@ const UserProfileView = () => {
                         </HStack>
                     </FormControl>
 
-                    <FormControl marginTop='40px'>
+                    <FormControl marginTop='50px'>
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold" >
                                 Email
@@ -92,7 +92,7 @@ const UserProfileView = () => {
                             />
                         </HStack>
                     </FormControl>
-                    <FormControl marginTop='40px'>
+                    <FormControl marginTop='50px'>
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold">
                                 Số Điện Thoại
@@ -118,7 +118,7 @@ const UserProfileView = () => {
                                 </Stack>
                             </RadioGroup>
                         </FormControl> */}
-                    <FormControl marginTop='40px'>
+                    <FormControl marginTop='50px'>
                         <HStack justifyContent='space-between' marginRight='350px'>
                             <FormLabel size="md" fontWeight="bold">
                                 Năm Sinh
