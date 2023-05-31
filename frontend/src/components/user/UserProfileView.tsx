@@ -3,7 +3,7 @@ import React from "react";
 import {
     Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
     HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-    VStack, Image, Flex,
+    VStack, Image, Flex, Grid
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -29,80 +29,84 @@ const UserProfileView = () => {
                         Xóa
                     </Button>
                 </HStack>
-                <Box >
-                    <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
-                        <Wrap>
-                            <Box>
-                                <WrapItem justifyContent='center'>
-                                    <Avatar size='2xl' name='' src=''
-                                        border="1px lightgray solid"
-                                    />{' '}
-                                </WrapItem>
-                                <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8' >
-                                    @UserName
-                                </Heading>
-                                <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }}>
-                                </Heading>
-                            </Box>
-                        </Wrap>
-                    </VStack>
 
-                    <VStack marginTop='10'>
-                        <FormControl maxW="700px">
-                            <HStack >
-                                <FormLabel size="md" fontWeight="bold" marginRight='100px'>
-                                    FullName
-                                </FormLabel>
-                                <Input
-                                    isReadOnly
-                                    color="gray"
-                                    // value={product.name}
-                                    fontWeight="bold"
-                                />
-                            </HStack>
-                        </FormControl>
+                <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+                    <Wrap>
+                        <Box>
+                            <WrapItem justifyContent='center'>
+                                <Avatar size='2xl' name='' src=''
+                                    border="1px lightgray solid"
+                                />{' '}
+                            </WrapItem>
+                            <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8' >
+                                @UserName
+                            </Heading>
+                            <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }}>
+                            </Heading>
+                        </Box>
+                    </Wrap>
+                </VStack>
 
-                        <FormControl maxW="700px" >
-                            <HStack marginTop='20'>
-                                <FormLabel size="md" fontWeight="bold" marginRight='90px'>
-                                    UserName
-                                </FormLabel>
-                                <Input
-                                    isReadOnly
-                                    color="gray"
-                                    // value={product.name}
-                                    fontWeight="bold"
-                                />
-                            </HStack>
-                        </FormControl>
+                <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
+                    <FormControl>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold" >
+                                Tên Đầy Đủ
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
 
-                        <FormControl maxW="700px">
-                            <HStack marginTop='20'>
-                                <FormLabel size="md" fontWeight="bold" marginRight='130px'>
-                                    Email
-                                </FormLabel>
-                                <Input
-                                    isReadOnly
-                                    color="gray"
-                                    // value={product.name}
-                                    fontWeight="bold"
-                                />
-                            </HStack>
-                        </FormControl>
-                        <FormControl maxW="700px">
-                            <HStack marginTop='20'>
-                                <FormLabel size="md" fontWeight="bold" marginRight='123px'>
-                                    Phone
-                                </FormLabel>
-                                <Input
-                                    isReadOnly
-                                    color="gray"
-                                    // value={product.name}
-                                    fontWeight="bold"
-                                />
-                            </HStack>
-                        </FormControl>
-                        {/* <FormControl>
+                    <FormControl marginTop='40px'>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold" >
+                                Tên Đăng Nhập
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
+
+                    <FormControl marginTop='40px'>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold" >
+                                Email
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
+                    <FormControl marginTop='40px'>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold">
+                                Số Điện Thoại
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
+                    {/* <FormControl>
                             <FormLabel size="md" fontWeight="bold">
                                 Gender
                             </FormLabel>
@@ -114,22 +118,21 @@ const UserProfileView = () => {
                                 </Stack>
                             </RadioGroup>
                         </FormControl> */}
-
-                    </VStack>
+                    <FormControl marginTop='40px'>
+                        <HStack justifyContent='space-between' marginRight='350px'>
+                            <FormLabel size="md" fontWeight="bold">
+                                Năm Sinh
+                            </FormLabel>
+                            <Input
+                                maxW='100px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
                 </Box>
-                <FormControl maxW="400px" >
-                    <HStack marginTop='20'  >
-                        <FormLabel size="md" fontWeight="bold" marginLeft='90px' marginRight='130px'>
-                            Năm Sinh
-                        </FormLabel>
-                        <Input
-                            isReadOnly
-                            color="gray"
-                            // value={product.name}
-                            fontWeight="bold"
-                        />
-                    </HStack>
-                </FormControl>
             </Card>
         </>
     );
