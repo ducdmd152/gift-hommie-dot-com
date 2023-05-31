@@ -7,8 +7,9 @@ import useFetchShopProduct, {
 } from "../../hooks/useFetchShopProduct";
 import { useContext, useState } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
+import utilService from "../../services/util-service";
 
-const CustomerShopDetailPage = () => {
+const GuestShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const productId = globalContext.productContext.getProductId();
 
@@ -20,7 +21,7 @@ const CustomerShopDetailPage = () => {
     useFetchShopProduct(shopProductQuery);
 
   return (
-    <VStack spacing="2" marginX="2">
+    <VStack spacing="2" marginX="2" marginTop={utilService.HEADER_HEIGHT}>
       <ShopProductDetail />
 
       <Box borderRadius="8" p="2" border="1px solid lightgray" width="100%">
@@ -33,4 +34,4 @@ const CustomerShopDetailPage = () => {
   );
 };
 
-export default CustomerShopDetailPage;
+export default GuestShopDetailPage;
