@@ -6,6 +6,7 @@ import Login from "./Login";
 import GuestShopPage from "./GuestShopPage";
 import CustomerPage from "../customer/CustomerPage";
 import Register from "./Register";
+import GuestShopDetailPage from "./GuestShopDetailPage";
 
 const GuestPage = () => {
   return (
@@ -25,7 +26,7 @@ const GuestPage = () => {
         backgroundColor="white"
         zIndex={999}
       >
-        {/* <Header /> */}
+        <Header />
       </GridItem>
 
       <GridItem area="main">
@@ -33,7 +34,8 @@ const GuestPage = () => {
           <Route index element={<GuestShopPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/shop" element={<CustomerPage />} />
+          <Route path="/shop" element={<GuestShopPage />} />
+          <Route path="/shop/detail" element={<GuestShopDetailPage />} />
         </Routes>
       </GridItem>
     </Grid>
