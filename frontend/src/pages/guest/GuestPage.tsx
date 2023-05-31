@@ -7,6 +7,7 @@ import GuestShopPage from "./GuestShopPage";
 import CustomerPage from "../customer/CustomerPage";
 import Register from "./Register";
 import GuestShopDetailPage from "./GuestShopDetailPage";
+import ImageUpload from "../../components/image/ImageUpload";
 
 const GuestPage = () => {
   return (
@@ -36,6 +37,7 @@ const GuestPage = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<GuestShopPage />} />
           <Route path="/shop/detail" element={<GuestShopDetailPage />} />
+          <Route path="/test" element={<ImageUpload />} />
         </Routes>
       </GridItem>
     </Grid>

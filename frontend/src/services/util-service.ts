@@ -12,4 +12,9 @@ export default {
     sessionStorage.removeItem("USER");
     window.location.href = "/";
   },
+  getURLImageFromFile(file: File | null) {
+    if (file == null)
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
+    return URL.createObjectURL(file);
+  },
 };
