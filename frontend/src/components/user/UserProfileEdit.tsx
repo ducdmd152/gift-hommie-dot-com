@@ -1,46 +1,23 @@
+import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Wrap, WrapItem, Avatar,
-  Textarea, VStack, Image, Flex,
+  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
+  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
+  VStack, Image, Flex,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import managerStaffService, {
+} from "../../services/staff-product-service";
+import staffProductService from "../../services/staff-product-service";
 
-
-const ManagerStaffCreatePage = () => {
+const UserProfileEdit = () => {
   return (
-
     <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-      <HStack justifyContent="space-between">
-        <VStack alignItems="start">
-          <Badge variant="outline" display="inline-block">
-            {"id >> " + "new"}
-          </Badge>
-          <HStack>
-            <Heading size="lg" colorScheme="gray">
-              {"Tạo mới nhân viên"}
-            </Heading>
-          </HStack>
-        </VStack>
-
-        <HStack>
-          <Button type="submit" colorScheme="blue" size="md">
-            Hoàn tất
-          </Button>
-          <Link to={"/staff"}>
-            <Button colorScheme="red" size="md">
-              Hủy
-            </Button>
-          </Link>
-        </HStack>
-      </HStack>
-
       <Box>
         <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
           <Wrap>
             <Box>
               <WrapItem justifyContent='center'>
-                <Avatar size='2xl'
+                <Avatar size='2xl' name='' src=''
                   border="1px lightgray solid"
                 />{' '}
               </WrapItem>
@@ -142,7 +119,7 @@ const ManagerStaffCreatePage = () => {
         <FormControl maxW="400px">
           <HStack marginTop='20' >
             <FormLabel size="md" fontWeight="bold" marginLeft='60px' marginRight='130px'>
-              Birth Year
+              Birth Year 
             </FormLabel>
             <Input
               placeholder="YYYY"
@@ -152,9 +129,19 @@ const ManagerStaffCreatePage = () => {
             />
           </HStack>
         </FormControl>
+        <HStack justifyContent='center' marginTop='60px' marginLeft='400px'>
+          <Button type="submit" colorScheme="blue" size="md">
+            Save
+          </Button>
+          <Link to={"/staff/detail"}>
+            <Button colorScheme="red" size="md">
+              Cancel
+            </Button>
+          </Link>
+        </HStack>
       </Box>
     </Card>
   )
-};
+}
 
-export default ManagerStaffCreatePage;
+export default UserProfileEdit
