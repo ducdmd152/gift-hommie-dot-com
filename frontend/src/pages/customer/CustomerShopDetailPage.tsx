@@ -5,9 +5,14 @@ import ShopProductListItems from "../../components/shop/ShopProductListItems";
 import useFetchShopProduct, {
   ShopProductQuery,
 } from "../../hooks/useFetchShopProduct";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GLOBAL_CONTEXT } from "../../App";
 
 const CustomerShopDetailPage = () => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
+  const productId = globalContext.productContext.productId;
+  console.log(productId);
+
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>({
     size: 4,
   } as ShopProductQuery);

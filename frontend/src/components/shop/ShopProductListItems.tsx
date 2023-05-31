@@ -13,7 +13,10 @@ const ShopProductListItems = ({ products }: Props) => {
       padding="10px"
     >
       {products.map((product) => (
-        <ShopProductListItem product={product}></ShopProductListItem>
+        <ShopProductListItem
+          key={product.id}
+          product={product}
+        ></ShopProductListItem>
       ))}
     </SimpleGrid>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ShopProductDTO } from "../../services/shop-product-service";
 import { AiFillStar } from "react-icons/ai";
 import {
@@ -15,13 +15,21 @@ import {
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import utilService from "../../services/util-service";
+import { GLOBAL_CONTEXT } from "../../App";
 interface Props {
   product: ShopProductDTO;
 }
 const ShopProductListItem = ({ product }: Props) => {
+  const productContext = useContext(GLOBAL_CONTEXT).productContext;
+
   const navigate = useNavigate();
   return (
-    <Link to="/shop/detail">
+    <Link
+      to="/shop/detail"
+      onClick={() => {
+        productContext.setProductId(product.id);
+      }}
+    >
       <Card className="cursor-pointer product-card">
         <Image height="160px" src={product.avatar} objectFit="cover" />
         <CardBody>
