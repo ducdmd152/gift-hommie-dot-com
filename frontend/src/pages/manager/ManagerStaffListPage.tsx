@@ -30,7 +30,10 @@ const ManagerStaffListPage = () => {
         </Link>
       </HStack>
 
-      <SearchInput onSearch={() => 8} />
+      <SearchInput onSearch={(text: string) => {
+        //handle
+        setManagerStaffQuery({ ...managerStaffQuery, search: text });
+      }} />
       <ManagerStaffTable staffs={staffs} />
       <HStack justifyContent="center" paddingTop="6">
         <Pagination

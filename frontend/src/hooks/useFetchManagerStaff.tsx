@@ -12,6 +12,7 @@ import useFetchEntities from "./useFetchEntities";
 // 1
 export interface ManagerStaffQuery extends HttpRequestQuery, PaginationQuery {
   //   category: number; // logic
+  // search: string;
 }
 
 // 2
