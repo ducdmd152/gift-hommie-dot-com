@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ShopProductDTO } from "../../services/shop-product-service";
 import { AiFillStar } from "react-icons/ai";
 import {
@@ -21,13 +21,14 @@ interface Props {
 }
 const ShopProductListItem = ({ product }: Props) => {
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
-
+  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   return (
     <Link
       to="/shop/detail"
       onClick={() => {
         productContext.setProductId(product.id);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
       <Card className="cursor-pointer product-card">

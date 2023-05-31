@@ -17,8 +17,8 @@ export interface GlobalContext {
 }
 
 export interface ProductContext {
-  productId: number;
-  setProductId: (productId: number) => void;
+  getProductId: () => number;
+  setProductId: (productId: number) => number;
 }
 
 export const GLOBAL_CONTEXT = createContext({} as GlobalContext);
@@ -28,7 +28,15 @@ function App() {
   const [user, setUser] = useState<UserDTO | null>(null);
 
   const globalContext = useContext(GLOBAL_CONTEXT);
-  globalContext.productContext = { productId, setProductId } as ProductContext;
+  globalContext.productContext = {
+    getProductId() {
+      return productId;
+    },
+    setProductId(id: number) {
+      setProductId(id);
+      return productId;
+    },
+  } as ProductContext;
 
   if (user == null) {
     const userJSON = sessionStorage.getItem("USER");

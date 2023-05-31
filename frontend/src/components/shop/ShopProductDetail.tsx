@@ -17,13 +17,39 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FcShipped } from "react-icons/fc";
 import { SiFastify, SiGrab } from "react-icons/si";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
+import { GLOBAL_CONTEXT } from "../../App";
+import shopProductService, {
+  ShopProductDTO,
+} from "../../services/shop-product-service";
 const ShopProductDetail = () => {
+  const productContext = useContext(GLOBAL_CONTEXT).productContext;
+  const id = productContext.getProductId();
+
+  const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
+  const navigate = useNavigate();
+
+  // fetch product from API
+  useEffect(() => {
+    if (id == null || id === undefined || id === 0) {
+      navigate("/shop");
+    }
+
+    shopProductService
+      .get(id)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        navigate("/shop");
+      });
+  }, [id]);
+
   return (
     <Card paddingY="2">
       <Box
@@ -40,8 +66,7 @@ const ShopProductDetail = () => {
                 boxSize="90%"
                 objectFit="cover"
                 borderRadius="8"
-                src="https://cf.shopee.vn/file/33252df5aa3af6dff27b4e9cda243e70_tn"
-                alt="Dan Abramov"
+                src={product.avatar}
               />
             </Box>
             <VStack
@@ -58,7 +83,7 @@ const ShopProductDetail = () => {
                   fontWeight="medium"
                 >
                   <Heading fontSize="4xl" letterSpacing="1px">
-                    Tên sản phẩm
+                    {product.name}
                   </Heading>
                   <Badge colorScheme="red">Yêu thích</Badge>
                 </HStack>
@@ -96,7 +121,7 @@ const ShopProductDetail = () => {
                   colorScheme="blue"
                   fontSize="2xl"
                 >
-                  290.000đ
+                  {product.price / 1000 + ".000đ"}
                 </Badge>
               </HStack>
 
@@ -109,7 +134,7 @@ const ShopProductDetail = () => {
                   fontWeight="bold"
                   paddingX="2"
                 >
-                  120 sản phẩm có sẵn
+                  {product.quantity} sản phẩm có sẵn
                 </Badge>
               </HStack>
 
@@ -158,7 +183,7 @@ const ShopProductDetail = () => {
         </Box>
         <Box
           marginX="4"
-          marginTop="2"
+          marginY="2"
           paddingY="4"
           paddingX="6"
           border="1px solid rgba(0,0,0,0.1)"
@@ -167,20 +192,7 @@ const ShopProductDetail = () => {
           <Heading fontSize="2xl" paddingY="2">
             Mô tả sản phẩm
           </Heading>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum
-            reprehenderit consectetur minima in praesentium laudantium
-            assumenda, eos provident odit veniam quis debitis, sit aliquid,
-            repudiandae corrupti tempora rem? Deleniti fugit at sapiente animi
-            vitae quidem praesentium, ullam aliquid optio fuga exercitationem
-            dolor in excepturi veniam mollitia delectus cumque dolores
-            perspiciatis sequi quod sint. Est fugit voluptate libero sequi non
-            dolorem fugiat aperiam, possimus error quos officiis veritatis!
-            Repellendus alias consequuntur quasi omnis explicabo non dolor esse
-            nihil vero, totam neque sapiente nulla hic corporis soluta
-            aspernatur quaerat aut praesentium? Mollitia magni non sequi, vitae
-            sint at labore nesciunt minus cum.
-          </Text>
+          <Text>{product.description}</Text>
         </Box>
       </Box>
     </Card>

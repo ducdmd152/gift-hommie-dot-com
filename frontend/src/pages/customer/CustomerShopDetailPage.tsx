@@ -10,8 +10,7 @@ import { GLOBAL_CONTEXT } from "../../App";
 
 const CustomerShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
-  const productId = globalContext.productContext.productId;
-  console.log(productId);
+  const productId = globalContext.productContext.getProductId();
 
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>({
     size: 4,
