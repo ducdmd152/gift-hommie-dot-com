@@ -14,6 +14,7 @@ const CustomerShopDetailPage = () => {
 
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>({
     size: 4,
+    related: productId,
   } as ShopProductQuery);
   const { products, pageable, isLoading, error } =
     useFetchShopProduct(shopProductQuery);

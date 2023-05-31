@@ -10,6 +10,7 @@ import HttpRequestQuery from "../type/HttpRequestQuery";
 import useFetchEntities from "./useFetchEntities";
 
 export interface ShopProductQuery extends HttpRequestQuery, PaginationQuery {
+  related: number;
   category: number;
 }
 

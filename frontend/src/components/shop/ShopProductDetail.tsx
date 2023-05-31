@@ -51,7 +51,7 @@ const ShopProductDetail = () => {
   }, [id]);
 
   return (
-    <Card paddingY="2">
+    <Card paddingY="2" width="100%">
       <Box
         overflow="hidden"
         borderRadius="8"
@@ -62,6 +62,8 @@ const ShopProductDetail = () => {
           <HStack alignItems="flex-start">
             <Box flex="4" minWidth="200px" padding="4">
               <Image
+                minH="400px"
+                maxH="500px"
                 marginTop="4"
                 boxSize="90%"
                 objectFit="cover"
