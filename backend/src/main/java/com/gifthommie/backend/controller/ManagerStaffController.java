@@ -49,7 +49,7 @@ public class ManagerStaffController {
 	public APIPageableResponseDTO<User> getStaffList(
 			@RequestParam(defaultValue = PAGE, name = "page") Integer pageNo,
 			@RequestParam(defaultValue = PAGE_SIZE, name = "size") Integer pageSize,
-			@RequestParam("search") String search) {
+			@RequestParam(defaultValue = "", name = "search") String search) {
 		Role role = roleService.getRoleByRoleName(ROLE_STAFF);
 		if (search != null)
 			return userService.searchUsers(pageNo, pageSize, role.getId(), ACTIVE_ENABLED, search);
