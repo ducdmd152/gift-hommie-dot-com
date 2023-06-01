@@ -191,6 +191,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
             <VStack flex="1" h="100%" px="8" spacing="8">
               <Box>
                 <Image
+                  width="100%"
                   borderRadius="8px"
                   height="200px"
                   objectFit="cover"

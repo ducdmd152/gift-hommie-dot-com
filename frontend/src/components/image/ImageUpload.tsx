@@ -14,17 +14,14 @@ import React, { ChangeEvent, useState } from "react";
 import utilService from "../../services/util-service";
 import imageService from "../../services/image-service";
 interface Props {
-  defaultImageURL?: string;
   getImageURL?: (url: string) => void;
+  imageURL: string;
+  setImageURL: (url: string) => void;
 }
-const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
+const ImageUpload = ({ getImageURL, imageURL, setImageURL }: Props) => {
   const [image, setImage] = useState<File>({} as File);
-  const [imageURL, setImageURL] = useState(defaultImageURL);
-  const [spinner, setSpinner] = useState(false);
 
-  if (imageURL === undefined) {
-    setImageURL(imageService.getDefaultProductAvatarURL());
-  }
+  const [spinner, setSpinner] = useState(false);
 
   const handlePreviewImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -32,19 +29,21 @@ const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
       setSpinner(true);
       let urlFromAPI = await imageService.upload(e.target.files[0]);
+      setImageURL(urlFromAPI);
       setSpinner(false);
       if (getImageURL) getImageURL(urlFromAPI);
     }
   };
 
   return (
-    <VStack flex="1" h="100%" px="8" spacing="8">
+    <VStack width="100%" h="100%" px="8" spacing="8" alignItems={"center"}>
       <Box>
         {spinner ? (
           <Spinner />
         ) : (
           <Image
-            boxSize="200px"
+            width="100%"
+            height="200px"
             borderRadius="8px"
             objectFit="cover"
             src={imageURL}

@@ -115,7 +115,17 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 Cập nhật
               </Button>
               <Link to={"/product/detail"}>
-                <Button colorScheme="red" variant="outline" size="md">
+                <Button
+                  colorScheme="red"
+                  variant="outline"
+                  size="md"
+                  onClick={() => {
+                    confirm(
+                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                    );
+                    navigate("/product/detail");
+                  }}
+                >
                   Hủy
                 </Button>
               </Link>
@@ -208,13 +218,16 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
               </VStack>
               <VStack flex="1" h="100%" px="8" spacing="8">
                 <ImageUpload
-                  defaultImageURL={productAvatarURL}
+                  imageURL={productAvatarURL}
+                  setImageURL={(url) => {
+                    setProductAvatarURL(url);
+                  }}
                   getImageURL={(url) => {
                     setProductAvatarURL(url);
                   }}
                 />
                 <Input
-                  opacity="0"
+                  opacity="100"
                   {...register("avatar")}
                   value={productAvatarURL}
                 />
