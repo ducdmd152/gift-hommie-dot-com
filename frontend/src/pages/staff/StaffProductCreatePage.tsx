@@ -27,24 +27,73 @@ import CATEGORIES from "../../data/Categories";
 import { FieldValues, set, useForm } from "react-hook-form";
 import imageService from "../../services/image-service";
 
-interface FormData extends StaffProductDTO {}
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ImageUpload from "../../components/image/ImageUpload";
+const schema = z.object({
+  name: z
+    .string({
+      required_error: "Vui lòng nhập tên sản phẩm.",
+      invalid_type_error: "First name must be a string",
+    })
+    .min(6, {
+      message: "Vui lòng nhập tên sản phẩm ít nhất 6 kí tự.",
+    }),
+  avatar: z.string({
+    required_error: "Vui lòng cập nhật ảnh sản phẩm.",
+    invalid_type_error: "First name must be a string",
+  }),
+  description: z.string({
+    required_error: "Vui lòng nhập thông tin mô tả sản phẩm.",
+    invalid_type_error: "First name must be a string",
+  }),
+  price: z
+    .number({
+      required_error: "Vui lòng nhập giá sản phẩm.",
+      invalid_type_error: "Vui lòng nhập giá sản phẩm.",
+    })
+    .min(0, {
+      message: "Giá sản phẩm phải lớn hớn hoặc bằng 0",
+    }),
+  quantity: z
+    .number({
+      required_error: "Vui lòng nhập số lượng có sẵn.",
+      invalid_type_error: "Vui lòng nhập số lượng có sẵn.",
+    })
+    .min(0, {
+      message: "Số lượng sản phẩm phải lớn hớn hoặc bằng 0",
+    }),
+  categoryId: z
+    .number({
+      required_error: "Vui lòng chọn danh mục sản phẩm",
+      invalid_type_error: "Vui lòng chọn danh mục sản phẩm",
+    })
+    .min(1, {
+      message: "Vui lòng chọn danh mục sản phẩm",
+    }),
+});
+
+type FormData = z.infer<typeof schema>;
+
 interface Props {
   setCurrentProductId: (id: number) => void;
 }
 const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
   const navigate = useNavigate();
-  const [productAvatarURL, setProductAvatarURL] = useState<string>(
-    imageService.getDefaultProductAvatarURL()
-  );
+  const [productAvatarURL, setProductAvatarURL] = useState<string>("");
+
+  // FORM HANDLING
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FieldValues) => {
     const product = data as StaffProductDTO;
     product.id = 0;
+    console.log(product.avatar.length);
+
     staffProductService
       .create(product)
       .then((res) => {
@@ -58,6 +107,8 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
         navigate("/product/create");
       });
   };
+
+  console.log("parent: " + productAvatarURL);
 
   return (
     <>
@@ -75,7 +126,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               </Badge>
               <HStack>
                 <Heading size="lg" colorScheme="gray">
-                  {"Create new product"}
+                  {"Tạo mới sản phẩm"}
                 </Heading>
                 <Badge colorScheme="blue" fontSize="md">
                   CREATE
@@ -87,7 +138,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Hoàn tất
               </Button>
-              <Link to={"/product/detail"}>
+              <Link to={"/product"}>
                 <Button colorScheme="red" variant="outline" size="md">
                   Hủy
                 </Button>
@@ -102,11 +153,14 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     Tên sản phẩm
                   </FormLabel>
                   <Input
-                    {...register("name", { required: true, minLength: 3 })}
+                    {...register("name")}
                     color="black"
                     placeholder="Tên sản phẩm..."
                     fontWeight="bold"
                   />
+                  {errors.name && (
+                    <p className="form-error-message">{errors.name?.message}</p>
+                  )}
                 </FormControl>
 
                 <FormControl>
@@ -114,13 +168,17 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     Giá
                   </FormLabel>
                   <Input
-                    {...register("price", { required: true, min: 1000 })}
+                    {...register("price", { valueAsNumber: true })}
                     color="black"
                     type="number"
-                    min={1000}
                     placeholder="Giá..."
                     fontWeight="bold"
                   />
+                  {errors.price && (
+                    <p className="form-error-message">
+                      {errors.price?.message}
+                    </p>
+                  )}
                 </FormControl>
 
                 <FormControl>
@@ -128,16 +186,18 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     Số lượng
                   </FormLabel>
                   <Input
-                    {...register("quantity", {
-                      required: true,
-                      min: 0,
-                    })}
+                    {...register("quantity", { valueAsNumber: true })}
                     color="black"
                     type="number"
                     min={0}
                     placeholder="Số lượng..."
                     fontWeight="bold"
                   />
+                  {errors.quantity && (
+                    <p className="form-error-message">
+                      {errors.quantity?.message}
+                    </p>
+                  )}
                 </FormControl>
 
                 <FormControl>
@@ -145,10 +205,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     Danh mục sản phẩm
                   </FormLabel>
                   <Select
-                    {...register("categoryId", {
-                      required: true,
-                    })}
-                    required
+                    {...register("categoryId", { valueAsNumber: true })}
                     color="black"
                     placeholder="Lựa chọn danh mục"
                   >
@@ -158,10 +215,23 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                       </option>
                     ))}
                   </Select>
+                  {errors.categoryId && (
+                    <p className="form-error-message">
+                      {errors.categoryId?.message}
+                    </p>
+                  )}
                 </FormControl>
               </VStack>
-              <VStack flex="1" h="100%" px="8" spacing="8">
-                <Box>
+              <VStack flex="1" align="center" h="100%" pt="8" spacing="8">
+                <ImageUpload
+                  getImageURL={(url) => {
+                    console.log("URL " + url);
+
+                    setProductAvatarURL(url);
+                  }}
+                />
+                <Input {...register("avatar")} value={productAvatarURL} />
+                {/* <Box>
                   <Image
                     borderRadius="8px"
                     boxSize="240px"
@@ -169,15 +239,12 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     src={productAvatarURL}
                   />
                 </Box>
-
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     IMAGE URL
                   </FormLabel>
                   <Input
-                    {...register("avatar", {
-                      // required: true,
-                    })}
+                    {...register("avatar")}
                     color="black"
                     value={productAvatarURL}
                     onChange={(event) => {
@@ -185,7 +252,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     }}
                     fontWeight="bold"
                   />
-                </FormControl>
+                </FormControl> */}
               </VStack>
             </Flex>
             <FormControl>
@@ -193,9 +260,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                 Mô tả sản phẩm
               </FormLabel>
               <Textarea
-                {...register("description", {
-                  required: true,
-                })}
+                {...register("description")}
                 color="black"
                 fontWeight="medium"
                 fontStyle="italic"

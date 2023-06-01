@@ -70,3 +70,10 @@
   border-radius: 1rem;
   border: 1px solid blue;
 }
+
+.form-error-message {
+  color: red;
+  margin-top: 6px;
+  margin-left: 4px;
+  font-style: italic;
+}

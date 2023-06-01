@@ -89,7 +89,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
         <HStack justifyContent="space-between">
           <VStack alignItems="start">
             <Badge variant="outline" display="inline-block">
-              {"id >> 1"}
+              {"id >> " + product.id}
             </Badge>
             <HStack>
               <Heading size="lg" colorScheme="gray">

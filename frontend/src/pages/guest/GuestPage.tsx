@@ -37,7 +37,6 @@ const GuestPage = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<GuestShopPage />} />
           <Route path="/shop/detail" element={<GuestShopDetailPage />} />
-          <Route path="/test" element={<ImageUpload />} />
         </Routes>
       </GridItem>
     </Grid>
