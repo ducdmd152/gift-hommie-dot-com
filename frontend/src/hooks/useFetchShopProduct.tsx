@@ -25,6 +25,7 @@ const useFetchStaffProduct = (requestQuery: ShopProductQuery) => {
           search: requestQuery?.search,
           category: requestQuery?.category,
           sort: requestQuery?.sort,
+          related: requestQuery?.related,
           _order: requestQuery?.order,
         },
       },

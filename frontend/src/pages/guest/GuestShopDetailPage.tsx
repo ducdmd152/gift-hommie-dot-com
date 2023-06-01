@@ -13,6 +13,7 @@ const GuestShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const productId = globalContext.productContext.getProductId();
 
+  console.log(productId);
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>({
     size: 4,
     related: productId,
