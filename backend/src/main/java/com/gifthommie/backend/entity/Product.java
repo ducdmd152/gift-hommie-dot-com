@@ -39,7 +39,7 @@ public class Product {
 	
 	@Column(name = "status")
 	@JsonIgnore
-	private boolean status;
+	private boolean status = true;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
