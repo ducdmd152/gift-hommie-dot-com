@@ -241,7 +241,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                   }}
                 />
                 <Input
-                  opacity="100"
+                  hidden
                   {...register("avatar")}
                   value={productAvatarURL}
                 />
