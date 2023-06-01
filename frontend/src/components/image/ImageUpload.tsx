@@ -12,11 +12,20 @@ import {
 import React, { ChangeEvent, useState } from "react";
 import utilService from "../../services/util-service";
 
-const ImageUpload = () => {
+interface Props {
+  defaultImageURL?: string;
+}
+const ImageUpload = ({ defaultImageURL }: Props) => {
   const [image, setImage] = useState<File | null>(null);
+  const [imageURL, setImageURL] = useState(
+    defaultImageURL || utilService.getURLImageUploadPresent()
+  );
 
   const handlePreviewImage = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setImage(e.target.files[0]);
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+      setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
+    }
   };
 
   return (
@@ -29,10 +38,10 @@ const ImageUpload = () => {
     >
       <Box>
         <Image
+          boxSize="200px"
           borderRadius="8px"
-          height="200px"
           objectFit="cover"
-          src={utilService.getURLImageFromFile(image)}
+          src={imageURL}
         />
       </Box>
       <Button cursor="pointer">
