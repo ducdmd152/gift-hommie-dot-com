@@ -6,13 +6,17 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gifthommie.backend.dto.FileResponseDTO;
 import com.gifthommie.backend.entity.FileResponse;
 import com.gifthommie.backend.service.FileService;
 
@@ -42,5 +46,12 @@ public class FileController {
 		}
 		return new ResponseEntity<>(new FileResponse(fileName, "Image is successfully upload!",imgUrl),HttpStatus.OK);
 		
+	}
+	
+	@PostMapping("/image/upload")
+	public FileResponseDTO imageUpload(
+			@RequestParam("image") MultipartFile image) throws IOException{
+		String fileName = fileService.uploadImage(path, image);
+		return new FileResponseDTO(fileName);
 	}
 }
