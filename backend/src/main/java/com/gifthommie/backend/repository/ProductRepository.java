@@ -19,4 +19,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %:search% and p.status = :status")
 	public Page<Product> finfAllByName(@Param("status") boolean status,@Param("search") String search,Pageable pageable);
+	
+	
+	
+	// related chính productID, từ đó lấy ra sản phẩm tương tự với cateID của product ID đó
+	@Query("SELECT p FROM Product p WHERE p.category.id = (SELECT p2.category.id FROM Product p2 WHERE p2.id = :realated) AND p.status = :status")
+	public Page<Product> finfAllByRealated(@Param("status") boolean status,@Param("realated") int realated,PageRequest pageRequest);
+	
 }

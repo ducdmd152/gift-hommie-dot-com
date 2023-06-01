@@ -27,6 +27,9 @@ public class CustomerProductController {
 		//List Product By Category and Filter Sort By Price  : http://localhost:8080/customer/product?category=1&sort=price
 		//List Product By Category and Filter Sort By Name   : http://localhost:8080/customer/product?category=1&sort=name
 	
+		// Suggest similar products: http://localhost:8080/customer/product?related=23  
+		// related=23 is a product ID, this will return a list same category id with product id = 23
+	
 	@GetMapping
 	public APIPageableResponseDTO<Product> getProductList(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
@@ -34,9 +37,13 @@ public class CustomerProductController {
 			@RequestParam(defaultValue = "", name = "search") String search,
 			@RequestParam(name = "category", required = false) Integer category,
 			@RequestParam(name = "sort", defaultValue = "id") String sortField,
-			@RequestParam(name = "order", required = false) Boolean sortOrder
+			@RequestParam(name = "order", required = false) Boolean sortOrder,
+			@RequestParam(name = "related", required = false) Integer related
 			) {
-		
+		if (related != null && related != 0) {
+			return productService.getProductByRelated(pageNo, pageSize, related);
+		}
+
 		if(category == null || category==0) {
 			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
 		}
