@@ -34,4 +34,6 @@ public interface ProductService {
 			Integer category, String sortField);
 
 	Product createNewProductFrom(ProductRequestDTO productRequestDTO);
+	
+	APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated);
 }

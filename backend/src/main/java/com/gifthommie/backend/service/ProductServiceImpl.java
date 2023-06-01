@@ -54,8 +54,14 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
-	
-	
+	// Get related product
+	@Override
+	public APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated) {
+		Page<Product> page = productRepository.finfAllByRealated(true, realated, PageRequest.of(pageNo, pageSize));
+		return new APIPageableResponseDTO<Product>(page);
+	}
+
+
 	// save product
 	@Override
 	public Product save(Product product) {
@@ -144,6 +150,8 @@ public class ProductServiceImpl implements ProductService {
 		
 		return product;
 	}
+
+
 
 
 
