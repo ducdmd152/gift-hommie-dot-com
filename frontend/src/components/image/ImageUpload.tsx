@@ -6,6 +6,7 @@ import {
   Heading,
   Image,
   Input,
+  Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -18,15 +19,20 @@ interface Props {
 }
 const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
   const [image, setImage] = useState<File>({} as File);
-  const [imageURL, setImageURL] = useState(
-    defaultImageURL || utilService.getURLImageUploadPresent()
-  );
+  const [imageURL, setImageURL] = useState(defaultImageURL);
+  const [spinner, setSpinner] = useState(false);
+
+  if (imageURL === undefined) {
+    setImageURL(imageService.getDefaultProductAvatarURL());
+  }
 
   const handlePreviewImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
+      setSpinner(true);
       let urlFromAPI = await imageService.upload(e.target.files[0]);
+      setSpinner(false);
       if (getImageURL) getImageURL(urlFromAPI);
     }
   };
@@ -34,12 +40,16 @@ const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
   return (
     <VStack flex="1" h="100%" px="8" spacing="8">
       <Box>
-        <Image
-          boxSize="200px"
-          borderRadius="8px"
-          objectFit="cover"
-          src={imageURL}
-        />
+        {spinner ? (
+          <Spinner />
+        ) : (
+          <Image
+            boxSize="200px"
+            borderRadius="8px"
+            objectFit="cover"
+            src={imageURL}
+          />
+        )}
       </Box>
       <Button cursor="pointer">
         <Text cursor="pointer">Tải ảnh lên</Text>

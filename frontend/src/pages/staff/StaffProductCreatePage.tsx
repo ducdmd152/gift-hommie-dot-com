@@ -91,8 +91,9 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const product = data as StaffProductDTO;
+    console.log(product);
     product.id = 0;
-    console.log(product.avatar.length);
+    product.avatar = productAvatarURL;
 
     staffProductService
       .create(product)
@@ -107,8 +108,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
         navigate("/product/create");
       });
   };
-
-  console.log("parent: " + productAvatarURL);
 
   return (
     <>
@@ -228,7 +227,11 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     setProductAvatarURL(url);
                   }}
                 />
-                <Input {...register("avatar")} value={productAvatarURL} />
+                <Input
+                  opacity="0"
+                  {...register("avatar")}
+                  value={productAvatarURL}
+                />
                 {/* <Box>
                   <Image
                     borderRadius="8px"

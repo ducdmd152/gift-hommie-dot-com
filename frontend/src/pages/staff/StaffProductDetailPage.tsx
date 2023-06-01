@@ -198,18 +198,6 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   alt={product.name}
                 />
               </Box>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  IMAGE URL
-                </FormLabel>
-                <Input
-                  isReadOnly
-                  color="gray"
-                  value={product.avatar}
-                  fontWeight="bold"
-                />
-              </FormControl>
             </VStack>
           </Flex>
           <FormControl>
