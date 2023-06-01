@@ -225,8 +225,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               <VStack flex="1" align="center" h="100%" pt="8" spacing="8">
                 <ImageUpload
                   getImageURL={(url) => {
-                    console.log("URL " + url);
-
                     setProductAvatarURL(url);
                   }}
                 />

@@ -11,23 +11,23 @@ import {
 } from "@chakra-ui/react";
 import React, { ChangeEvent, useState } from "react";
 import utilService from "../../services/util-service";
-
+import imageService from "../../services/image-service";
 interface Props {
   defaultImageURL?: string;
   getImageURL?: (url: string) => void;
 }
 const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File>({} as File);
   const [imageURL, setImageURL] = useState(
     defaultImageURL || utilService.getURLImageUploadPresent()
   );
 
-  const handlePreviewImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePreviewImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
-      if (getImageURL)
-        getImageURL(utilService.getURLImageFromFile(e.target.files[0]));
+      let urlFromAPI = await imageService.upload(e.target.files[0]);
+      if (getImageURL) getImageURL(urlFromAPI);
     }
   };
 
