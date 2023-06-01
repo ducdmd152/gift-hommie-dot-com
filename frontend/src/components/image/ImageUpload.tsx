@@ -14,8 +14,9 @@ import utilService from "../../services/util-service";
 
 interface Props {
   defaultImageURL?: string;
+  getImageURL?: (url: string) => void;
 }
-const ImageUpload = ({ defaultImageURL }: Props) => {
+const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [imageURL, setImageURL] = useState(
     defaultImageURL || utilService.getURLImageUploadPresent()
@@ -25,17 +26,14 @@ const ImageUpload = ({ defaultImageURL }: Props) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
+      console.log("IMAGE URL :" + imageURL);
+      if (getImageURL)
+        getImageURL(utilService.getURLImageFromFile(e.target.files[0]));
     }
   };
 
   return (
-    <VStack
-      flex="1"
-      h="100%"
-      px="8"
-      spacing="8"
-      marginTop={utilService.HEADER_HEIGHT}
-    >
+    <VStack flex="1" h="100%" px="8" spacing="8">
       <Box>
         <Image
           boxSize="200px"

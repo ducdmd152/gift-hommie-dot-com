@@ -29,6 +29,7 @@ import imageService from "../../services/image-service";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ImageUpload from "../../components/image/ImageUpload";
 const schema = z.object({
   name: z
     .string({
@@ -79,9 +80,9 @@ interface Props {
 }
 const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
   const navigate = useNavigate();
-  const [productAvatarURL, setProductAvatarURL] = useState<string>(
-    imageService.getDefaultProductAvatarURL()
-  );
+  const [productAvatarURL, setProductAvatarURL] = useState<string>("");
+
+  // FORM HANDLING
   const {
     register,
     handleSubmit,
@@ -106,6 +107,8 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
         navigate("/product/create");
       });
   };
+
+  console.log("parent: " + productAvatarURL);
 
   return (
     <>
@@ -219,8 +222,16 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                   )}
                 </FormControl>
               </VStack>
-              <VStack flex="1" h="100%" px="8" spacing="8">
-                <Box>
+              <VStack flex="1" align="center" h="100%" pt="8" spacing="8">
+                <ImageUpload
+                  getImageURL={(url) => {
+                    console.log("URL " + url);
+
+                    setProductAvatarURL(url);
+                  }}
+                />
+                <Input {...register("avatar")} value={productAvatarURL} />
+                {/* <Box>
                   <Image
                     borderRadius="8px"
                     boxSize="240px"
@@ -228,7 +239,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     src={productAvatarURL}
                   />
                 </Box>
-
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     IMAGE URL
@@ -242,7 +252,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     }}
                     fontWeight="bold"
                   />
-                </FormControl>
+                </FormControl> */}
               </VStack>
             </Flex>
             <FormControl>
