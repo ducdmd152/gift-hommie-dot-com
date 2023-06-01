@@ -26,7 +26,6 @@ const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
-      console.log("IMAGE URL :" + imageURL);
       if (getImageURL)
         getImageURL(utilService.getURLImageFromFile(e.target.files[0]));
     }
