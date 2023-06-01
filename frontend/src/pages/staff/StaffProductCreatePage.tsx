@@ -137,11 +137,22 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Hoàn tất
               </Button>
-              <Link to={"/product"}>
-                <Button colorScheme="red" variant="outline" size="md">
-                  Hủy
-                </Button>
-              </Link>
+              <Button
+                colorScheme="red"
+                variant="outline"
+                size="md"
+                onClick={() => {
+                  if (
+                    confirm(
+                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                    )
+                  ) {
+                    navigate("/product");
+                  }
+                }}
+              >
+                Hủy
+              </Button>
             </HStack>
           </HStack>
           <VStack mt={6} p="4">
@@ -223,6 +234,8 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               </VStack>
               <VStack flex="1" align="center" h="100%" pt="8" spacing="8">
                 <ImageUpload
+                  imageURL={productAvatarURL}
+                  setImageURL={setProductAvatarURL}
                   getImageURL={(url) => {
                     setProductAvatarURL(url);
                   }}

@@ -114,21 +114,22 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Cập nhật
               </Button>
-              <Link to={"/product/detail"}>
-                <Button
-                  colorScheme="red"
-                  variant="outline"
-                  size="md"
-                  onClick={() => {
+              <Button
+                colorScheme="red"
+                variant="outline"
+                size="md"
+                onClick={() => {
+                  if (
                     confirm(
                       `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                    );
+                    )
+                  ) {
                     navigate("/product/detail");
-                  }}
-                >
-                  Hủy
-                </Button>
-              </Link>
+                  }
+                }}
+              >
+                Hủy
+              </Button>
             </HStack>
           </HStack>
           <VStack mt={6} p="4">

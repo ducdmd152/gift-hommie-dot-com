@@ -37,16 +37,16 @@ const ImageUpload = ({ getImageURL, imageURL, setImageURL }: Props) => {
 
   return (
     <VStack width="100%" h="100%" px="8" spacing="8" alignItems={"center"}>
-      <Box>
+      <Box width="80%">
         {spinner ? (
           <Spinner />
         ) : (
           <Image
             width="100%"
-            height="200px"
+            height="280px"
             borderRadius="8px"
             objectFit="cover"
-            src={imageURL}
+            src={imageURL || imageService.getUnUploadImageURL()}
           />
         )}
       </Box>
