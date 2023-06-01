@@ -189,27 +189,16 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               </FormControl>
             </VStack>
             <VStack flex="1" h="100%" px="8" spacing="8">
-              <Box>
+              <Box width="80%">
                 <Image
+                  width="100%"
                   borderRadius="8px"
-                  height="200px"
+                  height="280px"
                   objectFit="cover"
                   src={product.avatar}
                   alt={product.name}
                 />
               </Box>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  IMAGE URL
-                </FormLabel>
-                <Input
-                  isReadOnly
-                  color="gray"
-                  value={product.avatar}
-                  fontWeight="bold"
-                />
-              </FormControl>
             </VStack>
           </Flex>
           <FormControl>

@@ -25,6 +25,8 @@ import staffProductService, {
 } from "../../services/staff-product-service";
 import CATEGORIES from "../../data/Categories";
 import { FieldValues, useForm } from "react-hook-form";
+import ImageUpload from "../../components/image/ImageUpload";
+import imageService from "../../services/image-service";
 
 interface Props {
   currentProductId: number | null;
@@ -33,10 +35,15 @@ interface Props {
 interface FormData extends StaffProductDTO {}
 
 const StaffProductEditPage = ({ currentProductId }: Props) => {
+  // FETCH DATA
   const [product, setProduct] = useState<StaffProductDTO>(
     {} as StaffProductDTO
   );
+  const [productAvatarURL, setProductAvatarURL] = useState<string>(
+    product.avatar
+  );
   const navigate = useNavigate();
+
   useEffect(() => {
     let id = 0;
     if (currentProductId == null || currentProductId === undefined) {
@@ -49,12 +56,14 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
       .get(id)
       .then((res) => {
         setProduct(res.data);
+        setProductAvatarURL(res.data.avatar);
       })
       .catch((err) => {
         navigate("/product");
       });
   }, []);
 
+  // FORM HANDLING
   const {
     register,
     handleSubmit,
@@ -64,11 +73,17 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
   const onSubmit = (data: FieldValues) => {
     const updateProduct = data as StaffProductDTO;
     updateProduct.id = product.id;
+    updateProduct.avatar = productAvatarURL;
+    console.log(productAvatarURL);
+    console.log(updateProduct);
     staffProductService
       .update(updateProduct)
-      .then(() => {})
-      .catch(() => {});
-    navigate("/product/detail");
+      .then(() => {
+        navigate("/product/detail");
+      })
+      .catch(() => {
+        alert(`Không thể sửa thông của "${product.name}".\n Vui lòng thử lại.`);
+      });
   };
 
   return (
@@ -99,11 +114,22 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Cập nhật
               </Button>
-              <Link to={"/product/detail"}>
-                <Button colorScheme="red" variant="outline" size="md">
-                  Hủy
-                </Button>
-              </Link>
+              <Button
+                colorScheme="red"
+                variant="outline"
+                size="md"
+                onClick={() => {
+                  if (
+                    confirm(
+                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                    )
+                  ) {
+                    navigate("/product/detail");
+                  }
+                }}
+              >
+                Hủy
+              </Button>
             </HStack>
           </HStack>
           <VStack mt={6} p="4">
@@ -126,7 +152,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     Tên sản phẩm
                   </FormLabel>
                   <Input
-                    {...register("name", { required: true, minLength: 3 })}
+                    {...register("name", { required: true })}
                     color="black"
                     defaultValue={product.name}
                     fontWeight="bold"
@@ -138,7 +164,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     Giá
                   </FormLabel>
                   <Input
-                    {...register("price", { required: true, min: 1000 })}
+                    {...register("price", { required: true, min: 0 })}
                     color="black"
                     type="number"
                     min={1000}
@@ -192,30 +218,20 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 </FormControl>
               </VStack>
               <VStack flex="1" h="100%" px="8" spacing="8">
-                <Box>
-                  <Image
-                    borderRadius="8px"
-                    boxSize="100%"
-                    objectFit="cover"
-                    src={product.avatar}
-                    alt={product.name}
-                  />
-                </Box>
-
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    IMAGE URL
-                  </FormLabel>
-                  <Input
-                    isReadOnly
-                    {...register("avatar", {
-                      required: true,
-                    })}
-                    color="black"
-                    value={product.avatar}
-                    fontWeight="bold"
-                  />
-                </FormControl>
+                <ImageUpload
+                  imageURL={productAvatarURL}
+                  setImageURL={(url) => {
+                    setProductAvatarURL(url);
+                  }}
+                  getImageURL={(url) => {
+                    setProductAvatarURL(url);
+                  }}
+                />
+                <Input
+                  opacity="100"
+                  {...register("avatar")}
+                  value={productAvatarURL}
+                />
               </VStack>
             </Flex>
             <FormControl>
@@ -223,14 +239,12 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 Mô tả sản phẩm
               </FormLabel>
               <Textarea
-                {...register("description", {
-                  required: true,
-                })}
+                {...register("description")}
                 color="black"
                 fontWeight="medium"
                 fontStyle="italic"
                 letterSpacing="1"
-                value={product.description}
+                defaultValue={product.description}
               />
             </FormControl>
           </VStack>

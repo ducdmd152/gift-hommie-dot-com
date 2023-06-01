@@ -91,8 +91,9 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const product = data as StaffProductDTO;
+    console.log(product);
     product.id = 0;
-    console.log(product.avatar.length);
+    product.avatar = productAvatarURL;
 
     staffProductService
       .create(product)
@@ -107,8 +108,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
         navigate("/product/create");
       });
   };
-
-  console.log("parent: " + productAvatarURL);
 
   return (
     <>
@@ -138,11 +137,22 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Hoàn tất
               </Button>
-              <Link to={"/product"}>
-                <Button colorScheme="red" variant="outline" size="md">
-                  Hủy
-                </Button>
-              </Link>
+              <Button
+                colorScheme="red"
+                variant="outline"
+                size="md"
+                onClick={() => {
+                  if (
+                    confirm(
+                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                    )
+                  ) {
+                    navigate("/product");
+                  }
+                }}
+              >
+                Hủy
+              </Button>
             </HStack>
           </HStack>
           <VStack mt={6} p="4">
@@ -224,13 +234,17 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
               </VStack>
               <VStack flex="1" align="center" h="100%" pt="8" spacing="8">
                 <ImageUpload
+                  imageURL={productAvatarURL}
+                  setImageURL={setProductAvatarURL}
                   getImageURL={(url) => {
-                    console.log("URL " + url);
-
                     setProductAvatarURL(url);
                   }}
                 />
-                <Input {...register("avatar")} value={productAvatarURL} />
+                <Input
+                  opacity="100"
+                  {...register("avatar")}
+                  value={productAvatarURL}
+                />
                 {/* <Box>
                   <Image
                     borderRadius="8px"

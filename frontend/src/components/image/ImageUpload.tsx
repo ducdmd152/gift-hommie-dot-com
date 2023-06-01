@@ -6,40 +6,49 @@ import {
   Heading,
   Image,
   Input,
+  Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, useState } from "react";
 import utilService from "../../services/util-service";
-
+import imageService from "../../services/image-service";
 interface Props {
-  defaultImageURL?: string;
   getImageURL?: (url: string) => void;
+  imageURL: string;
+  setImageURL: (url: string) => void;
 }
-const ImageUpload = ({ defaultImageURL, getImageURL }: Props) => {
-  const [image, setImage] = useState<File | null>(null);
-  const [imageURL, setImageURL] = useState(
-    defaultImageURL || utilService.getURLImageUploadPresent()
-  );
+const ImageUpload = ({ getImageURL, imageURL, setImageURL }: Props) => {
+  const [image, setImage] = useState<File>({} as File);
 
-  const handlePreviewImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const [spinner, setSpinner] = useState(false);
+
+  const handlePreviewImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setImageURL(utilService.getURLImageFromFile(e.target.files[0]));
-      if (getImageURL)
-        getImageURL(utilService.getURLImageFromFile(e.target.files[0]));
+      setSpinner(true);
+      let urlFromAPI = await imageService.upload(e.target.files[0]);
+      setImageURL(urlFromAPI);
+      setSpinner(false);
+      if (getImageURL) getImageURL(urlFromAPI);
     }
   };
 
   return (
-    <VStack flex="1" h="100%" px="8" spacing="8">
-      <Box>
-        <Image
-          boxSize="200px"
-          borderRadius="8px"
-          objectFit="cover"
-          src={imageURL}
-        />
+    <VStack width="100%" h="100%" px="8" spacing="8" alignItems={"center"}>
+      <Box width="80%">
+        {spinner ? (
+          <Spinner />
+        ) : (
+          <Image
+            width="100%"
+            height="280px"
+            borderRadius="8px"
+            objectFit="cover"
+            src={imageURL || imageService.getUnUploadImageURL()}
+          />
+        )}
       </Box>
       <Button cursor="pointer">
         <Text cursor="pointer">Tải ảnh lên</Text>
