@@ -13,7 +13,6 @@ interface Props {
 }
 
 const UserProfileView = ({ staffs }: Props) => {
-
     return (
         <>
             <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
