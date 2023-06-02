@@ -1,13 +1,13 @@
 import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
+  Box, Button, Card, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
   HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-  VStack, Image, Flex,
+  VStack, Image,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import managerStaffService, {
 } from "../../services/staff-product-service";
-import staffProductService from "../../services/staff-product-service";
+
 
 const UserProfileEdit = () => {
   return (
@@ -37,7 +37,7 @@ const UserProfileEdit = () => {
             <Input
               maxW='450px'
               color="gray"
-              // value={product.name}
+              // value={staff.firstName + " " + staff.lastName}
               fontWeight="bold"
             />
           </HStack>
@@ -51,7 +51,7 @@ const UserProfileEdit = () => {
             <Input
               maxW='450px'
               color="gray"
-              // value={product.name}
+              // value={staff.username}
               fontWeight="bold"
             />
           </HStack>
@@ -65,7 +65,7 @@ const UserProfileEdit = () => {
             <Input
               maxW='450px'
               color="gray"
-              // value={product.name}
+              // value={staff.email}
               fontWeight="bold"
             />
           </HStack>
@@ -78,7 +78,21 @@ const UserProfileEdit = () => {
             <Input
               maxW='450px'
               color="gray"
-              // value={product.name}
+              // value={staff.phone}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+
+        <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between'>
+            <FormLabel size="md" fontWeight="bold">
+              Địa Chỉ
+            </FormLabel>
+            <Input
+              maxW='450px'
+              color="gray"
+              // value={staff.address}
               fontWeight="bold"
             />
           </HStack>
@@ -108,7 +122,7 @@ const UserProfileEdit = () => {
               placeholder="YYYY"
               maxW='100px'
               color="gray"
-              // value={product.name} 
+              // value={staff.yob} 
               fontWeight="bold"
             />
           </HStack>
