@@ -51,7 +51,7 @@ const UserProfileView = () => {
                     <FormControl>
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold" >
-                                Tên Đầy Đủ
+                                Tên Đăng Nhập
                             </FormLabel>
                             <Input
                                 maxW='450px'
@@ -66,7 +66,22 @@ const UserProfileView = () => {
                     <FormControl marginTop='50px'>
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold" >
-                                Tên Đăng Nhập
+                                Họ
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
+
+                    <FormControl marginTop='50px'>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold" >
+                                Tên
                             </FormLabel>
                             <Input
                                 maxW='450px'
@@ -96,6 +111,21 @@ const UserProfileView = () => {
                         <HStack justifyContent='space-between'>
                             <FormLabel size="md" fontWeight="bold">
                                 Số Điện Thoại
+                            </FormLabel>
+                            <Input
+                                maxW='450px'
+                                isReadOnly
+                                color="gray"
+                                // value={product.name}
+                                fontWeight="bold"
+                            />
+                        </HStack>
+                    </FormControl>
+
+                    <FormControl marginTop='50px'>
+                        <HStack justifyContent='space-between'>
+                            <FormLabel size="md" fontWeight="bold">
+                                Địa Chỉ
                             </FormLabel>
                             <Input
                                 maxW='450px'

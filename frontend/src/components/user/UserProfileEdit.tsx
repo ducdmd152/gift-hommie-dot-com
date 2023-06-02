@@ -85,6 +85,20 @@ const UserProfileEdit = () => {
         </FormControl>
 
         <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between'>
+            <FormLabel size="md" fontWeight="bold">
+              Địa Chỉ
+            </FormLabel>
+            <Input
+              maxW='450px'
+              color="gray"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+
+        <FormControl marginTop='50px'>
           <HStack justifyContent='space-between' >
             <FormLabel size="md" fontWeight="bold">
               Gender
