@@ -1,5 +1,16 @@
 import {
-  Box, Button, Heading, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr,
+  Box,
+  Button,
+  Heading,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import React from "react";
 import useFetchManagerStaff, {
@@ -12,7 +23,6 @@ interface Props {
   staffs: ManagerStaffDTO[];
   setUserId: (id: string) => void;
 }
-
 
 const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
   const navigate = useNavigate();
@@ -46,10 +56,17 @@ const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
                   <Td>{staff.address}</Td>
                   <Td>
                     {/* <Link to="/staff/detail"> */}
-                    <Button colorScheme="blue" paddingX="4" size="sm" onClick={() => {
-                      setUserId(staff.id);
-                      navigate("/staff/detail");
-                    }}>
+                    <Button
+                      colorScheme="blue"
+                      paddingX="4"
+                      size="sm"
+                      onClick={() => {
+                        setUserId(staff.id);
+                        // console.log(staff.id);
+
+                        navigate("/staff/detail");
+                      }}
+                    >
                       Chi tiết
                     </Button>
                     {/* </Link> */}

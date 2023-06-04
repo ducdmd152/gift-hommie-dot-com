@@ -9,12 +9,13 @@ import useFetchManagerStaff, {
 } from "../../hooks/useFetchManagerStaff";
 import { Link } from "react-router-dom";
 
-const ManagerStaffListPage = () => {
+interface Props {
+  setUserId: (id: string) => void;
+}
+const ManagerStaffListPage = ({ setUserId }: Props) => {
   const [managerStaffQuery, setManagerStaffQuery] = useState<ManagerStaffQuery>(
     {} as ManagerStaffQuery
   );
-
-  const [useId, setUserId] = useState<string>('')
 
   const { staffs, pageable, isLoading, error } =
     useFetchManagerStaff(managerStaffQuery);
@@ -32,13 +33,15 @@ const ManagerStaffListPage = () => {
         </Link>
       </HStack>
 
-      <SearchInput onSearch={(text: string) => {
-        //handle
-        setManagerStaffQuery({ ...managerStaffQuery, search: text });
-      }} />
+      <SearchInput
+        onSearch={(text: string) => {
+          //handle
+          setManagerStaffQuery({ ...managerStaffQuery, search: text });
+        }}
+      />
 
       <ManagerStaffTable staffs={staffs} setUserId={setUserId} />
-      
+
       <HStack justifyContent="center" paddingTop="6">
         <Pagination
           pageable={pageable}
