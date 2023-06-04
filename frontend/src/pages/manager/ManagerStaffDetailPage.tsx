@@ -25,12 +25,17 @@ import { ManagerStaffQuery } from "../../hooks/useFetchManagerStaff";
 import useFetchManagerStaff from "../../hooks/useFetchManagerStaff";
 import { useState } from "react";
 
-const ManagerStaffDetailPage = () => {
+interface Props {
+  userId: string
+}
+const ManagerStaffDetailPage = ({ userId }: Props) => {
   const [managerStaffQuery, setManagerStaffQuery] = useState<ManagerStaffQuery>(
     {} as ManagerStaffQuery
   );
   const { staffs, pageable, isLoading, error } =
-  useFetchManagerStaff(managerStaffQuery);
+    useFetchManagerStaff(managerStaffQuery);
+
+   
   return (
     <>
       <Link to="/staff">
@@ -50,7 +55,7 @@ const ManagerStaffDetailPage = () => {
           </Button>
         </HStack>
 
-        <UserProfileView staffs={staffs} />
+        <UserProfileView userId={userId} />
       </Card>
     </>
   );

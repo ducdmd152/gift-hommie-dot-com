@@ -29,7 +29,7 @@ export class HttpService<T extends HttpEntity> {
     return { request, cancel: () => controller.abort() };
   }
 
-  get(id: number) {
+  get(id: number | string) {
     const userJSON = sessionStorage.getItem("USER") || "";
     let USER = null;
     if (userJSON) {
@@ -64,7 +64,7 @@ export class HttpService<T extends HttpEntity> {
     });
   }
 
-  delete(id: number) {
+  delete(id: number | string) {
     const userJSON = sessionStorage.getItem("USER") || "";
     let USER = null;
     if (userJSON) {

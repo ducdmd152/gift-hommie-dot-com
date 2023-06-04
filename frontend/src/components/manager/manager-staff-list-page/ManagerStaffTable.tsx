@@ -1,17 +1,21 @@
 import {
-  Box,Button,Heading,Table,TableCaption,TableContainer,Tbody,Td,Tfoot,Th,Thead,Tr,
+  Box, Button, Heading, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr,
 } from "@chakra-ui/react";
 import React from "react";
 import useFetchManagerStaff, {
   ManagerStaffQuery,
 } from "../../../hooks/useFetchManagerStaff";
 import { ManagerStaffDTO } from "../../../services/manager-staff-service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   staffs: ManagerStaffDTO[];
+  setUserId: (id: string) => void;
 }
-const ManagerStaffTable = ({ staffs }: Props) => {
+
+
+const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
+  const navigate = useNavigate();
   return (
     <Box paddingTop="6">
       <TableContainer borderRadius="12" border="solid 1px gray">
@@ -41,11 +45,14 @@ const ManagerStaffTable = ({ staffs }: Props) => {
                   <Td>{staff.phone}</Td>
                   <Td>{staff.address}</Td>
                   <Td>
-                    <Link to="/staff/detail">
-                      <Button colorScheme="blue" paddingX="4" size="sm">
-                        Chi tiết
-                      </Button>
-                    </Link>
+                    {/* <Link to="/staff/detail"> */}
+                    <Button colorScheme="blue" paddingX="4" size="sm" onClick={() => {
+                      setUserId(staff.id);
+                      navigate("/staff/detail");
+                    }}>
+                      Chi tiết
+                    </Button>
+                    {/* </Link> */}
                   </Td>
                 </Tr>
               );
