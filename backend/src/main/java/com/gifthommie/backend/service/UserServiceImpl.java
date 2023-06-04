@@ -86,19 +86,25 @@ public class UserServiceImpl implements UserService {
 
 	// updateUserProfile : get value from RequestBody by UserProfileDTO
 	@Override
-	public User updateUserProfileDTO(UserProfileDTO userDTO) {
-		User user = SecurityUtils.getPrincipal().getUser();
-		user.setUsername(userDTO.getUsername());
-		user.setPassword(DEFAULT_PASSWORD);
-		user.setFirstName(userDTO.getFirstName());
-		user.setLastName(userDTO.getLastName());
-		user.setPhone(userDTO.getPhone());
-		user.setYob(userDTO.getYob());
-		user.setAvatar(userDTO.getAvatar());
-		user.setAddress(userDTO.getAddress());
-		user.setWardId(userDTO.getWardId());
+	public User updateUserProfileDTO(String userEmail, UserProfileDTO userDTO) {
+		if (userRepository.getUserByEmail(userEmail) == null) {
+			throw new RuntimeException("Email Not Exist!!!");
+			
+		}
+		User user = userRepository.getUserByEmail(userEmail);
 		
-		userRepository.save(user);
+		
+			user.setUsername(userDTO.getUsername());
+			user.setPassword(DEFAULT_PASSWORD);
+			user.setFirstName(userDTO.getFirstName());
+			user.setLastName(userDTO.getLastName());
+			user.setPhone(userDTO.getPhone());
+			user.setYob(userDTO.getYob());
+			user.setAvatar(userDTO.getAvatar());
+			user.setAddress(userDTO.getAddress());
+			user.setWardId(userDTO.getWardId());
+			
+			userRepository.save(user);
 		
 		return user;
 	}

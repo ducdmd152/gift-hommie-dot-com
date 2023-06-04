@@ -51,8 +51,9 @@ public class CustomerAccountController {
 	}
 	@PutMapping()
 	public User updateUserDTO(@RequestBody UserProfileDTO userRequestDTO) {
-		User result = userService.updateUserProfileDTO(userRequestDTO);
-		return result;
+		String email = SecurityUtils.getPrincipal().getUser().getEmail();
+		User user = userService.updateUserProfileDTO(email, userRequestDTO);
+		return user;
 	}
 
 }
