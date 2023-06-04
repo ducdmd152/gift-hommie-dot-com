@@ -14,6 +14,8 @@ const ManagerStaffListPage = () => {
     {} as ManagerStaffQuery
   );
 
+  const [useId, setUserId] = useState<string>('')
+
   const { staffs, pageable, isLoading, error } =
     useFetchManagerStaff(managerStaffQuery);
 
@@ -34,7 +36,9 @@ const ManagerStaffListPage = () => {
         //handle
         setManagerStaffQuery({ ...managerStaffQuery, search: text });
       }} />
-      <ManagerStaffTable staffs={staffs} />
+
+      <ManagerStaffTable staffs={staffs} setUserId={setUserId} />
+      
       <HStack justifyContent="center" paddingTop="6">
         <Pagination
           pageable={pageable}
