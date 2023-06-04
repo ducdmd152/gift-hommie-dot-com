@@ -1,5 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/header/Header";
 import { Route, Routes } from "react-router-dom";
 import ManagerStaffListPage from "./ManagerStaffListPage";
@@ -8,6 +8,9 @@ import ManagerStaffEditPage from "./ManagerStaffEditPage";
 import ManagerStaffDetailPage from "./ManagerStaffDetailPage";
 const HEADER_HEIGHT = "100px";
 const ManagerPage = () => {
+  const [userId, setUserId] = useState<string>("");
+  // userId state phải lưu ở Manager page để share cho 2 childs là ManagerStaffList và ManagerStaffDetail
+  // console.log(userId);
   return (
     <Grid
       templateAreas={{
@@ -30,10 +33,19 @@ const ManagerPage = () => {
 
       <GridItem area="main" mt={HEADER_HEIGHT}>
         <Routes>
-          <Route index element={<ManagerStaffListPage />} />
-          <Route path="/staff" element={<ManagerStaffListPage />} />
+          <Route
+            index
+            element={<ManagerStaffListPage setUserId={setUserId} />}
+          />
+          <Route
+            path="/staff"
+            element={<ManagerStaffListPage setUserId={setUserId} />}
+          />
           <Route path="/staff/create" element={<ManagerStaffCreatePage />} />
-          <Route path="/staff/detail" element={<ManagerStaffDetailPage />} />
+          <Route
+            path="/staff/detail"
+            element={<ManagerStaffDetailPage userId={userId} />}
+          />
           <Route path="/staff/edit" element={<ManagerStaffEditPage />} />
         </Routes>
       </GridItem>
