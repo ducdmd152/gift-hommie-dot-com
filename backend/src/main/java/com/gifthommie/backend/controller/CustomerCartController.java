@@ -64,15 +64,15 @@ public class CustomerCartController {
 		return existCart;
 	}
 
-	@DeleteMapping("/{cartId}")
-	public boolean deleteCart(@PathVariable int cartId) {
+	@DeleteMapping("/{productId}")
+	public boolean deleteCart(@PathVariable int productId) {
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
-		Cart existCart = cartService.getCartByEmailAndCartId(email, cartId);
-		if (existCart == null) {
-			throw new NotFoundException("Not found cart - " + cartId);
+		Cart existProduct = cartService.getCartByEmailAndProductId(email, productId);
+		if (existProduct == null) {
+			throw new NotFoundException("Not found item - " + productId);
 		} else {
-			return cartService.deleteCart(email, cartId);
+			return cartService.deleteCart(email, productId);
 		}
 	}
 

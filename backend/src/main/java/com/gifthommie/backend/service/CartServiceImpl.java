@@ -3,6 +3,8 @@ package com.gifthommie.backend.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,8 +55,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public boolean deleteCart(String email, int cartId) {
-		cartRepository.deleteById(cartId);
+	public boolean deleteCart(String email, int productId) {
+		Cart c = cartRepository.findCartByEmailAndProductId(email, productId);
+		cartRepository.delete(c);
 		return true;
 	}
 	
