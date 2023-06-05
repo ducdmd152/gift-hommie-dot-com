@@ -18,7 +18,7 @@ import { red } from "@cloudinary/url-gen/actions/adjust";
 
 const CartListItem = () => {
   return (
-    <Card width="100%" paddingX="6" paddingY="4">
+    <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
       <HStack spacing={4}>
         <Checkbox
           colorScheme="green"
@@ -32,7 +32,7 @@ const CartListItem = () => {
           objectFit="cover"
           src={imageService.getDefaultProductAvatarURL()}
         />
-        <VStack flex={1} alignItems={"start"} spacing="4">
+        <VStack alignItems={"start"} spacing="4" paddingRight="6">
           <Heading fontSize="xl">Product Name</Heading>
 
           <HStack>

@@ -4,7 +4,7 @@ import { VStack } from "@chakra-ui/react";
 
 const CartListItems = () => {
   return (
-    <VStack width="100%" marginTop={8}>
+    <VStack width="100%">
       <CartListItem />
       <CartListItem />
       <CartListItem />

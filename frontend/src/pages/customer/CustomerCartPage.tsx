@@ -1,6 +1,7 @@
 import { Grid, GridItem, Heading } from "@chakra-ui/react";
 import React from "react";
 import CartListMain from "../../components/cart/CartListMain";
+import CartSummary from "../../components/cart/CartSummary";
 
 const CustomerCartPage = () => {
   return (
@@ -16,20 +17,26 @@ const CustomerCartPage = () => {
           // lg: `"header header" "aside-left main"`,
         }}
         templateColumns={{
-          base: `1fr 400px`,
+          base: `1fr 460px`,
           // sm: `"1fr" "200px 1fr"`,
           // lg: `"1fr" "200px 1fr"`,
         }}
         h="100%"
       >
-        <GridItem area="main" className="main" backgroundColor={"green"}>
+        <GridItem
+          area="main"
+          className="main"
+          // backgroundColor={"green"}
+        >
           <CartListMain />
         </GridItem>
         <GridItem
           area="aside-right"
           className="aside-right"
-          backgroundColor={"red"}
-        ></GridItem>
+          // backgroundColor={"red"}
+        >
+          <CartSummary />
+        </GridItem>
       </Grid>
     </>
   );
