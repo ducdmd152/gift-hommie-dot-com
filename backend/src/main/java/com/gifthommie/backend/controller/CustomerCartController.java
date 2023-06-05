@@ -77,13 +77,13 @@ public class CustomerCartController {
 	}
 
 	// ADD TO CART
-	@PostMapping
-	public Cart addToCart(@RequestBody CartRequestDTO cartInfo) {
+	@PostMapping("/{productId}")
+	public Cart addToCart(@PathVariable int productId, 
+			@RequestParam(defaultValue = "1", name = "quantity") int defaultQuantity) {
 		// Get LOGIM USER
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
 		// GET PRODUCT ID
-		Integer productId = cartInfo.getProductId();
 
 		// GET EXIST CART
 		Cart existCart = cartService.getCartByEmailAndProductId(email, productId);
@@ -91,38 +91,36 @@ public class CustomerCartController {
 		// PRODUCT IS EXIST
 		if (existCart != null) {
 			// INCREASE one quantity
-			existCart.setQuantity(existCart.getQuantity() + 1);
+			existCart.setQuantity(existCart.getQuantity() + defaultQuantity);
 
 			return cartService.save(existCart);
 		}
 		// GET PRODUCT BY ID
 		Product product = productService.getProductById(productId);
 		existCart = new Cart();
+		
 		// SET INFOMATION FOR CART
-		existCart.setQuantity(DEFAULT_QUANTITY);
+		existCart.setQuantity(defaultQuantity);
 		existCart.setProduct(product);
 		existCart.setEmail(email);
 
 		return cartService.save(existCart);
 	}
 
-	@PutMapping
-	public Cart editCartQuantity(@RequestBody CartRequestDTO cartDTO) {
+	@PutMapping("/{productId}")
+	public Cart editCartQuantity(@PathVariable int productId, 
+			@RequestParam(required = true, name = "quantity") int newQuantity) {
 		// GET LOGIN EMAIL
 		String email = SecurityUtils.getPrincipal().getUser().getEmail();
 		// GET CART ID
-		int id = cartDTO.getId();
 
-		Cart cart = cartService.getCartByEmailAndCartId(email, id);
+		Cart cart = cartService.getCartByEmailAndProductId(email, productId);
 
 		if (cart == null)
 			throw new RuntimeException("PRODUCT IS NOT EXIST IN CART");
 		
-		//GET PRODUCT ID
-		int productId = cart.getProduct().getId();
-		
 //		SET NEW QUANTITY FOR CART
-		cart.setQuantity(cartDTO.getQuantity());
+		cart.setQuantity(newQuantity);
 
 		return cartService.save(cart);
 	}
