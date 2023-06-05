@@ -77,3 +77,13 @@
   margin-left: 4px;
   font-style: italic;
 }
+
+.danger-hover:hover {
+  color: red !important;
+}
+
+.text-truncate {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

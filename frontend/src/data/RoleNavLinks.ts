@@ -45,6 +45,10 @@ const ROLE_NAV_LINKS: tplotOptions = {
       link: "/shop",
     },
     {
+      label: "Giỏ hàng",
+      link: "/cart",
+    },
+    {
       label: "Đơn mua",
       link: "/order",
     },
