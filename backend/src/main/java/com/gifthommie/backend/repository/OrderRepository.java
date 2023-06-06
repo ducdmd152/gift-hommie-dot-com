@@ -15,4 +15,10 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	
 	@Query("SELECT o FROM Orders o WHERE NOT (o.status = :status)")
 	public List<Orders> findOrdersWithoutStatus(@Param("status") String status);
+	
+	//FIND ALL ORDER WITHOUT STATUS = CANCELLED, FAIL OR REFUSED
+	@Query("SELECT o FROM Orders o WHERE NOT "
+			+ "(o.status = 'CANCELLED' OR o.status = 'FAIL' "
+			+ "OR o.status = 'REFUSED')")
+	public List<Orders> findNotCancelOrders();
 }
