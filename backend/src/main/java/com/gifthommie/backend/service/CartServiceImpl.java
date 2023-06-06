@@ -77,6 +77,9 @@ public class CartServiceImpl implements CartService {
 		Product product = productRepository.findProductById(productId, true);
 		// GET PRODUCT QUANTITY THAT ORDERED WITHOUT CANCEL
 		Integer orderedQuantity = orderRepository.getOrderedProductQuantityWithoutStatus(productId, CANCEL_STATUS_LIST);
+		
+		orderedQuantity = (orderedQuantity == null) ? 0 : orderedQuantity;
+		
 		// SHOP AVAILABLE QUANTITY = PRODUCT QUANTITY - ORDERED QUANTITY
 		return product.getQuantity() - orderedQuantity;
 	}
