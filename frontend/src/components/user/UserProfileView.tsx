@@ -1,31 +1,9 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import {
-  Badge,
-  Box,
-  Button,
-  Card,
-  CardBody,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Wrap,
-  WrapItem,
-  Avatar,
-  HStack,
-  Heading,
-  Input,
-  NumberInput,
-  NumberInputField,
-  Select,
-  Textarea,
-  Radio,
-  RadioGroup,
-  Stack,
-  VStack,
-  Image,
-  Flex,
-  Grid,
+  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
+  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
+  VStack, Image, Flex, Grid,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ManagerStaffDTO } from "../../services/manager-staff-service";
