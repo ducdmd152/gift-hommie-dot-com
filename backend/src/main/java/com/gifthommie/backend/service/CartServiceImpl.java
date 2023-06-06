@@ -17,6 +17,7 @@ import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.repository.CartRepository;
 import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.repository.ProductRepository;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -24,6 +25,8 @@ public class CartServiceImpl implements CartService{
 	CartRepository cartRepository;
 	@Autowired
 	OrderRepository orderRepository;
+	@Autowired 
+	ProductRepository productRepository;
 	
 	private final String CANCELED_ORDER_STATUS = "CANCEL";
 	
@@ -38,7 +41,7 @@ public class CartServiceImpl implements CartService{
 		cart.setLastTimeUpdate(LocalDateTime.now());
 		
 		//BEFORE SAVE CART, REFRESH CART
-		refresh(cart);
+		cart = refreshCart(cart);
 		
 		return cartRepository.save(cart);
 	}
@@ -61,10 +64,12 @@ public class CartServiceImpl implements CartService{
 		return true;
 	}
 	
+	private int getMaxNumber(int x, int y) {
+		return (x < y) ? y : x;
+	}
+	
 	private int getMinNumber(int x, int y) {
-		if (x < y)
-			return x;
-		return y;
+		return (x < y) ? x : y;
 	}
 	
 	@Override
@@ -92,6 +97,53 @@ public class CartServiceImpl implements CartService{
 		return cart;
 	}
 
+	@Override
+	public int getShopAvailableQuantity(int productId) {
+		
+		Product product = productRepository.findProductById(productId, true);
+		
+		List<Orders> orderList = orderRepository.findNotCancelOrders();
+		
+		int orderedQuantity = 0;
+		
+		//GET PRODUCT QUANTITY THAT ORDERED
+		if (orderList != null)
+			for (Orders orders : orderList)
+				for (OrderDetail orderDetail : orders.getOrderDetails())
+					if (orderDetail.getProductId().equals(product.getId()))
+						orderedQuantity += orderDetail.getQuantity();
+		
+		//SHOP AVAILABLE QUANTITY = PRODUCT QUANTITY - ORDERED QUANTITY
+		return product.getQuantity() - orderedQuantity;
+	}
+
+	@Override
+	public int getCustomerAvailableQuantity(String email, int productId) {
+		Cart cart = cartRepository.findCartByEmailAndProductId(email, productId);
+		int cartQuantity = (cart == null) ? 0 : cart.getQuantity();
+		
+		return getMaxNumber(0, getShopAvailableQuantity(productId) - cartQuantity);
+	}
 	
+	//RESET CART DATABASE
+	public void refreshAllCartByEmail(String email) {
+		List<Cart> cartList = cartRepository.findAllByEmail(email);
+		
+		for (Cart cart : cartList) {
+			Cart refreshedCart = refresh(cart);
+		
+			cartRepository.save(refreshedCart);
+		}
+	}
+	
+	//REFRESH A CART
+	@Override
+	public Cart refreshCart(Cart cart) {
+		int shopAvailableQuantity = getShopAvailableQuantity(cart.getProduct().getId());
+		
+		cart.setQuantity(getMinNumber(shopAvailableQuantity, cart.getQuantity()));
+		
+		return cart;
+	}
 	
 }

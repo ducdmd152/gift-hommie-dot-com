@@ -18,4 +18,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderRepository.findOrderByOrderId(orderId);
 	}
 
+	@Override
+	public List<Orders> getNotCancelOrders() {
+		return orderRepository.findNotCancelOrders();
+	}
+
 }

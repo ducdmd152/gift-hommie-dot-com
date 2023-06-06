@@ -15,6 +15,14 @@ public interface CartService {
 	
 	public Cart refresh(Cart cart);
 	
+	public Cart refreshCart(Cart cart);
+	
+	public void refreshAllCartByEmail(String email);
+	
+	public int getShopAvailableQuantity(int productId);
+	
+	public int getCustomerAvailableQuantity(String email, int productId);
+	
 	public Cart save(Cart cart);
 	
 	boolean deleteCart(String email, int productId);
