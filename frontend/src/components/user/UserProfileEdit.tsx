@@ -29,15 +29,15 @@ const UserProfileEdit = () => {
       </Heading>
 
       <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
-        <FormControl>
+        <FormControl marginTop='50px'>
           <HStack justifyContent='space-between'>
             <FormLabel size="md" fontWeight="bold" >
-              Tên Đầy Đủ
+              Tên Đăng Nhập
             </FormLabel>
             <Input
               maxW='450px'
               color="gray"
-              // value={staff.firstName + " " + staff.lastName}
+              // value={staff.username}
               fontWeight="bold"
             />
           </HStack>
@@ -46,7 +46,21 @@ const UserProfileEdit = () => {
         <FormControl marginTop='50px'>
           <HStack justifyContent='space-between'>
             <FormLabel size="md" fontWeight="bold" >
-              Tên Đăng Nhập
+              Họ
+            </FormLabel>
+            <Input
+              maxW='450px'
+              color="gray"
+              // value={staff.username}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+
+        <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between'>
+            <FormLabel size="md" fontWeight="bold" >
+              Tên
             </FormLabel>
             <Input
               maxW='450px'
