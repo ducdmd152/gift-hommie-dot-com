@@ -13,7 +13,7 @@ public interface CartService {
 	
 	public Cart getCartByEmailAndCartId(String emai, int cartId);
 	
-	public Cart refresh(Cart cart);
+//	public Cart refresh(Cart cart);
 	
 	public Cart refreshCart(Cart cart);
 	
