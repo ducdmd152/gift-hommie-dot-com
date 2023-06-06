@@ -8,5 +8,5 @@ public interface OrderService {
 	
 	public Orders getOrderByOrderId(Integer orderId);
 	
-	public List<Orders> getNotCancelOrders();
+	public List<Orders> getOrderListWithoutStatus(String[] tmp);
 }

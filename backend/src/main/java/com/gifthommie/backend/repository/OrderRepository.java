@@ -13,12 +13,25 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	@Query("SELECT o FROM Orders o WHERE o.id = :orderId")
 	public Orders findOrderByOrderId(@Param("orderId") Integer orderId);
 	
-	@Query("SELECT o FROM Orders o WHERE NOT (o.status = :status)")
-	public List<Orders> findOrdersWithoutStatus(@Param("status") String status);
+	@Query("SELECT o FROM Orders o WHERE (o.status NOT IN :status)")
+	public List<Orders> findOrdersWithoutStatus(@Param("status") String[] status);
 	
+	@Query("SELECT o FROM Orders o "
+			+ "WHERE o.status NOT IN :status AND "
+			+ ":productId IN (SELECT od.productId FROM o.orderDetails od)")
+	public List<Orders> findOrdersByProductIdWithoutStatus(@Param("productId") int productId, 
+											@Param("status") String[] status);
+	
+	@Query("SELECT sum(od.quantity) FROM Orders o JOIN "
+			+ "o.orderDetails od WHERE od.orderId = o.id AND od.productId = :productId AND "
+			+ "o.status NOT IN :status")
+	public Integer getOrderedProductQuantityWithoutStatus(@Param("productId") int productId, 
+										@Param("status") String[] status);
+	
+//	
 	//FIND ALL ORDER WITHOUT STATUS = CANCELLED, FAIL OR REFUSED
-	@Query("SELECT o FROM Orders o WHERE NOT "
-			+ "(o.status = 'CANCELLED' OR o.status = 'FAIL' "
-			+ "OR o.status = 'REFUSED')")
-	public List<Orders> findNotCancelOrders();
+//	@Query("SELECT o FROM Orders o WHERE NOT "
+//			+ "(o.status = 'CANCELLED' OR o.status = 'FAIL' "
+//			+ "OR o.status = 'REFUSED')")
+//	public List<Orders> findNotCancelOrders();
 }

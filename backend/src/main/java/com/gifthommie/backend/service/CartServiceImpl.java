@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	ProductRepository productRepository;
 
-	private final String CANCELED_ORDER_STATUS = "CANCEL";
+	private final String[] CANCEL_STATUS_LIST = {"CANCELLED", "FAIL", "REFUSED"};
 
 	@Override
 	public Cart getCartByEmailAndProductId(String email, int productId) {
@@ -74,20 +74,9 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int getShopAvailableQuantity(int productId) {
-
 		Product product = productRepository.findProductById(productId, true);
-
-		List<Orders> orderList = orderRepository.findNotCancelOrders();
-
-		int orderedQuantity = 0;
-
-		// GET PRODUCT QUANTITY THAT ORDERED
-		if (orderList != null)
-			for (Orders orders : orderList)
-				for (OrderDetail orderDetail : orders.getOrderDetails())
-					if (orderDetail.getProductId().equals(product.getId()))
-						orderedQuantity += orderDetail.getQuantity();
-
+		// GET PRODUCT QUANTITY THAT ORDERED WITHOUT CANCEL
+		Integer orderedQuantity = orderRepository.getOrderedProductQuantityWithoutStatus(productId, CANCEL_STATUS_LIST);
 		// SHOP AVAILABLE QUANTITY = PRODUCT QUANTITY - ORDERED QUANTITY
 		return product.getQuantity() - orderedQuantity;
 	}
@@ -120,30 +109,5 @@ public class CartServiceImpl implements CartService {
 
 		return cart;
 	}
-
-//	@Override
-//	public Cart refresh(Cart cart) {
-//		int cartQuantity = cart.getQuantity();
-//		
-//		List<Orders> orderList = orderRepository.findOrdersWithoutStatus(CANCELED_ORDER_STATUS);
-//		//GET ORDERED PRODUCT QUANTITY
-//		int orderedQuantity = 0;
-//		
-//		Product product = cart.getProduct();
-//		
-//		//CALCULATE ORDERED QUANTITY
-//		if (orderList != null)
-//			for (Orders orders : orderList)
-//				for (OrderDetail orderDetail : orders.getOrderDetails())
-//					if (orderDetail.getProductId().equals(product.getId()))
-//						orderedQuantity += orderDetail.getQuantity();
-//		
-//		//GET AVAILABLE QUANTITY OF PRODUCT
-//		int availableQuantity = product.getQuantity() - orderedQuantity;
-//		
-//		cart.setQuantity(getMinNumber(cartQuantity, availableQuantity));
-//		
-//		return cart;
-//	}
 
 }

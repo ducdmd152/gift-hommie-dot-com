@@ -19,8 +19,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Orders> getNotCancelOrders() {
-		return orderRepository.findNotCancelOrders();
+	public List<Orders> getOrderListWithoutStatus(String[] tmp) {
+		return orderRepository.findOrdersWithoutStatus(tmp);
 	}
 
 }

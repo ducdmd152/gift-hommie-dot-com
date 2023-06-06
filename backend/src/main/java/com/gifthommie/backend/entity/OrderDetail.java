@@ -23,6 +23,11 @@ public class OrderDetail {
 	@Column(name = "order_id")
 	private Integer orderId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "order_id", referencedColumnName = "id")
+//	@JsonIgnore
+//	private Orders order;
+	
 	@Column(name = "product_id")
 	private Integer productId;
 	
@@ -40,11 +45,11 @@ public class OrderDetail {
 		this.id = id;
 	}
 
-//	public Order getOrder() {
+//	public Orders getOrder() {
 //		return order;
 //	}
 //
-//	public void setOrder(Order order) {
+//	public void setOrder(Orders order) {
 //		this.order = order;
 //	}
 

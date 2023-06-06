@@ -53,4 +53,17 @@ public class TestController {
 	public Orders getOrder() {
 		return orderRepository.findOrderByOrderId(3);
 	}
+	
+	@GetMapping("public/test-order-list")
+	public Integer getOrderList() {
+		
+		String[] tmp = {"CANCELLED", "FAIL", "REFUSED"};
+		Integer ans = orderRepository.getOrderedProductQuantityWithoutStatus(6, tmp);
+		
+		if (ans == null)
+			return 0;
+		
+		return ans;
+	
+	}
 }
