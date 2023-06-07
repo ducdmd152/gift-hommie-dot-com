@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode";
 import { Input } from "@chakra-ui/input";
 import { Flex, HStack, Heading, Text } from "@chakra-ui/layout";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import authService from "../../services/auth-service";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,8 @@ import { VStack } from "@chakra-ui/react";
 import navigationService from "../../services/navigation-service";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GLOBAL_CONTEXT } from "../../App";
+import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
 const schema = z.object({
   username: z
     .string({
@@ -31,13 +33,17 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 const Login = () => {
+  const navigate = useNavigate();
+  const reload = useContext(GLOBAL_CONTEXT).rerender;
   const onAuthenticated = () => {
-    window.location.href = "/";
+    reload();
+    navigate("/");
   };
 
   let authenticated = sessionStorage.getItem("USER");
   if (authenticated) {
     onAuthenticated();
+    return;
   }
 
   const {

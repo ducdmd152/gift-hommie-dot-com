@@ -1,3 +1,7 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { GLOBAL_CONTEXT } from "../App";
+
 export default {
   HEADER_HEIGHT: "100px",
   getCurrentUser() {
@@ -10,7 +14,6 @@ export default {
   },
   logout() {
     sessionStorage.removeItem("USER");
-    window.location.href = "/";
   },
   getURLImageFromFile(file: File | null) {
     if (file == null)
