@@ -35,6 +35,9 @@ public class CustomerOrderController {
 	
 	@PostMapping
 	public OrderResponseDTO cartCheckOut(@RequestBody List<CartRequestDTO> cartList) {
+		
+		//refresh before check out
+		
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
 		float totalPrice = 0; 
