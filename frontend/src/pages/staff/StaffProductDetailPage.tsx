@@ -120,7 +120,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
         <VStack mt={6} p="4">
           <Flex width="100%" gap="8">
             <VStack spacing="8" flex="1">
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel size="md" fontWeight="bold">
                   ID
                 </FormLabel>
@@ -130,7 +130,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   color="blue"
                   fontWeight="bold"
                 />
-              </FormControl>
+              </FormControl> */}
 
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
@@ -142,6 +142,21 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   value={product.name}
                   fontWeight="bold"
                 />
+              </FormControl>
+              <FormControl>
+                <FormLabel size="md" fontWeight="bold">
+                  Danh mục sản phẩm
+                </FormLabel>
+                <Select
+                  isDisabled
+                  color="gray"
+                  placeholder="Lựa chọn danh mục"
+                  value={product.categoryId}
+                >
+                  <option value={product.categoryId}>
+                    {getCategoryName(product.categoryId)}
+                  </option>
+                </Select>
               </FormControl>
 
               <FormControl>
@@ -170,22 +185,6 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                 >
                   <NumberInputField defaultValue={product.quantity} />
                 </NumberInput>
-              </FormControl>
-
-              <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Danh mục sản phẩm
-                </FormLabel>
-                <Select
-                  isDisabled
-                  color="gray"
-                  placeholder="Lựa chọn danh mục"
-                  value={product.categoryId}
-                >
-                  <option value={product.categoryId}>
-                    {getCategoryName(product.categoryId)}
-                  </option>
-                </Select>
               </FormControl>
             </VStack>
             <VStack flex="1" h="100%" px="8" spacing="8">

@@ -135,7 +135,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
           <VStack mt={6} p="4">
             <Flex width="100%" gap="8">
               <VStack spacing="8" flex="1">
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     ID
                   </FormLabel>
@@ -145,7 +145,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     color="blue"
                     fontWeight="bold"
                   />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
@@ -157,6 +157,32 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     defaultValue={product.name}
                     fontWeight="bold"
                   />
+                </FormControl>
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Danh mục sản phẩm
+                  </FormLabel>
+                  <Select
+                    {...register("categoryId", {
+                      required: true,
+                    })}
+                    required
+                    color="black"
+                    placeholder="Lựa chọn danh mục"
+                    value={product.categoryId}
+                    onChange={(e) =>
+                      setProduct({
+                        ...product,
+                        categoryId: parseInt(e.target.value),
+                      })
+                    }
+                  >
+                    {CATEGORIES.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <FormControl>
@@ -188,33 +214,6 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     defaultValue={product.quantity}
                     fontWeight="bold"
                   />
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Danh mục sản phẩm
-                  </FormLabel>
-                  <Select
-                    {...register("categoryId", {
-                      required: true,
-                    })}
-                    required
-                    color="black"
-                    placeholder="Lựa chọn danh mục"
-                    value={product.categoryId}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        categoryId: parseInt(e.target.value),
-                      })
-                    }
-                  >
-                    {CATEGORIES.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Select>
                 </FormControl>
               </VStack>
               <VStack flex="1" h="100%" px="8" spacing="8">
