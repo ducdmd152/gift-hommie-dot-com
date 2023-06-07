@@ -1,7 +1,9 @@
 package com.gifthommie.backend.service;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -10,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.gifthommie.backend.dto.APIPageableDTO;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartResponseDTO;
 import com.gifthommie.backend.entity.Cart;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
@@ -44,9 +48,23 @@ public class CartServiceImpl implements CartService{
 	}
 	
 	@Override
-	public APIPageableResponseDTO<Cart> getPagableCart(Integer pageNo, Integer pageSize, String email) {
+	public APIPageableResponseDTO<CartResponseDTO> getPagableCart(Integer pageNo, Integer pageSize, String email) {
 		Page<Cart> page = cartRepository.findAllByEmail(email,PageRequest.of(pageNo, pageSize));
-		return new APIPageableResponseDTO<Cart>(page);
+		
+		//Convert Page<Cart> -> Page<CartResponseDTO>
+		List<CartResponseDTO> cartResponseList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+		APIPageableResponseDTO<CartResponseDTO> apiResponse = new APIPageableResponseDTO<>();		
+		apiResponse.setContent(cartResponseList);
+		APIPageableDTO apiPageble = new APIPageableDTO(page);
+		apiResponse.setPageable(apiPageble);
+		
+		return apiResponse;
+	}
+	
+	@Override
+	public CartResponseDTO convertToDTO(Cart cart) {
+		CartResponseDTO cartResponseDTO = new CartResponseDTO(cart);
+		return cartResponseDTO;
 	}
 
 	@Override
@@ -91,6 +109,8 @@ public class CartServiceImpl implements CartService{
 		
 		return cart;
 	}
+
+
 
 	
 	
