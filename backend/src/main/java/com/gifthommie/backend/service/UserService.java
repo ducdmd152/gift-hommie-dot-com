@@ -1,6 +1,7 @@
 package com.gifthommie.backend.service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.RegisterDTO;
 import com.gifthommie.backend.dto.UserProfileDTO;
 import com.gifthommie.backend.entity.User;
 
@@ -27,4 +28,6 @@ public interface UserService {
 	public User createUser(User user);
 	
 	public APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, boolean enabled, String search);
+
+	public User register(RegisterDTO registerDTO);
 }
