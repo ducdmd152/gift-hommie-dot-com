@@ -50,11 +50,8 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
             `Không thể xóa "${staff.username}" khỏi danh sách nhân viên. \n Vui lòng thử lại.`
           );
         });
-    } else {
-
     }
   };
-
 
   return (
     <>

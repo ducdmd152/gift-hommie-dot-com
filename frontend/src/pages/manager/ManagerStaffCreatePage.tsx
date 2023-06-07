@@ -55,14 +55,15 @@ const ManagerStaffCreatePage = () => {
 
 
       <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
-        <FormControl>
+        <FormControl marginTop='50px'>
           <HStack justifyContent='space-between'>
             <FormLabel size="md" fontWeight="bold" >
-              Tên Đầy Đủ
+              Tên Đăng Nhập
             </FormLabel>
             <Input
               maxW='450px'
               color="gray"
+              placeholder="Tên Đăng Nhập"
               // value={product.name}
               fontWeight="bold"
             />
@@ -72,11 +73,27 @@ const ManagerStaffCreatePage = () => {
         <FormControl marginTop='50px'>
           <HStack justifyContent='space-between'>
             <FormLabel size="md" fontWeight="bold" >
-              Tên Đăng Nhập
+              Họ
             </FormLabel>
             <Input
               maxW='450px'
               color="gray"
+              placeholder="Họ"
+              // value={product.name}
+              fontWeight="bold"
+            />
+          </HStack>
+        </FormControl>
+
+        <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between'>
+            <FormLabel size="md" fontWeight="bold" >
+              Tên
+            </FormLabel>
+            <Input
+              maxW='450px'
+              color="gray"
+              placeholder="Tên"
               // value={product.name}
               fontWeight="bold"
             />
@@ -91,6 +108,7 @@ const ManagerStaffCreatePage = () => {
             <Input
               maxW='450px'
               color="gray"
+              placeholder="Email"
               // value={product.name}
               fontWeight="bold"
             />
@@ -104,6 +122,7 @@ const ManagerStaffCreatePage = () => {
             <Input
               maxW='450px'
               color="gray"
+              placeholder="Số Điện Thoại"
               // value={product.name}
               fontWeight="bold"
             />
@@ -118,6 +137,7 @@ const ManagerStaffCreatePage = () => {
             <Input
               maxW='450px'
               color="gray"
+              placeholder="Địa Chỉ"
               // value={product.name}
               fontWeight="bold"
             />
