@@ -14,7 +14,6 @@ export default {
   },
   logout() {
     sessionStorage.removeItem("USER");
-    this.onAuthenticated();
   },
   getURLImageFromFile(file: File | null) {
     if (file == null)
@@ -23,11 +22,5 @@ export default {
   },
   getURLImageUploadPresent() {
     return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
-  },
-  onAuthenticated() {
-    const navigate = useNavigate();
-    const reload = useContext(GLOBAL_CONTEXT).rerender;
-    reload();
-    navigate("/");
   },
 };

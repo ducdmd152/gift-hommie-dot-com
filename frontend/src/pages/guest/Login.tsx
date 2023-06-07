@@ -11,6 +11,7 @@ import navigationService from "../../services/navigation-service";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GLOBAL_CONTEXT } from "../../App";
+import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
 const schema = z.object({
   username: z
     .string({
@@ -42,6 +43,7 @@ const Login = () => {
   let authenticated = sessionStorage.getItem("USER");
   if (authenticated) {
     onAuthenticated();
+    return;
   }
 
   const {

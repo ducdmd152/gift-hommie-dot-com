@@ -19,9 +19,11 @@ import authService from "../../services/auth-service";
 import utilService from "../../services/util-service";
 import UserDTO from "../../type/UserDTO";
 import { Link } from "react-router-dom";
+import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
 
 const HeaderUser = () => {
   const USER = utilService.getCurrentUser() as UserDTO;
+  const { afterAuthenticatedExecuting } = useAfterAuthenticated();
 
   if (USER == null)
     return (
@@ -76,6 +78,7 @@ const HeaderUser = () => {
             <MenuItem
               onClick={() => {
                 utilService.logout();
+                afterAuthenticatedExecuting();
               }}
             >
               Đăng xuất
