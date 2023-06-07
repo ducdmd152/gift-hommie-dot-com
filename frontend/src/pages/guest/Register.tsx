@@ -5,7 +5,9 @@ import { Flex, HStack, Heading, Text } from "@chakra-ui/layout";
 import { FieldValues, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import authService from "../../services/auth-service";
-import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Stack, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import utilService from "../../services/util-service";
 
 const Register = () => {
   let authenticated = sessionStorage.getItem("user");
@@ -57,85 +59,131 @@ const Register = () => {
   };
 
   return (
-    <Flex h="100vh" alignItems="center" justifyContent="center">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex
-          flexDirection="column"
-          bg={formBackground}
-          p={12}
-          borderRadius={8}
-          boxShadow="lg"
-          width="400px"
-          maxWidth="100%"
-        >
-          <Heading mb={6}>Register</Heading>
-
-          <Input
-            placeholder="Username"
-            {...register("username", { required: true })}
-            type="text"
-            variant="filled"
-            mb={3}
-          />
-
-          <Input
-            {...register("password", { required: true })}
-            placeholder="Password"
-            type="password"
-            variant="filled"
-            mb={3}
-          />
-
-          <Input
-            {...register("passwordAgain", { required: true })}
-            placeholder="Confirm password"
-            type="password"
-            variant="filled"
-            mb={3}
-          />
-          <RadioGroup defaultValue="male" fontStyle="italic" marginX="auto">
-            <Stack spacing={4} direction="row">
-              <Radio value="male" {...register("gender")}>
-                Male
-              </Radio>
-              <Radio value="female" {...register("gender")}>
-                Female
-              </Radio>
-            </Stack>
-          </RadioGroup>
-
-          <Text color="tomato" fontStyle="italic" mt={0} mb={2}>
-            {registerStatus}
-          </Text>
-          <Button colorScheme="teal" mt={3} mb={8} type="submit">
-            Register
-          </Button>
-
-          <HStack color="gray.400" marginX="auto">
-            <Text>Already have an account?</Text>
-            <Button
-              color="gray.500"
-              fontWeight="500"
-              variant={"link"}
-              // onClick={() => setRoute("login")}
-            >
-              Login
-            </Button>
-          </HStack>
-
-          <Button
-            mt="3"
-            color="gray.400"
-            fontWeight="300"
-            fontStyle="italic"
-            variant={"link"}
-            // onClick={() => setRoute("community")}
+    <Box marginTop={utilService.HEADER_HEIGHT}>
+      <Flex alignItems="center" justifyContent="center">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Flex
+            flexDirection="column"
+            bg={formBackground}
+            p={12}
+            borderRadius={8}
+            boxShadow="lg"
+            width="480px"
+            maxWidth="100%"
           >
-            ---Continue without login---
-          </Button>
-        </Flex>
-      </form>
-    </Flex>
+            <Heading
+              size="md"
+              textAlign="center"
+              letterSpacing={4}
+              fontWeight="bold"
+              className="logo-light"
+              p={8}
+            >
+              HOMMIE STORE
+            </Heading>
+            <Heading mb={6} size="lg" textAlign="center">
+              Đăng ký
+            </Heading>
+
+            <VStack spacing="2" alignItems={"flex-start"}>
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Tên *
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Tên đầy đủ..."
+                  {...register("lastName", { required: true })}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+              </VStack>
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Tên đăng nhập *
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Tên đăng nhập..."
+                  {...register("username", { required: true })}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+              </VStack>
+
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Mật khẩu *
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Mật khẩu..."
+                  {...register("password", { required: true })}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+              </VStack>
+
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Xác nhận lại mật khẩu *
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Xác nhận lại mật khẩu..."
+                  {...register("repeatPassword", { required: true })}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+              </VStack>
+
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Số điện thoại{" "}
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Xác nhận lại mật khẩu..."
+                  {...register("phone")}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+              </VStack>
+
+              <Text fontStyle={"italic"} color="gray" paddingTop="2">
+                (*): thông tin cần phải có để hoàn thành đăng ký
+              </Text>
+            </VStack>
+
+            <Text color="tomato" fontStyle="italic" mt={0} mb={2}>
+              {registerStatus}
+            </Text>
+            <Button colorScheme="teal" mt={3} mb={8} type="submit">
+              Đăng ký
+            </Button>
+
+            <HStack color="gray.400" marginX="auto">
+              <Text>Already have an account?</Text>
+              <Link to="/login">
+                <Button
+                  color="teal"
+                  fontWeight="500"
+                  variant={"link"}
+                  // onClick={() => setRoute("login")}
+                >
+                  Login
+                </Button>
+              </Link>
+            </HStack>
+          </Flex>
+        </form>
+      </Flex>
+    </Box>
   );
 };
 

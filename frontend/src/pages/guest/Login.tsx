@@ -5,7 +5,7 @@ import { Flex, HStack, Heading, Text } from "@chakra-ui/layout";
 import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import authService from "../../services/auth-service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { VStack } from "@chakra-ui/react";
 import navigationService from "../../services/navigation-service";
 import { z } from "zod";
@@ -43,7 +43,6 @@ const Login = () => {
   let authenticated = sessionStorage.getItem("USER");
   if (authenticated) {
     onAuthenticated();
-    return;
   }
 
   const {
@@ -136,14 +135,16 @@ const Login = () => {
 
             <HStack color="gray.400" marginX="auto">
               <Text>Bạn chưa đăng kí tài khoản?</Text>
-              <Button
-                color="teal"
-                fontWeight="500"
-                variant="link"
-                // onClick={() => setRoute("register")}
-              >
-                Đăng kí
-              </Button>
+              <Link to="/register">
+                <Button
+                  color="teal"
+                  fontWeight="500"
+                  variant="link"
+                  // onClick={() => setRoute("register")}
+                >
+                  Đăng ký
+                </Button>
+              </Link>
             </HStack>
 
             <Button

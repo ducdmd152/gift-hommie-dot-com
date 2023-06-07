@@ -42,7 +42,7 @@ const HeaderUser = () => {
             Đăng nhập
           </Badge>
         </Link>
-        <Link to="/login">
+        <Link to="/register">
           <Badge
             className="badge-button"
             cursor="pointer"
@@ -52,7 +52,7 @@ const HeaderUser = () => {
             variant="outline"
             fontSize="sm"
           >
-            Đăng kí
+            Đăng ký
           </Badge>
         </Link>
       </Box>

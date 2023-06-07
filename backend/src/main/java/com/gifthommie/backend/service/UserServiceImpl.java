@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.RegisterDTO;
 import com.gifthommie.backend.dto.UserProfileDTO;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.UserRepository;
@@ -115,6 +116,28 @@ public class UserServiceImpl implements UserService {
 		Page<User> page = userRepository.filterUsersByRoleId(PageRequest.of(pageNo, pageSize), roleId, enabled, search);
 
 		return new APIPageableResponseDTO<User>(page);
+	}
+
+
+	@Override
+	public User register(RegisterDTO registerDTO) {
+		String username = registerDTO.getUsername();
+		String email = registerDTO.getEmail();
+		if(userRepository.getUserByUsername(username) != null) {
+			return null;
+		}
+		
+		if(userRepository.getUserByEmail(email) != null) {
+			return null;
+		}
+		
+		User user = new User();
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setLastName(registerDTO.getName());
+		user.setPassword(registerDTO.getPassword());
+		user.setEnabled(true);
+		return userRepository.save(user);
 	}
 
 }
