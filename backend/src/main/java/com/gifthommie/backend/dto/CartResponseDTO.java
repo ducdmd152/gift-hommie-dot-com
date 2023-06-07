@@ -15,8 +15,8 @@ public class CartResponseDTO {
 	}
 	
 	public CartResponseDTO(Cart cart) {
-		id = cart.getProduct().getId();
-		productId = id;
+		id = cart.getId();
+		productId = cart.getProduct().getId();
 		quantity = cart.getQuantity();
 	}
 
