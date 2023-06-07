@@ -17,7 +17,7 @@ const StaffProductListAction = ({
     <VStack width="100%" p={4} m={4} marginTop={8} spacing={8}>
       <Link to="/product/create">
         <Button colorScheme="teal" size="md">
-          Add new product
+          Tạo mới sản phẩm
         </Button>
       </Link>
 

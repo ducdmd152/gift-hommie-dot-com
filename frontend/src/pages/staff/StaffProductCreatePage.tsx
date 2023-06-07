@@ -172,7 +172,27 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     <p className="form-error-message">{errors.name?.message}</p>
                   )}
                 </FormControl>
-
+                <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Danh mục sản phẩm
+                  </FormLabel>
+                  <Select
+                    {...register("categoryId", { valueAsNumber: true })}
+                    color="black"
+                    placeholder="Lựa chọn danh mục"
+                  >
+                    {CATEGORIES.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.categoryId && (
+                    <p className="form-error-message">
+                      {errors.categoryId?.message}
+                    </p>
+                  )}
+                </FormControl>
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     Giá
@@ -206,28 +226,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                   {errors.quantity && (
                     <p className="form-error-message">
                       {errors.quantity?.message}
-                    </p>
-                  )}
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Danh mục sản phẩm
-                  </FormLabel>
-                  <Select
-                    {...register("categoryId", { valueAsNumber: true })}
-                    color="black"
-                    placeholder="Lựa chọn danh mục"
-                  >
-                    {CATEGORIES.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.categoryId && (
-                    <p className="form-error-message">
-                      {errors.categoryId?.message}
                     </p>
                   )}
                 </FormControl>
