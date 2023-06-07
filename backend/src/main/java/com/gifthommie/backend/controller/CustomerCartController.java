@@ -40,7 +40,7 @@ public class CustomerCartController {
 
 	// http://localhost:8080/customer/cart
 	@GetMapping
-	public APIPageableResponseDTO<Cart> getCartList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+	public APIPageableResponseDTO<CartResponseDTO> getCartList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search) {
 		User user = SecurityUtils.getPrincipal().getUser();
