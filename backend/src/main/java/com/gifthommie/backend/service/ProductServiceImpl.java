@@ -1,5 +1,6 @@
 package com.gifthommie.backend.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Product;
@@ -149,6 +151,17 @@ public class ProductServiceImpl implements ProductService {
 		product = productRepository.save(product);
 		
 		return product;
+	}
+
+
+	@Override
+	public float totalPrice(List<CartRequestDTO> cartList) {
+		float tmpPrice = 0;
+		for (CartRequestDTO cartRequestDTO : cartList) {
+			Product product = productRepository.findById(cartRequestDTO.getProductId()).get();
+			tmpPrice = tmpPrice + product.getPrice();
+		}
+		return tmpPrice;
 	}
 
 
