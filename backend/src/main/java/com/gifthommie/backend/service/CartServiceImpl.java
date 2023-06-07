@@ -96,11 +96,8 @@ public class CartServiceImpl implements CartService {
 	public void refreshAllCartByEmail(String email) {
 		List<Cart> cartList = cartRepository.findAllByEmail(email);
 
-		for (Cart cart : cartList) {
-			Cart refreshedCart = refreshCart(cart);
-
-			cartRepository.save(refreshedCart);
-		}
+		for (Cart cart : cartList)
+			refreshCart(cart);
 	}
 
 	// REFRESH A CART
@@ -110,7 +107,7 @@ public class CartServiceImpl implements CartService {
 
 		cart.setQuantity(getMinNumber(shopAvailableQuantity, cart.getQuantity()));
 
-		return cart;
+		return cartRepository.save(cart);
 	}
 
 }
