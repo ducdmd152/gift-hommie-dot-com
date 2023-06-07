@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StaffProductDTO } from "../../../services/staff-product-service";
 import {
   Badge,
@@ -20,8 +20,19 @@ interface Props {
 }
 
 const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
+  const navigate = useNavigate();
   return (
-    <Card width="100%" paddingX="6" paddingY="4">
+    <Card
+      width="100%"
+      paddingX="6"
+      paddingY="4"
+      className="product-card"
+      onClick={() => {
+        setCurrentProductId(product.id);
+        navigate("/product/detail");
+        // <Redirect to="/product/edit" />;
+      }}
+    >
       <HStack spacing={4}>
         <Image
           boxSize="100px"
@@ -37,7 +48,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
 
           <Heading fontSize="xl">{product.name}</Heading>
 
-          <HStack>
+          <HStack alignItems={"flex-start"}>
             <Badge colorScheme="gray" variant="outline">
               {" "}
               {product.categoryName}
@@ -45,28 +56,14 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
 
             <Badge colorScheme="gray" variant="outline">
               {" "}
-              {"Quantity: "} {product.quantity}
+              {"Giá: "} {product.price / 1000} {".000"}
             </Badge>
-
             <Badge colorScheme="gray" variant="outline">
               {" "}
-              {"Price: "} {product.price / 1000} {".000"}
+              {"Số lượng: "} {product.quantity}
             </Badge>
           </HStack>
         </VStack>
-        <Box>
-          <Link to={"/product/detail"}>
-            <Button
-              colorScheme="blue"
-              onClick={() => {
-                setCurrentProductId(product.id);
-                // <Redirect to="/product/edit" />;
-              }}
-            >
-              Chi tiết
-            </Button>
-          </Link>
-        </Box>
       </HStack>
     </Card>
   );

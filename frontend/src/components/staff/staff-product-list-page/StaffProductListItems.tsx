@@ -1,6 +1,6 @@
 import React from "react";
 import { StaffProductDTO } from "../../../services/staff-product-service";
-import { VStack } from "@chakra-ui/react";
+import { SimpleGrid, VStack } from "@chakra-ui/react";
 import StaffProductListItem from "./StaffProductListItem";
 import useFetchStaffProduct, {
   StaffProductQuery,
@@ -11,7 +11,7 @@ interface Props {
 }
 const StaffProductListItems = ({ products, setCurrentProductId }: Props) => {
   return (
-    <VStack width="100%" marginTop={8}>
+    <SimpleGrid width="100%" marginTop={8} columns={2} spacing={2}>
       {products?.map((product) => (
         <StaffProductListItem
           key={product.id}
@@ -19,7 +19,7 @@ const StaffProductListItems = ({ products, setCurrentProductId }: Props) => {
           setCurrentProductId={setCurrentProductId}
         />
       ))}
-    </VStack>
+    </SimpleGrid>
   );
 };
 
