@@ -26,15 +26,16 @@ public interface UserRepository extends JpaRepository<User, String> {
 	public User getUserByUsernameOrEmail(@Param("check") String check, @Param("enabled") boolean enabled);
 
 	// Get User List by Role ID with enabled status
-	@Query("SELECT u FROM User u WHERE u.role.id = :roleId and u.enabled = :enabled")
+	@Query("SELECT u FROM User u WHERE u.role.id = :roleId AND u.enabled = :enabled")
 	public Page<User> getUsersByRoleId(Pageable pageable, @Param("roleId") Integer role_id,
 			@Param("enabled") boolean enabled);
 
 	// Set Enabled
 	@Transactional
 	@Modifying
-	@Query("UPDATE User u SET u.enabled = :enabled WHERE u.email = :email")
-	public int setEnabledByEmail(@Param("email") String email, @Param("enabled") boolean enabled);
+	@Query("UPDATE User u SET u.enabled = :enabled WHERE "
+			+ "(u.email = :emailOrUsername OR u.username = :emailOrUsername)")
+	public int setEnabledByEmail(@Param("emailOrUsername") String emailOrUsername, @Param("enabled") boolean enabled);
 	
 	//FILTER USER BY USERNAME, EMAIL, NAME
 	@Query("SELECT u FROM User u "

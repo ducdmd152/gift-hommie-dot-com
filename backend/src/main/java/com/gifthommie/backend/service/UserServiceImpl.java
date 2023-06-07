@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
 	
 	// setEnabledUserByEmail
 	@Override
-	public boolean setEnabledUserByEmail(String email, boolean enabled) {
-		return userRepository.setEnabledByEmail(email, enabled) > 0;
+	public boolean setEnabledUserByEmail(String check, boolean enabled) {
+		return userRepository.setEnabledByEmail(check, enabled) > 0;
 	}
 
 	

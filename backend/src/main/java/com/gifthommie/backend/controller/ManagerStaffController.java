@@ -71,7 +71,7 @@ public class ManagerStaffController {
 	
 	//DELETE ENABLED STAFF WITH USERNAME OR EMAIL
 	@DeleteMapping("/{check}")
-	public void deleteStaff(@PathVariable String check) {
+	public boolean deleteStaff(@PathVariable String check) {
 		//GET USER WITH EMAIL OR USERNAME
 		User user = userService.getUserByEmailOrUsername(check, ACTIVE_ENABLED);
 		
@@ -80,7 +80,7 @@ public class ManagerStaffController {
 			throw new NotFoundException("NOT FOUND USER");
 		
 		//READY TO DELETE
-		userService.setEnabledUserByEmail(check, BAN_ENABLED);
+		return userService.setEnabledUserByEmail(check, BAN_ENABLED);
 	}
 	
 	//CREATE STAFF
