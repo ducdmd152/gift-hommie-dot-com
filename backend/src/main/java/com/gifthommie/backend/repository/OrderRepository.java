@@ -2,6 +2,8 @@ package com.gifthommie.backend.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,6 +30,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	public Integer getOrderedProductQuantityWithoutStatus(@Param("productId") int productId, 
 										@Param("status") String[] status);
 	
+	@Query("SELECT o FROM Orders o WHERE "
+			+ "o.email = :email ")
+	public Page<Orders> findAllByEmail(@Param("email") String email,PageRequest pageRequest);
 //	
 	//FIND ALL ORDER WITHOUT STATUS = CANCELLED, FAIL OR REFUSED
 //	@Query("SELECT o FROM Orders o WHERE NOT "
