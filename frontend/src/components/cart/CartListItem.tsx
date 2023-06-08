@@ -10,13 +10,36 @@ import {
   Text,
   Checkbox,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import imageService from "../../services/image-service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
 import { red } from "@cloudinary/url-gen/actions/adjust";
+import CartDTO from "../../type/CartDTO";
+import ProductDTO from "../../type/ProductDTO";
+import shopProductService, {
+  ShopProductDTO,
+} from "../../services/shop-product-service";
 
-const CartListItem = () => {
+interface Props {
+  cart: CartDTO;
+}
+
+const CartListItem = ({ cart }: Props) => {
+  const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    shopProductService
+      .get(cart.productId)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        navigate("/cart");
+      });
+  });
+
   return (
     <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
       <HStack spacing={4}>
@@ -30,63 +53,67 @@ const CartListItem = () => {
         <Image
           boxSize="100px"
           objectFit="cover"
-          src={imageService.getDefaultProductAvatarURL()}
+          src={product.avatar || imageService.getDefaultProductAvatarURL()}
         />
-        <VStack alignItems={"start"} spacing="4" paddingRight="6">
-          <Heading fontSize="xl">Product Name</Heading>
+        <VStack flex="1" alignItems={"start"} spacing="4" paddingRight="6">
+          <Heading fontSize="xl">{product.name}</Heading>
 
-          <HStack>
-            <Badge colorScheme="teal" variant="outline">
-              {"Cốc sứ"}
+          <HStack
+            justifyContent={"space-between"}
+            width="100%"
+            maxWidth="320px"
+          >
+            <VStack>
+              <Text>Đơn giá</Text>
+              <Badge
+                colorScheme="blue"
+                paddingX="2"
+                paddingY="1"
+                variant="outline"
+                className="none-text-transform"
+              >
+                {product.price}
+              </Badge>
+            </VStack>
+            <VStack>
+              <Text>Số lượng</Text>
+              <Badge
+                colorScheme="blue"
+                paddingX="2"
+                paddingY="1"
+                variant="outline"
+                className="none-text-transform"
+              >
+                {cart.quantity}
+              </Badge>
+            </VStack>
+            <VStack>
+              <Text>Thành tiền</Text>
+              <Badge
+                colorScheme="blue"
+                paddingX="2"
+                paddingY="1"
+                variant="outline"
+                className="none-text-transform"
+              >
+                {product.price * cart.quantity}
+              </Badge>
+            </VStack>
+          </HStack>
+          {/* <HStack>
+            <Badge fontSize="10" colorScheme="gray" variant="outline">
+              {product.categoryName}
             </Badge>
 
-            <Badge colorScheme="teal" variant="outline">
+            <Badge fontSize="10" colorScheme="gray" variant="outline">
               Yêu thích
             </Badge>
 
-            <Badge colorScheme="teal" variant="outline">
+            <Badge fontSize="10" colorScheme="gray" variant="outline">
               Bán chạy
             </Badge>
-          </HStack>
+          </HStack> */}
         </VStack>
-        <HStack justifyContent={"space-between"} flex="1">
-          <VStack>
-            <Text>Đơn giá</Text>
-            <Badge
-              colorScheme="blue"
-              paddingX="2"
-              paddingY="1"
-              variant="outline"
-              className="none-text-transform"
-            >
-              10.000đ
-            </Badge>
-          </VStack>
-          <VStack>
-            <Text>Số lượng</Text>
-            <Badge
-              colorScheme="blue"
-              paddingX="2"
-              paddingY="1"
-              variant="outline"
-              className="none-text-transform"
-            >
-              20
-            </Badge>
-          </VStack>
-          <VStack>
-            <Text>Thành tiền</Text>
-            <Badge
-              colorScheme="blue"
-              paddingX="2"
-              paddingY="1"
-              variant="outline"
-              className="none-text-transform"
-            >
-              200.000đ
-            </Badge>
-          </VStack>
-        </HStack>
 
         <Box paddingLeft="4">
           <Button
