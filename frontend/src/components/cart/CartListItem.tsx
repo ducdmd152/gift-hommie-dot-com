@@ -9,6 +9,7 @@ import {
   VStack,
   Text,
   Checkbox,
+  Input,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import imageService from "../../services/image-service";
@@ -20,6 +21,7 @@ import ProductDTO from "../../type/ProductDTO";
 import shopProductService, {
   ShopProductDTO,
 } from "../../services/shop-product-service";
+import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 
 interface Props {
   cart: CartDTO;
@@ -80,12 +82,44 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               <Text>Số lượng</Text>
               <Badge
                 colorScheme="blue"
-                paddingX="2"
-                paddingY="1"
+                // paddingX="2"
+                padding="0"
                 variant="outline"
                 className="none-text-transform"
               >
-                {cart.quantity}
+                <HStack alignItems={"center"} spacing={0}>
+                  <Box
+                    className="cursor-pointer"
+                    _hover={{
+                      transform: "scale(1.02)",
+                      color: "teal",
+                    }}
+                  >
+                    <AiOutlineMinusSquare size="24px" />
+                  </Box>
+
+                  <Input
+                    border={"unset"}
+                    type="number"
+                    defaultValue={cart.quantity}
+                    height="22px"
+                    width="24px"
+                    color="black"
+                    fontSize={"16px"}
+                    p="0"
+                    m="0"
+                    textAlign="center"
+                  />
+                  <Box
+                    className="cursor-pointer"
+                    _hover={{
+                      transform: "scale(1.02)",
+                      color: "teal",
+                    }}
+                  >
+                    <AiOutlinePlusSquare size="24px" />
+                  </Box>
+                </HStack>
               </Badge>
             </VStack>
             <VStack>
