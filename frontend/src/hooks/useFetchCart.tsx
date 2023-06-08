@@ -19,7 +19,7 @@ const useFetchCart = (requestQuery: CartQuery) => {
           _order: requestQuery?.order,
         },
       },
-      [requestQuery]
+      []
     );
 
   return {
@@ -28,7 +28,7 @@ const useFetchCart = (requestQuery: CartQuery) => {
     isLoading,
     error,
     // setError,
-    // setUsers: setEntities,
+    setCarts: setEntities,
   };
 };
 

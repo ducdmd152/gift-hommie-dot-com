@@ -23,9 +23,10 @@ import shopProductService, {
 
 interface Props {
   cart: CartDTO;
+  onDelete: (productId: number) => void;
 }
 
-const CartListItem = ({ cart }: Props) => {
+const CartListItem = ({ cart, onDelete }: Props) => {
   const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const CartListItem = ({ cart }: Props) => {
       .catch((err) => {
         navigate("/cart");
       });
-  });
+  }, []);
 
   return (
     <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
@@ -124,6 +125,9 @@ const CartListItem = ({ cart }: Props) => {
               color: "red",
             }}
             p="1"
+            onClick={() => {
+              onDelete(product.id);
+            }}
           >
             <BsTrash color="inherit" size="16" className="danger-hover" />
           </Button>

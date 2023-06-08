@@ -3,25 +3,35 @@ import cartService from "./cart-service";
 
 const cartActionSerivce = {
   addToCart(productId: number, quantity: number = 1) {
-    (async () => {
+    let cart = {
+      id: productId,
+      productId: productId,
+      quantity: quantity,
+    };
+
+    return (async () => {
       await cartService
-        .create({
-          id: productId,
-          productId: productId,
-          quantity: quantity,
-        } as CartDTO)
+        .create(cart as CartDTO)
         .then((res) => {
-          console.log("OK");
+          return res.data as CartDTO;
         })
         .catch((err) => {
-          console.log(err);
+          return cart;
         });
     })();
-    console.log("Add to cart: " + productId + " " + quantity);
   },
 
   removeOutCart(productId: number) {
-    (async () => {})();
+    return (async () => {
+      return await cartService
+        .delete(productId)
+        .then((res) => {
+          return true;
+        })
+        .catch((err) => {
+          return false;
+        });
+    })();
     console.log("Remove out from cart: " + productId);
   },
 };
