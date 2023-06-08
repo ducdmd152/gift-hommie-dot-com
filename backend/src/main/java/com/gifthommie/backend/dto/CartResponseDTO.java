@@ -1,23 +1,38 @@
 package com.gifthommie.backend.dto;
 
 import com.gifthommie.backend.entity.Cart;
+import com.gifthommie.backend.entity.Product;
 
 public class CartResponseDTO {
 	
 	private int id;
 	private int productId;
 	private int quantity;
+	private Product product;
 	
-	public CartResponseDTO(int id, int productId, int quantity) {
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	
+	
+	public CartResponseDTO(int id, int productId, int quantity, Product product) {
+		super();
 		this.id = id;
 		this.productId = productId;
 		this.quantity = quantity;
+		this.product = product;
 	}
-	
+
 	public CartResponseDTO(Cart cart) {
 		id = cart.getId();
 		productId = cart.getProduct().getId();
 		quantity = cart.getQuantity();
+		product = cart.getProduct();
 	}
 
 	public int getId() {
