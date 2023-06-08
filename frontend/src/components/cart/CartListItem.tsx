@@ -22,6 +22,7 @@ import shopProductService, {
   ShopProductDTO,
 } from "../../services/shop-product-service";
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
+import cartActionSerivce from "../../services/cart-action-service";
 
 interface Props {
   cart: CartDTO;
@@ -31,6 +32,12 @@ interface Props {
 const CartListItem = ({ cart, onDelete }: Props) => {
   const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
   const navigate = useNavigate();
+  const [currentQuantity, setCurrentQuantity] = useState(cart.quantity + 0);
+  const updateQuantity = (quantity: number) => {
+    setCurrentQuantity(quantity);
+    cart.quantity = quantity;
+    cartActionSerivce.updateQuantityOf(cart);
+  };
 
   useEffect(() => {
     shopProductService
@@ -95,13 +102,28 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                       color: "teal",
                     }}
                   >
-                    <AiOutlineMinusSquare size="24px" />
+                    <AiOutlineMinusSquare
+                      size="24px"
+                      onClick={() => {
+                        let quantity = Math.max(currentQuantity - 1, 1);
+                        quantity = Math.min(quantity, product.quantity);
+                        updateQuantity(quantity);
+                      }}
+                    />
                   </Box>
 
                   <Input
+                    onBlur={(e) => {
+                      let value = parseInt(e.target.value);
+                      if (!value) {
+                        e.target.value = currentQuantity.toString();
+                        return;
+                      }
+                      updateQuantity(value);
+                    }}
                     border={"unset"}
                     type="number"
-                    defaultValue={cart.quantity}
+                    value={currentQuantity}
                     height="22px"
                     width="24px"
                     color="black"
@@ -115,6 +137,13 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     _hover={{
                       transform: "scale(1.02)",
                       color: "teal",
+                    }}
+                    onClick={() => {
+                      let quantity = Math.min(
+                        currentQuantity + 1,
+                        product.quantity
+                      );
+                      updateQuantity(quantity);
                     }}
                   >
                     <AiOutlinePlusSquare size="24px" />

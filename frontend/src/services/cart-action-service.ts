@@ -33,6 +33,19 @@ const cartActionSerivce = {
         });
     })();
   },
+
+  updateQuantityOf(cart: CartDTO) {
+    return (async () => {
+      return await cartService
+        .update(cart)
+        .then((res) => {
+          return true;
+        })
+        .catch((err) => {
+          return false;
+        });
+    })();
+  },
 };
 
 export default cartActionSerivce;

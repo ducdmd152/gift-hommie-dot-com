@@ -106,7 +106,7 @@ public class CustomerCartController {
 		return new CartResponseDTO(cartService.save(existCart));
 	}
 
-	@PutMapping("/{productId}")
+	@PutMapping("/{cartId}")
 	public CartResponseDTO editCartQuantity(@RequestBody CartRequestDTO cartDTO) // duy duc modified) 
 	{
 		int productId = cartDTO.getProductId();
