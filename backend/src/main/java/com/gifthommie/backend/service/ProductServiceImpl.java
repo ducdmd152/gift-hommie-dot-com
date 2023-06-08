@@ -159,7 +159,7 @@ public class ProductServiceImpl implements ProductService {
 		float tmpPrice = 0;
 		for (CartRequestDTO cartRequestDTO : cartList) {
 			Product product = productRepository.findById(cartRequestDTO.getProductId()).get();
-			tmpPrice = tmpPrice + product.getPrice();
+			tmpPrice = tmpPrice + product.getPrice()*cartRequestDTO.getQuantity();
 		}
 		return tmpPrice;
 	}
