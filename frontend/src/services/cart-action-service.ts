@@ -21,10 +21,10 @@ const cartActionSerivce = {
     })();
   },
 
-  removeOutCart(productId: number) {
+  removeOutCart(cartId: number) {
     return (async () => {
       return await cartService
-        .delete(productId)
+        .delete(cartId)
         .then((res) => {
           return true;
         })
@@ -32,7 +32,6 @@ const cartActionSerivce = {
           return false;
         });
     })();
-    console.log("Remove out from cart: " + productId);
   },
 };
 

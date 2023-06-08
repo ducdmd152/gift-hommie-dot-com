@@ -6,11 +6,12 @@ import cartActionSerivce from "../../services/cart-action-service";
 
 const CartListItems = () => {
   const { carts, pageable, setCarts } = useFetchCart({} as CartQuery);
-  const onDelete = async (productId: number) => {
+  const onDelete = async (id: number) => {
     const originalCarts = carts;
-    setCarts(carts.filter((c) => c.productId !== productId));
-    if ((await cartActionSerivce.removeOutCart(productId)) == false) {
+    setCarts(carts.filter((c) => c.id !== id));
+    if ((await cartActionSerivce.removeOutCart(id)) == false) {
       setCarts(originalCarts);
+      alert("Không thể xóa sản phẩm, vui lòng thử lại.");
     }
   };
 

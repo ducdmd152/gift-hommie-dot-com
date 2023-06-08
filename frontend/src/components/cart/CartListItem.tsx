@@ -23,7 +23,7 @@ import shopProductService, {
 
 interface Props {
   cart: CartDTO;
-  onDelete: (productId: number) => void;
+  onDelete: (id: number) => void;
 }
 
 const CartListItem = ({ cart, onDelete }: Props) => {
@@ -126,7 +126,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
             }}
             p="1"
             onClick={() => {
-              onDelete(product.id);
+              onDelete(cart.id);
             }}
           >
             <BsTrash color="inherit" size="16" className="danger-hover" />
