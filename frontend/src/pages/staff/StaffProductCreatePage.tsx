@@ -91,7 +91,6 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const product = data as StaffProductDTO;
-    console.log(product);
     product.id = 0;
     product.avatar = productAvatarURL;
 

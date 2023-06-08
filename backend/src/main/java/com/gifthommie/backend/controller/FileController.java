@@ -23,35 +23,35 @@ import com.gifthommie.backend.service.FileService;
 @RestController
 @RequestMapping("/public")
 public class FileController {
-	
-	@Autowired
-	private FileService fileService;
-	
-	@Value("${project.image}")
-	private String path;
-	
-	@PostMapping("/file/upload")
-	public ResponseEntity<FileResponse> fileUpload(
-			@RequestParam("image") MultipartFile image){
-		
-		String fileName=null;
-		String imgUrl=null;
-		try {
-			fileName = fileService.uploadImage(path, image);
-			imgUrl="http://localhost:8080/"+path+fileName;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return  new ResponseEntity<>(new FileResponse(null, "Image is not upload due to error!",imgUrl),HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return new ResponseEntity<>(new FileResponse(fileName, "Image is successfully upload!",imgUrl),HttpStatus.OK);
-		
-	}
-	
-	@PostMapping("/image/upload")
-	public FileResponseDTO imageUpload(
-			@RequestParam("image") MultipartFile image) throws IOException{
-		String fileName = fileService.uploadImage(path, image);
-		return new FileResponseDTO(fileName);
-	}
+//	
+//	@Autowired
+//	private FileService fileService;
+//	
+//	@Value("${project.image}")
+//	private String path;
+//	
+//	@PostMapping("/file/upload")
+//	public ResponseEntity<FileResponse> fileUpload(
+//			@RequestParam("image") MultipartFile image){
+//		
+//		String fileName=null;
+//		String imgUrl=null;
+//		try {
+//			fileName = fileService.uploadImage(path, image);
+//			imgUrl="http://localhost:8080/"+path+fileName;
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return  new ResponseEntity<>(new FileResponse(null, "Image is not upload due to error!",imgUrl),HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		return new ResponseEntity<>(new FileResponse(fileName, "Image is successfully upload!",imgUrl),HttpStatus.OK);
+//		
+//	}
+//	
+//	@PostMapping("/image/upload")
+//	public FileResponseDTO imageUpload(
+//			@RequestParam("image") MultipartFile image) throws IOException{
+//		String fileName = fileService.uploadImage(path, image);
+//		return new FileResponseDTO(fileName);
+//	}
 }

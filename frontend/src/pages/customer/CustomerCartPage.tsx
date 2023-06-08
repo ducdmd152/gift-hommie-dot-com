@@ -17,7 +17,7 @@ const CustomerCartPage = () => {
           // lg: `"header header" "aside-left main"`,
         }}
         templateColumns={{
-          base: `1fr 460px`,
+          base: `6fr 4fr`,
           // sm: `"1fr" "200px 1fr"`,
           // lg: `"1fr" "200px 1fr"`,
         }}

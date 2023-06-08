@@ -27,6 +27,8 @@ import { GLOBAL_CONTEXT } from "../../App";
 import shopProductService, {
   ShopProductDTO,
 } from "../../services/shop-product-service";
+import utilService from "../../services/util-service";
+import cartActionSerivce from "../../services/cart-action-service";
 const ShopProductDetail = () => {
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
   const id = productContext.getProductId();
@@ -165,7 +167,16 @@ const ShopProductDetail = () => {
                   fontWeight="medium"
                   p="6"
                 >
-                  <HStack spacing="1">
+                  <HStack
+                    spacing="1"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (!utilService.getCurrentUser()) navigate("/login");
+                      else {
+                        cartActionSerivce.addToCart(product.id);
+                      }
+                    }}
+                  >
                     <BsFillCartPlusFill size="24px" />
                     <Text>Thêm vào giỏ hàng</Text>
                   </HStack>

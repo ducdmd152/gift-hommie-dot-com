@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CartResponseDTO;
 import com.gifthommie.backend.entity.Cart;
 import com.gifthommie.backend.entity.Product;
@@ -58,22 +60,26 @@ public class CustomerCartController {
 		return existCart;
 	}
 
-	@DeleteMapping("/{productId}")
-	public boolean deleteCart(@PathVariable int productId) {
+	@DeleteMapping("/{cartId}")
+	public boolean deleteCart(@PathVariable int cartId) {
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
-		Cart existProduct = cartService.getCartByEmailAndProductId(email, productId);
+		Cart existProduct = cartService.getCartByEmailAndCartId(email, cartId); // modified by Duy Duc
+//		Cart existProduct = cartService.getCartByEmailAndProductId(email, productId);
 		if (existProduct == null) {
-			throw new NotFoundException("Not found item - " + productId);
+			throw new NotFoundException("Not found item - " + cartId);
 		} else {
-			return cartService.deleteCart(email, productId);
+			return cartService.deleteCart(email, existProduct.getProduct().getId()); // modified by Duy Duc
 		}
 	}
 
 	// ADD TO CART
-	@PostMapping("/{productId}")
-	public CartResponseDTO addToCart(@PathVariable int productId, 
-			@RequestParam(defaultValue = "1", name = "quantity") int defaultQuantity) {
+	@PostMapping
+	public CartResponseDTO addToCart(
+			@RequestBody CartRequestDTO cartDTO) // duy duc modified) 
+	{
+		int productId = cartDTO.getProductId();
+		int defaultQuantity = cartDTO.getQuantity();
 		// Get LOGIM USER
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
@@ -100,9 +106,11 @@ public class CustomerCartController {
 		return new CartResponseDTO(cartService.save(existCart));
 	}
 
-	@PutMapping("/{productId}")
-	public CartResponseDTO editCartQuantity(@PathVariable int productId, 
-			@RequestParam("quantity") int newQuantity) {
+	@PutMapping("/{cartId}")
+	public CartResponseDTO editCartQuantity(@RequestBody CartRequestDTO cartDTO) // duy duc modified) 
+	{
+		int productId = cartDTO.getProductId();
+		int newQuantity = cartDTO.getQuantity();
 		// GET LOGIN EMAIL
 		String email = SecurityUtils.getPrincipal().getUser().getEmail();
 		// GET CART ID

@@ -16,6 +16,7 @@ import { BsFillCartPlusFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import utilService from "../../services/util-service";
 import { GLOBAL_CONTEXT } from "../../App";
+import cartActionSerivce from "../../services/cart-action-service";
 interface Props {
   product: ShopProductDTO;
 }
@@ -42,8 +43,15 @@ const ShopProductListItem = ({ product }: Props) => {
               width="22px"
               className="product-cart-icon"
               onClick={(e) => {
+                let x = window.screenX;
+                let y = window.screenY;
                 e.preventDefault();
+                window.screenX = x;
+                window.screenY = y;
                 if (!utilService.getCurrentUser()) navigate("/login");
+                else {
+                  cartActionSerivce.addToCart(product.id);
+                }
               }}
             >
               <BsFillCartPlusFill size="22px" />
