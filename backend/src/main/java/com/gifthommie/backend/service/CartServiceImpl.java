@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableDTO;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CartResponseDTO;
 import com.gifthommie.backend.entity.Cart;
 import com.gifthommie.backend.entity.OrderDetail;
@@ -126,5 +127,15 @@ public class CartServiceImpl implements CartService {
 
 		return cartRepository.save(cart);
 	}
+
+	@Override
+	public void deleteCartTrasit(List<CartRequestDTO> cartList, String email) {
+		for (CartRequestDTO cartRequestDTO : cartList) {
+			deleteCart(email, cartRequestDTO.getProductId());
+		}
+	}
+
+
+	
 
 }

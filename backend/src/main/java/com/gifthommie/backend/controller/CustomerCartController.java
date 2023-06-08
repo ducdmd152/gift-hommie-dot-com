@@ -86,7 +86,6 @@ public class CustomerCartController {
 		if (existCart != null) {
 			// INCREASE one quantity
 			existCart.setQuantity(existCart.getQuantity() + defaultQuantity);
-			
 			return new CartResponseDTO(cartService.save(existCart));
 		}
 		// GET PRODUCT BY ID

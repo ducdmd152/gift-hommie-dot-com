@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Product;
 
@@ -36,4 +37,6 @@ public interface ProductService {
 	Product createNewProductFrom(ProductRequestDTO productRequestDTO);
 	
 	APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated);
+	
+	float totalPrice(List<CartRequestDTO> cartList);
 }
