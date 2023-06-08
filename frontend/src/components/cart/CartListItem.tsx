@@ -11,7 +11,7 @@ import {
   Checkbox,
   Input,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import imageService from "../../services/image-service";
 import { Link, useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
@@ -32,11 +32,16 @@ interface Props {
 const CartListItem = ({ cart, onDelete }: Props) => {
   const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
   const navigate = useNavigate();
+
+  const quantityRef = useRef<HTMLInputElement>(null);
   const [currentQuantity, setCurrentQuantity] = useState(cart.quantity + 0);
   const updateQuantity = (quantity: number) => {
     setCurrentQuantity(quantity);
     cart.quantity = quantity;
     cartActionSerivce.updateQuantityOf(cart);
+    if (quantityRef.current) {
+      quantityRef.current.value = quantity.toString();
+    }
   };
 
   useEffect(() => {
@@ -76,6 +81,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
             <VStack>
               <Text>Đơn giá</Text>
               <Badge
+                fontSize="16px"
                 colorScheme="blue"
                 paddingX="2"
                 paddingY="1"
@@ -103,7 +109,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     }}
                   >
                     <AiOutlineMinusSquare
-                      size="24px"
+                      size="32px"
                       onClick={() => {
                         let quantity = Math.max(currentQuantity - 1, 1);
                         quantity = Math.min(quantity, product.quantity);
@@ -113,6 +119,15 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                   </Box>
 
                   <Input
+                    ref={quantityRef}
+                    onChange={(e) => {
+                      let value = parseInt(e.target.value);
+                      if (!value) {
+                        // e.target.value = currentQuantity.toString();
+                        return;
+                      }
+                      updateQuantity(value);
+                    }}
                     onBlur={(e) => {
                       let value = parseInt(e.target.value);
                       if (!value) {
@@ -123,11 +138,11 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     }}
                     border={"unset"}
                     type="number"
-                    value={currentQuantity}
-                    height="22px"
-                    width="24px"
+                    defaultValue={currentQuantity}
+                    height="32px"
+                    width="32px"
                     color="black"
-                    fontSize={"16px"}
+                    fontSize={"20px"}
                     p="0"
                     m="0"
                     textAlign="center"
@@ -146,7 +161,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                       updateQuantity(quantity);
                     }}
                   >
-                    <AiOutlinePlusSquare size="24px" />
+                    <AiOutlinePlusSquare size="32px" />
                   </Box>
                 </HStack>
               </Badge>
@@ -154,6 +169,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
             <VStack>
               <Text>Thành tiền</Text>
               <Badge
+                fontSize="16px"
                 colorScheme="blue"
                 paddingX="2"
                 paddingY="1"
