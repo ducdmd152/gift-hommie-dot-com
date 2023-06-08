@@ -43,7 +43,11 @@ const ShopProductListItem = ({ product }: Props) => {
               width="22px"
               className="product-cart-icon"
               onClick={(e) => {
+                let x = window.screenX;
+                let y = window.screenY;
                 e.preventDefault();
+                window.screenX = x;
+                window.screenY = y;
                 if (!utilService.getCurrentUser()) navigate("/login");
                 else {
                   cartActionSerivce.addToCart(product.id);
