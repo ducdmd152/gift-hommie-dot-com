@@ -62,7 +62,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
     Swal.fire({
       position: "center",
       icon: "warning",
-      title: `Bạn đã chọn đủ số lượng ${product.quantity} sản phẩm có sẵn của sản phẩm.`,
+      title: `Bạn đã chọn đủ ${product.quantity} sản phẩm có sẵn của sản phẩm.`,
       showConfirmButton: false,
       timer: 2000,
     });

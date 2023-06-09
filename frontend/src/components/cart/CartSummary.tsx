@@ -115,7 +115,9 @@ const CartSummaryItem = ({ selectedItem }: { selectedItem: CartDTO }) => {
               <Text fontSize="sm" color="gray">
                 Giá
               </Text>
-              <Badge colorScheme="blue">{selectedItem.product.price}</Badge>
+              <Badge colorScheme="blue" className="none-text-transform">
+                {selectedItem.product.price / 1000 + ".000đ"}
+              </Badge>
             </HStack>
             <HStack spacing="2">
               <Text fontSize="sm" color="gray">
