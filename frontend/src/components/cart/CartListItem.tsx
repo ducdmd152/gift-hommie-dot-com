@@ -11,7 +11,7 @@ import {
   Checkbox,
   Input,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import imageService from "../../services/image-service";
 import { Link, useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
@@ -24,6 +24,7 @@ import shopProductService, {
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
+import { GLOBAL_CONTEXT } from "../../App";
 
 interface Props {
   cart: CartDTO;
@@ -31,10 +32,11 @@ interface Props {
 }
 
 const CartListItem = ({ cart, onDelete }: Props) => {
-  // const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
-  // const navigate = useNavigate();
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+
   const product = cart.product;
 
+  // QUANTITY CASE HANDLING
   const quantityRef = useRef<HTMLInputElement>(null);
   const [currentQuantity, setCurrentQuantity] = useState(cart.quantity + 0);
   const updateQuantity = async (quantity: number) => {
@@ -80,12 +82,23 @@ const CartListItem = ({ cart, onDelete }: Props) => {
   return (
     <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
       <HStack spacing={4}>
-        <Checkbox
-          colorScheme="green"
-          iconSize="32"
-          border="1px solid lightgreen"
-          borderRadius="6px"
-        ></Checkbox>
+        <Box>
+          <Checkbox
+            isChecked={selectedCartContext.isChecked(cart.id)}
+            colorScheme="green"
+            iconSize="32"
+            border="1px solid lightgreen"
+            borderRadius="6px"
+            onChange={(e) => {
+              let selected = e.target.checked;
+              if (selected) {
+                selectedCartContext.addItem(cart);
+              } else {
+                selectedCartContext.removeItem(cart);
+              }
+            }}
+          ></Checkbox>
+        </Box>
 
         <Image
           boxSize="100px"

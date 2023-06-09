@@ -12,15 +12,24 @@ import GuestPage from "./pages/guest/GuestPage";
 import ManagerPage from "./pages/manager/ManagerPage";
 import CustomerPage from "./pages/customer/CustomerPage";
 import utilService from "./services/util-service";
+import CartDTO from "./type/CartDTO";
 
 export interface GlobalContext {
   productContext: ProductContext;
   rerender: () => void;
+  selectedCartContext: SelectedCartContext;
 }
 
 export interface ProductContext {
   getProductId: () => number;
   setProductId: (productId: number) => number;
+}
+
+export interface SelectedCartContext {
+  getItems: () => CartDTO[];
+  addItem: (cart: CartDTO) => void;
+  removeItem: (cart: CartDTO) => void;
+  isChecked: (cartId: number) => boolean;
 }
 
 export const GLOBAL_CONTEXT = createContext({} as GlobalContext);
@@ -29,6 +38,7 @@ function App() {
   const [productId, setProductId] = useState(0);
   const [user, setUser] = useState<UserDTO | null>(null);
   const [hook, setHook] = useState(false);
+  const [selectedCartItems, setSelectedCartItems] = useState([] as CartDTO[]);
 
   const globalContext = useContext(GLOBAL_CONTEXT);
   globalContext.productContext = {
@@ -42,6 +52,27 @@ function App() {
   } as ProductContext;
   globalContext.rerender = () => {
     setHook(!hook);
+  };
+  globalContext.selectedCartContext = {
+    getItems() {
+      return selectedCartItems;
+    },
+    addItem(item) {
+      // console.log("Hello");
+
+      if (selectedCartItems.find((cart) => cart.id === item.id)) return;
+      setSelectedCartItems([...selectedCartItems, item]);
+    },
+    removeItem(item) {
+      if (!selectedCartItems.find((cart) => cart.id === item.id)) return;
+      setSelectedCartItems(
+        selectedCartItems.filter((cart) => cart.id !== item.id)
+      );
+    },
+    isChecked(cartId: number) {
+      if (selectedCartItems.find((cart) => cart.id === cartId)) return true;
+      return false;
+    },
   };
 
   // if (user == null) {

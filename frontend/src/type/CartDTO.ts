@@ -5,4 +5,5 @@ export default interface CategoryDTO {
   productId: number;
   quantity: number;
   product: ProductDTO;
+  total: number;
 }
