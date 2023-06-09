@@ -88,3 +88,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.swal2-popup {
+  font-size: 12px !important;
+  font-family: Georgia, serif;
+}

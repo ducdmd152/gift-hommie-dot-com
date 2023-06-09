@@ -50,16 +50,20 @@ const CartListItem = ({ cart, onDelete }: Props) => {
       if (quantityRef.current) {
         quantityRef.current.value = cart.quantity.toString();
       }
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: `Bạn đã chọn đủ số lượng ${product.quantity} có sẵn của sản phẩm.`,
-        showConfirmButton: false,
-        timer: 2000,
-      });
+      outOfQuantity();
     }
 
     setCurrentQuantity(cart.quantity);
+  };
+
+  const outOfQuantity = () => {
+    Swal.fire({
+      position: "center",
+      icon: "warning",
+      title: `Bạn đã chọn đủ số lượng ${product.quantity} sản phẩm có sẵn của sản phẩm.`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   // useEffect(() => {
@@ -106,7 +110,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                 variant="outline"
                 className="none-text-transform"
               >
-                {product.price}
+                {product.price / 1000 + ".000đ"}
               </Badge>
             </VStack>
             <VStack>
@@ -180,13 +184,8 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     }}
                     onClick={() => {
                       if (currentQuantity >= product.quantity) {
-                        Swal.fire({
-                          position: "center",
-                          icon: "warning",
-                          title: `Bạn đã chọn đủ số lượng ${product.quantity} có sẵn của sản phẩm.`,
-                          showConfirmButton: false,
-                          timer: 2000,
-                        });
+                        outOfQuantity();
+                        return;
                       }
                       let quantity = Math.min(
                         currentQuantity + 1,
@@ -210,7 +209,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                 variant="outline"
                 className="none-text-transform"
               >
-                {product.price * cart.quantity}
+                {(product.price * cart.quantity) / 1000 + ".000đ"}
               </Badge>
             </VStack>
           </HStack>
