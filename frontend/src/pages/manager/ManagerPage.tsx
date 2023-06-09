@@ -41,12 +41,12 @@ const ManagerPage = () => {
             path="/staff"
             element={<ManagerStaffListPage setUserId={setUserId} />}
           />
-          <Route path="/staff/create" element={<ManagerStaffCreatePage />} />
+          <Route path="/staff/create" element={<ManagerStaffCreatePage setUserId={setUserId} />} />
           <Route
             path="/staff/detail"
             element={<ManagerStaffDetailPage userId={userId} />}
           />
-          <Route path="/staff/edit" element={<ManagerStaffEditPage userId={userId}/>} />
+          <Route path="/staff/edit" element={<ManagerStaffEditPage userId={userId} />} />
         </Routes>
       </GridItem>
     </Grid>
