@@ -12,6 +12,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GLOBAL_CONTEXT } from "../../App";
 import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
+import utilService from "../../services/util-service";
+import UserDTO from "../../type/UserDTO";
 const schema = z.object({
   username: z
     .string({
@@ -40,7 +42,7 @@ const Login = () => {
     navigate("/");
   };
 
-  let authenticated = sessionStorage.getItem("USER");
+  let authenticated = utilService.getCurrentUser() as UserDTO;
   if (authenticated) {
     onAuthenticated();
   }

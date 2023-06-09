@@ -17,63 +17,80 @@ import {
   Badge,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
+import { GLOBAL_CONTEXT } from "../../App";
+import CartDTO from "../../type/CartDTO";
 
 const CartSummary = () => {
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+  let items = selectedCartContext.getItems();
   return (
     <Box p="4">
       <Card paddingY="4" paddingX="2">
-        <Heading size="md" textAlign="center" mb="4">
+        <Heading
+          size="md"
+          textAlign="center"
+          mb="4"
+          pb="4"
+          borderBottom="1px solid lightgray"
+        >
           Lựa chọn
         </Heading>
-
-        <Box>
-          <Table size="sm" p="1">
-            <Thead>
-              <Tr>
-                <Th>Sản phẩm</Th>
-                <Th>Thành tiền</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td textAlign="center">
-                  <CartSummaryItem />
-                </Td>
-                <Td textAlign="center">200.000đ</Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">
-                  <CartSummaryItem />
-                </Td>
-                <Td textAlign="center">200.000đ</Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">
-                  <CartSummaryItem />
-                </Td>
-                <Td textAlign="center">200.000đ</Td>
-              </Tr>
-            </Tbody>
-          </Table>
-          <HStack p="4">
-            <Box
-              textAlign="center"
-              flex="1"
-              //   border={"1px solid lightgray"}
-            ></Box>
-            <HStack
-              flex="1"
-              border={"1px solid lightgray"}
-              justify="space-around"
-            >
-              <Box>Tổng: </Box>
-              <Box fontWeight="bold">600.000đ </Box>
+        {items.length == 0 ? (
+          <Box>
+            <Heading size="16px" fontStyle="italic" textAlign="center">
+              Chưa có sản phẩm nào được chọn.
+            </Heading>
+          </Box>
+        ) : (
+          <Box>
+            <Table size="sm" p="1">
+              <Thead>
+                <Tr>
+                  <Th>Sản phẩm</Th>
+                  <Th>Thành tiền</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {items.map((item) => {
+                  return (
+                    <Tr key={item.id}>
+                      <Td textAlign="center">
+                        <CartSummaryItem selectedItem={item} />
+                      </Td>
+                      <Td textAlign="center">{item.total / 1000 + ".000đ"}</Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+            <HStack p="4">
+              <Box
+                textAlign="center"
+                flex="1"
+                //   border={"1px solid lightgray"}
+              ></Box>
+              <HStack
+                flex="1"
+                border={"1px solid lightgray"}
+                justify="space-around"
+              >
+                <Box>Tổng: </Box>
+                <Box fontWeight="bold">
+                  {items.reduce((acc, item) => acc + item.total, 0) / 1000}
+                  {".000đ"}
+                </Box>
+              </HStack>
             </HStack>
-          </HStack>
-        </Box>
+          </Box>
+        )}
 
-        <Button colorScheme="blue" variant="solid">
+        <Button
+          colorScheme="blue"
+          variant="solid"
+          isDisabled={items.length == 0}
+          mt="2"
+        >
           Checkout
         </Button>
       </Card>
@@ -81,7 +98,7 @@ const CartSummary = () => {
   );
 };
 
-const CartSummaryItem = () => {
+const CartSummaryItem = ({ selectedItem }: { selectedItem: CartDTO }) => {
   return (
     <HStack>
       <HStack spacing="2">
@@ -89,7 +106,7 @@ const CartSummaryItem = () => {
           borderRadius={"8px"}
           boxSize="50px"
           objectFit="cover"
-          src="https://bit.ly/dan-abramov"
+          src={selectedItem.product.avatar}
         />
         <VStack alignItems={"flex-start"} spacing="2">
           <Text fontSize="md">Cốc sứ 2 màu</Text>
@@ -98,13 +115,13 @@ const CartSummaryItem = () => {
               <Text fontSize="sm" color="gray">
                 Giá
               </Text>
-              <Badge colorScheme="blue">20.000đ</Badge>
+              <Badge colorScheme="blue">{selectedItem.product.price}</Badge>
             </HStack>
             <HStack spacing="2">
               <Text fontSize="sm" color="gray">
                 Lượng
               </Text>
-              <Badge colorScheme="blue">{"  - |  20 | +  "}</Badge>
+              <Badge colorScheme="blue">{`  - |  ${selectedItem.quantity} | +  `}</Badge>
             </HStack>
           </HStack>
         </VStack>

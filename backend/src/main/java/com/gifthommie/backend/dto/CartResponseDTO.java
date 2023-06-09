@@ -59,5 +59,9 @@ public class CartResponseDTO {
 		this.quantity = quantity;
 	}
 	
+	public float getTotal() {
+		return quantity*product.getPrice();
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 import UserDTO from "../type/UserDTO";
+import utilService from "./util-service";
 export interface HttpEntity {
   id: number | string;
 }
@@ -14,11 +15,7 @@ export class HttpService<T extends HttpEntity> {
   }
 
   getAll<FetchResponse>(requestConfig?: AxiosRequestConfig) {
-    const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = null;
-    if (userJSON) {
-      USER = JSON.parse(userJSON);
-    }
+    let USER = utilService.getCurrentUser() as UserDTO;
 
     const controller = new AbortController();
     const request = this.apiClient.get<FetchResponse>(this.endpoint, {
@@ -30,11 +27,7 @@ export class HttpService<T extends HttpEntity> {
   }
 
   get(id: number | string) {
-    const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = null;
-    if (userJSON) {
-      USER = JSON.parse(userJSON);
-    }
+    let USER = utilService.getCurrentUser() as UserDTO;
 
     return this.apiClient.get(this.endpoint + "/" + id, {
       auth: USER,
@@ -42,11 +35,7 @@ export class HttpService<T extends HttpEntity> {
   }
 
   create(entity: T) {
-    const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = null;
-    if (userJSON) {
-      USER = JSON.parse(userJSON);
-    }
+    let USER = utilService.getCurrentUser() as UserDTO;
 
     return this.apiClient.post(this.endpoint, entity, {
       auth: USER,
@@ -54,22 +43,14 @@ export class HttpService<T extends HttpEntity> {
   }
 
   update(entity: T) {
-    const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = null;
-    if (userJSON) {
-      USER = JSON.parse(userJSON);
-    }
+    let USER = utilService.getCurrentUser() as UserDTO;
     return this.apiClient.put(this.endpoint + "/" + entity.id, entity, {
       auth: USER,
     });
   }
 
   delete(id: number | string) {
-    const userJSON = sessionStorage.getItem("USER") || "";
-    let USER = null;
-    if (userJSON) {
-      USER = JSON.parse(userJSON);
-    }
+    let USER = utilService.getCurrentUser() as UserDTO;
     return this.apiClient.delete(this.endpoint + "/" + id, {
       auth: USER,
     });

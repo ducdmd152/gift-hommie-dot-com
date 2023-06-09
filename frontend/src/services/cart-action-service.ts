@@ -34,17 +34,19 @@ const cartActionSerivce = {
     })();
   },
 
-  updateQuantityOf(cart: CartDTO) {
-    return (async () => {
+  async updateQuantityOf(cart: CartDTO) {
+    let result = cart;
+    await (async () => {
       return await cartService
         .update(cart)
         .then((res) => {
-          return true;
+          result = res.data as CartDTO;
         })
         .catch((err) => {
-          return false;
+          // return cart;
         });
     })();
+    return result;
   },
 };
 

@@ -11,7 +11,7 @@ import {
   Checkbox,
   Input,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import imageService from "../../services/image-service";
 import { Link, useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
@@ -23,6 +23,8 @@ import shopProductService, {
 } from "../../services/shop-product-service";
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import cartActionSerivce from "../../services/cart-action-service";
+import Swal from "sweetalert2";
+import { GLOBAL_CONTEXT } from "../../App";
 
 interface Props {
   cart: CartDTO;
@@ -30,40 +32,73 @@ interface Props {
 }
 
 const CartListItem = ({ cart, onDelete }: Props) => {
-  const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
-  const navigate = useNavigate();
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
 
+  const product = cart.product;
+
+  // QUANTITY CASE HANDLING
   const quantityRef = useRef<HTMLInputElement>(null);
   const [currentQuantity, setCurrentQuantity] = useState(cart.quantity + 0);
-  const updateQuantity = (quantity: number) => {
-    setCurrentQuantity(quantity);
+  const updateQuantity = async (quantity: number) => {
     cart.quantity = quantity;
-    cartActionSerivce.updateQuantityOf(cart);
+
     if (quantityRef.current) {
-      quantityRef.current.value = quantity.toString();
+      quantityRef.current.value = cart.quantity.toString();
     }
+
+    cart = await cartActionSerivce.updateQuantityOf(cart);
+
+    if (cart.quantity != quantity) {
+      if (quantityRef.current) {
+        quantityRef.current.value = cart.quantity.toString();
+      }
+      outOfQuantity();
+    }
+
+    setCurrentQuantity(cart.quantity);
   };
 
-  useEffect(() => {
-    shopProductService
-      .get(cart.productId)
-      .then((res) => {
-        setProduct(res.data);
-      })
-      .catch((err) => {
-        navigate("/cart");
-      });
-  }, []);
+  const outOfQuantity = () => {
+    Swal.fire({
+      position: "center",
+      icon: "warning",
+      title: `Bạn đã chọn đủ số lượng ${product.quantity} sản phẩm có sẵn của sản phẩm.`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+
+  // useEffect(() => {
+  //   shopProductService
+  //     .get(cart.productId)
+  //     .then((res) => {
+  //       setProduct(res.data);
+  //     })
+  //     .catch((err) => {
+  //       navigate("/cart");
+  //     });
+  // }, []);
 
   return (
     <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
       <HStack spacing={4}>
-        <Checkbox
-          colorScheme="green"
-          iconSize="32"
-          border="1px solid lightgreen"
-          borderRadius="6px"
-        ></Checkbox>
+        <Box>
+          <Checkbox
+            isChecked={selectedCartContext.isChecked(cart.id)}
+            colorScheme="green"
+            iconSize="32"
+            border="1px solid lightgreen"
+            borderRadius="6px"
+            onChange={(e) => {
+              let selected = e.target.checked;
+              if (selected) {
+                selectedCartContext.addItem(cart);
+              } else {
+                selectedCartContext.removeItem(cart);
+              }
+            }}
+          ></Checkbox>
+        </Box>
 
         <Image
           boxSize="100px"
@@ -79,7 +114,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
             maxWidth="320px"
           >
             <VStack>
-              <Text>Đơn giá</Text>
+              <Text userSelect="none">Đơn giá</Text>
               <Badge
                 fontSize="16px"
                 colorScheme="blue"
@@ -88,11 +123,11 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                 variant="outline"
                 className="none-text-transform"
               >
-                {product.price}
+                {product.price / 1000 + ".000đ"}
               </Badge>
             </VStack>
             <VStack>
-              <Text>Số lượng</Text>
+              <Text userSelect="none">Số lượng</Text>
               <Badge
                 colorScheme="blue"
                 // paddingX="2"
@@ -102,10 +137,11 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               >
                 <HStack alignItems={"center"} spacing={0}>
                   <Box
+                    color={currentQuantity < 2 ? "gray" : "unset"}
                     className="cursor-pointer"
                     _hover={{
                       transform: "scale(1.02)",
-                      color: "teal",
+                      color: currentQuantity < 2 ? "gray" : "teal",
                     }}
                   >
                     <AiOutlineMinusSquare
@@ -126,6 +162,8 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                         // e.target.value = currentQuantity.toString();
                         return;
                       }
+                      console.log(value);
+
                       updateQuantity(value);
                     }}
                     onBlur={(e) => {
@@ -149,11 +187,19 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                   />
                   <Box
                     className="cursor-pointer"
+                    color={
+                      currentQuantity >= product.quantity ? "gray" : "unset"
+                    }
                     _hover={{
                       transform: "scale(1.02)",
-                      color: "teal",
+                      color:
+                        currentQuantity >= product.quantity ? "gray" : "unset",
                     }}
                     onClick={() => {
+                      if (currentQuantity >= product.quantity) {
+                        outOfQuantity();
+                        return;
+                      }
                       let quantity = Math.min(
                         currentQuantity + 1,
                         product.quantity
@@ -167,7 +213,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               </Badge>
             </VStack>
             <VStack>
-              <Text>Thành tiền</Text>
+              <Text userSelect="none">Thành tiền</Text>
               <Badge
                 fontSize="16px"
                 colorScheme="blue"
@@ -176,7 +222,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                 variant="outline"
                 className="none-text-transform"
               >
-                {product.price * cart.quantity}
+                {(product.price * cart.quantity) / 1000 + ".000đ"}
               </Badge>
             </VStack>
           </HStack>

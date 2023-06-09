@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import utilService from "../../services/util-service";
 import { GLOBAL_CONTEXT } from "../../App";
 import cartActionSerivce from "../../services/cart-action-service";
+import Swal from "sweetalert2";
 interface Props {
   product: ShopProductDTO;
 }
@@ -46,12 +47,19 @@ const ShopProductListItem = ({ product }: Props) => {
                 let x = window.screenX;
                 let y = window.screenY;
                 e.preventDefault();
-                window.screenX = x;
-                window.screenY = y;
                 if (!utilService.getCurrentUser()) navigate("/login");
                 else {
                   cartActionSerivce.addToCart(product.id);
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Đã thêm vào giỏ hàng",
+                    showConfirmButton: false,
+                    timer: 1000,
+                  });
                 }
+                window.screenX = x;
+                window.screenY = y;
               }}
             >
               <BsFillCartPlusFill size="22px" />
