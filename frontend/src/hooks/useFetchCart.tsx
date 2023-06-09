@@ -19,7 +19,7 @@ const useFetchCart = (requestQuery: CartQuery) => {
           _order: requestQuery?.order,
         },
       },
-      []
+      [requestQuery]
     );
 
   return {

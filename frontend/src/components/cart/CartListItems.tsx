@@ -3,9 +3,14 @@ import CartListItem from "./CartListItem";
 import { VStack } from "@chakra-ui/react";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import cartActionSerivce from "../../services/cart-action-service";
-
-const CartListItems = () => {
-  const { carts, pageable, setCarts } = useFetchCart({} as CartQuery);
+import CartDTO from "../../type/CartDTO";
+import PageableDTO from "../../type/PageableDTO";
+interface Props {
+  carts: CartDTO[];
+  pageable: PageableDTO;
+  setCarts: (carts: CartDTO[]) => void;
+}
+const CartListItems = ({ carts, pageable, setCarts }: Props) => {
   const onDelete = async (id: number) => {
     const originalCarts = carts;
     setCarts(carts.filter((c) => c.id !== id));
