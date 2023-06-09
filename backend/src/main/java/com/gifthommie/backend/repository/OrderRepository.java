@@ -2,9 +2,12 @@ package com.gifthommie.backend.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -32,11 +35,12 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	
 	@Query("SELECT o FROM Orders o WHERE "
 			+ "o.email = :email ")
-	public Page<Orders> findAllByEmail(@Param("email") String email,PageRequest pageRequest);
-//	
-	//FIND ALL ORDER WITHOUT STATUS = CANCELLED, FAIL OR REFUSED
-//	@Query("SELECT o FROM Orders o WHERE NOT "
-//			+ "(o.status = 'CANCELLED' OR o.status = 'FAIL' "
-//			+ "OR o.status = 'REFUSED')")
-//	public List<Orders> findNotCancelOrders();
+	public Page<Orders> findAllByEmail(@Param("email") String email, PageRequest pageRequest);
+	
+	//SET STATUS FOR ORDER BY ID
+	@Transactional
+	@Modifying
+	@Query("UPDATE Orders o SET o.status = :status WHERE o.id = :orderId")
+	public int setStatusOfOrderByOrderId(@Param("orderId") int orderId, 
+										@Param("status") String status);
 }

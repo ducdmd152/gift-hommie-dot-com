@@ -53,6 +53,11 @@ public class OrderServiceImpl implements OrderService{
 		return new APIPageableResponseDTO<Orders>(page);
 	}
 
+	@Override
+	public void setStatusOfOrderById(int orderId, String status) {
+		orderRepository.setStatusOfOrderByOrderId(orderId, status);
+	}
+
 
 
 }
