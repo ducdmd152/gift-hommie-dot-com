@@ -20,6 +20,7 @@ import {
 import React, { useContext } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
 import CartDTO from "../../type/CartDTO";
+import { Link } from "react-router-dom";
 
 const CartSummary = () => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
@@ -84,15 +85,19 @@ const CartSummary = () => {
             </HStack>
           </Box>
         )}
-
-        <Button
-          colorScheme="blue"
-          variant="solid"
-          isDisabled={items.length == 0}
-          mt="2"
-        >
-          Checkout
-        </Button>
+        <Link to="/checkout">
+          <Box width="100%">
+            <Button
+              width="100%"
+              colorScheme="blue"
+              variant="solid"
+              isDisabled={items.length == 0}
+              mt="2"
+            >
+              Checkout
+            </Button>
+          </Box>
+        </Link>
       </Card>
     </Box>
   );

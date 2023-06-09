@@ -93,3 +93,11 @@
   font-size: 12px !important;
   font-family: Georgia, serif;
 }
+
+.input:placeholder-shown {
+  font-style: italic;
+}
+
+.placeholeder-italic:placeholder-shown {
+  font-style: italic;
+}
