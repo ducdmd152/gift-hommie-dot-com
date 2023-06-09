@@ -29,6 +29,7 @@ import shopProductService, {
 } from "../../services/shop-product-service";
 import utilService from "../../services/util-service";
 import cartActionSerivce from "../../services/cart-action-service";
+import Swal from "sweetalert2";
 const ShopProductDetail = () => {
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
   const id = productContext.getProductId();
@@ -170,11 +171,22 @@ const ShopProductDetail = () => {
                   <HStack
                     spacing="1"
                     onClick={(e) => {
+                      let x = window.screenX;
+                      let y = window.screenY;
                       e.preventDefault();
                       if (!utilService.getCurrentUser()) navigate("/login");
                       else {
                         cartActionSerivce.addToCart(product.id);
+                        Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: "Đã thêm vào giỏ hàng",
+                          showConfirmButton: false,
+                          timer: 1000,
+                        });
                       }
+                      window.screenX = x;
+                      window.screenY = y;
                     }}
                   >
                     <BsFillCartPlusFill size="24px" />
