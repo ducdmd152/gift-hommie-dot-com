@@ -8,9 +8,19 @@ import { Input } from "@chakra-ui/input";
 import { HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import addressService from "../../services/address-service";
+import ProvinceDTO from "../../type/ProvinceDTO";
 
 const CheckoutDeliveryInfo = () => {
+  const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
+  useEffect(() => {
+    const loadProvinces = async () => {
+      setProvinces(await addressService.getProvinces());
+    };
+    loadProvinces();
+  }, []);
+
   return (
     <Card w="100%" paddingX="4" paddingY="4" border="1px lightgray solid">
       <Heading size="lg" textAlign="center" marginBottom="4">
@@ -37,7 +47,13 @@ const CheckoutDeliveryInfo = () => {
             <FormLabel fontWeight="bold">Địa chỉ nhận hàng (*)</FormLabel>
 
             <HStack w="100%" justifyContent="space-between">
-              <Select placeholder="Tỉnh/thành phố" size="md" />
+              <Select placeholder="Tỉnh/thành phố" size="md">
+                {provinces.map((province) => (
+                  <option key={province.ProvinceID} value={province.ProvinceID}>
+                    {province.ProvinceName}
+                  </option>
+                ))}
+              </Select>
               <Select placeholder="Quận/huyện" size="md" />
               <Select placeholder="Phường/xã" size="md" />
             </HStack>
