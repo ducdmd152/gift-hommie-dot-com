@@ -46,7 +46,7 @@ class AuthService {
 
         const user = response.data as UserDTO;
         user.password = password;
-        sessionStorage.setItem("USER", JSON.stringify(user));
+        localStorage.setItem("USER", JSON.stringify(user));
 
         return true;
       })
@@ -58,7 +58,7 @@ class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem("USER");
+    localStorage.removeItem("USER");
     window.location.href = "/";
   }
   register(username: String, password: String, isMale: boolean) {
@@ -79,7 +79,7 @@ class AuthService {
           accessToken: accessToken,
         };
 
-        sessionStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
 
         return true;
       })

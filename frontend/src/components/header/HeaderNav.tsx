@@ -3,14 +3,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import UserDTO from "../../type/UserDTO";
 import RoleNavLinks from "../../data/RoleNavLinks";
+import utilService from "../../services/util-service";
 
 const HeaderNav = () => {
-  const [user, setUser] = useState<UserDTO | null>(null);
+  const user = utilService.getCurrentUser() as UserDTO;
   let navs = RoleNavLinks["GUEST"];
-  if (user == null) {
-    const userJSON = sessionStorage.getItem("USER");
-    if (userJSON) setUser(JSON.parse(userJSON) as UserDTO);
-  }
   if (user != null) {
     navs = RoleNavLinks[user.authority];
   }

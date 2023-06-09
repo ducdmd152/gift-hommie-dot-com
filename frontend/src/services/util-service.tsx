@@ -5,7 +5,7 @@ import { GLOBAL_CONTEXT } from "../App";
 export default {
   HEADER_HEIGHT: "100px",
   getCurrentUser() {
-    const userJSON = sessionStorage.getItem("USER");
+    const userJSON = localStorage.getItem("USER");
     let USER = null;
     if (userJSON) {
       USER = JSON.parse(userJSON);
@@ -13,7 +13,7 @@ export default {
     return USER;
   },
   logout() {
-    sessionStorage.removeItem("USER");
+    localStorage.removeItem("USER");
   },
   getURLImageFromFile(file: File | null) {
     if (file == null)
