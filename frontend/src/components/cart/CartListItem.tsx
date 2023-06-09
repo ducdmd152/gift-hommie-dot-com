@@ -23,6 +23,7 @@ import shopProductService, {
 } from "../../services/shop-product-service";
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import cartActionSerivce from "../../services/cart-action-service";
+import Swal from "sweetalert2";
 
 interface Props {
   cart: CartDTO;
@@ -30,30 +31,47 @@ interface Props {
 }
 
 const CartListItem = ({ cart, onDelete }: Props) => {
-  const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
-  const navigate = useNavigate();
+  // const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
+  // const navigate = useNavigate();
+  const product = cart.product;
 
   const quantityRef = useRef<HTMLInputElement>(null);
   const [currentQuantity, setCurrentQuantity] = useState(cart.quantity + 0);
-  const updateQuantity = (quantity: number) => {
-    setCurrentQuantity(quantity);
+  const updateQuantity = async (quantity: number) => {
     cart.quantity = quantity;
-    cartActionSerivce.updateQuantityOf(cart);
+
     if (quantityRef.current) {
-      quantityRef.current.value = quantity.toString();
+      quantityRef.current.value = cart.quantity.toString();
     }
+
+    cart = await cartActionSerivce.updateQuantityOf(cart);
+
+    if (cart.quantity != quantity) {
+      if (quantityRef.current) {
+        quantityRef.current.value = cart.quantity.toString();
+      }
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: `Bạn đã chọn đủ số lượng ${product.quantity} có sẵn của sản phẩm.`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
+    setCurrentQuantity(cart.quantity);
   };
 
-  useEffect(() => {
-    shopProductService
-      .get(cart.productId)
-      .then((res) => {
-        setProduct(res.data);
-      })
-      .catch((err) => {
-        navigate("/cart");
-      });
-  }, []);
+  // useEffect(() => {
+  //   shopProductService
+  //     .get(cart.productId)
+  //     .then((res) => {
+  //       setProduct(res.data);
+  //     })
+  //     .catch((err) => {
+  //       navigate("/cart");
+  //     });
+  // }, []);
 
   return (
     <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
@@ -102,10 +120,11 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               >
                 <HStack alignItems={"center"} spacing={0}>
                   <Box
+                    color={currentQuantity < 2 ? "gray" : "unset"}
                     className="cursor-pointer"
                     _hover={{
                       transform: "scale(1.02)",
-                      color: "teal",
+                      color: currentQuantity < 2 ? "gray" : "teal",
                     }}
                   >
                     <AiOutlineMinusSquare
@@ -126,6 +145,8 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                         // e.target.value = currentQuantity.toString();
                         return;
                       }
+                      console.log(value);
+
                       updateQuantity(value);
                     }}
                     onBlur={(e) => {
@@ -149,11 +170,24 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                   />
                   <Box
                     className="cursor-pointer"
+                    color={
+                      currentQuantity >= product.quantity ? "gray" : "unset"
+                    }
                     _hover={{
                       transform: "scale(1.02)",
-                      color: "teal",
+                      color:
+                        currentQuantity >= product.quantity ? "gray" : "unset",
                     }}
                     onClick={() => {
+                      if (currentQuantity >= product.quantity) {
+                        Swal.fire({
+                          position: "center",
+                          icon: "warning",
+                          title: `Bạn đã chọn đủ số lượng ${product.quantity} có sẵn của sản phẩm.`,
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                      }
                       let quantity = Math.min(
                         currentQuantity + 1,
                         product.quantity
