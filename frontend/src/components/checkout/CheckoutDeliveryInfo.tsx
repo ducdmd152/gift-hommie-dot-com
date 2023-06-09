@@ -13,7 +13,7 @@ import React from "react";
 const CheckoutDeliveryInfo = () => {
   return (
     <Card w="100%" paddingX="4" paddingY="4" border="1px lightgray solid">
-      <Heading size="lg" textAlign="center">
+      <Heading size="lg" textAlign="center" marginBottom="4">
         Thông tin nhận hàng
       </Heading>
       <VStack w="100%">
