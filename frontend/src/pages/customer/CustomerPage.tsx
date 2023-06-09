@@ -6,6 +6,7 @@ import utilService from "../../services/util-service";
 import CustomerShopPage from "./CustomerShopPage";
 import CustomerCartPage from "./CustomerCartPage";
 import CustomerShopDetailPage from "./CustomerShopDetailPage";
+import CustomerCheckoutPage from "./CustomerCheckoutPage";
 
 const CustomerPage = () => {
   return (
@@ -34,6 +35,7 @@ const CustomerPage = () => {
           <Route path="/shop" element={<CustomerShopPage />} />
           <Route path="/shop/detail" element={<CustomerShopDetailPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
+          <Route path="/checkout" element={<CustomerCheckoutPage />} />
         </Routes>
       </GridItem>
     </Grid>
