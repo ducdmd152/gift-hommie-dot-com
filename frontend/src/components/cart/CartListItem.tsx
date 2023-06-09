@@ -97,7 +97,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
             maxWidth="320px"
           >
             <VStack>
-              <Text>Đơn giá</Text>
+              <Text userSelect="none">Đơn giá</Text>
               <Badge
                 fontSize="16px"
                 colorScheme="blue"
@@ -110,7 +110,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               </Badge>
             </VStack>
             <VStack>
-              <Text>Số lượng</Text>
+              <Text userSelect="none">Số lượng</Text>
               <Badge
                 colorScheme="blue"
                 // paddingX="2"
@@ -201,7 +201,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
               </Badge>
             </VStack>
             <VStack>
-              <Text>Thành tiền</Text>
+              <Text userSelect="none">Thành tiền</Text>
               <Badge
                 fontSize="16px"
                 colorScheme="blue"
