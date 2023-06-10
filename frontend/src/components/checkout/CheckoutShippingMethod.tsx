@@ -2,8 +2,12 @@ import { Card } from "@chakra-ui/card";
 import { Heading, VStack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import React, { useState } from "react";
-
-const CheckoutShippingMethod = () => {
+import CheckoutDTO from "../../type/CheckoutDTO";
+interface Props {
+  checkoutData: CheckoutDTO;
+  setCheckoutData: (data: CheckoutDTO) => void;
+}
+const CheckoutShippingMethod = ({ checkoutData, setCheckoutData }: Props) => {
   const [value, setValue] = useState(2);
   return (
     <Card w="100%" p="4">

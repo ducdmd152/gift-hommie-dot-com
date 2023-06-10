@@ -5,14 +5,24 @@ import { Button } from "@chakra-ui/button";
 import { Card } from "@chakra-ui/card";
 import CheckoutShippingMethod from "./CheckoutShippingMethod";
 import { GLOBAL_CONTEXT } from "../../App";
-
-const CheckoutSummary = () => {
+import CheckoutDTO from "../../type/CheckoutDTO";
+interface Props {
+  checkoutData: CheckoutDTO;
+  setCheckoutData: (data: CheckoutDTO) => void;
+}
+const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   let items = selectedCartContext.getItems();
   return (
     <Card p={2}>
-      <CheckoutPaymentSelector />
-      <CheckoutShippingMethod />
+      <CheckoutPaymentSelector
+        checkoutData={checkoutData}
+        setCheckoutData={setCheckoutData}
+      />
+      <CheckoutShippingMethod
+        checkoutData={checkoutData}
+        setCheckoutData={setCheckoutData}
+      />
       <Card marginTop="2" p="4">
         {/* SUMMARY INFO */}
         <VStack>

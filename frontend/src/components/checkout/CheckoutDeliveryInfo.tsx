@@ -15,7 +15,11 @@ import shippingService from "../../services/shipping-service";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import { GLOBAL_CONTEXT } from "../../App";
 
-const CheckoutDeliveryInfo = () => {
+interface Props {
+  checkoutData: CheckoutDTO;
+  setCheckoutData: (data: CheckoutDTO) => void;
+}
+const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   let carts = selectedCartContext.getItems();
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
