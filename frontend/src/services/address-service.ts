@@ -12,7 +12,11 @@ export default {
     await axios.get(url, { headers: { token: GHN.token } }).then((res) => {
       result = res.data.data.reverse() as ProvinceDTO[];
     });
-    return result;
+    return result.map((province) =>
+      province.ProvinceName == "Hồ Chí Minh"
+        ? { ...province, ProvinceName: "TP. Hồ Chí Minh" }
+        : province
+    );
   },
   async getDistricts(provinceId: number) {
     let result = [] as DistrictDTO[];

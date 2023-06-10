@@ -1,40 +1,45 @@
 import { HStack, VStack, Text } from "@chakra-ui/layout";
-import React from "react";
+import React, { useContext } from "react";
 import CheckoutPaymentSelector from "./CheckoutPaymentSelector";
 import { Button } from "@chakra-ui/button";
 import { Card } from "@chakra-ui/card";
 import CheckoutShippingMethod from "./CheckoutShippingMethod";
+import { GLOBAL_CONTEXT } from "../../App";
 
 const CheckoutSummary = () => {
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+  let items = selectedCartContext.getItems();
   return (
     <Card p={2}>
       <CheckoutPaymentSelector />
       <CheckoutShippingMethod />
       <Card marginTop="2" p="4">
         {/* SUMMARY INFO */}
-        <VStack alignItems={"flex-end"}>
-          <HStack spacing="8">
-            <Text fontSize="lg" width="140px">
-              Tổng tiền hàng
+        <VStack>
+          <HStack spacing="4" w="100%">
+            <Text fontSize="md" flex="2" textAlign="left">
+              Tổng thanh toán
             </Text>
-            <Text fontSize="lg" fontWeight="bold">
-              200.000đ
+            <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
+              {items.reduce((acc, item) => acc + item.total, 0) / 1000}
+              {".000đ"}
             </Text>
           </HStack>
-          <HStack spacing="8">
-            <Text fontSize="lg" width="140px">
+          <HStack spacing="4" w="100%">
+            <Text fontSize="md" flex="2" textAlign="left">
               Phí vận chuyển
             </Text>
-            <Text fontSize="lg" fontWeight="bold">
+            <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
               Freeship
             </Text>
           </HStack>
-          <HStack spacing="8">
-            <Text fontSize="lg" width="140px">
-              Tổng tiền hàng
+          <HStack spacing="4" w="100%">
+            <Text fontSize="md" flex="2" textAlign="left">
+              Tổng thanh toán
             </Text>
-            <Text fontSize="lg" fontWeight="bold">
-              200.000đ
+            <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
+              {items.reduce((acc, item) => acc + item.total, 0) / 1000}
+              {".000đ"}
             </Text>
           </HStack>
         </VStack>
