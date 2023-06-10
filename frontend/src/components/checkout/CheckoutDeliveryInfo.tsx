@@ -8,17 +8,25 @@ import { Input } from "@chakra-ui/input";
 import { HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import addressService from "../../services/address-service";
 import ProvinceDTO from "../../type/ProvinceDTO";
+import shippingService from "../../services/shipping-service";
+import CheckoutDTO from "../../type/CheckoutDTO";
+import { GLOBAL_CONTEXT } from "../../App";
 
 const CheckoutDeliveryInfo = () => {
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+  let carts = selectedCartContext.getItems();
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
   const [districts, setDistricts] = useState([] as DistrictDTO[]);
   const [wards, setWards] = useState([] as WardDTO[]);
-  const [ward, setWard] = useState(0);
-  const [district, setDistrict] = useState(0);
-  const [province, setProvince] = useState(0);
+  const [wardCode, setWardCode] = useState(0);
+  const [districtID, setDistrictID] = useState(0);
+  const [provinceID, setProvinceID] = useState(0);
+  const [wardName, setWardName] = useState("");
+  const [districtName, setDistrictName] = useState("");
+  const [provinceName, setProvinceName] = useState("");
 
   const loadDistricts = async (provinceID: number) => {
     // console.log("load.... " + provinceID);
@@ -80,7 +88,8 @@ const CheckoutDeliveryInfo = () => {
                 size="md"
                 onChange={(e) => {
                   let provinceID = parseInt(e.target.value);
-                  setProvince(provinceID);
+                  setProvinceID(provinceID);
+                  setProvinceName(e.target.value);
                   loadDistricts(provinceID);
                 }}
               >
@@ -95,7 +104,8 @@ const CheckoutDeliveryInfo = () => {
                 size="md"
                 onChange={(e) => {
                   let districtID = parseInt(e.target.value);
-                  setDistrict(districtID);
+                  setDistrictID(districtID);
+                  setDistrictName(e.target.value);
                   loadWards(districtID);
                 }}
               >
@@ -110,9 +120,26 @@ const CheckoutDeliveryInfo = () => {
                 size="md"
                 onChange={(e) => {
                   let wardCode = parseInt(e.target.value);
-                  setWard(wardCode);
+                  setWardCode(wardCode);
+                  setWardName(e.target.value);
                   console.log(
-                    "ADDRESS : " + province + " " + district + " " + wardCode
+                    "ADDRESS : " +
+                      provinceID +
+                      " " +
+                      districtID +
+                      " " +
+                      wardCode
+                  );
+                  console.log(
+                    shippingService.getPreviewOrder({
+                      wardCode,
+                      districtID,
+                      provinceID,
+                      wardName,
+                      districtName,
+                      provinceName,
+                      carts,
+                    } as CheckoutDTO)
                   );
                 }}
               >
