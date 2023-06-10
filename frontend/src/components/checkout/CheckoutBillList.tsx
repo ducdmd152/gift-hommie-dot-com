@@ -21,8 +21,13 @@ import React, { useContext } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
 import CartDTO from "../../type/CartDTO";
 import { Link } from "react-router-dom";
+import CheckoutDTO from "../../type/CheckoutDTO";
 
-const CheckoutBillList = () => {
+interface Props {
+  checkoutData: CheckoutDTO;
+  setCheckoutData: (data: CheckoutDTO) => void;
+}
+const CheckoutBillList = ({ checkoutData, setCheckoutData }: Props) => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   let items = selectedCartContext.getItems();
   return (
