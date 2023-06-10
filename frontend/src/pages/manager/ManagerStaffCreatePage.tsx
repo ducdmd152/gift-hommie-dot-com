@@ -51,6 +51,7 @@ interface Props {
 }
 const ManagerStaffCreatePage = ({ setUserId }: Props) => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -59,7 +60,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const staff = data as ManagerStaffDTO;
-    // staff.id = setUserId;
+    //  staff.id = setUserId;
 
 
     managerStaffService
@@ -140,9 +141,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Tên Đăng Nhập"
+                {...register("username")}
                 // value={errors.username}
                 fontWeight="bold"
               />
+              {errors.username && (
+                <p className="form-error-message">{errors.username?.message}</p>
+              )}
             </HStack>
           </FormControl>
 

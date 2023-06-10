@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import {
-  Box, Button, Card, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-  VStack, Image,
+  Box, FormControl, FormLabel, Wrap, WrapItem, Avatar,
+  HStack, Heading, Input, Radio, RadioGroup, Stack,
+  VStack,
 } from "@chakra-ui/react";
 import managerStaffService, { ManagerStaffDTO } from '../../services/manager-staff-service';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
 
 interface Props {
@@ -51,7 +51,7 @@ const UserProfileEdit = ({ userId }: Props) => {
         navigate("/staff/detail");
       })
       .catch(() => {
-        alert(`Không thể sửa thông của "${staff.username}".\n Vui lòng thử lại.`);
+        alert(`Không thể sửa thông tin của "${staff.username}".\n Vui lòng thử lại.`);
       });
   };
   return (
@@ -66,7 +66,7 @@ const UserProfileEdit = ({ userId }: Props) => {
             </WrapItem>
           </Wrap>
           <Heading size="sm" textAlign="center" marginBottom="4" marginTop='30'>
-            {staff.username}
+            {staff.firstName + " " + staff.lastName}
           </Heading>
         </VStack>
         <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='30px'>
@@ -195,7 +195,6 @@ const UserProfileEdit = ({ userId }: Props) => {
         </Box>
       </form>
     </>
-
   )
 }
 

@@ -57,33 +57,35 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
-        <UserProfileEdit userId={userId} />
+          <UserProfileEdit userId={userId} />
 
-        <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-          <Button type="submit" colorScheme="blue" size="md">
-            Save
-          </Button>
-          {/* <Link to={"/staff/detail"}> */}
-          <Button colorScheme="red" size="md"
-            onClick={() => {
-              if (
-                confirm(
-                  `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                )
-              ) {
-                navigate("/staff/detail");
-              }
-            }}
-          >
-            Cancel
-          </Button>
-          {/* </Link> */}
-        </HStack>
-      </Card>
-    </form>
+          <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
+            <Button type="submit" colorScheme="blue" size="md">
+              Save
+            </Button>
+            {/* <Link to={"/staff/detail"}> */}
+            <Button colorScheme="red" size="md"
+              onClick={() => {
+                if (
+                  confirm(
+                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                  )
+                ) {
+                  navigate("/staff/detail");
+                }
+              }}
+            >
+              Cancel
+            </Button>
+            {/* </Link> */}
+          </HStack>
+        </Card>
+      </form>
+    </>
   )
 };
 
