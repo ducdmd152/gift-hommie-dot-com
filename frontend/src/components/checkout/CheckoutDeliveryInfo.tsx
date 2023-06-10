@@ -8,12 +8,48 @@ import { Input } from "@chakra-ui/input";
 import { HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import addressService from "../../services/address-service";
 import ProvinceDTO from "../../type/ProvinceDTO";
+import shippingService from "../../services/shipping-service";
+import CheckoutDTO from "../../type/CheckoutDTO";
+import { GLOBAL_CONTEXT } from "../../App";
 
 const CheckoutDeliveryInfo = () => {
+  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+  let carts = selectedCartContext.getItems();
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
+  const [districts, setDistricts] = useState([] as DistrictDTO[]);
+  const [wards, setWards] = useState([] as WardDTO[]);
+  const [wardCode, setWardCode] = useState(0);
+  const [districtID, setDistrictID] = useState(0);
+  const [provinceID, setProvinceID] = useState(0);
+  const [wardName, setWardName] = useState("");
+  const [districtName, setDistrictName] = useState("");
+  const [provinceName, setProvinceName] = useState("");
+
+  const loadDistricts = async (provinceID: number) => {
+    // console.log("load.... " + provinceID);
+    if (!provinceID) {
+      setDistricts([] as DistrictDTO[]);
+      return;
+    }
+
+    const res = await addressService.getDistricts(provinceID);
+    setDistricts(res);
+  };
+
+  const loadWards = async (districtID: number) => {
+    // console.log("load.... " + districtID);
+    if (!districtID) {
+      setWards([] as WardDTO[]);
+      return;
+    }
+
+    const res = await addressService.getWards(districtID);
+    setWards(res);
+  };
+
   useEffect(() => {
     const loadProvinces = async () => {
       setProvinces(await addressService.getProvinces());
@@ -47,15 +83,72 @@ const CheckoutDeliveryInfo = () => {
             <FormLabel fontWeight="bold">Địa chỉ nhận hàng (*)</FormLabel>
 
             <HStack w="100%" justifyContent="space-between">
-              <Select placeholder="Tỉnh/thành phố" size="md">
+              <Select
+                placeholder="Tỉnh/thành phố"
+                size="md"
+                onChange={(e) => {
+                  let provinceID = parseInt(e.target.value);
+                  setProvinceID(provinceID);
+                  setProvinceName(e.target.value);
+                  loadDistricts(provinceID);
+                }}
+              >
                 {provinces.map((province) => (
                   <option key={province.ProvinceID} value={province.ProvinceID}>
                     {province.ProvinceName}
                   </option>
                 ))}
               </Select>
-              <Select placeholder="Quận/huyện" size="md" />
-              <Select placeholder="Phường/xã" size="md" />
+              <Select
+                placeholder="Quận/huyện"
+                size="md"
+                onChange={(e) => {
+                  let districtID = parseInt(e.target.value);
+                  setDistrictID(districtID);
+                  setDistrictName(e.target.value);
+                  loadWards(districtID);
+                }}
+              >
+                {districts.map((district) => (
+                  <option key={district.DistrictID} value={district.DistrictID}>
+                    {district.DistrictName}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                placeholder="Phường/xã"
+                size="md"
+                onChange={(e) => {
+                  let wardCode = parseInt(e.target.value);
+                  setWardCode(wardCode);
+                  setWardName(e.target.value);
+                  console.log(
+                    "ADDRESS : " +
+                      provinceID +
+                      " " +
+                      districtID +
+                      " " +
+                      wardCode
+                  );
+                  console.log(
+                    shippingService.getPreviewOrder({
+                      wardCode,
+                      districtID,
+                      provinceID,
+                      wardName,
+                      districtName,
+                      provinceName,
+                      carts,
+                    } as CheckoutDTO)
+                  );
+                }}
+              >
+                {wards.map((ward) => (
+                  <option key={ward.WardCode} value={ward.WardCode}>
+                    {ward.WardName}
+                  </option>
+                ))}
+              </Select>
             </HStack>
 
             <Textarea
@@ -68,7 +161,7 @@ const CheckoutDeliveryInfo = () => {
           <FormLabel fontWeight="bold">Lời chúc, nhắn gửi</FormLabel>
           <Textarea
             className="placeholeder-italic"
-            placeholder="Gửi một lời chúc thân thương đến người thân yêu nào..."
+            placeholder="Gửi một lời chúc thân thương đến người thân yêu của bạn..."
           />
         </Card>
       </VStack>

@@ -10,10 +10,32 @@ export default {
     let result = [] as ProvinceDTO[];
     const url = GHN.url + "/province";
     await axios.get(url, { headers: { token: GHN.token } }).then((res) => {
-      result = res.data.data as ProvinceDTO[];
+      result = res.data.data.reverse() as ProvinceDTO[];
     });
+    return result.map((province) =>
+      province.ProvinceName == "Hồ Chí Minh"
+        ? { ...province, ProvinceName: "TP. Hồ Chí Minh" }
+        : province
+    );
+  },
+  async getDistricts(provinceId: number) {
+    let result = [] as DistrictDTO[];
+    const url = GHN.url + "/district";
+    await axios
+      .post(url, { province_id: provinceId }, { headers: { token: GHN.token } })
+      .then((res) => {
+        result = res.data.data.reverse() as DistrictDTO[];
+      });
     return result;
   },
-  getDistricts(provinceId: number) {},
-  getWards(districtId: number) {},
+  async getWards(districtId: number) {
+    let result = [] as WardDTO[];
+    const url = GHN.url + "/ward";
+    await axios
+      .post(url, { district_id: districtId }, { headers: { token: GHN.token } })
+      .then((res) => {
+        result = res.data.data.reverse() as WardDTO[];
+      });
+    return result;
+  },
 };

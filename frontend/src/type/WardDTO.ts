@@ -1,4 +1,5 @@
-interface WardId {
-  WardID: number;
+interface WardDTO {
+  WardCode: number;
   WardName: string;
+  DistrictID: number;
 }
