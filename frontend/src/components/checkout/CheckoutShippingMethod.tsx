@@ -3,11 +3,11 @@ import { Heading, VStack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import React, { useState } from "react";
 
-const CheckoutPaymentSelector = () => {
-  const [value, setValue] = useState(1);
+const CheckoutShippingMethod = () => {
+  const [value, setValue] = useState(2);
   return (
     <Card w="100%" p="4">
-      <Heading fontSize="lg">Hình thức thanh toán</Heading>
+      <Heading fontSize="lg">Hình thức vận chuyển</Heading>
       <RadioGroup
         onChange={(choice) => {
           let method = parseInt(choice);
@@ -16,12 +16,9 @@ const CheckoutPaymentSelector = () => {
         value={value.toString()}
       >
         <VStack alignItems={"flex-start"} p="4">
-          <Radio value="1">Thanh toán khi nhận hàng</Radio>
-          <Radio value="2" isDisabled={true}>
-            Thanh toán qua Momo
-          </Radio>
-          <Radio value="3" isDisabled={true}>
-            Thanh toán qua VNPay
+          <Radio value="2">Giao hàng tiêu chuẩn (nhanh)</Radio>
+          <Radio value="1" isDisabled={true}>
+            Giao hàng hỏa tốc (express)
           </Radio>
         </VStack>
       </RadioGroup>
@@ -29,4 +26,4 @@ const CheckoutPaymentSelector = () => {
   );
 };
 
-export default CheckoutPaymentSelector;
+export default CheckoutShippingMethod;

@@ -161,7 +161,7 @@ const CheckoutDeliveryInfo = () => {
           <FormLabel fontWeight="bold">Lời chúc, nhắn gửi</FormLabel>
           <Textarea
             className="placeholeder-italic"
-            placeholder="Gửi một lời chúc thân thương đến người thân yêu nào..."
+            placeholder="Gửi một lời chúc thân thương đến người thân yêu của bạn..."
           />
         </Card>
       </VStack>
