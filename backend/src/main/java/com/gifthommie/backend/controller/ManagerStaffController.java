@@ -109,7 +109,6 @@ public class ManagerStaffController {
 	@PutMapping("/{check}")
 	public User updateStaffProfile(@PathVariable String check, 
 								@RequestBody UserProfileDTO userProfile) {
-		Role role = roleService.getRoleById(userProfile.getRoleId());
 		//userProfile USE TO GAIN NEW PROFILE OF USER STAFF
 		//PASSWORD CAN BE CUSTOMIZE BUT I WANT TO DEFAULT PASSWORD
 		//AFTER EDIT PROFILE OF STAFF
@@ -120,21 +119,25 @@ public class ManagerStaffController {
 		if (user == null)
 			throw new NotFoundException("CANNOT FOUND USER");
 		
-		//NON EXIST ROLE_ID
-		if (role == null)
-			throw new NotFoundException("ROLE IS NOT EXIST");
-		
 		//NEW EMAIL IS EXIST
 		if (!user.getEmail().equals(userProfile.getEmail()) && userService.checkExistUser(userProfile.getEmail()))
 			throw new RuntimeException("EMAIL IS EXIST");
+		//SET DEFAULT PASSWORD
 		
+		if (userProfile.getEmail() == null)
+			throw new RuntimeException("EMAIL CANNOT BE BLANK");
+		
+		//SET DEFAULT PASSWORD
+		userProfile.setPassword(DEFAULT_PASSWORD);
+		
+		if (userProfile.getPassword() == null)
+			throw new RuntimeException("PASSWORD CANNOT BE BLANK");
+			
 		//UPDATE PROFILE TO OLD USER
 		//(userProfile, ROLE)
 		//AND SET NEW ROLE
-		user.editProfile(userProfile, role);
+		user.editProfile(userProfile, user.getRole());
 		
-		//SET DEFAULT PASSWORD
-		user.setPassword(DEFAULT_PASSWORD);
 		//SET ENABLED OF USER TO ACTIVE
 		user.setEnabled(ACTIVE_ENABLED);
 		
