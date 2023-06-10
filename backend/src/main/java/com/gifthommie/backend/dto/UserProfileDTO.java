@@ -32,6 +32,14 @@ public class UserProfileDTO {
 	private Integer wardId;
 	
 	private boolean enabled;
+	
+	private String gender;
+	
+	
+	public String getGender() {
+		return gender;
+		
+	}
 
 	public String getEmail() {
 		return email;

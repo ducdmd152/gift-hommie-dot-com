@@ -49,11 +49,15 @@ public class User {
 
 	@Column(name = "ward_id")
 	private Integer wardId;
+	
 
 	@Column(name = "enabled")
 	@JsonIgnore
 	private boolean enabled;
 
+	@Column(name = "gender")
+	private String gender;
+	
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
 		email = userProfile.getEmail();
@@ -70,6 +74,11 @@ public class User {
 		return true;
 	}
 
+	public String getGender() {
+		return gender;
+		
+	}
+	
 	public String getEmail() {
 		return email;
 	}
