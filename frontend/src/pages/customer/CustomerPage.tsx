@@ -7,6 +7,7 @@ import CustomerShopPage from "./CustomerShopPage";
 import CustomerCartPage from "./CustomerCartPage";
 import CustomerShopDetailPage from "./CustomerShopDetailPage";
 import CustomerCheckoutPage from "./CustomerCheckoutPage";
+import CustomerViewProfilePage from "./CustomerViewProfilePage";
 
 const CustomerPage = () => {
   return (
@@ -36,6 +37,7 @@ const CustomerPage = () => {
           <Route path="/shop/detail" element={<CustomerShopDetailPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
+          <Route path="/account" element={<CustomerViewProfilePage />} />
         </Routes>
       </GridItem>
     </Grid>
