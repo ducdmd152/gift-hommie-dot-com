@@ -46,7 +46,7 @@ const UserProfileView = ({ userId }: Props) => {
               marginBottom="4"
               marginTop="8"
             >
-              {staff.username}
+              {staff.firstName + " " + staff.lastName}
             </Heading>
             <Heading
               className="border-b"
