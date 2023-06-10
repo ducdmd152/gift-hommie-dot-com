@@ -14,6 +14,34 @@ import ProvinceDTO from "../../type/ProvinceDTO";
 
 const CheckoutDeliveryInfo = () => {
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
+  const [districts, setDistricts] = useState([] as DistrictDTO[]);
+  const [wards, setWards] = useState([] as WardDTO[]);
+  const [ward, setWard] = useState(0);
+  const [district, setDistrict] = useState(0);
+  const [province, setProvince] = useState(0);
+
+  const loadDistricts = async (provinceID: number) => {
+    // console.log("load.... " + provinceID);
+    if (!provinceID) {
+      setDistricts([] as DistrictDTO[]);
+      return;
+    }
+
+    const res = await addressService.getDistricts(provinceID);
+    setDistricts(res);
+  };
+
+  const loadWards = async (districtID: number) => {
+    // console.log("load.... " + districtID);
+    if (!districtID) {
+      setWards([] as WardDTO[]);
+      return;
+    }
+
+    const res = await addressService.getWards(districtID);
+    setWards(res);
+  };
+
   useEffect(() => {
     const loadProvinces = async () => {
       setProvinces(await addressService.getProvinces());
@@ -47,15 +75,53 @@ const CheckoutDeliveryInfo = () => {
             <FormLabel fontWeight="bold">Địa chỉ nhận hàng (*)</FormLabel>
 
             <HStack w="100%" justifyContent="space-between">
-              <Select placeholder="Tỉnh/thành phố" size="md">
+              <Select
+                placeholder="Tỉnh/thành phố"
+                size="md"
+                onChange={(e) => {
+                  let provinceID = parseInt(e.target.value);
+                  setProvince(provinceID);
+                  loadDistricts(provinceID);
+                }}
+              >
                 {provinces.map((province) => (
                   <option key={province.ProvinceID} value={province.ProvinceID}>
                     {province.ProvinceName}
                   </option>
                 ))}
               </Select>
-              <Select placeholder="Quận/huyện" size="md" />
-              <Select placeholder="Phường/xã" size="md" />
+              <Select
+                placeholder="Quận/huyện"
+                size="md"
+                onChange={(e) => {
+                  let districtID = parseInt(e.target.value);
+                  setDistrict(districtID);
+                  loadWards(districtID);
+                }}
+              >
+                {districts.map((district) => (
+                  <option key={district.DistrictID} value={district.DistrictID}>
+                    {district.DistrictName}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                placeholder="Phường/xã"
+                size="md"
+                onChange={(e) => {
+                  let wardCode = parseInt(e.target.value);
+                  setWard(wardCode);
+                  console.log(
+                    "ADDRESS : " + province + " " + district + " " + wardCode
+                  );
+                }}
+              >
+                {wards.map((ward) => (
+                  <option key={ward.WardCode} value={ward.WardCode}>
+                    {ward.WardName}
+                  </option>
+                ))}
+              </Select>
             </HStack>
 
             <Textarea
