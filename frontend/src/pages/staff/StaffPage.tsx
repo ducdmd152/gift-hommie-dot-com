@@ -6,6 +6,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import StaffProductEditPage from "./StaffProductEditPage";
 import StaffProductDetailPage from "./StaffProductDetailPage";
 import StaffProductCreatePage from "./StaffProductCreatePage";
+import StaffViewProfilePage from "./StaffViewProfilePage";
 const HEADER_HEIGHT = "100px";
 const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
@@ -64,6 +65,7 @@ const StaffPage = () => {
               />
             }
           />
+          <Route path="/account" element={<StaffViewProfilePage />} />
         </Routes>
       </GridItem>
     </Grid>
