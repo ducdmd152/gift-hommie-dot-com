@@ -36,7 +36,7 @@ public class Orders {
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
 	
-	@Column(name = "shipped_time")
+	@Column(name = "shipped_fee")
 	private LocalDateTime shippedTime;
 	
 	@Column(name = "name")
@@ -48,8 +48,14 @@ public class Orders {
 	@Column(name = "address")
 	private String address;
 	
-	@Column(name = "ward_id")
-	private Integer wardId;
+	@Column(name = "ward_code")
+	private int wardCode;
+	
+	@Column(name = "district_id")
+	private int districtId;
+	
+	@Column(name = "province_id")
+	private int proviceId;
 	
 	@Column(name = "message")
 	private String message;
@@ -57,129 +63,214 @@ public class Orders {
 	@Column(name = "status")
 	private String status;
 	
-	@Column(name = "status_comment")
-	private String statusComment;
+	@Column(name = "comment")
+	private String comment;
 	
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Integer getPaymentId() {
-		return paymentId;
-	}
+	
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
 	}
 
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+
+
+	public Integer getId() {
+		return id;
 	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public Integer getPaymentId() {
+		return paymentId;
+	}
+
+
 
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
 	}
 
+
+
 	public LocalDateTime getOrderTime() {
 		return orderTime;
 	}
+
+
 
 	public void setOrderTime(LocalDateTime orderTime) {
 		this.orderTime = orderTime;
 	}
 
+
+
 	public LocalDateTime getShippedTime() {
 		return shippedTime;
 	}
+
+
 
 	public void setShippedTime(LocalDateTime shippedTime) {
 		this.shippedTime = shippedTime;
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
+
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
+
 	public String getPhone() {
 		return phone;
 	}
+
+
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
+
+
 	public String getAddress() {
 		return address;
 	}
+
+
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public Integer getWardId() {
-		return wardId;
+
+
+	public int getWardCode() {
+		return wardCode;
 	}
 
-	public void setWardId(Integer wardId) {
-		this.wardId = wardId;
+
+
+	public void setWardCode(int wardCode) {
+		this.wardCode = wardCode;
 	}
+
+
+
+	public int getDistrictId() {
+		return districtId;
+	}
+
+
+
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
+	}
+
+
+
+	public int getProviceId() {
+		return proviceId;
+	}
+
+
+
+	public void setProviceId(int proviceId) {
+		this.proviceId = proviceId;
+	}
+
+
 
 	public String getMessage() {
 		return message;
 	}
 
+
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getStatusComment() {
-		return statusComment;
+
+
+	public String getComment() {
+		return comment;
 	}
 
-	public void setStatusComment(String statusComment) {
-		this.statusComment = statusComment;
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
+
+
 
 	public LocalDateTime getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}
 
+
+
 	public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
-	
+
+
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
 				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone
-				+ ", address=" + address + ", wardId=" + wardId + ", message=" + message + ", status=" + status
-				+ ", statusComment=" + statusComment + ", lastUpdatedTime=" + lastUpdatedTime + "]";
+				+ ", address=" + address + ", wardCode=" + wardCode + ", districtId=" + districtId + ", proviceId="
+				+ proviceId + ", message=" + message + ", status=" + status + ", comment=" + comment
+				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
+
+	
 }
