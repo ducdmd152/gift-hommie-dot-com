@@ -117,7 +117,7 @@ CREATE TABLE `orders` (
   `email` varchar(320) NOT NULL,
   `payment_id` int DEFAULT NULL,
   `order_time` datetime DEFAULT NULL,
-  `shipping_fee` datetime DEFAULT NULL,
+  `shipping_fee` float DEFAULT NULL,
   `name` varchar(64) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` varchar(400) DEFAULT NULL,
@@ -304,7 +304,7 @@ CREATE TABLE `user` (
   `yob` int DEFAULT NULL,
   `avatar` varchar(5000) DEFAULT NULL,
   `address` varchar(400) DEFAULT NULL,
-  `ward_id` int DEFAULT NULL,
+  `ward_code` int DEFAULT NULL,
   `enabled` tinyint DEFAULT '1',
   PRIMARY KEY (`email`),
   UNIQUE KEY `usename_UNIQUE` (`username`),
@@ -333,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 13:58:37
+-- Dump completed on 2023-06-11 11:01:01
