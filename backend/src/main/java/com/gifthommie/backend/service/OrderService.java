@@ -15,4 +15,8 @@ public interface OrderService {
 	public OrderResponseDTO save(float totalPrice, String email);
 	
 	APIPageableResponseDTO<Orders> getPageableOrder(Integer pageNo, Integer pageSize, String status);
+	
+	public APIPageableResponseDTO<Orders> getOrderList(Integer pageNo, Integer pageSize, String email);
+
+	public void setStatusOfOrderById(int orderId, String status);
 }
