@@ -37,7 +37,7 @@ public class Orders {
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
 	
-	@Column(name = "shipped_fee")
+	@Column(name = "shipping_fee")
 	private Float shippedFee;
 	
 	@Column(name = "name")
@@ -82,17 +82,18 @@ public class Orders {
 
 	public Orders(CheckOutDTO checkOutDTO,String email) {
 		this.email = email;
-		this.paymentId = checkOutDTO.getPaymentMethod();
 		this.orderTime = LocalDateTime.now();
 		this.shippedFee = checkOutDTO.getShippingFee();
 		this.name = checkOutDTO.getName();
 		this.phone = checkOutDTO.getPhone();
 		this.address = checkOutDTO.getAddress();
 		this.wardCode = checkOutDTO.getWardCode();
-		this.districtId = checkOutDTO.getDistricID();
+		this.districtId = checkOutDTO.getDistrictID();
 		this.proviceId = checkOutDTO.getProvinceID();
 		this.message = checkOutDTO.getMessage();
 	}
+
+
 
 
 
@@ -100,188 +101,125 @@ public class Orders {
 		return id;
 	}
 
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 
 	public Integer getPaymentId() {
 		return paymentId;
 	}
 
-
-
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
 	}
-
-
 
 	public LocalDateTime getOrderTime() {
 		return orderTime;
 	}
 
-
-
 	public void setOrderTime(LocalDateTime orderTime) {
 		this.orderTime = orderTime;
 	}
-
-	
-
 
 	public Float getShippedFee() {
 		return shippedFee;
 	}
 
-
-
 	public void setShippedFee(Float shippedFee) {
 		this.shippedFee = shippedFee;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public String getPhone() {
 		return phone;
 	}
 
-
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
 
 	public int getWardCode() {
 		return wardCode;
 	}
 
-
-
 	public void setWardCode(int wardCode) {
 		this.wardCode = wardCode;
 	}
-
-
 
 	public int getDistrictId() {
 		return districtId;
 	}
 
-
-
 	public void setDistrictId(int districtId) {
 		this.districtId = districtId;
 	}
-
-
 
 	public int getProviceId() {
 		return proviceId;
 	}
 
-
-
 	public void setProviceId(int proviceId) {
 		this.proviceId = proviceId;
 	}
-
-
 
 	public String getMessage() {
 		return message;
 	}
 
-
-
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
 
 	public String getComment() {
 		return comment;
 	}
 
-
-
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-
 
 	public LocalDateTime getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}
 
-
-
 	public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
 
-
-
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
-
-
 
 	@Override
 	public String toString() {

@@ -12,5 +12,5 @@ public interface OrderService {
 	
 	public List<Orders> getOrderListWithoutStatus(String[] tmp);
 	
-	public OrderResponseDTO save(CheckOutDTO checkOutDTO, String email,Float totalPrice);
+	public OrderResponseDTO save(CheckOutDTO checkOutDTO, String email);
 }

@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public OrderResponseDTO save(CheckOutDTO checkOutDTO,String email,Float totalPrice) {
+	public OrderResponseDTO save(CheckOutDTO checkOutDTO,String email) {
 //		Orders order = new Orders();
 //		order.setEmail(email);
 //		order.setOrderTime(LocalDateTime.now());
@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService{
 		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 		orderResponseDTO.setId(order.getId());
 		orderResponseDTO.setOrderTime(order.getOrderTime());
-		orderResponseDTO.setTotalPrice(totalPrice);
 		
 		return orderResponseDTO;
 	}

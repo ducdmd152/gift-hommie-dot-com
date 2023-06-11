@@ -39,16 +39,15 @@ public class CustomerOrderController {
 	public OrderResponseDTO cartCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
 		
 		//refresh before check out
-		
+		//OrderResponseDTO
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
-		float totalPrice = 0; 
-		totalPrice = productService.totalPrice(checkOutDTO.getCarts());
-		OrderResponseDTO newOrder = orderService.save(checkOutDTO,email,totalPrice);
+		OrderResponseDTO newOrder = orderService.save(checkOutDTO,email);
 		int orderId = newOrder.getId();
-		orderDetailService.addOrderDetail(checkOutDTO.getCarts(), orderId);
+		orderDetailService.addOrderDetail(checkOutDTO, orderId);
 		cartService.deleteCartTrasit(checkOutDTO.getCarts(), email);
 		return newOrder;
+	
 	}
 	
 }

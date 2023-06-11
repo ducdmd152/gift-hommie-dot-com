@@ -11,7 +11,7 @@ public class CheckOutDTO {
 	private String address;
 	private int wardCode;
 	private String wardName;
-	private int districID;
+	private int districtID;
 	private String districtName;
 	private int provinceID;
 	private String provinceName;
@@ -19,6 +19,7 @@ public class CheckOutDTO {
 	private List<CartRequestDTO> carts;
 	private int paymentMethod;
 	private Float shippingFee;
+	
 	public String getName() {
 		return name;
 	}
@@ -49,11 +50,11 @@ public class CheckOutDTO {
 	public void setWardName(String wardName) {
 		this.wardName = wardName;
 	}
-	public int getDistricID() {
-		return districID;
+	public int getDistrictID() {
+		return districtID;
 	}
-	public void setDistricID(int districID) {
-		this.districID = districID;
+	public void setDistrictID(int districID) {
+		this.districtID = districID;
 	}
 	public String getDistrictName() {
 		return districtName;

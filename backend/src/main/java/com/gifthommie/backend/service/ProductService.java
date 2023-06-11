@@ -38,5 +38,4 @@ public interface ProductService {
 	
 	APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated);
 	
-	float totalPrice(List<CartRequestDTO> cartList);
 }
