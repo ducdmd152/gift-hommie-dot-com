@@ -43,4 +43,8 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	@Query("UPDATE Orders o SET o.status = :status WHERE o.id = :orderId")
 	public int setStatusOfOrderByOrderId(@Param("orderId") int orderId, 
 										@Param("status") String status);
+	
+	
+	@Query("SELECT p FROM Orders p WHERE p.status like %:status%")
+	public Page<Orders> getOrderedWithStatus(String status, PageRequest pageRequest);
 }
