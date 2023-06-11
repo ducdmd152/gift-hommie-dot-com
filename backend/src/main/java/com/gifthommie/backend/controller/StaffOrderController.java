@@ -36,6 +36,7 @@ public class StaffOrderController {
 	/// ------- NOTICE ------------- ///
 		// Make sure name Orders Table in Database is Order
 		// Make sure collum "status" in  Orders Table have data  [PENDING, CONFIRMED, DELIVERYING, SUCCSESSFUL, CANCELED]
+		// Make sure ward_code, district_id, prodvince_id have data to avovoid error of My SQL
 		
 		
 		// Get Order of Customer Pageable Without status              http://localhost:8080/staff/orders
