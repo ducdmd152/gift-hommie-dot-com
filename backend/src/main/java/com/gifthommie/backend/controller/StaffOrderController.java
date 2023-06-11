@@ -26,5 +26,6 @@ public class StaffOrderController {
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
 		return order.getOrderDetails();
+		
 	}
 }
