@@ -21,11 +21,10 @@ public class StaffOrderController {
 	
 	@GetMapping("/{orderId}")
 	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {
-		Orders order = orderService.getOrderByOrderId(orderId);
 		
+		Orders order = orderService.getOrderByOrderId(orderId);
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
-		
 		return order.getOrderDetails();
 	}
 }
