@@ -25,6 +25,7 @@ public class StaffOrderController {
 		Orders order = orderService.getOrderByOrderId(orderId);
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
+		
 		return order.getOrderDetails();
 		
 	}
