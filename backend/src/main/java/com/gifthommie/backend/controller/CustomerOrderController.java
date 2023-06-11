@@ -16,6 +16,7 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
+import com.gifthommie.backend.dto.RatingRequestDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.User;
@@ -24,6 +25,7 @@ import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.OrderDetailService;
 import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.ProductService;
+import com.gifthommie.backend.service.ReviewService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
@@ -40,6 +42,9 @@ public class CustomerOrderController {
 	
 	@Autowired
 	OrderDetailService orderDetailService;
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	private final String CANCEL_ORDER_STATUS = "CANCEL";
 	
@@ -91,4 +96,10 @@ public class CustomerOrderController {
 		orderService.setStatusOfOrderById(orderId, CANCEL_ORDER_STATUS);
 	}
 	
+	@PostMapping("/rating")
+	public void ratingOrder(@RequestBody RatingRequestDTO ratingRequestDTO) {
+		User user = SecurityUtils.getPrincipal().getUser();
+		String email = user.getEmail();
+		reviewService.save(ratingRequestDTO, email);
+	}
 }
