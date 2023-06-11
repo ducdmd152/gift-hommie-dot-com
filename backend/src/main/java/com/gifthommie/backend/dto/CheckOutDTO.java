@@ -5,6 +5,7 @@ import java.util.List;
 import com.gifthommie.backend.entity.Cart;
 
 public class CheckOutDTO {
+		
 	private String name;
 	private String phone;
 	private String address;
@@ -17,7 +18,7 @@ public class CheckOutDTO {
 	private String message;
 	private List<CartRequestDTO> carts;
 	private int paymentMethod;
-	private int shippingFee;
+	private Float shippingFee;
 	public String getName() {
 		return name;
 	}
@@ -90,10 +91,10 @@ public class CheckOutDTO {
 	public void setPaymentMethod(int paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
-	public int getShippingFee() {
+	public float getShippingFee() {
 		return shippingFee;
 	}
-	public void setShippingFee(int shippingFee) {
+	public void setShippingFee(float shippingFee) {
 		this.shippingFee = shippingFee;
 	}
 	

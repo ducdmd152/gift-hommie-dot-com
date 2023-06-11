@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gifthommie.backend.dto.CheckOutDTO;
 
 @Entity
 @Table(name = "orders")
@@ -37,7 +38,7 @@ public class Orders {
 	private LocalDateTime orderTime;
 	
 	@Column(name = "shipped_fee")
-	private Float shippedTime;
+	private Float shippedFee;
 	
 	@Column(name = "name")
 	private String name;
@@ -73,6 +74,24 @@ public class Orders {
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
+	}
+
+	public Orders() {
+		
+	}
+
+	public Orders(CheckOutDTO checkOutDTO,String email) {
+		this.email = email;
+		this.paymentId = checkOutDTO.getPaymentMethod();
+		this.orderTime = LocalDateTime.now();
+		this.shippedFee = checkOutDTO.getShippingFee();
+		this.name = checkOutDTO.getName();
+		this.phone = checkOutDTO.getPhone();
+		this.address = checkOutDTO.getAddress();
+		this.wardCode = checkOutDTO.getWardCode();
+		this.districtId = checkOutDTO.getDistricID();
+		this.proviceId = checkOutDTO.getProvinceID();
+		this.message = checkOutDTO.getMessage();
 	}
 
 
@@ -123,16 +142,17 @@ public class Orders {
 		this.orderTime = orderTime;
 	}
 
+	
 
 
-	public Float getShippedTime() {
-		return shippedTime;
+	public Float getShippedFee() {
+		return shippedFee;
 	}
 
 
 
-	public void setShippedTime(Float shippedTime) {
-		this.shippedTime = shippedTime;
+	public void setShippedFee(Float shippedFee) {
+		this.shippedFee = shippedFee;
 	}
 
 
@@ -266,7 +286,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
-				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone
+				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedFee + ", name=" + name + ", phone=" + phone
 				+ ", address=" + address + ", wardCode=" + wardCode + ", districtId=" + districtId + ", proviceId="
 				+ proviceId + ", message=" + message + ", status=" + status + ", comment=" + comment
 				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";

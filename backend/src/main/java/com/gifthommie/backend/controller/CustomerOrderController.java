@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.CartRequestDTO;
+import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.User;
@@ -33,19 +34,20 @@ public class CustomerOrderController {
 	@Autowired
 	OrderDetailService orderDetailService;
 	
+	//http://localhost:8080/customer/order
 	@PostMapping
-	public OrderResponseDTO cartCheckOut(@RequestBody List<CartRequestDTO> cartList) {
+	public OrderResponseDTO cartCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
 		
 		//refresh before check out
 		
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
 		float totalPrice = 0; 
-		totalPrice = productService.totalPrice(cartList);
-		OrderResponseDTO newOrder = orderService.save(totalPrice,email);
+		totalPrice = productService.totalPrice(checkOutDTO.getCarts());
+		OrderResponseDTO newOrder = orderService.save(checkOutDTO,email,totalPrice);
 		int orderId = newOrder.getId();
-		orderDetailService.addOrderDetail(cartList, orderId);
-		cartService.deleteCartTrasit(cartList, email);
+		orderDetailService.addOrderDetail(checkOutDTO.getCarts(), orderId);
+		cartService.deleteCartTrasit(checkOutDTO.getCarts(), email);
 		return newOrder;
 	}
 	
