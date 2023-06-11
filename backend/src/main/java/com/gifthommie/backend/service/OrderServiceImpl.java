@@ -73,4 +73,11 @@ public class OrderServiceImpl implements OrderService{
 		return new APIPageableResponseDTO<Orders>(page);
 	}
 
+	@Override
+	public void save(Orders order) {
+		// TODO Auto-generated method stub
+		orderRepository.save(order);
+		
+	}
+
 }

@@ -20,4 +20,6 @@ public interface OrderService {
 	public void setStatusOfOrderById(int orderId, String status);
 	
 	APIPageableResponseDTO<Orders> getPageableOrder(Integer pageNo, Integer pageSize, String status);
+	
+	public void save(Orders order);
 }

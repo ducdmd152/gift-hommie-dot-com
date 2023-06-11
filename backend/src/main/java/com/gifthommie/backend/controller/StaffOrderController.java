@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.exception.NotFoundException;
+import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.OrderService;
 
 @RestController
@@ -51,5 +53,17 @@ public class StaffOrderController {
 				@RequestParam(defaultValue = "", name = "status") String status){
 			return orderService.getPageableOrder(pageNo, pageSize, status);
 		}
-	
+	@PutMapping("/{orderID}")
+	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
+		
+		String STATUS[] = {"PENDING","CONFIRMED","DELIVERYING","SUCCESSFUL","CANCELED"};
+		Orders order = orderService.getOrderByOrderId(orderID);
+		if (order == null)
+			throw new NotFoundException("ORDER CANNOT BE FOUND");
+		if (order.getStatus().equals(STATUS[0]) || order.getStatus().equals(STATUS[1]) || order.getStatus().equals(STATUS[2])) {
+			order.setStatus(STATUS[status]);
+			order.setComment(comment);
+			orderService.save(order);
+		}
+	}
 }
