@@ -1,4 +1,5 @@
 // game-service.ts
+import UserDTO from "../type/UserDTO";
 import apiClient from "./api-client";
 import createHttpService from "./http-service";
 

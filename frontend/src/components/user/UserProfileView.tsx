@@ -9,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ManagerStaffDTO } from "../../services/manager-staff-service";
 import managerStaffService from "../../services/manager-staff-service";
 import StaffProductMain from "../staff/staff-product-list-page/StaffProductListMain";
+import { HttpUser } from "../../services/user-service";
+import userService from "../../services/user-service";
 
 interface Props {
   userId: string;
@@ -19,6 +21,7 @@ const UserProfileView = ({ userId }: Props) => {
 
   useEffect(() => {
     let id = userId;
+
     if (id == "") {
       navigate("/staff");
     }
@@ -32,6 +35,20 @@ const UserProfileView = ({ userId }: Props) => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   let id = userId;
+  //   if (id == "") {
+  //     navigate("/account");
+  //   }
+  //   userService
+  //     .get(id)
+  //     .then((res) => {
+  //       setStaff(res.data);
+  //     })
+  //     .catch((err) => {
+  //       navigate("/account");
+  //     });
+  // }, []);
   return (
     <>
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
@@ -145,18 +162,20 @@ const UserProfileView = ({ userId }: Props) => {
             />
           </HStack>
         </FormControl>
-        {/* <FormControl>
-                            <FormLabel size="md" fontWeight="bold">
-                                Gender
-                            </FormLabel>
-                            <RadioGroup >
-                                <Stack direction='row'>
-                                    <Radio value='1'>Male</Radio>
-                                    <Radio value='2'>Female</Radio>
-                                    <Radio value='3'>Other</Radio>
-                                </Stack>
-                            </RadioGroup>
-                        </FormControl> */}
+        <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between' >
+            <FormLabel size="md" fontWeight="bold">
+              Gender
+            </FormLabel>
+            <RadioGroup >
+              <Stack direction='row' spacing={100}>
+                <Radio value='1'>Male</Radio>
+                <Radio value='2'>Female</Radio>
+                <Radio value='3'>Other</Radio>
+              </Stack>
+            </RadioGroup>
+          </HStack>
+        </FormControl>
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between" marginRight="350px">
             <FormLabel size="md" fontWeight="bold">
