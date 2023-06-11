@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gifthommie.backend.dto.CheckOutDTO;
 
 @Entity
 @Table(name = "orders")
@@ -36,8 +37,8 @@ public class Orders {
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
 	
-	@Column(name = "shipped_time")
-	private LocalDateTime shippedTime;
+	@Column(name = "shipping_fee")
+	private Float shippedFee;
 	
 	@Column(name = "name")
 	private String name;
@@ -48,8 +49,14 @@ public class Orders {
 	@Column(name = "address")
 	private String address;
 	
-	@Column(name = "ward_id")
-	private Integer wardId;
+	@Column(name = "ward_code")
+	private int wardCode;
+	
+	@Column(name = "district_id")
+	private int districtId;
+	
+	@Column(name = "province_id")
+	private int proviceId;
 	
 	@Column(name = "message")
 	private String message;
@@ -57,11 +64,38 @@ public class Orders {
 	@Column(name = "status")
 	private String status;
 	
-	@Column(name = "status_comment")
-	private String statusComment;
+	@Column(name = "comment")
+	private String comment;
 	
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
+
+	
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public Orders() {
+		
+	}
+
+	public Orders(CheckOutDTO checkOutDTO,String email) {
+		this.email = email;
+		this.orderTime = LocalDateTime.now();
+		this.shippedFee = checkOutDTO.getShippingFee();
+		this.name = checkOutDTO.getName();
+		this.phone = checkOutDTO.getPhone();
+		this.address = checkOutDTO.getAddress();
+		this.wardCode = checkOutDTO.getWardCode();
+		this.districtId = checkOutDTO.getDistrictID();
+		this.proviceId = checkOutDTO.getProvinceID();
+		this.message = checkOutDTO.getMessage();
+	}
+
+
+
+
 
 	public Integer getId() {
 		return id;
@@ -83,14 +117,6 @@ public class Orders {
 		return paymentId;
 	}
 
-	public List<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
-
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
 	}
@@ -103,12 +129,12 @@ public class Orders {
 		this.orderTime = orderTime;
 	}
 
-	public LocalDateTime getShippedTime() {
-		return shippedTime;
+	public Float getShippedFee() {
+		return shippedFee;
 	}
 
-	public void setShippedTime(LocalDateTime shippedTime) {
-		this.shippedTime = shippedTime;
+	public void setShippedFee(Float shippedFee) {
+		this.shippedFee = shippedFee;
 	}
 
 	public String getName() {
@@ -135,12 +161,28 @@ public class Orders {
 		this.address = address;
 	}
 
-	public Integer getWardId() {
-		return wardId;
+	public int getWardCode() {
+		return wardCode;
 	}
 
-	public void setWardId(Integer wardId) {
-		this.wardId = wardId;
+	public void setWardCode(int wardCode) {
+		this.wardCode = wardCode;
+	}
+
+	public int getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
+	}
+
+	public int getProviceId() {
+		return proviceId;
+	}
+
+	public void setProviceId(int proviceId) {
+		this.proviceId = proviceId;
 	}
 
 	public String getMessage() {
@@ -159,12 +201,12 @@ public class Orders {
 		this.status = status;
 	}
 
-	public String getStatusComment() {
-		return statusComment;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setStatusComment(String statusComment) {
-		this.statusComment = statusComment;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public LocalDateTime getLastUpdatedTime() {
@@ -174,12 +216,23 @@ public class Orders {
 	public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
-	
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
-				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedTime + ", name=" + name + ", phone=" + phone
-				+ ", address=" + address + ", wardId=" + wardId + ", message=" + message + ", status=" + status
-				+ ", statusComment=" + statusComment + ", lastUpdatedTime=" + lastUpdatedTime + "]";
+				+ ", orderTime=" + orderTime + ", shippedTime=" + shippedFee + ", name=" + name + ", phone=" + phone
+				+ ", address=" + address + ", wardCode=" + wardCode + ", districtId=" + districtId + ", proviceId="
+				+ proviceId + ", message=" + message + ", status=" + status + ", comment=" + comment
+				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
+
+
+
+	
+
+	
 }

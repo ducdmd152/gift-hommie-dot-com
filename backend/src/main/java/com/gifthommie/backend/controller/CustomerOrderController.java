@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
+import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
@@ -50,20 +51,21 @@ public class CustomerOrderController {
 		return orderService.getOrderList(pageNo, pageSize, email);
 	}
 	
-	@PostMapping
-	public OrderResponseDTO cartCheckOut(@RequestBody List<CartRequestDTO> cartList) {
-		//refresh before check out
+	//http://localhost:8080/customer/order
+		@PostMapping
+		public OrderResponseDTO cartCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
+			
+			//refresh before check out
+			//OrderResponseDTO
+			User user = SecurityUtils.getPrincipal().getUser();
+			String email = user.getEmail();
+			OrderResponseDTO newOrder = orderService.save(checkOutDTO,email);
+			int orderId = newOrder.getId();
+			orderDetailService.addOrderDetail(checkOutDTO, orderId);
+			cartService.deleteCartTrasit(checkOutDTO.getCarts(), email);
+			return newOrder;
 		
-		User user = SecurityUtils.getPrincipal().getUser();
-		String email = user.getEmail();
-		float totalPrice = 0; 
-		totalPrice = productService.totalPrice(cartList);
-		OrderResponseDTO newOrder = orderService.save(totalPrice, email);
-		int orderId = newOrder.getId();
-		orderDetailService.addOrderDetail(cartList, orderId);
-		cartService.deleteCartTrasit(cartList, email);
-		return newOrder;
-	}
+		}
 	
 	@GetMapping("/{orderId}")
 	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {

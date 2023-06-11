@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.CartRequestDTO;
+import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 
@@ -23,8 +24,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public void addOrderDetail(List<CartRequestDTO> cartList,int orderId) {
-		for (CartRequestDTO cartRequestDTO : cartList) {
+	public void addOrderDetail(CheckOutDTO checkOutDTO,int orderId) {
+		for (CartRequestDTO cartRequestDTO : checkOutDTO.getCarts()) {
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setOrderId(orderId);
 			orderDetail.setProductId(cartRequestDTO.getProductId());
@@ -34,5 +35,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}
 		
 	}
+
 
 }
