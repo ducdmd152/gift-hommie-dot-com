@@ -19,6 +19,8 @@ import com.gifthommie.backend.dto.CheckOutDTO;
 @Entity
 @Table(name = "orders")
 public class Orders {
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
