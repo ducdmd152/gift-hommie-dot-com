@@ -37,7 +37,7 @@ public class Orders {
 	private LocalDateTime orderTime;
 	
 	@Column(name = "shipped_fee")
-	private LocalDateTime shippedTime;
+	private Float shippedTime;
 	
 	@Column(name = "name")
 	private String name;
@@ -125,13 +125,13 @@ public class Orders {
 
 
 
-	public LocalDateTime getShippedTime() {
+	public Float getShippedTime() {
 		return shippedTime;
 	}
 
 
 
-	public void setShippedTime(LocalDateTime shippedTime) {
+	public void setShippedTime(Float shippedTime) {
 		this.shippedTime = shippedTime;
 	}
 
@@ -271,6 +271,10 @@ public class Orders {
 				+ proviceId + ", message=" + message + ", status=" + status + ", comment=" + comment
 				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
+
+
+
+	
 
 	
 }
