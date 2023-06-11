@@ -67,5 +67,17 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 
+	@Override
+	public APIPageableResponseDTO<Orders> getPageableOrder(Integer pageNo, Integer pageSize, String status) {
+		Page<Orders> page  = orderRepository.getOrderedWithStatus(status, PageRequest.of(pageNo, pageSize));
+		return new APIPageableResponseDTO<Orders>(page);
+	}
+
+	@Override
+	public void save(Orders order) {
+		// TODO Auto-generated method stub
+		orderRepository.save(order);
+		
+	}
 
 }
