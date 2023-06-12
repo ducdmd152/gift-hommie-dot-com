@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import { Badge, Card, HStack, Heading, VStack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const CustomerOrderDetailInfo = () => {
   //CODE FAKE DATA (TEMPORARY)
@@ -10,13 +11,27 @@ const CustomerOrderDetailInfo = () => {
   let items = carts;
   return (
     <Card>
-      <VStack w="100%">
+      <VStack w="100%" alignItems={"flex-start"}>
+        <Badge
+          p="2"
+          color="gray"
+          _hover={{
+            cursor: "pointer",
+            color: "rgb(54, 113, 214)",
+          }}
+          fontSize={"sm"}
+          className="none-text-transform"
+          borderRight="1px solid lightgray"
+        >
+          <Link to="/order">{"< < < Trở lại "}</Link>
+        </Badge>
         {/* HEADER INFO */}
         <HStack w="100%" justifyContent={"space-between"} spacing="0">
           <Badge flex="1" p="2" fontSize={"lg"}>
             Chi tiết đơn hàng
             {" | ID >> 01"}
           </Badge>
+
           <Badge
             flex="1"
             p="2"
