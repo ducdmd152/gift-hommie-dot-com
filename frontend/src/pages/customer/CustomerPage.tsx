@@ -10,6 +10,7 @@ import CustomerCheckoutPage from "./CustomerCheckoutPage";
 import CustomerViewProfilePage from "./CustomerViewProfilePage";
 import { useState } from "react";
 import CustomerOrderPage from "./CustomerOrderPage";
+import CustomerOrderDetailPage from "./CustomerOrderDetailPage";
 
 const CustomerPage = () => {
   const [customerId, seCustomerId] = useState<string>("");
@@ -40,6 +41,7 @@ const CustomerPage = () => {
           <Route path="/shop" element={<CustomerShopPage />} />
           <Route path="/shop/detail" element={<CustomerShopDetailPage />} />
           <Route path="/order" element={<CustomerOrderPage />} />
+          <Route path="/order/detail" element={<CustomerOrderDetailPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
           <Route
