@@ -11,8 +11,6 @@ import managerStaffService from "../../services/manager-staff-service";
 import StaffProductMain from "../staff/staff-product-list-page/StaffProductListMain";
 import { HttpUser } from "../../services/user-service";
 import userService from "../../services/user-service";
-import UserDTO from "../../type/UserDTO";
-import customerService from "../../services/customer-service";
 
 interface Props {
   userId: string;
@@ -42,7 +40,7 @@ const UserProfileView = ({ userId }: Props) => {
   //   if (id == "") {
   //     navigate("/account");
   //   }
-  //   customerService
+  //   userService
   //     .get(id)
   //     .then((res) => {
   //       setStaff(res.data);
@@ -51,7 +49,6 @@ const UserProfileView = ({ userId }: Props) => {
   //       navigate("/account");
   //     });
   // }, []);
-
   return (
     <>
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
@@ -170,11 +167,11 @@ const UserProfileView = ({ userId }: Props) => {
             <FormLabel size="md" fontWeight="bold">
               Gender
             </FormLabel>
-            <RadioGroup value={staff.gender}>
+            <RadioGroup >
               <Stack direction='row' spacing={100}>
-                <Radio value='Male'>Male</Radio>
-                <Radio value='Female'>Female</Radio>
-                <Radio value='Other'>Other</Radio>
+                <Radio value='1'>Male</Radio>
+                <Radio value='2'>Female</Radio>
+                <Radio value='3'>Other</Radio>
               </Stack>
             </RadioGroup>
           </HStack>

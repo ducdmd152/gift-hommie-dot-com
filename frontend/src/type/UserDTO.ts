@@ -12,5 +12,4 @@ export default interface UserDTO {
   wardId: number;
   roleId: number;
   authority: string;
-  gender: string;
 }
