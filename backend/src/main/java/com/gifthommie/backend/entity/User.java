@@ -58,6 +58,10 @@ public class User {
 	@Column(name = "gender")
 	private String gender;
 	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
 		email = userProfile.getEmail();
@@ -78,6 +82,8 @@ public class User {
 		return gender;
 		
 	}
+	
+	
 	
 	public String getEmail() {
 		return email;
