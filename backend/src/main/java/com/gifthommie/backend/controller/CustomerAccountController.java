@@ -38,7 +38,8 @@ public class CustomerAccountController {
             "yob": 2021,
             "avatar": null,
             "address": null,
-            "wardId": null
+            "wardId": null.
+            "gender": Male
 		}
 		
 		password hiện tại đang để default BCrypt là 123456
