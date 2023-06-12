@@ -73,7 +73,11 @@ const CheckoutBillList = ({ checkoutData, setCheckoutData }: Props) => {
   );
 };
 
-const CheckoutBillItem = ({ selectedItem }: { selectedItem: CartDTO }) => {
+export const CheckoutBillItem = ({
+  selectedItem,
+}: {
+  selectedItem: CartDTO;
+}) => {
   return (
     <HStack>
       <HStack spacing="2">

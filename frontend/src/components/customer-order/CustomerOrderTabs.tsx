@@ -11,7 +11,7 @@ import React from "react";
 
 const CustomerOrderTabs = () => {
   return (
-    <Box paddingX="8">
+    <Box mt="4" w="100%">
       <Tabs isFitted variant="enclosed">
         <TabList>
           <Tab
@@ -22,13 +22,13 @@ const CustomerOrderTabs = () => {
           </Tab>
           <Tab
             className="customer-order-tab"
-            _selected={{ color: "white", bg: "yellow.500" }}
+            _selected={{ color: "white", bg: "yellow.400" }}
           >
             Chờ xác nhận
           </Tab>
           <Tab
             className="customer-order-tab"
-            _selected={{ color: "white", bg: "blue.400" }}
+            _selected={{ color: "white", bg: "teal.300" }}
           >
             Đã xác nhận
           </Tab>

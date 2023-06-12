@@ -1,6 +1,7 @@
 import { Grid, GridItem, Heading } from "@chakra-ui/react";
 import React from "react";
 import CustomerOrderTabs from "../../components/customer-order/CustomerOrderTabs";
+import CustomerOrderList from "../../components/customer-order/CustomerOrderList";
 
 const CustomerOrderPage = () => {
   return (
@@ -27,7 +28,7 @@ const CustomerOrderPage = () => {
           className="main"
           // backgroundColor={"green"}
         >
-          <CustomerOrderTabs />
+          <CustomerOrderList />
         </GridItem>
         <GridItem
           area="aside-right"
