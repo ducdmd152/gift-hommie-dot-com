@@ -44,6 +44,7 @@ const UserProfileEdit = ({ userId }: Props) => {
   const onSubmit = (data: FieldValues) => {
     const updateStaff = data as ManagerStaffDTO;
     updateStaff.id = staff.id;
+    console.log(updateStaff);
 
     managerStaffService
       .update(updateStaff)
@@ -82,7 +83,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("username", { required: true })}
-                defaultValue={staff.username}
+                value={staff.username}
                 fontWeight="bold"
               />
             </HStack>
@@ -167,11 +168,11 @@ const UserProfileEdit = ({ userId }: Props) => {
               <FormLabel size="md" fontWeight="bold">
                 Gender
               </FormLabel>
-              <RadioGroup >
+              <RadioGroup value={staff.gender}>
                 <Stack direction='row' spacing={100}>
-                  <Radio value='1'>Male</Radio>
-                  <Radio value='2'>Female</Radio>
-                  <Radio value='3'>Other</Radio>
+                  <Radio value='Male'>Male</Radio>
+                  <Radio value='Female'>Female</Radio>
+                  <Radio value='Other'>Other</Radio>
                 </Stack>
               </RadioGroup>
             </HStack>
