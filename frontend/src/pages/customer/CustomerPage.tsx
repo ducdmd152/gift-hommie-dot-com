@@ -8,11 +8,12 @@ import CustomerCartPage from "./CustomerCartPage";
 import CustomerShopDetailPage from "./CustomerShopDetailPage";
 import CustomerCheckoutPage from "./CustomerCheckoutPage";
 import CustomerViewProfilePage from "./CustomerViewProfilePage";
-import {useState} from 'react'
+import { useState } from "react";
+import CustomerOrderPage from "./CustomerOrderPage";
 
 const CustomerPage = () => {
   const [customerId, seCustomerId] = useState<string>("");
-  
+
   return (
     <Grid
       templateAreas={{
@@ -38,9 +39,13 @@ const CustomerPage = () => {
           <Route index element={<CustomerShopPage />} />
           <Route path="/shop" element={<CustomerShopPage />} />
           <Route path="/shop/detail" element={<CustomerShopDetailPage />} />
+          <Route path="/order" element={<CustomerOrderPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
-          <Route path="/account" element={<CustomerViewProfilePage  userId= {customerId}/>} />
+          <Route
+            path="/account"
+            element={<CustomerViewProfilePage userId={customerId} />}
+          />
         </Routes>
       </GridItem>
     </Grid>

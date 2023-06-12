@@ -101,3 +101,8 @@
 .placeholeder-italic:placeholder-shown {
   font-style: italic;
 }
+
+.customer-order-tab {
+  font-weight: bold;
+  font-size: 22px;
+}
