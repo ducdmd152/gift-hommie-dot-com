@@ -34,7 +34,7 @@ const CustomerProfileView = ({ userId }: Props) => {
     }, []);
 
     return (
-        
+
         <>
             <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
                 <Wrap>
@@ -147,7 +147,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                         />
                     </HStack>
                 </FormControl>
-                <FormControl marginTop='50px'>
+                {/* <FormControl marginTop='50px'>
                     <HStack justifyContent='space-between' >
                         <FormLabel size="md" fontWeight="bold">
                             Gender
@@ -160,7 +160,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             </Stack>
                         </RadioGroup>
                     </HStack>
-                </FormControl>
+                </FormControl> */}
                 <FormControl marginTop="50px">
                     <HStack justifyContent="space-between" marginRight="350px">
                         <FormLabel size="md" fontWeight="bold">

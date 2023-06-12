@@ -163,7 +163,7 @@ const UserProfileEdit = ({ userId }: Props) => {
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
+          {/* <FormControl marginTop='50px'>
             <HStack justifyContent='space-between' >
               <FormLabel size="md" fontWeight="bold">
                 Gender
@@ -176,7 +176,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 </Stack>
               </RadioGroup>
             </HStack>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl marginTop='50px' >
             <HStack justifyContent='space-between' marginRight='350px'>
