@@ -14,17 +14,21 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CheckoutBillList, {
   CheckoutBillItem,
 } from "../checkout/CheckoutBillList";
 import { GLOBAL_CONTEXT } from "../../App";
 import CartDTO from "../../type/CartDTO";
 import CustomerOrderItem from "./CustomerOrderItem";
+import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 
 const CustomerOrderItems = () => {
-  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
-  let items = selectedCartContext.getItems();
+  //CODE FAKE DATA (TEMPORARY)
+  const [cartQuery, setCartQuery] = useState({} as CartQuery);
+  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
+  // GET DATA
+  let items = carts;
   return (
     <Box w="100%">
       <Card paddingX="8" paddingY="4" border="1px solid lightblue">
