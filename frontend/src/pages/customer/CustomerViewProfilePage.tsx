@@ -33,22 +33,42 @@ const CustomerViewProfilePage = ({ userId }: Props) => {
       });
   }, []);
 
+  // const onDeleteCustomer = (id: string) => {
+  //   if (
+  //     confirm(
+  //       `Bạn có muốn xóa "${customer.username}" không?`
+  //     )
+  //   ) {
+  //     customerService
+  //       .delete(customer.id)
+  //       .then(() => {
+  //         alert(`Đã xóa "${customer.username}".`);
+  //         navigate("/customer");
+  //       })
+  //       .catch(() => {
+  //         alert(
+  //           `Không thể xóa "${customer.username}". \n Vui lòng thử lại.`
+  //         );
+  //       });
+  //   }
+  // };
+
   return (
     <>
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-        {/* <HStack justifyContent='flex-end' marginTop='10px'>
-          <Link to={"/staff/edit"}>
+        <HStack justifyContent='flex-end' marginTop='10px'>
+          <Link to={""}>
             <Button colorScheme="blue" size="md">
               Chỉnh sửa
             </Button>
           </Link>
 
           <Button colorScheme="red" size="md"
-            onClick={() => onDeleteStaff(staff.id)}
+            // onClick={() => onDeleteCustomer(customer.id)}
           >
             Xóa
           </Button>
-        </HStack> */}
+        </HStack>
         <CustomerProfileView userId={userId} />
       </Card>
     </>
