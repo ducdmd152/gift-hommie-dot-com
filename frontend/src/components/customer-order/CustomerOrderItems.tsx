@@ -13,6 +13,7 @@ import {
   Td,
   List,
   ListItem,
+  Button,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import CheckoutBillList, {
@@ -79,7 +80,29 @@ const CustomerOrderItems = () => {
               </HStack>
             </Badge>
           </HStack>
+          {/* separator */}
+          <Box w="100%" borderBottom="1px solid lightgray"></Box>
           {/* ORDER ACTIONS */}
+          <HStack w="100%" justifyContent={"right"} p="4">
+            <Button colorScheme="blue">Đánh giá</Button>
+            <Button colorScheme="blue" variant="outline">
+              Chi tiết
+            </Button>
+            <Button
+              background="gray.600"
+              color="white"
+              isDisabled={true}
+              _hover={{
+                background: "gray.600",
+                color: "white",
+              }}
+            >
+              Chờ
+            </Button>
+            <Button colorScheme="red" variant="outline">
+              Hủy
+            </Button>
+          </HStack>
         </VStack>
       </Card>
     </Box>
