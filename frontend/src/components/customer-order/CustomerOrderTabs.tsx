@@ -36,7 +36,7 @@ const CustomerOrderTabs = () => {
             className="customer-order-tab"
             _selected={{ color: "white", bg: "green.300" }}
           >
-            Đang vận chuyển
+            Đang giao
           </Tab>
           <Tab
             className="customer-order-tab"

@@ -25,7 +25,7 @@ const CustomerOrderItem = ({ item }: { item: CartDTO }) => {
             <HStack spacing="2" className="product-card">
               <Image
                 borderRadius={"8px"}
-                boxSize="100px"
+                boxSize="60px"
                 objectFit="cover"
                 src={item.product.avatar}
               />
