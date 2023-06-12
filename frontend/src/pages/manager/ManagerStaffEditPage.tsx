@@ -45,6 +45,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
   const onSubmit = (data: FieldValues) => {
     const updateStaff = data as ManagerStaffDTO;
     updateStaff.id = staff.id;
+    console.log(updateStaff);
 
     managerStaffService
       .update(updateStaff)
@@ -59,13 +60,13 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
+        <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
           <UserProfileEdit userId={userId} />
 
           <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
             <Button type="submit" colorScheme="blue" size="md">
-              Save
+              Cập nhật
             </Button>
             {/* <Link to={"/staff/detail"}> */}
             <Button colorScheme="red" size="md"
@@ -79,11 +80,12 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                 }
               }}
             >
-              Cancel
+              Hủy
             </Button>
             {/* </Link> */}
           </HStack>
-        </Card>
+
+        </Card >
       </form>
     </>
   )
