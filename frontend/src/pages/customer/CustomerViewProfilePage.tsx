@@ -16,20 +16,20 @@ const CustomerViewProfilePage = ({ userId }: Props) => {
   )
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let id = userId;
-    if (id == "") {
-      navigate("/account");
-    }
-    userService
-      .get(id)
-      .then((res) => {
-        setCustomer(res.data);
-      })
-      .catch((err) => {
-        navigate("/account");
-      });
-  }, []);
+  // useEffect(() => {
+  //   let id = userId;
+  //   if (id == "") {
+  //     navigate("/account");
+  //   }
+  //   userService
+  //     .get(id)
+  //     .then((res) => {
+  //       setCustomer(res.data);
+  //     })
+  //     .catch((err) => {
+  //       navigate("/account");
+  //     });
+  // }, []);
 
   return (
     <>
