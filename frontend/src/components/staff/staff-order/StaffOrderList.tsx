@@ -10,10 +10,13 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import StaffOrderDetailModal from "./StaffOrderDetailModal";
 
 const StaffOrderList = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <TableContainer borderRadius="12" border="solid 1px gray">
       <Table variant="striped" colorScheme="gray">
@@ -47,10 +50,17 @@ const StaffOrderList = () => {
                 colorScheme="blue"
                 paddingX="4"
                 size="sm"
-                onClick={() => {}}
+                onClick={() => {
+                  onOpen();
+                }}
               >
                 Chi tiết
               </Button>
+              <StaffOrderDetailModal
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+              />
             </Td>
           </Tr>
         </Tbody>
