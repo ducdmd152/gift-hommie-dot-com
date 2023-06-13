@@ -107,6 +107,6 @@
   font-size: 22px;
 }
 
-.child-full-width * {
+.child-full-width > * {
   width: 100%;
 }
