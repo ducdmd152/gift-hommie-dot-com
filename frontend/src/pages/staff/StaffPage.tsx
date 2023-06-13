@@ -67,7 +67,7 @@ const StaffPage = () => {
             }
           />
           <Route path="/order" element={<StaffOrderPage />} />
-          <Route path="/account" element={<StaffViewProfilePage />} />
+          <Route path="/account" element={<StaffViewProfilePage currentProductId={productId} />} />
         </Routes>
       </GridItem>
     </Grid>
