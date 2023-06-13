@@ -13,6 +13,9 @@ interface Props {
 const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   let items = selectedCartContext.getItems();
+  let total = items.reduce((acc, item) => acc + item.total, 0);
+  let shippingFee = checkoutData.shippingFee ? checkoutData.shippingFee : 0;
+  let sum = total + shippingFee;
   return (
     <Card p={2}>
       <CheckoutPaymentSelector
@@ -28,11 +31,10 @@ const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
         <VStack>
           <HStack spacing="4" w="100%">
             <Text fontSize="md" flex="2" textAlign="left">
-              Tổng thanh toán
+              Tổng tiền hàng
             </Text>
             <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
-              {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-              {".000đ"}
+              {(total / 1000).toFixed(3) + "đ"}
             </Text>
           </HStack>
           <HStack spacing="4" w="100%">
@@ -40,16 +42,15 @@ const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
               Phí vận chuyển
             </Text>
             <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
-              Freeship
+              {(shippingFee / 1000).toFixed(3) + "đ"}
             </Text>
           </HStack>
           <HStack spacing="4" w="100%">
             <Text fontSize="md" flex="2" textAlign="left">
-              Tổng thanh toán
+              Thành tiền
             </Text>
             <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
-              {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-              {".000đ"}
+              {(sum / 1000).toFixed(3) + "đ"}
             </Text>
           </HStack>
         </VStack>

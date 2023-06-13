@@ -20,22 +20,31 @@ interface Props {
   setCheckoutData: (data: CheckoutDTO) => void;
 }
 const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
-  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
-  let carts = selectedCartContext.getItems();
+  const carts = checkoutData.carts;
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
   const [districts, setDistricts] = useState([] as DistrictDTO[]);
   const [wards, setWards] = useState([] as WardDTO[]);
-  const [wardCode, setWardCode] = useState(0);
-  const [districtID, setDistrictID] = useState(0);
-  const [provinceID, setProvinceID] = useState(0);
-  const [wardName, setWardName] = useState("");
-  const [districtName, setDistrictName] = useState("");
-  const [provinceName, setProvinceName] = useState("");
+  const setWard = (wardCode: number, wardName: string) => {
+    const replace = { ...checkoutData, wardCode, wardName };
+    setCheckoutData(replace);
+    return replace;
+  };
+  const setDistrict = (districtID: number, districtName: string) => {
+    const replace = { ...checkoutData, districtID, districtName };
+    setCheckoutData(replace);
+    return replace;
+  };
+  const setProvince = (provinceID: number, provinceName: string) => {
+    const replace = { ...checkoutData, provinceID, provinceName };
+    setCheckoutData(replace);
+    return replace;
+  };
 
   const loadDistricts = async (provinceID: number) => {
     // console.log("load.... " + provinceID);
     if (!provinceID) {
       setDistricts([] as DistrictDTO[]);
+      // setWards([] as WardDTO[]);
       return;
     }
 
@@ -92,8 +101,11 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
                 size="md"
                 onChange={(e) => {
                   let provinceID = parseInt(e.target.value);
-                  setProvinceID(provinceID);
-                  setProvinceName(e.target.value);
+                  setProvince(
+                    provinceID,
+                    e.target.options[e.target.selectedIndex].text
+                  );
+
                   loadDistricts(provinceID);
                 }}
               >
@@ -108,8 +120,10 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
                 size="md"
                 onChange={(e) => {
                   let districtID = parseInt(e.target.value);
-                  setDistrictID(districtID);
-                  setDistrictName(e.target.value);
+                  setDistrict(
+                    districtID,
+                    e.target.options[e.target.selectedIndex].text
+                  );
                   loadWards(districtID);
                 }}
               >
@@ -124,26 +138,13 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
                 size="md"
                 onChange={(e) => {
                   let wardCode = parseInt(e.target.value);
-                  setWardCode(wardCode);
-                  setWardName(e.target.value);
-                  console.log(
-                    "ADDRESS : " +
-                      provinceID +
-                      " " +
-                      districtID +
-                      " " +
-                      wardCode
-                  );
-                  console.log(
-                    shippingService.getPreviewOrder({
+
+                  shippingService.getPreviewOrder(
+                    setWard(
                       wardCode,
-                      districtID,
-                      provinceID,
-                      wardName,
-                      districtName,
-                      provinceName,
-                      carts,
-                    } as CheckoutDTO)
+                      e.target.options[e.target.selectedIndex].text
+                    ),
+                    setCheckoutData
                   );
                 }}
               >
