@@ -13,7 +13,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserDTO from "../../type/UserDTO";
 
-const StaffViewProfilePage = () => {
+interface Props{
+  currentProductId: number | null
+}
+const StaffViewProfilePage = ({currentProductId}: Props) => {
   const [staff, setStaff] = useState<UserDTO>({} as UserDTO);
   const navigate = useNavigate();
 
@@ -33,7 +36,7 @@ const StaffViewProfilePage = () => {
             Xóa
           </Button> */}
         </HStack>
-        {/* <StaffProfileView currentProductId={currentProductId} /> */}
+        <StaffProfileView currentProductId={currentProductId} />
       </Card>
     </>
   );

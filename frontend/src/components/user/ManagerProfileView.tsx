@@ -1,37 +1,37 @@
 import UserDTO from "../../type/UserDTO";
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from "react-router-dom";
-import staffService, { StaffDTO } from "../../services/staff-service";
+import { useNavigate } from "react-router-dom";
+import managerService, { ManagerDTO } from "../../services/manager-service";
 import {
-    Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-    HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-    VStack, Image, Flex, Grid,
+    Box, FormControl, FormLabel, Wrap, WrapItem, Avatar,
+    HStack, Heading, Input, VStack
 } from "@chakra-ui/react";
 
 interface Props {
-    currentProductId: number | null
+    userId: string
 }
-const StaffProfileView = ({ currentProductId }: Props) => {
-    const [staff, setStaff] = useState<StaffDTO>(
-        {} as StaffDTO);
+
+const ManagerProfileView = ({ userId }: Props) => {
+    const [manager, setManager] = useState<UserDTO>(
+        {} as UserDTO);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        let id = currentProductId;
-        if (id = 0) {
+        let id = userId;
+        if (id == "") {
             navigate("/account");
         }
-
-        staffService
+        managerService
             .get(id)
             .then((res) => {
-                setStaff(res.data);
+                setManager(res.data);
             })
             .catch((err) => {
                 navigate("/account");
             });
     }, []);
+
     return (
         <>
             <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
@@ -46,7 +46,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             marginBottom="4"
                             marginTop="8"
                         >
-                            {staff.firstName + " " + staff.lastName}
+                            {manager.firstName + " " + manager.lastName}
                         </Heading>
                         <Heading
                             className="border-b"
@@ -66,7 +66,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.username}
+                            value={manager.username}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -81,7 +81,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.firstName}
+                            value={manager.firstName}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -96,7 +96,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.lastName}
+                            value={manager.lastName}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -111,7 +111,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.email}
+                            value={manager.email}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -125,7 +125,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.phone}
+                            value={manager.phone}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -140,7 +140,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={staff.address}
+                            value={manager.address}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -150,7 +150,7 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                         <FormLabel size="md" fontWeight="bold">
                             Gender
                         </FormLabel>
-                        <RadioGroup value={staff.gender} >
+                        <RadioGroup value={manager.gender} >
                             <Stack direction='row' spacing={100}>
                                 <Radio value='Male'>Male</Radio>
                                 <Radio value='Female'>Female</Radio>
@@ -168,14 +168,15 @@ const StaffProfileView = ({ currentProductId }: Props) => {
                             maxW="100px"
                             isReadOnly
                             color="gray"
-                            value={staff.yob}
+                            value={manager.yob}
                             fontWeight="bold"
                         />
                     </HStack>
                 </FormControl>
             </Box>
+
+
         </>
     )
 }
-
-export default StaffProfileView;
+export default ManagerProfileView;
