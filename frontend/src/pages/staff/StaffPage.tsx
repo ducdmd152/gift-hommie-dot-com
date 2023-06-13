@@ -7,6 +7,7 @@ import StaffProductEditPage from "./StaffProductEditPage";
 import StaffProductDetailPage from "./StaffProductDetailPage";
 import StaffProductCreatePage from "./StaffProductCreatePage";
 import StaffViewProfilePage from "./StaffViewProfilePage";
+import StaffOrderPage from "./StaffOrderPage";
 const HEADER_HEIGHT = "100px";
 const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
@@ -65,7 +66,8 @@ const StaffPage = () => {
               />
             }
           />
-          <Route path="/account" element={<StaffViewProfilePage currentProductId={productId}/>} />
+          <Route path="/order" element={<StaffOrderPage />} />
+          <Route path="/account" element={<StaffViewProfilePage />} />
         </Routes>
       </GridItem>
     </Grid>
