@@ -27,30 +27,54 @@ const CustomerOrderDetailInfo = () => {
         </Badge>
         {/* HEADER INFO */}
         <HStack w="100%" justifyContent={"space-between"} spacing="0">
-          <Badge flex="1" p="2" fontSize={"lg"}>
-            Chi tiết đơn hàng
-            {" | ID >> 01"}
-          </Badge>
-
-          <Badge
-            flex="1"
-            p="2"
-            fontSize={"lg"}
-            textAlign={"right"}
-            className="none-text-transform"
-          >
-            <HStack w="100%" justifyContent="flex-end">
-              <Text>Trạng thái đơn hàng: </Text>
-              <Badge
-                colorScheme="yellow"
-                fontSize={"lg"}
-                className="none-text-transform"
-              >
-                {" "}
-                PENDING | Chờ xác nhận
-              </Badge>
-            </HStack>
-          </Badge>
+          <VStack flex="1" spacing="0">
+            <Badge p="2" fontSize={"lg"} w="100%">
+              Chi tiết đơn hàng
+              {" | ID >> 01"}
+            </Badge>
+            <Badge
+              w="100%"
+              paddingX="2"
+              fontSize={"md"}
+              className="none-text-transform"
+              fontStyle={"italic"}
+              color="gray"
+            >
+              Ngày tạo đơn: 06/06/2023
+            </Badge>
+          </VStack>
+          <VStack flex="1" spacing="0">
+            <Badge
+              w="100%"
+              p="2"
+              fontSize={"lg"}
+              textAlign={"right"}
+              className="none-text-transform"
+            >
+              <HStack w="100%" justifyContent="flex-end">
+                <Text>Trạng thái đơn hàng: </Text>
+                <Badge
+                  colorScheme="yellow"
+                  fontSize={"lg"}
+                  className="none-text-transform"
+                >
+                  {" "}
+                  PENDING | Chờ xác nhận
+                </Badge>
+              </HStack>
+            </Badge>
+            <Badge
+              w="100%"
+              paddingX="2"
+              fontSize={"md"}
+              className="none-text-transform"
+              fontStyle={"italic"}
+              color="gray"
+              textAlign={"right"}
+            >
+              Ngày cập nhật: 17:59 06/06/2023
+            </Badge>
+          </VStack>
         </HStack>
 
         {/* CUSTOMER INFO */}
