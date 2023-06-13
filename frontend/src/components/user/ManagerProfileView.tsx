@@ -30,7 +30,7 @@ const ManagerProfileView = ({ userId }: Props) => {
             .catch((err) => {
                 navigate("/account");
             });
-    }, []);
+    }, [userId]);
 
     return (
         <>

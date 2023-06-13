@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 interface Props {
-    currentProductId: number
+    currentProductId: number | null
 }
 const StaffProfileView = ({ currentProductId }: Props) => {
     const [staff, setStaff] = useState<StaffDTO>(
@@ -18,20 +18,22 @@ const StaffProfileView = ({ currentProductId }: Props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let id = currentProductId;
-        if (id = 0) {
-            navigate("/account");
-        }
+        let currentProductId = 0
 
-        staffService
-            .get(id)
-            .then((res) => {
-                setStaff(res.data);
-            })
-            .catch((err) => {
-                navigate("/account");
-            });
-    }, []);
+        if (currentProductId === null || currentProductId === 0) {
+            navigate("/account");
+        } else {
+            staffService
+                .get(currentProductId)
+                .then((res) => {
+                    setStaff(res.data);
+                })
+                .catch((err) => {
+                    navigate("/account");
+                });
+        }
+    }, [currentProductId]);
+
     return (
         <>
             <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">

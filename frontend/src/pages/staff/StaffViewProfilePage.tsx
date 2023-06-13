@@ -6,13 +6,12 @@ import { useState, useEffect } from 'react';
 import UserDTO from "../../type/UserDTO";
 
 interface Props {
-  currentProductId: number
+  currentProductId: number | null
 }
 const StaffViewProfilePage = ({ currentProductId }: Props) => {
-  const [staff, setStaff] = useState<UserDTO>(
+  const [product, setProduct] = useState<UserDTO>(
     {} as UserDTO
   )
-  const navigate = useNavigate();
 
   return (
     <>
