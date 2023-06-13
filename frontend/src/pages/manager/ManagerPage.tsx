@@ -54,7 +54,7 @@ const ManagerPage = () => {
             path="/staff/edit"
             element={<ManagerStaffEditPage userId={userId} />}
           />
-          <Route path="/account" element={<ManagerViewProfilePage />} />
+          <Route path="/account" element={<ManagerViewProfilePage userId= {userId}/>} />
         </Routes>
       </GridItem>
     </Grid>

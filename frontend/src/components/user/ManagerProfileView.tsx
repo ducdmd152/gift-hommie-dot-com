@@ -1,18 +1,18 @@
 import UserDTO from "../../type/UserDTO";
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import customerService from "../../services/customer-service";
+import managerService, { ManagerDTO } from "../../services/manager-service";
 import {
     Box, FormControl, FormLabel, Wrap, WrapItem, Avatar,
     HStack, Heading, Input, VStack
 } from "@chakra-ui/react";
 
 interface Props {
-    userId: string;
+    userId: string
 }
 
-const CustomerProfileView = ({ userId }: Props) => {
-    const [customer, setCustomer] = useState<UserDTO>(
+const ManagerProfileView = ({ userId }: Props) => {
+    const [manager, setManager] = useState<UserDTO>(
         {} as UserDTO);
 
     const navigate = useNavigate();
@@ -22,10 +22,10 @@ const CustomerProfileView = ({ userId }: Props) => {
         if (id == "") {
             navigate("/account");
         }
-        customerService
+        managerService
             .get(id)
             .then((res) => {
-                setCustomer(res.data);
+                setManager(res.data);
             })
             .catch((err) => {
                 navigate("/account");
@@ -33,7 +33,6 @@ const CustomerProfileView = ({ userId }: Props) => {
     }, []);
 
     return (
-
         <>
             <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
                 <Wrap>
@@ -47,7 +46,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             marginBottom="4"
                             marginTop="8"
                         >
-                            {customer.firstName + " " + customer.lastName}
+                            {manager.firstName + " " + manager.lastName}
                         </Heading>
                         <Heading
                             className="border-b"
@@ -67,7 +66,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.username}
+                            value={manager.username}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -82,7 +81,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.firstName}
+                            value={manager.firstName}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -97,7 +96,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.lastName}
+                            value={manager.lastName}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -112,7 +111,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.email}
+                            value={manager.email}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -126,7 +125,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.phone}
+                            value={manager.phone}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -141,7 +140,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="450px"
                             isReadOnly
                             color="gray"
-                            value={customer.address}
+                            value={manager.address}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -151,7 +150,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                         <FormLabel size="md" fontWeight="bold">
                             Gender
                         </FormLabel>
-                        <RadioGroup value={customer.gender} >
+                        <RadioGroup value={manager.gender} >
                             <Stack direction='row' spacing={100}>
                                 <Radio value='Male'>Male</Radio>
                                 <Radio value='Female'>Female</Radio>
@@ -169,7 +168,7 @@ const CustomerProfileView = ({ userId }: Props) => {
                             maxW="100px"
                             isReadOnly
                             color="gray"
-                            value={customer.yob}
+                            value={manager.yob}
                             fontWeight="bold"
                         />
                     </HStack>
@@ -178,6 +177,6 @@ const CustomerProfileView = ({ userId }: Props) => {
 
 
         </>
-    );
+    )
 }
-export default CustomerProfileView;
+export default ManagerProfileView;
