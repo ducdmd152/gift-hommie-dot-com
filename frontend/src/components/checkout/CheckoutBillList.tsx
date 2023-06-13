@@ -28,8 +28,7 @@ interface Props {
   setCheckoutData: (data: CheckoutDTO) => void;
 }
 const CheckoutBillList = ({ checkoutData, setCheckoutData }: Props) => {
-  const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
-  let items = selectedCartContext.getItems();
+  const items = checkoutData.carts;
   return (
     <Card width="100%" p="4">
       <Box width="100%">

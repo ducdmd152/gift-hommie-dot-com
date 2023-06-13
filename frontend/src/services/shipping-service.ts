@@ -3,7 +3,10 @@ import GHN from "../data/GHN";
 import CheckoutDTO from "../type/CheckoutDTO";
 import ShippingDTO from "../type/ShippingDTO";
 
-let previewOrder = (checkoutDTO: CheckoutDTO) => {
+let previewOrder = async (
+  checkoutData: CheckoutDTO,
+  setCheckoutData: (checkoutData: CheckoutDTO) => void
+) => {
   const data = {
     payment_type_id: 2,
     note: "",
@@ -16,12 +19,12 @@ let previewOrder = (checkoutDTO: CheckoutDTO) => {
     required_note: "CHOXEMHANGKHONGTHU",
 
     client_order_code: "",
-    to_name: checkoutDTO.name || "Độ Mixi",
-    to_phone: checkoutDTO.phone || "0909998877",
-    to_address: checkoutDTO.address || "Streaming house",
-    to_ward_code: checkoutDTO.wardCode.toString(),
-    to_district_id: checkoutDTO.districtID.toString(),
-    to_province_id: checkoutDTO.provinceID.toString(),
+    to_name: checkoutData.name || "Độ Mixi",
+    to_phone: checkoutData.phone || "0909998877",
+    to_address: checkoutData.address || "Streaming house",
+    to_ward_code: checkoutData.wardCode.toString(),
+    to_district_id: checkoutData.districtID.toString(),
+    to_province_id: checkoutData.provinceID.toString(),
     // client_order_code: "",
     // to_name: "Độ Mixi",
     // to_phone: "0909998877",
@@ -31,8 +34,8 @@ let previewOrder = (checkoutDTO: CheckoutDTO) => {
     // to_province_name: "TP Hồ Chí Minh",
 
     cod_amount:
-      checkoutDTO.paymentMethod == 1
-        ? checkoutDTO.carts.reduce((total, cart) => total + cart.total, 0)
+      checkoutData.paymentMethod == 1
+        ? checkoutData.carts.reduce((total, cart) => total + cart.total, 0)
         : 0,
     content: "HommieStore | Quà tặng đến bạn.",
     weight: 200,
@@ -41,7 +44,7 @@ let previewOrder = (checkoutDTO: CheckoutDTO) => {
     height: 10,
     pick_station_id: 1444,
     deliver_station_id: null,
-    insurance_value: checkoutDTO.carts.reduce(
+    insurance_value: checkoutData.carts.reduce(
       (total, cart) => total + cart.total,
       0
     ),
@@ -50,9 +53,9 @@ let previewOrder = (checkoutDTO: CheckoutDTO) => {
     coupon: null,
     pick_shift: null,
     pickup_time: 1665272576,
-    items: checkoutDTO.carts.map((cart) => ({
+    items: checkoutData.carts.map((cart) => ({
       name: cart.product.name,
-      code: cart.product.id,
+      code: cart.product.id.toString(),
       quantity: cart.quantity,
       price: cart.product.price,
       length: 20,
@@ -72,11 +75,14 @@ let previewOrder = (checkoutDTO: CheckoutDTO) => {
         headers: { "Content-Type": "application/json", token: GHN.token },
       })
       .then((response) => {
-        result = response.data as ShippingDTO;
+        result = response.data.data as ShippingDTO;
+        setCheckoutData({
+          ...checkoutData,
+          shippingFee: result.total_fee,
+          expectedDeliveryTime: result.expected_delivery_time,
+        });
       });
   })();
-
-  return result;
 };
 
 export default {

@@ -40,7 +40,9 @@ const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
               Phí vận chuyển
             </Text>
             <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
-              Freeship
+              {checkoutData.shippingFee
+                ? (checkoutData.shippingFee / 1000).toFixed(3) + "đ"
+                : "0đ"}
             </Text>
           </HStack>
           <HStack spacing="4" w="100%">
