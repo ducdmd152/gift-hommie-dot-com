@@ -16,6 +16,7 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import Swal from "sweetalert2";
 
 const rate = 1 / 23800;
 const currency = "USD";
@@ -62,7 +63,7 @@ const CheckoutPaymentModal = ({
                 "ARoi3O0eCaY4PgNsrZxTJklW9GbaWekKLptBbN6PXhZ4US6fIYkInRUJ65X93zScKp1pyZSCLLqDTZqx",
             }}
           >
-            <PayPalButtonWrapper amount={sum * rate} />
+            <PayPalButtonWrapper amount={sum * rate} onClose={onClose} />
           </PayPalScriptProvider>
         </ModalBody>
 
@@ -77,7 +78,13 @@ const CheckoutPaymentModal = ({
   );
 };
 
-const PayPalButtonWrapper = ({ amount }: { amount: number }) => {
+const PayPalButtonWrapper = ({
+  amount,
+  onClose,
+}: {
+  amount: number;
+  onClose: () => void;
+}) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
@@ -101,7 +108,20 @@ const PayPalButtonWrapper = ({ amount }: { amount: number }) => {
             // Your code here after create the order
             return orderId;
           });
-        // .catch((error) => {});
+      }}
+      onApprove={async (data, actions) => {
+        const details = await actions.order?.capture();
+        const name = details?.payer?.name?.given_name;
+        // alert("Transaction completed by " + name);
+
+        onClose();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Thanh toán thành công",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }}
     />
   );
