@@ -41,7 +41,18 @@ public class ProductServiceImpl implements ProductService {
 	// searchProductsByName
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+		Pageable pageable = null;
+		
+		String str = sortField; // name-des   name-asc   price-des  price-asc
+		String[] splitSortFeild = str.split("-");
+		
+		if (splitSortFeild[1].equals("des")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).descending());
+		}
+		if (splitSortFeild[1].equals("asc")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).ascending());
+		}
+		
 		Page<Product> page = productRepository.finfAllByName(true, search, pageable);		
 		return new APIPageableResponseDTO<Product>(page);
 	}
@@ -51,7 +62,18 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
 			String search, Integer category, String sortField) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+		Pageable pageable = null;
+		
+		String str = sortField; // name-des   name-asc   price-des  price-asc
+		String[] splitSortFeild = str.split("-");
+		
+		if (splitSortFeild[1].equals("des")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).descending());
+		}
+		if (splitSortFeild[1].equals("asc")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).ascending());
+		}
+		
 		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
 		return new APIPageableResponseDTO<Product>(page);
 	}
