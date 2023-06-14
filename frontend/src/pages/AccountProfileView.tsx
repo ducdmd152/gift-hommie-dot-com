@@ -8,10 +8,8 @@ import UserProfileView from "../components/user/UserProfileView";
 import customerService from "../services/customer-service";
 import Swal from "sweetalert2";
 
-interface Props {
-    userId: string
-}
-const AccountViewProfilePage = ({ userId }: Props) => {
+
+const AccountViewProfilePage = () => {
     const [customer, setCustomer] = useState<UserDTO>(
         {} as UserDTO
     )
@@ -38,11 +36,12 @@ const AccountViewProfilePage = ({ userId }: Props) => {
         <>
             <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
                 <HStack justifyContent='flex-end' marginTop='10px'>
-                    <Link to={""}>
+                    <Link to={"/edit"}>
                         <Button colorScheme="blue" size="md">
                             Chỉnh sửa
                         </Button>
                     </Link>
+
                 </HStack>
                 {/* <CustomerProfileView userId={userId} /> */}
                 <UserProfileView userDTO={customer} />
