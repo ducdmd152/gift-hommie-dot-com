@@ -14,13 +14,22 @@ import ProvinceDTO from "../../type/ProvinceDTO";
 import shippingService from "../../services/shipping-service";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import { GLOBAL_CONTEXT } from "../../App";
+import { DeliveryFormData } from "../../pages/customer/CustomerCheckoutPage";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;
+  useFormReturn: UseFormReturn<DeliveryFormData>;
 }
-const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
+const CheckoutDeliveryInfo = ({
+  checkoutData,
+  setCheckoutData,
+  useFormReturn,
+}: Props) => {
   const carts = checkoutData.carts;
+
+  // ADDRESS HANDLING
   const [provinces, setProvinces] = useState([] as ProvinceDTO[]);
   const [districts, setDistricts] = useState([] as DistrictDTO[]);
   const [wards, setWards] = useState([] as WardDTO[]);
@@ -37,6 +46,8 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
   const setProvince = (provinceID: number, provinceName: string) => {
     const replace = { ...checkoutData, provinceID, provinceName };
     setCheckoutData(replace);
+    setDistricts([] as DistrictDTO[]);
+    setWards([] as WardDTO[]);
     return replace;
   };
 
@@ -44,7 +55,7 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
     // console.log("load.... " + provinceID);
     if (!provinceID) {
       setDistricts([] as DistrictDTO[]);
-      // setWards([] as WardDTO[]);
+      setWards([] as WardDTO[]);
       return;
     }
 
@@ -70,6 +81,13 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
     loadProvinces();
   }, []);
 
+  // FORM HANDLING
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useFormReturn;
+  // UI
   return (
     <Card w="100%" paddingX="4" paddingY="4" border="1px lightgray solid">
       <Heading size="lg" textAlign="center" marginBottom="4">
@@ -80,13 +98,18 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
           <HStack justifyContent={"space-between"} w="100%">
             <FormControl>
               <FormLabel fontWeight="bold">Tên người nhận (*)</FormLabel>
-              <Input type="text" />
+              <Input type="text" {...register("name")} />
+              {errors.name && (
+                <p className="form-error-message">{errors.name?.message}</p>
+              )}
             </FormControl>
 
             <FormControl>
               <FormLabel fontWeight="bold">Số điện thoại (*)</FormLabel>
-              <Input type="number" />
-              {/* <FormHelperText>We'll never share your number.</FormHelperText> */}
+              <Input {...register("phone")} />
+              {errors.phone && (
+                <p className="form-error-message">{errors.phone?.message}</p>
+              )}
             </FormControl>
           </HStack>
         </Card>
@@ -134,11 +157,11 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
                 ))}
               </Select>
               <Select
+                {...register("ward", { valueAsNumber: true })}
                 placeholder="Phường/xã"
                 size="md"
                 onChange={(e) => {
                   let wardCode = parseInt(e.target.value);
-
                   shippingService.getPreviewOrder(
                     setWard(
                       wardCode,
@@ -146,6 +169,9 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
                     ),
                     setCheckoutData
                   );
+                  if (wardCode >= 0) {
+                    // setAddressError("");
+                  }
                 }}
               >
                 {wards.map((ward) => (
@@ -157,14 +183,19 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
             </HStack>
 
             <Textarea
+              {...register("address")}
               className="placeholeder-italic"
               placeholder="Địa chỉ cụ thể..."
             />
+            {errors.address && (
+              <p className="form-error-message">{errors.address?.message}</p>
+            )}
           </VStack>
         </Card>
         <Card w="100%" p="4">
           <FormLabel fontWeight="bold">Lời chúc, nhắn gửi</FormLabel>
           <Textarea
+            {...register("message")}
             className="placeholeder-italic"
             placeholder="Gửi một lời chúc thân thương đến người thân yêu của bạn..."
           />

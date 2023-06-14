@@ -9,16 +9,45 @@ import { GLOBAL_CONTEXT } from "../../App";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import { Box, useDisclosure } from "@chakra-ui/react";
 import CheckoutPaymentModal from "./CheckoutPaymentModal";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { DeliveryFormData } from "../../pages/customer/CustomerCheckoutPage";
+export interface UseDisclosureReturn {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  onToggle: () => void;
+  isControlled: boolean;
+  getButtonProps: (props?: any) => any;
+  getDisclosureProps: (props?: any) => any;
+}
+
 interface Props {
+  useDisclosureReturn: UseDisclosureReturn;
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;
+  useFormReturn: UseFormReturn<DeliveryFormData>;
 }
-const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
+const CheckoutSummary = ({
+  checkoutData,
+  setCheckoutData,
+  useFormReturn,
+  useDisclosureReturn,
+}: Props) => {
   let items = checkoutData.carts;
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   let total = items.reduce((acc, item) => acc + item.total, 0);
   let shippingFee = checkoutData.shippingFee ? checkoutData.shippingFee : 0;
   let sum = total + shippingFee;
+
+  // FORM HANDLING
+  const { isOpen, onOpen, onClose } = useDisclosureReturn;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useFormReturn;
+
+  // UI
   return (
     <Box>
       <Card p={2}>
@@ -62,14 +91,12 @@ const CheckoutSummary = ({ checkoutData, setCheckoutData }: Props) => {
 
         <HStack justifyContent={"center"}>
           <Button
+            type="submit"
             colorScheme="blue"
             size="lg"
             marginTop="4"
             paddingX="8"
             w="100%"
-            onClick={() => {
-              onOpen();
-            }}
           >
             Đặt hàng
           </Button>
