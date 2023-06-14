@@ -33,13 +33,13 @@ public class UserProfileDTO {
 	
 	private boolean enabled;
 	
-	private String gender;
+	//private String gender;
 	
-	
-	public String getGender() {
-		return gender;
-		
-	}
+//	
+//	public String getGender() {
+//		return gender;
+//		
+//	}
 
 	public String getEmail() {
 		return email;
