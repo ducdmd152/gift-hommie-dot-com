@@ -13,5 +13,6 @@ export default interface CheckoutDTO {
   carts: CartDTO[];
   paymentMethod: number;
   shippingFee: number;
+  shippingMethod: number;
   expectedDeliveryTime: string;
 }

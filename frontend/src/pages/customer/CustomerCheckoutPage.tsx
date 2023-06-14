@@ -25,6 +25,7 @@ const CustomerCheckoutPage = () => {
     carts,
     paymentMethod: 1,
     shippingFee: 0,
+    shippingMethod: 2,
   } as CheckoutDTO);
   return (
     <Box p="2" marginBottom="8">

@@ -3,26 +3,31 @@ import { Heading, VStack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import React, { useState } from "react";
 import CheckoutDTO from "../../type/CheckoutDTO";
+import shippingService from "../../services/shipping-service";
 interface Props {
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;
 }
 const CheckoutShippingMethod = ({ checkoutData, setCheckoutData }: Props) => {
-  const [value, setValue] = useState(2);
+  const setValue = (value: number) => {
+    const replace = { ...checkoutData, shippingMethod: value };
+    setCheckoutData(replace);
+    return replace;
+  };
   return (
     <Card w="100%" p="4">
       <Heading fontSize="lg">Hình thức vận chuyển</Heading>
       <RadioGroup
         onChange={(choice) => {
           let method = parseInt(choice);
-          setValue(method);
+          shippingService.getPreviewOrder(setValue(method), setCheckoutData);
         }}
-        value={value.toString()}
+        value={checkoutData.shippingMethod.toString()}
       >
         <VStack alignItems={"flex-start"} p="4">
           <Radio value="2">Giao hàng tiêu chuẩn (nhanh)</Radio>
           <Radio value="1" isDisabled={true}>
-            Giao hàng hỏa tốc (express)
+            Giao hàng tốc hành (express)
           </Radio>
         </VStack>
       </RadioGroup>
