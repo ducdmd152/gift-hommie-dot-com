@@ -13,29 +13,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserDTO from "../../type/UserDTO";
 
-interface Props{
+interface Props {
   currentProductId: number | null
 }
-const StaffViewProfilePage = ({currentProductId}: Props) => {
+const StaffViewProfilePage = ({ currentProductId }: Props) => {
   const [staff, setStaff] = useState<UserDTO>({} as UserDTO);
+
   const navigate = useNavigate();
 
   return (
     <>
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-        <HStack justifyContent="flex-end" marginTop="10px">
-          <Link to={""}>
-            <Button colorScheme="blue" size="md">
-              Chỉnh sửa
-            </Button>
-          </Link>
-
-          {/* <Button colorScheme="red" size="md"
-            onClick={() => onDeleteStaff(staff.id)}
-          >
-            Xóa
-          </Button> */}
-        </HStack>
         <StaffProfileView currentProductId={currentProductId} />
       </Card>
     </>

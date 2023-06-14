@@ -11,29 +11,15 @@ import managerStaffService from "../../services/manager-staff-service";
 import StaffProductMain from "../staff/staff-product-list-page/StaffProductListMain";
 import { HttpUser } from "../../services/user-service";
 import userService from "../../services/user-service";
+import UserDTO from "../../type/UserDTO";
 
 interface Props {
-  userId: string;
+  userDTO: UserDTO;
 }
-const UserProfileView = ({ userId }: Props) => {
-  const [staff, setStaff] = useState<ManagerStaffDTO>({} as ManagerStaffDTO);
+const UserProfileView = ({ userDTO }: Props) => {
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let id = userId;
-
-    if (id == "") {
-      navigate("/staff");
-    }
-    managerStaffService
-      .get(id)
-      .then((res) => {
-        setStaff(res.data);
-      })
-      .catch((err) => {
-        navigate("/staff");
-      });
-  }, []);
 
   // useEffect(() => {
   //   let id = userId;
@@ -63,7 +49,7 @@ const UserProfileView = ({ userId }: Props) => {
               marginBottom="4"
               marginTop="8"
             >
-              {staff.firstName + " " + staff.lastName}
+              {userDTO.firstName + " " + userDTO.lastName}
             </Heading>
             <Heading
               className="border-b"
@@ -83,7 +69,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.username}
+              value={userDTO.username}
               fontWeight="bold"
             />
           </HStack>
@@ -98,7 +84,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.firstName}
+              value={userDTO.firstName}
               fontWeight="bold"
             />
           </HStack>
@@ -113,7 +99,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.lastName}
+              value={userDTO.lastName}
               fontWeight="bold"
             />
           </HStack>
@@ -128,7 +114,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.email}
+              value={userDTO.email}
               fontWeight="bold"
             />
           </HStack>
@@ -142,7 +128,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.phone}
+              value={userDTO.phone}
               fontWeight="bold"
             />
           </HStack>
@@ -157,7 +143,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="450px"
               isReadOnly
               color="gray"
-              value={staff.address}
+              value={userDTO.address}
               fontWeight="bold"
             />
           </HStack>
@@ -185,7 +171,7 @@ const UserProfileView = ({ userId }: Props) => {
               maxW="100px"
               isReadOnly
               color="gray"
-              value={staff.yob}
+              value={userDTO.yob}
               fontWeight="bold"
             />
           </HStack>

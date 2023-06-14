@@ -11,15 +11,10 @@ interface Props {
   userId: string
 }
 const ManagerStaffDetailPage = ({ userId }: Props) => {
-  const [staff, setStaff] = useState<ManagerStaffDTO>(
-    {} as ManagerStaffDTO
-  );
-
-  const navigate = useNavigate();
-
-  //fetch staff from API
+  const [staff, setStaff] = useState<ManagerStaffDTO>({} as ManagerStaffDTO);
   useEffect(() => {
     let id = userId;
+
     if (id == "") {
       navigate("/staff");
     }
@@ -32,6 +27,8 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
         navigate("/staff");
       });
   }, []);
+  const navigate = useNavigate();
+
 
   const onDeleteStaff = (id: string) => {
     if (
