@@ -99,17 +99,19 @@ const CheckoutDeliveryInfo = ({
             <FormControl>
               <FormLabel fontWeight="bold">Tên người nhận (*)</FormLabel>
               <Input type="text" {...register("name")} />
-              {errors.name && (
-                <p className="form-error-message">{errors.name?.message}</p>
-              )}
+
+              <p className="form-error-message">
+                {errors.name?.message || "‎ "}
+              </p>
             </FormControl>
 
             <FormControl>
               <FormLabel fontWeight="bold">Số điện thoại (*)</FormLabel>
               <Input {...register("phone")} />
-              {errors.phone && (
-                <p className="form-error-message">{errors.phone?.message}</p>
-              )}
+
+              <p className="form-error-message">
+                {errors.phone?.message || "‎ "}
+              </p>
             </FormControl>
           </HStack>
         </Card>
@@ -157,11 +159,12 @@ const CheckoutDeliveryInfo = ({
                 ))}
               </Select>
               <Select
-                {...register("ward", { valueAsNumber: true })}
+                {...register("ward")}
                 placeholder="Phường/xã"
                 size="md"
                 onChange={(e) => {
                   let wardCode = parseInt(e.target.value);
+                  // console.log(wardCode);
                   shippingService.getPreviewOrder(
                     setWard(
                       wardCode,
@@ -169,9 +172,6 @@ const CheckoutDeliveryInfo = ({
                     ),
                     setCheckoutData
                   );
-                  if (wardCode >= 0) {
-                    // setAddressError("");
-                  }
                 }}
               >
                 {wards.map((ward) => (
@@ -181,15 +181,18 @@ const CheckoutDeliveryInfo = ({
                 ))}
               </Select>
             </HStack>
-
+            <p className="form-error-message">
+              {!checkoutData.wardCode ? errors.ward?.message : "‎ "}
+            </p>
             <Textarea
               {...register("address")}
               className="placeholeder-italic"
               placeholder="Địa chỉ cụ thể..."
             />
-            {errors.address && (
-              <p className="form-error-message">{errors.address?.message}</p>
-            )}
+
+            <p className="form-error-message">
+              {errors.address?.message || "‎ "}
+            </p>
           </VStack>
         </Card>
         <Card w="100%" p="4">

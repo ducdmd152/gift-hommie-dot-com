@@ -1,13 +1,14 @@
 import OrderDetailDTO from "./OrderDetailDTO";
 import UserDTO from "./UserDTO";
 
-interface OrderDTO {
+export default interface OrderDTO {
+  id: number;
   // personal inf
   name: string;
   phone: string;
 
   address: string;
-  // = checkoutDTO.address + " " + checkoutDTO.wardName + + checkoutDTO.districtName + + checkoutDTO.provinceName
+  // = checkoutDTO.address + " " + checkoutDTO.wardName + " " + checkoutDTO.districtName + " " + checkoutDTO.provinceName
   wardCode: number;
   districtID: number;
   provinceID: number;

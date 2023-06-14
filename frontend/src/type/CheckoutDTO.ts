@@ -20,4 +20,6 @@ export default interface CheckoutDTO {
 
   shippingFee: number;
   shippingMethod: number;
+
+  expectedDeliveryTime: string;
 }

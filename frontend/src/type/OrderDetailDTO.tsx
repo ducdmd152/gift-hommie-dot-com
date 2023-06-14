@@ -1,6 +1,6 @@
 import ProductDTO from "./ProductDTO";
 
-export default interface CategoryDTO {
+export default interface OrderDetailDTO {
   id: number;
   orderID: number;
   productId: number;

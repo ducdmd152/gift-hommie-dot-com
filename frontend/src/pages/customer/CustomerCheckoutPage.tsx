@@ -45,11 +45,11 @@ const schema = z.object({
     invalid_type_error: "First name must be a string",
   }),
   ward: z
-    .number({
+    .string({
       required_error: "Vui lòng chọn đầy địa chỉ.",
-      invalid_type_error: "First name must be a number",
+      invalid_type_error: "Vui lòng chọn đầy địa chỉ.",
     })
-    .min(1, "Vui lòng chọn đầy địa chỉ."),
+    .regex(new RegExp("^[0-9]+$"), "Vui lòng chọn đầy địa chỉ."),
 });
 
 export type DeliveryFormData = z.infer<typeof schema>;
@@ -88,7 +88,6 @@ const CustomerCheckoutPage = () => {
 
   const onSubmit = (data: FieldValues) => {
     const checkoutInfo = data as CheckoutDTO;
-    console.log(checkoutInfo);
     const submitData = {
       ...checkoutData,
       name: checkoutInfo.name,
@@ -96,13 +95,14 @@ const CustomerCheckoutPage = () => {
       address: checkoutInfo.address,
       message: checkoutInfo.message,
     };
-    console.log(submitData);
 
     if (submitData.paymentMethod == 1) {
       // COD
-      // Call checkService
+      // Call checkoutService
+      console.log(" Call checkoutService : ", submitData);
     } else {
-      onOpen(); // Call checkService inside Paypal Modal
+      setCheckoutData(submitData);
+      onOpen(); // Call checkoutService inside Paypal Modal
     }
 
     // staffProductService
