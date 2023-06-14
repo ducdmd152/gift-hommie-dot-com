@@ -11,6 +11,7 @@ import CustomerViewProfilePage from "./CustomerViewProfilePage";
 import { useState } from "react";
 import CustomerOrderPage from "./CustomerOrderPage";
 import CustomerOrderDetailPage from "./CustomerOrderDetailPage";
+import AccountViewProfilePage from "../AccountProfileView";
 
 const CustomerPage = () => {
   const [customerId, seCustomerId] = useState<string>("");
@@ -46,7 +47,7 @@ const CustomerPage = () => {
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
           <Route
             path="/account"
-            element={<CustomerViewProfilePage userId={customerId} />}
+            element={<AccountViewProfilePage userId={customerId} />}
           />
         </Routes>
       </GridItem>
