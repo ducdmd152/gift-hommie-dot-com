@@ -23,15 +23,31 @@ public class StaffProductController {
 	@Autowired
 	ProductService productService;
 	
+
+	//------------ Default DES------------------------------
+		//List Product 				            : http://localhost:8080/staff/product
+		//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name-des
+		//List Product Filter Sort By Price     : http://localhost:8080/staff/product?sort=price-des
+		
+		//List Product By Category and Filter Sort By Price  : http://localhost:8080/staff/product?category=1&sort=price-des
+		//List Product By Category and Filter Sort By Name   : http://localhost:8080/staff/product?category=1&sort=name-des
+		
+		//List Product By Category and Filter Sort By Price with Search  : http://localhost:8080/staff/product?category=1&sort=price-des&search=a
+		//List Product By Category and Filter Sort By Price with Search  : http://localhost:8080/staff/product?category=1&sort=name-des&search=a
 	
-	//List Product 				            : http://localhost:8080/staff/product
-	//List Product By Category              : http://localhost:8080/staff/product?category=1
-	//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name
-	//List Product Filter Sort By Price     : http://localhost:8080/staff/product?sort=price
 	
-	//List Product By Category and Filter Sort By Price  : http://localhost:8080/staff/product?category=1&sort=price
-	//List Product By Category and Filter Sort By Name   : http://localhost:8080/staff/product?category=1&sort=name
-	
+	//-----------Optional ASC		------------------------------
+		//List Product 				            : http://localhost:8080/staff/product
+		//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name-asc
+		//List Product Filter Sort By Price     : http://localhost:8080/staff/product?sort=price-asc
+		
+		//List Product By Category and Filter Sort By Price  : http://localhost:8080/staff/product?category=1&sort=price-asc
+		//List Product By Category and Filter Sort By Name   : http://localhost:8080/staff/product?category=1&sort=name-asc
+		
+		//List Product By Category and Filter Sort By Price with Search  : http://localhost:8080/staff/product?category=1&sort=price-asc&search=a
+		//List Product By Category and Filter Sort By Price with Search  : http://localhost:8080/staff/product?category=1&sort=name-asc&search=a
+		
+
 	@GetMapping
 	public APIPageableResponseDTO<Product> getProductList(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
