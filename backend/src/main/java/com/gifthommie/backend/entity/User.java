@@ -73,7 +73,7 @@ public class User {
 		yob = userProfile.getYob();
 		avatar = userProfile.getAvatar();
 		address = userProfile.getAddress();
-		wardCode = userProfile.getWardCode();
+//		wardCode = userProfile.getWardCode();
 
 		return true;
 	}
