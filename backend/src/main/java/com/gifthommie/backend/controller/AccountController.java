@@ -16,8 +16,8 @@ import com.gifthommie.backend.service.UserService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
-@RequestMapping("/customer/account")
-public class CustomerAccountController {
+@RequestMapping("/account")
+public class AccountController {
 	
 	@Autowired
 	UserService userService;
@@ -52,6 +52,7 @@ public class CustomerAccountController {
 	}
 	@PutMapping()
 	public User updateUserDTO(@RequestBody UserProfileDTO userRequestDTO) {
+		// phan quyen chi co manager & customer co the edit (chua quan trong)
 		String email = SecurityUtils.getPrincipal().getUser().getEmail();
 		User user = userService.updateUserProfileDTO(email, userRequestDTO);
 		return user;
