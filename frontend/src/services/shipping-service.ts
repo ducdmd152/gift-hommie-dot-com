@@ -49,7 +49,7 @@ let previewOrder = async (
       0
     ),
     service_id: 0,
-    service_type_id: 2,
+    service_type_id: checkoutData.shippingMethod || 2,
     coupon: null,
     pick_shift: null,
     pickup_time: 1665272576,

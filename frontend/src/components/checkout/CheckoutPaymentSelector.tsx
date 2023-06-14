@@ -8,7 +8,11 @@ interface Props {
   setCheckoutData: (data: CheckoutDTO) => void;
 }
 const CheckoutPaymentSelector = ({ checkoutData, setCheckoutData }: Props) => {
-  const [value, setValue] = useState(1);
+  const setValue = (value: number) => {
+    const replace = { ...checkoutData, paymnetMethod: value };
+    setCheckoutData(replace);
+    return replace;
+  };
   return (
     <Card w="100%" p="4">
       <Heading fontSize="lg">Hình thức thanh toán</Heading>
@@ -17,7 +21,7 @@ const CheckoutPaymentSelector = ({ checkoutData, setCheckoutData }: Props) => {
           let method = parseInt(choice);
           setValue(method);
         }}
-        value={value.toString()}
+        value={checkoutData.paymentMethod.toString()}
       >
         <VStack alignItems={"flex-start"} p="4">
           <Radio value="1">Thanh toán khi nhận hàng</Radio>
