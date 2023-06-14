@@ -47,20 +47,20 @@ public class User {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "ward_id")
-	private Integer wardId;
+	@Column(name = "ward_code")
+	private Integer wardCode;
 	
 
 	@Column(name = "enabled")
 	@JsonIgnore
 	private boolean enabled;
 
-	@Column(name = "gender")
-	private String gender;
+//	@Column(name = "gender")
+//	private String gender;
 	
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+//	public void setGender(String gender) {
+//		this.gender = gender;
+//	}
 
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
@@ -73,15 +73,15 @@ public class User {
 		yob = userProfile.getYob();
 		avatar = userProfile.getAvatar();
 		address = userProfile.getAddress();
-		wardId = userProfile.getWardId();
+//		wardCode = userProfile.getWardCode();
 
 		return true;
 	}
 
-	public String getGender() {
-		return gender;
-		
-	}
+//	public String getGender() {
+//		return gender;
+//		
+//	}
 	
 	public String getEmail() {
 		return email;
@@ -183,12 +183,11 @@ public class User {
 		this.address = address;
 	}
 
-	public Integer getWardId() {
-		return wardId;
+	public Integer getWardCode() {
+		return wardCode;
 	}
 
-	public void setWardId(Integer wardId) {
-		this.wardId = wardId;
+	public void setWardCode(Integer wardCode) {
+		this.wardCode = wardCode;
 	}
-
 }

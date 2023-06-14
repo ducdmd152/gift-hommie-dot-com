@@ -103,8 +103,8 @@ public class UserServiceImpl implements UserService {
 			user.setYob(userDTO.getYob());
 			user.setAvatar(userDTO.getAvatar());
 			user.setAddress(userDTO.getAddress());
-			user.setWardId(userDTO.getWardId());
-			user.setGender(userDTO.getGender());
+//			user.setWardId(userDTO.getWardId());
+//			user.setGender(userDTO.getGender());
 			userRepository.save(user);
 		
 		return user;
