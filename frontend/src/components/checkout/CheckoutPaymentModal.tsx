@@ -63,7 +63,11 @@ const CheckoutPaymentModal = ({
                 "ARoi3O0eCaY4PgNsrZxTJklW9GbaWekKLptBbN6PXhZ4US6fIYkInRUJ65X93zScKp1pyZSCLLqDTZqx",
             }}
           >
-            <PayPalButtonWrapper amount={sum * rate} onClose={onClose} />
+            <PayPalButtonWrapper
+              amount={sum * rate}
+              onClose={onClose}
+              checkoutData={checkoutData}
+            />
           </PayPalScriptProvider>
         </ModalBody>
 
@@ -81,9 +85,11 @@ const CheckoutPaymentModal = ({
 const PayPalButtonWrapper = ({
   amount,
   onClose,
+  checkoutData,
 }: {
   amount: number;
   onClose: () => void;
+  checkoutData: CheckoutDTO;
 }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
@@ -115,6 +121,7 @@ const PayPalButtonWrapper = ({
         // alert("Transaction completed by " + name);
 
         onClose();
+        console.log("Thanh toán thành công đơn hàng", checkoutData);
         Swal.fire({
           position: "center",
           icon: "success",

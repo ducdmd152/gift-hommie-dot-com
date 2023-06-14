@@ -99,17 +99,19 @@ const CheckoutDeliveryInfo = ({
             <FormControl>
               <FormLabel fontWeight="bold">Tên người nhận (*)</FormLabel>
               <Input type="text" {...register("name")} />
-              {errors.name && (
-                <p className="form-error-message">{errors.name?.message}</p>
-              )}
+
+              <p className="form-error-message">
+                {errors.name?.message || "‎ "}
+              </p>
             </FormControl>
 
             <FormControl>
               <FormLabel fontWeight="bold">Số điện thoại (*)</FormLabel>
               <Input {...register("phone")} />
-              {errors.phone && (
-                <p className="form-error-message">{errors.phone?.message}</p>
-              )}
+
+              <p className="form-error-message">
+                {errors.phone?.message || "‎ "}
+              </p>
             </FormControl>
           </HStack>
         </Card>
@@ -179,17 +181,18 @@ const CheckoutDeliveryInfo = ({
                 ))}
               </Select>
             </HStack>
-            {errors.ward && !checkoutData.wardCode && (
-              <p className="form-error-message">{errors.ward?.message}</p>
-            )}
+            <p className="form-error-message">
+              {!checkoutData.wardCode ? errors.ward?.message : "‎ "}
+            </p>
             <Textarea
               {...register("address")}
               className="placeholeder-italic"
               placeholder="Địa chỉ cụ thể..."
             />
-            {errors.address && (
-              <p className="form-error-message">{errors.address?.message}</p>
-            )}
+
+            <p className="form-error-message">
+              {errors.address?.message || "‎ "}
+            </p>
           </VStack>
         </Card>
         <Card w="100%" p="4">

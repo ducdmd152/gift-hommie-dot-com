@@ -101,6 +101,7 @@ const CustomerCheckoutPage = () => {
       // Call checkoutService
       console.log(" Call checkoutService : ", submitData);
     } else {
+      setCheckoutData(submitData);
       onOpen(); // Call checkoutService inside Paypal Modal
     }
 
