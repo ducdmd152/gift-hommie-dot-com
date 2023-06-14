@@ -3,13 +3,14 @@ import { Heading, VStack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
 import React, { useState } from "react";
 import CheckoutDTO from "../../type/CheckoutDTO";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 interface Props {
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;
 }
 const CheckoutPaymentSelector = ({ checkoutData, setCheckoutData }: Props) => {
   const setValue = (value: number) => {
-    const replace = { ...checkoutData, paymnetMethod: value };
+    const replace = { ...checkoutData, paymentMethod: value };
     setCheckoutData(replace);
     return replace;
   };
@@ -25,12 +26,7 @@ const CheckoutPaymentSelector = ({ checkoutData, setCheckoutData }: Props) => {
       >
         <VStack alignItems={"flex-start"} p="4">
           <Radio value="1">Thanh toán khi nhận hàng</Radio>
-          <Radio value="2" isDisabled={true}>
-            Thanh toán qua Momo
-          </Radio>
-          <Radio value="3" isDisabled={true}>
-            Thanh toán qua VNPay
-          </Radio>
+          <Radio value="2">Thanh toán qua Paypal</Radio>
         </VStack>
       </RadioGroup>
     </Card>
