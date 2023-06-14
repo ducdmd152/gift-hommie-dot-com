@@ -14,12 +14,19 @@ import ProvinceDTO from "../../type/ProvinceDTO";
 import shippingService from "../../services/shipping-service";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import { GLOBAL_CONTEXT } from "../../App";
+import { DeliveryFormData } from "../../pages/customer/CustomerCheckoutPage";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;
+  useFormReturn: UseFormReturn<DeliveryFormData>;
 }
-const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
+const CheckoutDeliveryInfo = ({
+  checkoutData,
+  setCheckoutData,
+  useFormReturn,
+}: Props) => {
   const carts = checkoutData.carts;
 
   // ADDRESS HANDLING
@@ -74,116 +81,127 @@ const CheckoutDeliveryInfo = ({ checkoutData, setCheckoutData }: Props) => {
     loadProvinces();
   }, []);
 
+  // FORM HANDLING
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useFormReturn;
   // UI
   return (
-    <form>
-      <Card w="100%" paddingX="4" paddingY="4" border="1px lightgray solid">
-        <Heading size="lg" textAlign="center" marginBottom="4">
-          Thông tin nhận hàng
-        </Heading>
-        <VStack w="100%">
-          <Card w="100%" p="4">
-            <HStack justifyContent={"space-between"} w="100%">
-              <FormControl>
-                <FormLabel fontWeight="bold">Tên người nhận (*)</FormLabel>
-                <Input type="text" />
-              </FormControl>
+    <Card w="100%" paddingX="4" paddingY="4" border="1px lightgray solid">
+      <Heading size="lg" textAlign="center" marginBottom="4">
+        Thông tin nhận hàng
+      </Heading>
+      <VStack w="100%">
+        <Card w="100%" p="4">
+          <HStack justifyContent={"space-between"} w="100%">
+            <FormControl>
+              <FormLabel fontWeight="bold">Tên người nhận (*)</FormLabel>
+              <Input type="text" {...register("name")} />
+              {errors.name && (
+                <p className="form-error-message">{errors.name?.message}</p>
+              )}
+            </FormControl>
 
-              <FormControl>
-                <FormLabel fontWeight="bold">Số điện thoại (*)</FormLabel>
-                <Input type="number" />
-                {/* <FormHelperText>We'll never share your number.</FormHelperText> */}
-              </FormControl>
+            <FormControl>
+              <FormLabel fontWeight="bold">Số điện thoại (*)</FormLabel>
+              <Input {...register("phone")} />
+              {errors.phone && (
+                <p className="form-error-message">{errors.phone?.message}</p>
+              )}
+            </FormControl>
+          </HStack>
+        </Card>
+
+        <Card w="100%" p="4">
+          <VStack width="100%" alignItems={"flex-start"} spacing="2">
+            <FormLabel fontWeight="bold">Địa chỉ nhận hàng (*)</FormLabel>
+
+            <HStack w="100%" justifyContent="space-between">
+              <Select
+                placeholder="Tỉnh/thành phố"
+                size="md"
+                onChange={(e) => {
+                  let provinceID = parseInt(e.target.value);
+                  setProvince(
+                    provinceID,
+                    e.target.options[e.target.selectedIndex].text
+                  );
+
+                  loadDistricts(provinceID);
+                }}
+              >
+                {provinces.map((province) => (
+                  <option key={province.ProvinceID} value={province.ProvinceID}>
+                    {province.ProvinceName}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                placeholder="Quận/huyện"
+                size="md"
+                onChange={(e) => {
+                  let districtID = parseInt(e.target.value);
+                  setDistrict(
+                    districtID,
+                    e.target.options[e.target.selectedIndex].text
+                  );
+                  loadWards(districtID);
+                }}
+              >
+                {districts.map((district) => (
+                  <option key={district.DistrictID} value={district.DistrictID}>
+                    {district.DistrictName}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                {...register("ward", { valueAsNumber: true })}
+                placeholder="Phường/xã"
+                size="md"
+                onChange={(e) => {
+                  let wardCode = parseInt(e.target.value);
+                  shippingService.getPreviewOrder(
+                    setWard(
+                      wardCode,
+                      e.target.options[e.target.selectedIndex].text
+                    ),
+                    setCheckoutData
+                  );
+                  if (wardCode >= 0) {
+                    // setAddressError("");
+                  }
+                }}
+              >
+                {wards.map((ward) => (
+                  <option key={ward.WardCode} value={ward.WardCode}>
+                    {ward.WardName}
+                  </option>
+                ))}
+              </Select>
             </HStack>
-          </Card>
 
-          <Card w="100%" p="4">
-            <VStack width="100%" alignItems={"flex-start"} spacing="2">
-              <FormLabel fontWeight="bold">Địa chỉ nhận hàng (*)</FormLabel>
-
-              <HStack w="100%" justifyContent="space-between">
-                <Select
-                  placeholder="Tỉnh/thành phố"
-                  size="md"
-                  onChange={(e) => {
-                    let provinceID = parseInt(e.target.value);
-                    setProvince(
-                      provinceID,
-                      e.target.options[e.target.selectedIndex].text
-                    );
-
-                    loadDistricts(provinceID);
-                  }}
-                >
-                  {provinces.map((province) => (
-                    <option
-                      key={province.ProvinceID}
-                      value={province.ProvinceID}
-                    >
-                      {province.ProvinceName}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  placeholder="Quận/huyện"
-                  size="md"
-                  onChange={(e) => {
-                    let districtID = parseInt(e.target.value);
-                    setDistrict(
-                      districtID,
-                      e.target.options[e.target.selectedIndex].text
-                    );
-                    loadWards(districtID);
-                  }}
-                >
-                  {districts.map((district) => (
-                    <option
-                      key={district.DistrictID}
-                      value={district.DistrictID}
-                    >
-                      {district.DistrictName}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  placeholder="Phường/xã"
-                  size="md"
-                  onChange={(e) => {
-                    let wardCode = parseInt(e.target.value);
-
-                    shippingService.getPreviewOrder(
-                      setWard(
-                        wardCode,
-                        e.target.options[e.target.selectedIndex].text
-                      ),
-                      setCheckoutData
-                    );
-                  }}
-                >
-                  {wards.map((ward) => (
-                    <option key={ward.WardCode} value={ward.WardCode}>
-                      {ward.WardName}
-                    </option>
-                  ))}
-                </Select>
-              </HStack>
-
-              <Textarea
-                className="placeholeder-italic"
-                placeholder="Địa chỉ cụ thể..."
-              />
-            </VStack>
-          </Card>
-          <Card w="100%" p="4">
-            <FormLabel fontWeight="bold">Lời chúc, nhắn gửi</FormLabel>
             <Textarea
+              {...register("address")}
               className="placeholeder-italic"
-              placeholder="Gửi một lời chúc thân thương đến người thân yêu của bạn..."
+              placeholder="Địa chỉ cụ thể..."
             />
-          </Card>
-        </VStack>
-      </Card>
-    </form>
+            {errors.address && (
+              <p className="form-error-message">{errors.address?.message}</p>
+            )}
+          </VStack>
+        </Card>
+        <Card w="100%" p="4">
+          <FormLabel fontWeight="bold">Lời chúc, nhắn gửi</FormLabel>
+          <Textarea
+            {...register("message")}
+            className="placeholeder-italic"
+            placeholder="Gửi một lời chúc thân thương đến người thân yêu của bạn..."
+          />
+        </Card>
+      </VStack>
+    </Card>
   );
 };
 
