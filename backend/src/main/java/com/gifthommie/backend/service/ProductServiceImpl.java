@@ -40,8 +40,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	// searchProductsByName
 	@Override
-	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField_des, String sortField_asc) {
+		Pageable pageable = null;
+		if (sortField_asc == null) { // nếu asc = null thì sort theo des
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField_des).descending());
+		}
+		else pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField_asc));
 		Page<Product> page = productRepository.finfAllByName(true, search, pageable);		
 		return new APIPageableResponseDTO<Product>(page);
 	}
@@ -50,8 +54,12 @@ public class ProductServiceImpl implements ProductService {
 	// searchProductsByNameInCategory
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
-			String search, Integer category, String sortField) {
-		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField));
+			String search, Integer category, String sortField_des, String sortField_asc) {
+		Pageable pageable = null;
+		if (sortField_asc == null) { // nếu asc = null thì sort theo des
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField_des).descending());
+		}
+		else pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField_asc));
 		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
 		return new APIPageableResponseDTO<Product>(page);
 	}
