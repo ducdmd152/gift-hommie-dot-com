@@ -35,18 +35,18 @@ public class PublicController {
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search,
 			@RequestParam(name = "category", required = false) Integer category,
-			@RequestParam(name = "sort", defaultValue = "id") String sortField,
-			@RequestParam(name = "order", required = false) Boolean sortOrder,
-			@RequestParam(name = "related", required = false) Integer related
+			@RequestParam(name = "sort_des", defaultValue = "id") String sortField_des,
+			@RequestParam(name = "sort_asc", required = false) String sortField_asc,
+			@RequestParam(name = "order", required = false) Boolean sortOrder
 			) {
-		if (related != null && related != 0) {
-			return productService.getProductByRelated(pageNo, pageSize, related);
-		}
+		// Auto sort Des, nếu sortField_asc == null thì sort des, else thì sort asc
 
-		if(category == null || category==0) {
-			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
-		}
-		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
+			if(category == null || category==0) {
+				return productService.searchProductsByName(pageNo, pageSize, search, sortField_des, sortField_asc);
+			}
+			return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField_des, sortField_asc);
+	
+
 	}
 	
 	//View Product Detail: get product by id
