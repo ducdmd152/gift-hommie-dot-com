@@ -157,11 +157,12 @@ const CheckoutDeliveryInfo = ({
                 ))}
               </Select>
               <Select
-                {...register("ward", { valueAsNumber: true })}
+                {...register("ward")}
                 placeholder="Phường/xã"
                 size="md"
                 onChange={(e) => {
                   let wardCode = parseInt(e.target.value);
+                  // console.log(wardCode);
                   shippingService.getPreviewOrder(
                     setWard(
                       wardCode,
@@ -169,9 +170,6 @@ const CheckoutDeliveryInfo = ({
                     ),
                     setCheckoutData
                   );
-                  if (wardCode >= 0) {
-                    // setAddressError("");
-                  }
                 }}
               >
                 {wards.map((ward) => (
@@ -181,7 +179,9 @@ const CheckoutDeliveryInfo = ({
                 ))}
               </Select>
             </HStack>
-
+            {errors.ward && !checkoutData.wardCode && (
+              <p className="form-error-message">{errors.ward?.message}</p>
+            )}
             <Textarea
               {...register("address")}
               className="placeholeder-italic"
