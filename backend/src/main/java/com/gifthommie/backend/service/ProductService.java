@@ -16,7 +16,7 @@ public interface ProductService {
 
 	// cái method này nên theo camelConvention nhé, tại mình đang dùng Java (Q chơi ngay C# convention) ^^
 	// APIPageableResponseDTO<Product> SearchProductsByName(int pageNo, int pageSize, String Search);
-	APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField);
+	APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField_des, String sortField_asc);
 	
 	
 	Product save(Product product);
@@ -32,7 +32,7 @@ public interface ProductService {
 	boolean remove(int productId);
 
 	APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize, String search,
-			Integer category, String sortField);
+			Integer category, String sortField, String sortField_asc);
 
 	Product createNewProductFrom(ProductRequestDTO productRequestDTO);
 	

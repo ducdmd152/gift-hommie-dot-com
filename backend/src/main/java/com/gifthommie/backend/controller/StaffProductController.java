@@ -24,13 +24,31 @@ public class StaffProductController {
 	ProductService productService;
 	
 	
+	// Notion--- MỌI THỨ VỚI ĐIỀ KIỆN BÌNH THƯỜNG ĐỀU SẼ SORT GIẢM DẦN
+	// Notion--- SORT TĂNG DẦN SẼ LÀ MỘT OPTIONAL VỚI sort_asc
+	
+	
+	//  ----------------------   Search Product                  --------------------------
+	// Search Product                       : http://localhost:8080/staff/product?search=mô hình
+	// Search Product with Category         : http://localhost:8080/staff/product?search=b&category=1
+	
+	
+	
+	//  --------------------  Default listed by Descending    --------------------------
 	//List Product 				            : http://localhost:8080/staff/product
 	//List Product By Category              : http://localhost:8080/staff/product?category=1
-	//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name
-	//List Product Filter Sort By Price     : http://localhost:8080/staff/product?sort=price
 	
-	//List Product By Category and Filter Sort By Price  : http://localhost:8080/staff/product?category=1&sort=price
-	//List Product By Category and Filter Sort By Name   : http://localhost:8080/staff/product?category=1&sort=name
+	//List Product Filter Sort By Price des              : http://localhost:8080/staff/product?sort_des=price
+	//List Product By Category and Sort By Price des     : http://localhost:8080/staff/product?category=1&sort_des=price
+	
+	
+	
+	// --------------------  Optional listed by Ascending    --------------------------
+	//List Product Filter Sort By Price asc              : http://localhost:8080/staff/product?sort_asc=price
+	//List Product By Category and Sort By Price asc     : http://localhost:8080/staff/product?sort_asc=price&category=1&search=cốc
+	
+	
+	
 	
 	@GetMapping
 	public APIPageableResponseDTO<Product> getProductList(
@@ -38,14 +56,18 @@ public class StaffProductController {
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@RequestParam(defaultValue = "", name = "search") String search,
 			@RequestParam(name = "category", required = false) Integer category,
-			@RequestParam(name = "sort", defaultValue = "id") String sortField,
+			@RequestParam(name = "sort_des", defaultValue = "id") String sortField_des,
+			@RequestParam(name = "sort_asc", required = false) String sortField_asc,
 			@RequestParam(name = "order", required = false) Boolean sortOrder
 			) {
 		
-		if(category == null || category==0) {
-			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
-		}
-		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
+			// Auto sort Des, nếu sortField_asc == null thì sort des, else thì sort asc
+			if(category == null || category==0) {
+				return productService.searchProductsByName(pageNo, pageSize, search, sortField_des, sortField_asc);
+			}
+			return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField_des, sortField_asc);
+	
+
 	}
 	
 	@GetMapping("/{productId}")
