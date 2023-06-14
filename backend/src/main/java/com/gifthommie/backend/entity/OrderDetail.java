@@ -57,6 +57,14 @@ public class OrderDetail {
 		return orderId;
 	}
 
+	public OrderDetail( Integer orderId, Integer productId, Float price, Integer quantity) {
+		
+		this.orderId = orderId;
+		this.productId = productId;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.entity.Orders;
 
@@ -13,7 +14,7 @@ public interface OrderService {
 	
 	public List<Orders> getOrderListWithoutStatus(String[] tmp);
 	
-	public OrderResponseDTO save(CheckOutDTO checkOutDTO, String email);
+	public Orders save(CheckOutDTO checkOutDTO, String email);
 	
 	public APIPageableResponseDTO<Orders> getOrderList(Integer pageNo, Integer pageSize, String email);
 

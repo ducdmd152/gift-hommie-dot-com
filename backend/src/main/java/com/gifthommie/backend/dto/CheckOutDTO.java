@@ -8,6 +8,7 @@ public class CheckOutDTO {
 		
 	private String name;
 	private String phone;
+	
 	private String address;
 	private int wardCode;
 	private String wardName;
@@ -15,11 +16,25 @@ public class CheckOutDTO {
 	private String districtName;
 	private int provinceID;
 	private String provinceName;
+	
 	private String message;
 	private List<CartRequestDTO> carts;
-	private int paymentMethod;
-	private Float shippingFee;
 	
+	private int paymentMethod;
+	
+	private Float shippingFee;
+	private int shippingMethod;
+	
+	
+	public int getShippingMethod() {
+		return shippingMethod;
+	}
+	public void setShippingMethod(int shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+	public void setShippingFee(Float shippingFee) {
+		this.shippingFee = shippingFee;
+	}
 	public String getName() {
 		return name;
 	}
