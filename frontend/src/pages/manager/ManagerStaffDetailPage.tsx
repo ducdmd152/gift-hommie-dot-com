@@ -71,7 +71,7 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
             Xóa
           </Button>
         </HStack>
-        <UserProfileView userId={userId} />
+        <UserProfileView userDTO={staff} />
       </Card>
     </>
   );

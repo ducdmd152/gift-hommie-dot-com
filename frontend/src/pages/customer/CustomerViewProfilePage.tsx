@@ -7,6 +7,7 @@ import { Button, Card, HStack, Heading, FormControl, FormLabel, Input, VStack, W
 import UserProfileView from "../../components/user/UserProfileView";
 import CustomerProfileView from "../../components/user/CustomerProfileView";
 import customerService from "../../services/customer-service";
+import Swal from "sweetalert2";
 
 interface Props {
   userId: string
@@ -20,7 +21,12 @@ const CustomerViewProfilePage = ({ userId }: Props) => {
   useEffect(() => {
     let id = userId;
     if (id == "") {
-      navigate("/account");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
     }
     customerService
       .get(id)
