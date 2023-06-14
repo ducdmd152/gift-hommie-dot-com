@@ -36,9 +36,8 @@ const CustomerEditPage = () => {
                 <UserProfileEdit userDTO={customer} />
                 <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
                     <Button type="submit" colorScheme="blue" size="md">
-                        Save
+                        Cập nhật
                     </Button>
-                    {/* <Link to={"/staff/detail"}> */}
                     <Button colorScheme="red" size="md"
                         onClick={() => {
                             if (
@@ -50,9 +49,8 @@ const CustomerEditPage = () => {
                             }
                         }}
                     >
-                        Cancel
+                        Hủy
                     </Button>
-                    {/* </Link> */}
                 </HStack>
             </Card>
         </>
