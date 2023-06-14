@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import userService, { HttpUser } from "../services/user-service";
 import { Button, Card, HStack, Heading, FormControl, FormLabel, Input, VStack, Wrap, WrapItem, Avatar } from "@chakra-ui/react";
 import UserProfileView from "../components/user/UserProfileView";
-import CustomerProfileView from "../components/user/CustomerProfileView";
 import customerService from "../services/customer-service";
 import Swal from "sweetalert2";
 
@@ -44,12 +43,6 @@ const AccountViewProfilePage = ({ userId }: Props) => {
                             Chỉnh sửa
                         </Button>
                     </Link>
-
-                    {/* <Button colorScheme="red" size="md"
-            onClick={() => onDeleteStaff(staff.id)}
-          >
-            Xóa
-          </Button> */}
                 </HStack>
                 {/* <CustomerProfileView userId={userId} /> */}
                 <UserProfileView userDTO={customer} />

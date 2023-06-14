@@ -18,23 +18,6 @@ interface Props {
 }
 const UserProfileView = ({ userDTO }: Props) => {
 
-  const navigate = useNavigate();
-
-
-  // useEffect(() => {
-  //   let id = userId;
-  //   if (id == "") {
-  //     navigate("/account");
-  //   }
-  //   userService
-  //     .get(id)
-  //     .then((res) => {
-  //       setStaff(res.data);
-  //     })
-  //     .catch((err) => {
-  //       navigate("/account");
-  //     });
-  // }, []);
   return (
     <>
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
