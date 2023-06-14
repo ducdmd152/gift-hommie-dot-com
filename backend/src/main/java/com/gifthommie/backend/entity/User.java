@@ -55,12 +55,12 @@ public class User {
 	@JsonIgnore
 	private boolean enabled;
 
-	@Column(name = "gender")
-	private String gender;
+//	@Column(name = "gender")
+//	private String gender;
 	
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+//	public void setGender(String gender) {
+//		this.gender = gender;
+//	}
 
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
@@ -78,10 +78,10 @@ public class User {
 		return true;
 	}
 
-	public String getGender() {
-		return gender;
-		
-	}
+//	public String getGender() {
+//		return gender;
+//		
+//	}
 	
 	
 	
