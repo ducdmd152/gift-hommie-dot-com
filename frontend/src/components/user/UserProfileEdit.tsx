@@ -7,33 +7,19 @@ import {
 import managerStaffService, { ManagerStaffDTO } from '../../services/manager-staff-service';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
+import UserDTO from '../../type/UserDTO';
 
 interface Props {
-  userId: string
+  userDTO: UserDTO;
 }
-interface FormData extends ManagerStaffDTO { }
+interface FormData extends UserDTO { }
 
-const UserProfileEdit = ({ userId }: Props) => {
-  const [staff, setStaff] = useState<ManagerStaffDTO>(
-    {} as ManagerStaffDTO
+const UserProfileEdit = ({ userDTO }: Props) => {
+  const [staff, setStaff] = useState<UserDTO>(
+    {} as UserDTO
   );
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    let id = userId;
-    if (id == "") {
-      navigate("/staff");
-    }
-    managerStaffService
-      .get(id)
-      .then((res) => {
-        setStaff(res.data);
-      })
-      .catch((err) => {
-        navigate("/staff");
-      });
-  }, []);
 
   const {
     register,
@@ -42,7 +28,7 @@ const UserProfileEdit = ({ userId }: Props) => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FieldValues) => {
-    const updateStaff = data as ManagerStaffDTO;
+    const updateStaff = data as UserDTO;
     updateStaff.id = staff.id;
 
     managerStaffService
@@ -66,7 +52,7 @@ const UserProfileEdit = ({ userId }: Props) => {
             </WrapItem>
           </Wrap>
           <Heading size="sm" textAlign="center" marginBottom="4" marginTop='30'>
-            {staff.firstName + " " + staff.lastName}
+            {userDTO.firstName + " " + userDTO.lastName}
           </Heading>
         </VStack>
         <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='30px'>
@@ -82,7 +68,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("username", { required: true })}
-                defaultValue={staff.username}
+                defaultValue={userDTO.username}
                 fontWeight="bold"
               />
             </HStack>
@@ -97,7 +83,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("firstName", { required: true })}
-                defaultValue={staff.firstName}
+                defaultValue={userDTO.firstName}
                 fontWeight="bold"
               />
             </HStack>
@@ -112,7 +98,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("lastName", { required: true })}
-                defaultValue={staff.lastName}
+                defaultValue={userDTO.lastName}
                 fontWeight="bold"
               />
             </HStack>
@@ -127,7 +113,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("email", { required: true })}
-                defaultValue={staff.email}
+                defaultValue={userDTO.email}
                 fontWeight="bold"
               />
             </HStack>
@@ -141,7 +127,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("phone", { required: true })}
-                defaultValue={staff.phone}
+                defaultValue={userDTO.phone}
                 fontWeight="bold"
               />
             </HStack>
@@ -156,7 +142,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='450px'
                 color="gray"
                 {...register("address", { required: true })}
-                defaultValue={staff.address}
+                defaultValue={userDTO.address}
                 fontWeight="bold"
               />
             </HStack>
@@ -187,7 +173,7 @@ const UserProfileEdit = ({ userId }: Props) => {
                 maxW='100px'
                 color="gray"
                 {...register("yob", { required: true })}
-                defaultValue={staff.yob}
+                defaultValue={userDTO.yob}
                 fontWeight="bold"
               />
             </HStack>

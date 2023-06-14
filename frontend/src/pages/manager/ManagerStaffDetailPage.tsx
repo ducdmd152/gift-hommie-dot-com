@@ -6,6 +6,7 @@ import managerStaffService, { ManagerStaffDTO } from "../../services/manager-sta
 import { ManagerStaffQuery } from "../../hooks/useFetchManagerStaff";
 import useFetchManagerStaff from "../../hooks/useFetchManagerStaff";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 interface Props {
   userId: string
@@ -34,18 +35,32 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
     if (
       confirm(
         `Bạn có muốn xóa "${staff.username}" khỏi danh sách nhân viên không?`
+
       )
     ) {
       managerStaffService
         .delete(staff.id)
         .then(() => {
-          alert(`Đã xóa "${staff.username}" khỏi danh sách nhân viên.`);
-          navigate("/staff");
+          // alert(`Đã xóa "${staff.username}" khỏi danh sách nhân viên.`);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `Đã xóa "${staff.username}" khỏi danh sách nhân viên.`,
+            showConfirmButton: true,
+            timer: 1500,
+          })
+          navigate("/staff")
         })
         .catch(() => {
-          alert(
-            `Không thể xóa "${staff.username}" khỏi danh sách nhân viên. \n Vui lòng thử lại.`
-          );
+          // alert(
+          //   `Không thể xóa "${staff.username}" khỏi danh sách nhân viên. \n Vui lòng thử lại.`
+          // );
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `Không thể xóa "${staff.username}" khỏi danh sách nhân viên`,
+            footer: `Vui lòng thử lại`
+          })
         });
     }
   };
@@ -71,6 +86,7 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
             Xóa
           </Button>
         </HStack>
+
         <UserProfileView userDTO={staff} />
       </Card>
     </>

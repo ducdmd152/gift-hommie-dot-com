@@ -12,6 +12,7 @@ import { useState } from "react";
 import CustomerOrderPage from "./CustomerOrderPage";
 import CustomerOrderDetailPage from "./CustomerOrderDetailPage";
 import AccountViewProfilePage from "../AccountProfileView";
+import CustomerEditPage from "./CustomerEditPage";
 
 const CustomerPage = () => {
   const [customerId, seCustomerId] = useState<string>("");
@@ -47,7 +48,11 @@ const CustomerPage = () => {
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
           <Route
             path="/account"
-            element={<AccountViewProfilePage userId={customerId} />}
+            element={<AccountViewProfilePage />}
+          />
+          <Route
+            path="/edit"
+            element={<CustomerEditPage />}
           />
         </Routes>
       </GridItem>

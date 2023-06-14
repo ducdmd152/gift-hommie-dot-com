@@ -5,14 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import userService, { HttpUser } from "../services/user-service";
 import { Button, Card, HStack, Heading, FormControl, FormLabel, Input, VStack, Wrap, WrapItem, Avatar } from "@chakra-ui/react";
 import UserProfileView from "../components/user/UserProfileView";
-import CustomerProfileView from "../components/user/CustomerProfileView";
 import customerService from "../services/customer-service";
 import Swal from "sweetalert2";
 
-interface Props {
-    userId: string
-}
-const AccountViewProfilePage = ({ userId }: Props) => {
+
+const AccountViewProfilePage = () => {
     const [customer, setCustomer] = useState<UserDTO>(
         {} as UserDTO
     )
@@ -39,17 +36,12 @@ const AccountViewProfilePage = ({ userId }: Props) => {
         <>
             <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
                 <HStack justifyContent='flex-end' marginTop='10px'>
-                    <Link to={""}>
+                    <Link to={"/edit"}>
                         <Button colorScheme="blue" size="md">
                             Chỉnh sửa
                         </Button>
                     </Link>
 
-                    {/* <Button colorScheme="red" size="md"
-            onClick={() => onDeleteStaff(staff.id)}
-          >
-            Xóa
-          </Button> */}
                 </HStack>
                 {/* <CustomerProfileView userId={userId} /> */}
                 <UserProfileView userDTO={customer} />
