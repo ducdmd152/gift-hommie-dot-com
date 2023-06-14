@@ -3,7 +3,7 @@ USE `hommiestore`;
 
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hommiestore
+-- Host: localhost    Database: hommiestore
 -- ------------------------------------------------------
 -- Server version	8.0.30
 
@@ -115,8 +115,8 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(320) NOT NULL,
-  `payment_id` int DEFAULT NULL,
-  `order_time` datetime DEFAULT NULL,
+  `shipping_order_code` varchar(45) DEFAULT NULL,
+  `shipping_method` int DEFAULT NULL,
   `shipping_fee` float DEFAULT NULL,
   `name` varchar(64) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -124,7 +124,9 @@ CREATE TABLE `orders` (
   `ward_code` int DEFAULT NULL,
   `district_id` int DEFAULT NULL,
   `province_id` int DEFAULT NULL,
+  `order_time` datetime DEFAULT NULL,
   `message` varchar(400) DEFAULT NULL,
+  `payment_id` int DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
   `comment` varchar(200) DEFAULT NULL,
   `last_updated_time` datetime DEFAULT NULL,
@@ -156,7 +158,7 @@ CREATE TABLE `payment_method` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(120) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +167,7 @@ CREATE TABLE `payment_method` (
 
 LOCK TABLES `payment_method` WRITE;
 /*!40000 ALTER TABLE `payment_method` DISABLE KEYS */;
+INSERT INTO `payment_method` VALUES (1,'COD'),(2,'PAYPAL');
 /*!40000 ALTER TABLE `payment_method` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,6 +303,7 @@ CREATE TABLE `user` (
   `password` varchar(80) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) DEFAULT NULL,
+  `gender` tinyint DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `yob` int DEFAULT NULL,
   `avatar` varchar(5000) DEFAULT NULL,
@@ -320,7 +324,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('adamgoodwin@example.org',2,'WalterEspinoza','WalterEspinoza','Jasmine','Scott',NULL,NULL,NULL,NULL,NULL,1),('ambermassey@example.org',2,'AaronLucas','AaronLucas','Carolyn','Marshall',NULL,NULL,NULL,NULL,NULL,1),('andrea38@example.com',2,'ElizabethSmith','ElizabethSmith','David','Wilson',NULL,NULL,NULL,NULL,NULL,1),('ashleypowell@example.net',2,'RebeccaWilson','RebeccaWilson','Kristen','Phillips',NULL,NULL,NULL,NULL,NULL,1),('carolthompson@example.com',2,'MatthewLe','MatthewLe','Nathan','Miller',NULL,NULL,NULL,NULL,NULL,1),('ccarney@example.com',2,'ChasePhillips','ChasePhillips','Richard','Gonzales',NULL,NULL,NULL,NULL,NULL,1),('csanchez@example.com',2,'JamesNguyen','JamesNguyen','Dennis','Wolf',NULL,NULL,NULL,NULL,NULL,1),('customer@gmail.com',1,'customer','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Customer',NULL,NULL,NULL,NULL,NULL,NULL,1),('djohnson@example.net',2,'TylerSantiago','TylerSantiago','Joshua','Lowery',NULL,NULL,NULL,NULL,NULL,1),('duyduc@gmail.com',1,'duyduc','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Duy','Đức','0934968393',2002,NULL,NULL,NULL,1),('eatonamanda@example.com',2,'TimothyHernandez','TimothyHernandez','Sandra','Spears',NULL,NULL,NULL,NULL,NULL,1),('fweiss@example.net',2,'CassidyJohnson','CassidyJohnson','Jennifer','Ruiz',NULL,NULL,NULL,NULL,NULL,1),('goldenantonio@example.org',2,'MichaelTodd','MichaelTodd','Shawn','Ware',NULL,NULL,NULL,NULL,NULL,1),('grantmichael@example.net',2,'TaylorColon','TaylorColon','Joseph','Carlson',NULL,NULL,NULL,NULL,NULL,1),('jameswilliams@example.com',2,'JosephHicks','JosephHicks','Duane','Ferrell',NULL,NULL,NULL,NULL,NULL,1),('jasmineking@example.org',2,'MitchellFields','MitchellFields','Pamela','Bell',NULL,NULL,NULL,NULL,NULL,1),('jason16@example.org',2,'MelissaJones','MelissaJones','Miguel','Phillips',NULL,NULL,NULL,NULL,NULL,1),('john17@example.org',2,'AnthonyBoyd','AnthonyBoyd','Victor','Santiago',NULL,NULL,NULL,NULL,NULL,1),('karengutierrez@example.com',2,'EileenMelendez','EileenMelendez','Zoe','Day',NULL,NULL,NULL,NULL,NULL,1),('lindsay30@example.com',2,'NatashaWheeler','NatashaWheeler','Dean','Cooper',NULL,NULL,NULL,NULL,NULL,1),('manager@gmail.com',3,'manager','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Manager',NULL,NULL,NULL,NULL,NULL,NULL,1),('marquezelizabeth@example.com',2,'LisaBell','LisaBell','Valerie','Jones',NULL,NULL,NULL,NULL,NULL,1),('matthew92@example.org',2,'JustinNewton','JustinNewton','Ashley','Valencia',NULL,NULL,NULL,NULL,NULL,1),('michael40@example.org',2,'RichardSullivan','RichardSullivan','Barbara','Griffith',NULL,NULL,NULL,NULL,NULL,1),('mtorres@example.org',2,'ManuelCox','ManuelCox','Robert','Howard',NULL,NULL,NULL,NULL,NULL,1),('navarroronald@example.net',2,'KimberlyStanley','KimberlyStanley','Scott','Rogers',NULL,NULL,NULL,NULL,NULL,1),('ochandler@example.net',2,'NicholasFischer','NicholasFischer','Emily','Alvarado',NULL,NULL,NULL,NULL,NULL,1),('oritter@example.com',2,'StephanieJones','StephanieJones','Donald','Stone',NULL,NULL,NULL,NULL,NULL,1),('oscott@example.net',2,'KevinLamb','KevinLamb','Adam','Hughes',NULL,NULL,NULL,NULL,NULL,1),('payala@example.net',2,'AnthonyLopez','AnthonyLopez','Luke','Daniel',NULL,NULL,NULL,NULL,NULL,1),('petersonjames@example.net',2,'PaulLivingston','PaulLivingston','Kelsey','Spencer',NULL,NULL,NULL,NULL,NULL,1),('ryan32@example.org',2,'RitaLynch','RitaLynch','Robin','Williams',NULL,NULL,NULL,NULL,NULL,1),('shepardaaron@example.org',2,'AmberBrock','AmberBrock','Karen','Lawrence',NULL,NULL,NULL,NULL,NULL,1),('staff@gmail.com',2,'staff','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Staff',NULL,NULL,NULL,NULL,NULL,NULL,1),('torresaaron@example.net',2,'BrittanyObrien','BrittanyObrien','Timothy','Rogers',NULL,NULL,NULL,NULL,NULL,1),('wgonzalez@example.com',2,'VanessaEstrada','VanessaEstrada','Ryan','Martin',NULL,NULL,NULL,NULL,NULL,1),('wonglynn@example.com',2,'MeganWolfe','MeganWolfe','Jason','Parsons',NULL,NULL,NULL,NULL,NULL,1),('woodsamy@example.net',2,'LawrenceCummings','LawrenceCummings','Cheryl','Smith',NULL,NULL,NULL,NULL,NULL,1),('wswanson@example.com',2,'JacquelineWilson','JacquelineWilson','Carrie','Goodman',NULL,NULL,NULL,NULL,NULL,1),('xle@example.com',2,'KimberlyObrien','KimberlyObrien','Kathleen','Ford',NULL,NULL,NULL,NULL,NULL,1),('yhansen@example.net',2,'KennethJohnson','KennethJohnson','Leonard','Alexander',NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `user` VALUES ('adamgoodwin@example.org',2,'WalterEspinoza','WalterEspinoza','Jasmine','Scott',NULL,NULL,NULL,NULL,NULL,NULL,1),('ambermassey@example.org',2,'AaronLucas','AaronLucas','Carolyn','Marshall',NULL,NULL,NULL,NULL,NULL,NULL,1),('andrea38@example.com',2,'ElizabethSmith','ElizabethSmith','David','Wilson',NULL,NULL,NULL,NULL,NULL,NULL,1),('ashleypowell@example.net',2,'RebeccaWilson','RebeccaWilson','Kristen','Phillips',NULL,NULL,NULL,NULL,NULL,NULL,1),('carolthompson@example.com',2,'MatthewLe','MatthewLe','Nathan','Miller',NULL,NULL,NULL,NULL,NULL,NULL,1),('ccarney@example.com',2,'ChasePhillips','ChasePhillips','Richard','Gonzales',NULL,NULL,NULL,NULL,NULL,NULL,1),('csanchez@example.com',2,'JamesNguyen','JamesNguyen','Dennis','Wolf',NULL,NULL,NULL,NULL,NULL,NULL,1),('customer@gmail.com',1,'customer','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Customer',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1),('djohnson@example.net',2,'TylerSantiago','TylerSantiago','Joshua','Lowery',NULL,NULL,NULL,NULL,NULL,NULL,1),('duyduc@gmail.com',1,'duyduc','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Duy','Đức',NULL,'0934968393',2002,NULL,NULL,NULL,1),('eatonamanda@example.com',2,'TimothyHernandez','TimothyHernandez','Sandra','Spears',NULL,NULL,NULL,NULL,NULL,NULL,1),('fweiss@example.net',2,'CassidyJohnson','CassidyJohnson','Jennifer','Ruiz',NULL,NULL,NULL,NULL,NULL,NULL,1),('goldenantonio@example.org',2,'MichaelTodd','MichaelTodd','Shawn','Ware',NULL,NULL,NULL,NULL,NULL,NULL,1),('grantmichael@example.net',2,'TaylorColon','TaylorColon','Joseph','Carlson',NULL,NULL,NULL,NULL,NULL,NULL,1),('jameswilliams@example.com',2,'JosephHicks','JosephHicks','Duane','Ferrell',NULL,NULL,NULL,NULL,NULL,NULL,1),('jasmineking@example.org',2,'MitchellFields','MitchellFields','Pamela','Bell',NULL,NULL,NULL,NULL,NULL,NULL,1),('jason16@example.org',2,'MelissaJones','MelissaJones','Miguel','Phillips',NULL,NULL,NULL,NULL,NULL,NULL,1),('john17@example.org',2,'AnthonyBoyd','AnthonyBoyd','Victor','Santiago',NULL,NULL,NULL,NULL,NULL,NULL,1),('karengutierrez@example.com',2,'EileenMelendez','EileenMelendez','Zoe','Day',NULL,NULL,NULL,NULL,NULL,NULL,1),('lindsay30@example.com',2,'NatashaWheeler','NatashaWheeler','Dean','Cooper',NULL,NULL,NULL,NULL,NULL,NULL,1),('manager@gmail.com',3,'manager','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Manager',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1),('marquezelizabeth@example.com',2,'LisaBell','LisaBell','Valerie','Jones',NULL,NULL,NULL,NULL,NULL,NULL,1),('matthew92@example.org',2,'JustinNewton','JustinNewton','Ashley','Valencia',NULL,NULL,NULL,NULL,NULL,NULL,1),('michael40@example.org',2,'RichardSullivan','RichardSullivan','Barbara','Griffith',NULL,NULL,NULL,NULL,NULL,NULL,1),('mtorres@example.org',2,'ManuelCox','ManuelCox','Robert','Howard',NULL,NULL,NULL,NULL,NULL,NULL,1),('navarroronald@example.net',2,'KimberlyStanley','KimberlyStanley','Scott','Rogers',NULL,NULL,NULL,NULL,NULL,NULL,1),('ochandler@example.net',2,'NicholasFischer','NicholasFischer','Emily','Alvarado',NULL,NULL,NULL,NULL,NULL,NULL,1),('oritter@example.com',2,'StephanieJones','StephanieJones','Donald','Stone',NULL,NULL,NULL,NULL,NULL,NULL,1),('oscott@example.net',2,'KevinLamb','KevinLamb','Adam','Hughes',NULL,NULL,NULL,NULL,NULL,NULL,1),('payala@example.net',2,'AnthonyLopez','AnthonyLopez','Luke','Daniel',NULL,NULL,NULL,NULL,NULL,NULL,1),('petersonjames@example.net',2,'PaulLivingston','PaulLivingston','Kelsey','Spencer',NULL,NULL,NULL,NULL,NULL,NULL,1),('ryan32@example.org',2,'RitaLynch','RitaLynch','Robin','Williams',NULL,NULL,NULL,NULL,NULL,NULL,1),('shepardaaron@example.org',2,'AmberBrock','AmberBrock','Karen','Lawrence',NULL,NULL,NULL,NULL,NULL,NULL,1),('staff@gmail.com',2,'staff','$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG','Staff',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1),('torresaaron@example.net',2,'BrittanyObrien','BrittanyObrien','Timothy','Rogers',NULL,NULL,NULL,NULL,NULL,NULL,1),('wgonzalez@example.com',2,'VanessaEstrada','VanessaEstrada','Ryan','Martin',NULL,NULL,NULL,NULL,NULL,NULL,1),('wonglynn@example.com',2,'MeganWolfe','MeganWolfe','Jason','Parsons',NULL,NULL,NULL,NULL,NULL,NULL,1),('woodsamy@example.net',2,'LawrenceCummings','LawrenceCummings','Cheryl','Smith',NULL,NULL,NULL,NULL,NULL,NULL,1),('wswanson@example.com',2,'JacquelineWilson','JacquelineWilson','Carrie','Goodman',NULL,NULL,NULL,NULL,NULL,NULL,1),('xle@example.com',2,'KimberlyObrien','KimberlyObrien','Kathleen','Ford',NULL,NULL,NULL,NULL,NULL,NULL,1),('yhansen@example.net',2,'KennethJohnson','KennethJohnson','Leonard','Alexander',NULL,NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -333,5 +337,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-14 14:57:25
+-- Dump completed on 2023-06-14 19:56:19
 

@@ -2,17 +2,22 @@ import CartDTO from "./CartDTO";
 export default interface CheckoutDTO {
   name: string;
   phone: string;
+
   address: string;
-  wardCode: number;
   wardName: string;
-  districtID: number;
   districtName: string;
-  provinceID: number;
   provinceName: string;
+
+  wardCode: number;
+  districtID: number;
+  provinceID: number;
+
   message: string;
+
   carts: CartDTO[];
+
   paymentMethod: number;
+
   shippingFee: number;
   shippingMethod: number;
-  expectedDeliveryTime: string;
 }
