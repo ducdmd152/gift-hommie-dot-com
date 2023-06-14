@@ -19,22 +19,19 @@ const CustomerViewProfilePage = ({ userId }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let id = userId;
-    if (id == "") {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
-    }
     customerService
-      .get(id)
+      .get("")
       .then((res) => {
         setCustomer(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
-        navigate("/account");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Vui lòng thử lại sau</a>'
+        });
       });
   }, []);
 
@@ -54,7 +51,8 @@ const CustomerViewProfilePage = ({ userId }: Props) => {
             Xóa
           </Button> */}
         </HStack>
-        <CustomerProfileView userId={userId} />
+        {/* <CustomerProfileView userId={userId} /> */}
+        <UserProfileView userDTO={customer} />
       </Card>
     </>
   )
