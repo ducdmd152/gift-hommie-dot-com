@@ -1,5 +1,5 @@
 import { Box, HStack, VStack } from "@chakra-ui/layout";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CheckoutDeliveryInfo from "../../components/checkout/CheckoutDeliveryInfo";
 import CheckoutBillList from "../../components/checkout/CheckoutBillList";
 import CheckoutPaymentSelector from "../../components/checkout/CheckoutPaymentSelector";
@@ -59,7 +59,17 @@ export type DeliveryFormData = z.infer<typeof schema>;
 const CustomerCheckoutPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
+  const navigate = useNavigate();
   let carts = selectedCartContext.getItems();
+  console.log(carts);
+  useEffect(() => {
+    if (carts == null || carts.length == 0) {
+      navigate("/cart");
+    } else {
+      console.log(carts.length);
+    }
+  }, []);
+
   const [checkoutData, setCheckoutData] = useState({
     name: "",
     phone: "",
@@ -80,7 +90,7 @@ const CustomerCheckoutPage = () => {
   // FORM HANDLING
   const useDisclosureReturn = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosureReturn;
-  const navigate = useNavigate();
+
   const useFormReturn = useForm<DeliveryFormData>({
     resolver: zodResolver(schema),
   });
@@ -103,7 +113,7 @@ const CustomerCheckoutPage = () => {
     if (submitData.paymentMethod == 1) {
       // COD
       // Call checkoutService
-      console.log(" Call checkoutService : ", submitData);
+      // console.log(" Call checkoutService : ", submitData);
       checkoutService
         .create(submitData)
         .then((response) => {

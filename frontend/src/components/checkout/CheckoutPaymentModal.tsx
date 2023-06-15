@@ -49,7 +49,7 @@ const CheckoutPaymentModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} preserveScrollBarGap={false}>
       <ModalOverlay />
-      <ModalContent style={{ overflowY: "scroll", height: "90vh" }}>
+      <ModalContent maxW="80vw" maxH="80vh">
         <ModalHeader>Thanh toán qua Paypal</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

@@ -77,20 +77,29 @@ export const CheckoutBillItem = ({
 }: {
   selectedItem: CartDTO;
 }) => {
+  const productContext = useContext(GLOBAL_CONTEXT).productContext;
   return (
-    <HStack>
-      <HStack spacing="2">
-        <Image
-          borderRadius={"8px"}
-          boxSize="100px"
-          objectFit="cover"
-          src={selectedItem.product.avatar}
-        />
-        <Text fontSize="lg" fontWeight="medium">
-          {selectedItem.product.name}
-        </Text>
+    <Link
+      to="/shop/detail"
+      onClick={() => {
+        productContext.setProductId(selectedItem.product.id);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+    >
+      <HStack>
+        <HStack spacing="2" className="product-card">
+          <Image
+            borderRadius={"8px"}
+            boxSize="100px"
+            objectFit="cover"
+            src={selectedItem.product.avatar}
+          />
+          <Text fontSize="lg" fontWeight="bold">
+            {selectedItem.product.name}
+          </Text>
+        </HStack>
       </HStack>
-    </HStack>
+    </Link>
   );
 };
 
