@@ -53,6 +53,7 @@ public class CustomerOrderController {
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize){
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
+		
 		return orderService.getOrderList(pageNo, pageSize, email);
 	}
 	
