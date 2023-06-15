@@ -16,6 +16,13 @@ public class OrderDetailDTO {
 		
 	}
 	
+	public OrderDetailDTO(OrderDetail orderDetail) {
+		this.id=orderDetail.getId();
+		this.orderID=orderDetail.getOrderId();
+		this.price=orderDetail.getPrice();
+		this.quantity=orderDetail.getQuantity();
+	}
+	
 	public OrderDetailDTO(OrderDetail orderDetail,Product tmpProduct) {
 		this.id=orderDetail.getId();
 		this.orderID=orderDetail.getOrderId();
