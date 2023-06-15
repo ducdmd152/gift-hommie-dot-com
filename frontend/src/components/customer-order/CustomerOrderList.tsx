@@ -8,9 +8,8 @@ import useFetchCustomerOrder, {
 } from "../../hooks/useFetchCustomerOrder";
 
 const CustomerOrderList = () => {
-  const { orders, pageable, error } = useFetchCustomerOrder(
-    {} as CustomerOrderQuery
-  );
+  const customerOrderQuery = {} as CustomerOrderQuery;
+  const { orders, pageable, error } = useFetchCustomerOrder(customerOrderQuery);
   return (
     <VStack w="100%" spacing="4" paddingX="4">
       <CustomerOrderTabs />
