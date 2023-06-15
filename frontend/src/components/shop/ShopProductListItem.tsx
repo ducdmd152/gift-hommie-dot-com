@@ -28,9 +28,9 @@ const ShopProductListItem = ({ product }: Props) => {
   return (
     <Link
       to="/shop/detail"
-      onClick={() => {
+      onClick={(e) => {
         productContext.setProductId(product.id);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
       <Card className="cursor-pointer product-card">
@@ -41,12 +41,14 @@ const ShopProductListItem = ({ product }: Props) => {
               {product.name}
             </Heading>
             <Box
+              id={"cart-" + product.id}
               width="22px"
               className="product-cart-icon"
               onClick={(e) => {
+                e.preventDefault();
                 let x = window.screenX;
                 let y = window.screenY;
-                e.preventDefault();
+
                 if (!utilService.getCurrentUser()) navigate("/login");
                 else {
                   cartActionSerivce.addToCart(product.id);
