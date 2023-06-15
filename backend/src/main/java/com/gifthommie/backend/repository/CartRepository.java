@@ -27,7 +27,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer>{
 								@Param("cartId") int cartId);
 
 	@Query("SELECT c FROM Cart c WHERE "
-			+ "c.email = :email ")
+			+ "c.email = :email ORDER BY c.lastTimeUpdate DESC") // ADD ORDER BY DUY DUC
 	public Page<Cart> findAllByEmail(@Param("email") String email,PageRequest pageRequest);
 	
 	@Query("SELECT c FROM Cart c WHERE "
