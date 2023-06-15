@@ -88,6 +88,25 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public OrderDTO getOrderDTOByOrderId(int orderId) {
+		Orders order = getOrderByOrderId(orderId);
+		OrderDTO orderDTO = new OrderDTO(order);
+		User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
+		
+		List<OrderDetailDTO> orderDetailDTOs = new ArrayList(); // CONVERT DETAILS TO DETAIL-DTOs
+		for(OrderDetail orderDetail : order.getOrderDetails()) {				
+			Product product = productService.getProductById(orderDetail.getProductId());
+			orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
+		}
+			
+		
+		// SET
+		orderDTO.setUser(tmpUser);
+		orderDTO.setOrderDetails(orderDetailDTOs);
+		return orderDTO;
+	}
+	
+	@Override
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email) {
 		Page<Orders> page = orderRepository.findAllByEmail(email, PageRequest.of(pageNo, pageSize));
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
