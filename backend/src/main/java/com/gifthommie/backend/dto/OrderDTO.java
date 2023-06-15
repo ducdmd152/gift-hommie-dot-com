@@ -1,6 +1,7 @@
 package com.gifthommie.backend.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.gifthommie.backend.entity.OrderDetail;
@@ -52,8 +53,8 @@ public class OrderDTO {
 		this.shippingFee=order.getShippedFee();
 		this.shippingMethod=order.getShippingMethod();
 		this.status=order.getStatus();
-		this.orderTime=LocalDateTime.now();
-		this.lastUpdatedTime=LocalDateTime.now();
+		this.orderTime=order.getOrderTime();
+		this.lastUpdatedTime=order.getLastUpdatedTime();
 	}
 	
 	public OrderDTO(Orders order,User userDTO,List<OrderDetailDTO> orderDetailDTOs) {
@@ -170,18 +171,33 @@ public class OrderDTO {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public LocalDateTime getOrderTime() {
-		return orderTime;
-	}
+	
 	public void setOrderTime(LocalDateTime orderTime) {
 		this.orderTime = orderTime;
 	}
-	public LocalDateTime getLastUpdatedTime() {
-		return lastUpdatedTime;
+	// MODIFIED BY DUY DUC
+//	public LocalDateTime getOrderTime() {
+//		return orderTime;
+//	}
+//	public LocalDateTime getLastUpdatedTime() {
+//		return lastUpdatedTime;
+//	}
+	
+	public String getLastUpdatedTime() {
+		return formatLocalDatime(lastUpdatedTime);
 	}
+	
+	public String getOrderTime() {
+		return formatLocalDatime(orderTime);
+	}
+	
+	
 	public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
 	}
 	
-	
+	private String formatLocalDatime(LocalDateTime time) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+		return time.format(formatter);
+	}
 }
