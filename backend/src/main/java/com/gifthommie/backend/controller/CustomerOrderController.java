@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.dto.RatingRequestDTO;
 import com.gifthommie.backend.entity.OrderDetail;
@@ -48,15 +49,23 @@ public class CustomerOrderController {
 	
 	private final String CANCEL_ORDER_STATUS = "CANCEL";
 	
+//	@GetMapping
+//	public APIPageableResponseDTO<Orders> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+//			@RequestParam(defaultValue = "12", name = "size") Integer pageSize){
+//		User user = SecurityUtils.getPrincipal().getUser();
+//		String email = user.getEmail();
+//		
+//		return orderService.getOrderList(pageNo, pageSize, email);
+//	}
+	
 	@GetMapping
-	public APIPageableResponseDTO<Orders> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+	public APIPageableResponseDTO<OrderDTO> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize){
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
 		
-		return orderService.getOrderList(pageNo, pageSize, email);
+		return orderService.getOrderDTOList(pageNo, pageSize, email);
 	}
-	
 	
 	
 	@GetMapping("/{orderId}")

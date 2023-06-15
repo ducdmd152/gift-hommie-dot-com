@@ -17,6 +17,7 @@ public class OrderDetail {
 	public OrderDetail() {
 		
 	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

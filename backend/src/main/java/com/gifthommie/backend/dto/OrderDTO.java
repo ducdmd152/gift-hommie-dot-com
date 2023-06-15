@@ -3,6 +3,7 @@ package com.gifthommie.backend.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.User;
 
@@ -36,6 +37,23 @@ public class OrderDTO {
 	
 	public OrderDTO() {
 		super();
+	}
+	
+	public OrderDTO(Orders order) {
+		this.id = order.getId();
+		this.name=order.getName();
+		this.phone=order.getPhone();
+		this.address=order.getAddress();
+		this.wardCode=order.getWardCode();
+		this.districtID=order.getDistrictId();
+		this.provinceID=order.getProviceId();
+		this.message=order.getMessage();
+		this.paymentMethod=order.getPaymentId();
+		this.shippingFee=order.getShippedFee();
+		this.shippingMethod=order.getShippingMethod();
+		this.status=order.getStatus();
+		this.orderTime=LocalDateTime.now();
+		this.lastUpdatedTime=LocalDateTime.now();
 	}
 	
 	public OrderDTO(Orders order,User userDTO,List<OrderDetailDTO> orderDetailDTOs) {
