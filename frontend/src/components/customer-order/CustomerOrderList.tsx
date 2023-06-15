@@ -6,14 +6,15 @@ import CustomerOrderOrder from "./CustomerOrderOrder";
 import useFetchCustomerOrder, {
   CustomerOrderQuery,
 } from "../../hooks/useFetchCustomerOrder";
+import Pagination from "../Pagination";
 
 const CustomerOrderList = () => {
-  const [customerOrderQuery, setCustomerOrderQuery] = useState(
-    {} as CustomerOrderQuery
-  );
+  const [customerOrderQuery, setCustomerOrderQuery] = useState({
+    size: 4,
+  } as CustomerOrderQuery);
   const { orders, pageable, error } = useFetchCustomerOrder(customerOrderQuery);
   return (
-    <VStack w="100%" spacing="4" paddingX="4">
+    <VStack w="100%" spacing="4" paddingX="4" mb="12">
       <CustomerOrderTabs
         onStatus={(status) =>
           setCustomerOrderQuery({ ...customerOrderQuery, status })
@@ -24,6 +25,13 @@ const CustomerOrderList = () => {
           <CustomerOrderOrder key={order.id} order={order} />
         ))}
       </VStack>
+
+      <Pagination
+        pageable={pageable}
+        onSelectPageIndex={(index: number) =>
+          setCustomerOrderQuery({ ...customerOrderQuery, page: index })
+        }
+      />
     </VStack>
   );
 };

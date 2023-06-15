@@ -3,6 +3,7 @@ import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import { Badge, Card, HStack, Heading, VStack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import OrderDTO from "../../type/OrderDTO";
+import ORDER_STATUS_MAP, { OrderStatusItem } from "../../data/OrderStatusData";
 
 const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
@@ -10,11 +11,16 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
 
   // GET DATA
+  console.log(order);
+
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
   const total =
     (items.reduce((acc, item) => acc + item.total, 0) + order.shippingFee) /
     1000;
+  const status = order?.status
+    ? ORDER_STATUS_MAP[order.status]
+    : ({} as OrderStatusItem);
   return (
     <Card>
       <VStack w="100%" alignItems={"flex-start"}>
@@ -60,12 +66,13 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               <HStack w="100%" justifyContent="flex-end">
                 <Text>Trạng thái đơn hàng: </Text>
                 <Badge
-                  colorScheme="yellow"
-                  fontSize={"lg"}
+                  colorScheme={status.colorScheme}
+                  color="white"
+                  bg={status.backgroundColor}
+                  fontSize={"md"}
                   className="none-text-transform"
                 >
-                  {" "}
-                  PENDING | Chờ xác nhận
+                  {status.label + " | " + status.descCustomer}
                 </Badge>
               </HStack>
             </Badge>
