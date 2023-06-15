@@ -14,7 +14,11 @@ const CustomerOrderList = () => {
   const { orders, pageable, error } = useFetchCustomerOrder(customerOrderQuery);
   return (
     <VStack w="100%" spacing="4" paddingX="4">
-      <CustomerOrderTabs />
+      <CustomerOrderTabs
+        onStatus={(status) =>
+          setCustomerOrderQuery({ ...customerOrderQuery, status })
+        }
+      />
       <VStack w="100%" paddingX="8" spacing="4">
         {orders.map((order) => (
           <CustomerOrderOrder key={order.id} order={order} />
