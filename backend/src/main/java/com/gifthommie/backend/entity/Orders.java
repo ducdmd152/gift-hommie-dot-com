@@ -40,7 +40,7 @@ public class Orders {
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	@JsonIgnore
+//	@JsonIgnore
 	private List<OrderDetail> orderDetails;
 	
 	@Column(name = "order_time")
