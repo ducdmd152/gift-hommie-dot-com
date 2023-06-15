@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import {
   Button,
@@ -17,6 +17,10 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import checkoutService from "../../services/checkout-service";
+import { GLOBAL_CONTEXT } from "../../App";
+import OrderDTO from "../../type/OrderDTO";
 
 const rate = 1 / 23800;
 const currency = "USD";
@@ -39,6 +43,7 @@ const CheckoutPaymentModal = ({
   let total = checkoutData.carts.reduce((acc, item) => acc + item.total, 0);
   let shippingFee = checkoutData.shippingFee ? checkoutData.shippingFee : 0;
   let sum = total + shippingFee;
+
   // PAYPAL handling
 
   return (
@@ -93,6 +98,7 @@ const PayPalButtonWrapper = ({
 }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
+  const navigate = useNavigate();
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   console.log(amount.toFixed(2));
 
@@ -121,7 +127,6 @@ const PayPalButtonWrapper = ({
         // alert("Transaction completed by " + name);
 
         onClose();
-        console.log("Thanh toán thành công đơn hàng", checkoutData);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -129,6 +134,30 @@ const PayPalButtonWrapper = ({
           showConfirmButton: false,
           timer: 1000,
         });
+        setTimeout(() => {
+          checkoutService
+            .create(checkoutData)
+            .then((response) => {
+              const orderDTO = response.data as OrderDTO;
+              const globalContext = useContext(GLOBAL_CONTEXT);
+              globalContext.orderContext.setOrderId(orderDTO.id);
+              navigate("/order/detail");
+            })
+            .catch((error) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Hệ thống gặp một vài lỗi trục trặc vui lòng thử lại!",
+                footer: "<a>Liên hệ với shop để được hỗ trợ sớm nhất.</a>",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              setTimeout(() => {
+                console.log(window.location.pathname);
+                navigate(window.location.pathname);
+              }, 1900);
+            });
+        }, 1100);
       }}
     />
   );
