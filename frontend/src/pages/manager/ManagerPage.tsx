@@ -57,7 +57,7 @@ const ManagerPage = () => {
           />
           <Route
             path="/account"
-            element={<AccountViewProfilePage userId={"xyz"} />}
+            element={<AccountViewProfilePage />}
           />
         </Routes>
       </GridItem>

@@ -6,8 +6,14 @@ import customerService from '../../services/customer-service';
 import Swal from "sweetalert2";
 import { useState, useEffect } from 'react';
 import UserDTO from '../../type/UserDTO';
+import { FieldValues, useForm } from "react-hook-form";
 
-const CustomerEditPage = () => {
+interface Props {
+    userDTO: UserDTO;
+}
+interface FormData extends UserDTO { }
+
+const CustomerEditPage = ({ userDTO }: Props) => {
     const [customer, setCustomer] = useState<UserDTO>(
         {} as UserDTO
     )
@@ -30,29 +36,52 @@ const CustomerEditPage = () => {
             });
     }, []);
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid },
+    } = useForm<FormData>();
+
+    const onSubmit = (data: FieldValues) => {
+        const updateCustomer = data as UserDTO;
+        updateCustomer.id = customer.id;
+
+        customerService
+            .update(updateCustomer)
+            .then(() => {
+                navigate("/account");
+            })
+            .catch(() => {
+                alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
+            });
+    };
+
+
     return (
         <>
-            <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-                <UserProfileEdit userDTO={customer} />
-                <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-                    <Button type="submit" colorScheme="blue" size="md">
-                        Cập nhật
-                    </Button>
-                    <Button colorScheme="red" size="md"
-                        onClick={() => {
-                            if (
-                                confirm(
-                                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                                )
-                            ) {
-                                navigate("/account");
-                            }
-                        }}
-                    >
-                        Hủy
-                    </Button>
-                </HStack>
-            </Card>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+                    <UserProfileEdit userDTO={customer} />
+                    <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
+                        <Button type="submit" colorScheme="blue" size="md">
+                            Cập nhật
+                        </Button>
+                        <Button colorScheme="red" size="md"
+                            onClick={() => {
+                                if (
+                                    confirm(
+                                        `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                                    )
+                                ) {
+                                    navigate("/account");
+                                }
+                            }}
+                        >
+                            Hủy
+                        </Button>
+                    </HStack>
+                </Card>
+            </form>
         </>
     )
 }
