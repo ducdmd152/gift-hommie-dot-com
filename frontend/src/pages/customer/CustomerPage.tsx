@@ -13,6 +13,7 @@ import CustomerOrderPage from "./CustomerOrderPage";
 import CustomerOrderDetailPage from "./CustomerOrderDetailPage";
 import AccountViewProfilePage from "../AccountProfileView";
 import CustomerEditPage from "./CustomerEditPage";
+import ErrorPage from "../ErrorPage";
 
 const CustomerPage = () => {
   const [customerId, seCustomerId] = useState<string>("");
@@ -46,14 +47,9 @@ const CustomerPage = () => {
           <Route path="/order/detail" element={<CustomerOrderDetailPage />} />
           <Route path="/cart" element={<CustomerCartPage />} />
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
-          <Route
-            path="/account"
-            element={<AccountViewProfilePage />}
-          />
-          <Route
-            path="/edit"
-            element={<CustomerEditPage />}
-          />
+          <Route path="/account" element={<AccountViewProfilePage />} />
+          <Route path="/edit" element={<CustomerEditPage />} />
+          <Route path="/error" element={<ErrorPage />} />
         </Routes>
       </GridItem>
     </Grid>

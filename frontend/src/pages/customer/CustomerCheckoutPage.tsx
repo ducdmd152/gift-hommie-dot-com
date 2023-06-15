@@ -12,6 +12,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import checkoutService from "../../services/checkout-service";
+import Swal from "sweetalert2";
+import OrderDTO from "../../type/OrderDTO";
 const schema = z.object({
   name: z
     .string({
@@ -100,6 +103,25 @@ const CustomerCheckoutPage = () => {
       // COD
       // Call checkoutService
       console.log(" Call checkoutService : ", submitData);
+      checkoutService
+        .create(submitData)
+        .then((response) => {
+          const orderDTO = response.data as OrderDTO;
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Hệ thống gặp một vài lỗi trục trặc vui lòng thử lại!",
+            footer: "<a>Liên hệ với shop để được hỗ trợ sớm nhất.</a>",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          setTimeout(() => {
+            console.log(window.location.pathname);
+            navigate(window.location.pathname);
+          }, 1900);
+        });
     } else {
       setCheckoutData(submitData);
       onOpen(); // Call checkoutService inside Paypal Modal

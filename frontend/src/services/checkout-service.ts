@@ -1,6 +1,6 @@
+import CheckoutDTO from "../type/CheckoutDTO";
 import apiClient from "./api-client";
 import createHttpService from "./http-service";
-import CheckoutDTO from "../type/OrderDTO";
 
 const endpoint = "customer/checkout";
 
