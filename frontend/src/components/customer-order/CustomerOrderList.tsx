@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomerOrderTabs from "./CustomerOrderTabs";
 import CustomerOrderItems from "./CustomerOrderItems";
 import { Box, HStack, VStack } from "@chakra-ui/react";
@@ -8,7 +8,9 @@ import useFetchCustomerOrder, {
 } from "../../hooks/useFetchCustomerOrder";
 
 const CustomerOrderList = () => {
-  const customerOrderQuery = {} as CustomerOrderQuery;
+  const [customerOrderQuery, setCustomerOrderQuery] = useState(
+    {} as CustomerOrderQuery
+  );
   const { orders, pageable, error } = useFetchCustomerOrder(customerOrderQuery);
   return (
     <VStack w="100%" spacing="4" paddingX="4">
