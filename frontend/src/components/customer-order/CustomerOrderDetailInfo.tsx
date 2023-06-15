@@ -50,6 +50,7 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               fontSize={"md"}
               className="none-text-transform"
               fontStyle={"italic"}
+              fontWeight={"medium"}
               color="gray"
             >
               Ngày tạo đơn: {order.orderTime}
@@ -84,6 +85,7 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               fontStyle={"italic"}
               color="gray"
               textAlign={"right"}
+              fontWeight={"medium"}
             >
               Ngày cập nhật: {order.lastUpdatedTime}
             </Badge>

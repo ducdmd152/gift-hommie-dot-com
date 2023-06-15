@@ -197,7 +197,7 @@ public class OrderDTO {
 	}
 	
 	private String formatLocalDatime(LocalDateTime time) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 		return time.format(formatter);
 	}
 }
