@@ -36,7 +36,7 @@ const CustomerOrderItems = ({ orderDetails }: Props) => {
   return (
     <VStack spacing={"4"} w="100%">
       {items.map((item) => {
-        return <CustomerOrderItem item={item} />;
+        return <CustomerOrderItem key={item.id} item={item} />;
       })}
     </VStack>
   );

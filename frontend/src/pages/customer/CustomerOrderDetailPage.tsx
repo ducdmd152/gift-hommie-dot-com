@@ -5,14 +5,18 @@ import { Badge, Box, Card, Heading } from "@chakra-ui/react";
 import CustomerOrderDetailInfo from "../../components/customer-order/CustomerOrderDetailInfo";
 import { Link, useNavigate } from "react-router-dom";
 import OrderDTO from "../../type/OrderDTO";
+import OrderDetailDTO from "../../type/OrderDetailDTO";
 import customerOrderService from "../../services/customer-order-service";
 import { GLOBAL_CONTEXT } from "../../App";
 const CustomerOrderDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
-  const [order, setOrder] = useState<OrderDTO>({} as OrderDTO);
+  const [order, setOrder] = useState<OrderDTO>({
+    orderDetails: [] as OrderDetailDTO[],
+  } as OrderDTO);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("dsafsaf");
     customerOrderService
       .get(globalContext.orderContext.getOrderId())
       .then((res) => {

@@ -15,7 +15,7 @@ const CustomerOrderList = () => {
       <CustomerOrderTabs />
       <VStack w="100%" paddingX="8" spacing="4">
         {orders.map((order) => (
-          <CustomerOrderOrder order={order} />
+          <CustomerOrderOrder key={order.id} order={order} />
         ))}
       </VStack>
     </VStack>
