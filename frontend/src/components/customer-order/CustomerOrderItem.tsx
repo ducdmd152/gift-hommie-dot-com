@@ -3,9 +3,11 @@ import React, { useContext } from "react";
 import CartDTO from "../../type/CartDTO";
 import { Link } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../../App";
+import OrderDetailDTO from "../../type/OrderDetailDTO";
 
-const CustomerOrderItem = ({ item }: { item: CartDTO }) => {
+const CustomerOrderItem = ({ item }: { item: OrderDetailDTO }) => {
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
+
   return (
     <Card w="100%" p="4">
       <HStack

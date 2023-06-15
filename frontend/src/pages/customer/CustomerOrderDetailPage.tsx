@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import CustomerOrderItems from "../../components/customer-order/CustomerOrderItems";
 import { Badge, Box, Card, Heading } from "@chakra-ui/react";
 import CustomerOrderDetailInfo from "../../components/customer-order/CustomerOrderDetailInfo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import OrderDTO from "../../type/OrderDTO";
+import customerOrderService from "../../services/customer-order-service";
+import { GLOBAL_CONTEXT } from "../../App";
 const CustomerOrderDetailPage = () => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
+  const [order, setOrder] = useState<OrderDTO>({} as OrderDTO);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    customerOrderService
+      .get(globalContext.orderContext.getOrderId())
+      .then((res) => {
+        setOrder(res.data as OrderDTO);
+      })
+      .catch((err) => {
+        navigate("/order");
+      });
+  }, []);
+
   return (
     <Box paddingX="8">
       <CustomerOrderDetailInfo />
@@ -12,7 +30,7 @@ const CustomerOrderDetailPage = () => {
         <Heading size="md" textAlign={"center"} mb="4">
           Thông tin sản phẩm
         </Heading>
-        <CustomerOrderItems />
+        <CustomerOrderItems orderDetails={order.orderDetails} />
       </Card>
     </Box>
   );

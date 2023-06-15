@@ -75,7 +75,7 @@ public class OrderDetailDTO {
 		this.product = product;
 	}
 
-	public int getTotal() {
-		return (int) (quantity*price);
+	public float getTotal() {
+		return (quantity*price);
 	}
 }

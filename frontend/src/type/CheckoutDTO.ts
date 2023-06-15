@@ -1,5 +1,6 @@
 import CartDTO from "./CartDTO";
 export default interface CheckoutDTO {
+  id: string;
   name: string;
   phone: string;
 

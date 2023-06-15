@@ -23,13 +23,16 @@ import { GLOBAL_CONTEXT } from "../../App";
 import CartDTO from "../../type/CartDTO";
 import CustomerOrderItem from "./CustomerOrderItem";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
-
-const CustomerOrderItems = () => {
-  //CODE FAKE DATA (TEMPORARY)
-  const [cartQuery, setCartQuery] = useState({} as CartQuery);
-  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
+import OrderDetailDTO from "../../type/OrderDetailDTO";
+interface Props {
+  orderDetails: OrderDetailDTO[];
+}
+const CustomerOrderItems = ({ orderDetails }: Props) => {
+  // //CODE FAKE DATA (TEMPORARY)
+  // const [cartQuery, setCartQuery] = useState({} as CartQuery);
+  // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
   // GET DATA
-  let items = carts;
+  let items = orderDetails;
   return (
     <VStack spacing={"4"} w="100%">
       {items.map((item) => {
