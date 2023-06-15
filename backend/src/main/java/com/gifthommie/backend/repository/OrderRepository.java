@@ -34,7 +34,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 										@Param("status") String[] status);
 	
 	@Query("SELECT o FROM Orders o WHERE "
-			+ "o.email = :email ")
+			+ "o.email = :email ORDER BY o.orderTime DESC")
 	public Page<Orders> findAllByEmail(@Param("email") String email, PageRequest pageRequest);
 	
 	//SET STATUS FOR ORDER BY ID
