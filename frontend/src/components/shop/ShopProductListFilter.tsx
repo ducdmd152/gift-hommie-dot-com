@@ -107,8 +107,9 @@ const ShopProductListFilter = ({
             });
           }}
           choices={[
-            { id: "name", name: "Tên" },
-            { id: "price", name: "Giá" },
+            // { id: "name", name: "Tên" },
+            { id: "price", name: "Giá tăng" },
+            { id: "price-desc", name: "Giá giảm" },
           ]}
         />
       </Box>

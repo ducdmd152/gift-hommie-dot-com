@@ -48,12 +48,12 @@ public class ProductServiceImpl implements ProductService {
 			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
 		}
 		else {
-			String str = sortField;
-			if (str.toLowerCase().contains("des")) {
-				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+			String field = sortField.split("-")[0];
+			if (sortField.toLowerCase().contains("desc")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).descending());
 			}
 			else {
-				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).ascending());
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
 			}
 		}
 		
@@ -74,12 +74,12 @@ public class ProductServiceImpl implements ProductService {
 			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
 		}
 		else {
-			String str = sortField;
-			if (str.toLowerCase().contains("des")) {
-				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+			String field = sortField.split("-")[0];
+			if (sortField.toLowerCase().contains("desc")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).descending());
 			}
 			else {
-				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).ascending());
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
 			}
 		}
 		
