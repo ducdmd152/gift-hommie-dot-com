@@ -68,14 +68,24 @@ public class CustomerOrderController {
 	}
 	
 	
+//	@GetMapping("/{orderId}")
+//	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {
+//		Orders order = orderService.getOrderByOrderId(orderId);
+//		
+//		if (order == null)
+//			throw new NotFoundException("ORDER CANNOT BE FOUND");
+//		
+//		return order.getOrderDetails();
+//	}
+	
 	@GetMapping("/{orderId}")
-	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {
-		Orders order = orderService.getOrderByOrderId(orderId);
+	public OrderDTO viewOrderDetail(@PathVariable int orderId) {
+		OrderDTO orderDTO = orderService.getOrderDTOByOrderId(orderId);
 		
-		if (order == null)
+		if (orderDTO == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
 		
-		return order.getOrderDetails();
+		return orderDTO;
 	}
 	
 	@DeleteMapping("/{orderId}")

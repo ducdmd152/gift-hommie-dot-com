@@ -26,7 +26,7 @@ const useFetchCustomerOrder = (requestQuery: CustomerOrderQuery) => {
           _order: requestQuery?.order,
         },
       },
-      [requestQuery]
+      []
     );
 
   return {

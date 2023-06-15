@@ -8,7 +8,7 @@ let previewOrder = async (
   setCheckoutData: (checkoutData: CheckoutDTO) => void
 ) => {
   const data = {
-    payment_type_id: 3 - checkoutData.paymentMethod,
+    payment_type_id: 2,
     note: "",
     from_name: "Hommie Store",
     from_phone: "0934968393",

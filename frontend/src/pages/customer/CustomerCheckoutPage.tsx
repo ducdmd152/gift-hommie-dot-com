@@ -57,6 +57,7 @@ const schema = z.object({
 
 export type DeliveryFormData = z.infer<typeof schema>;
 const CustomerCheckoutPage = () => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   let carts = selectedCartContext.getItems();
   const [checkoutData, setCheckoutData] = useState({
@@ -102,12 +103,13 @@ const CustomerCheckoutPage = () => {
     if (submitData.paymentMethod == 1) {
       // COD
       // Call checkoutService
-      // console.log(" Call checkoutService : ", submitData);
+      console.log(" Call checkoutService : ", submitData);
       checkoutService
         .create(submitData)
         .then((response) => {
           const orderDTO = response.data as OrderDTO;
-          const globalContext = useContext(GLOBAL_CONTEXT);
+          console.log(orderDTO);
+
           globalContext.orderContext.setOrderId(orderDTO.id);
           navigate("/order/detail");
         })

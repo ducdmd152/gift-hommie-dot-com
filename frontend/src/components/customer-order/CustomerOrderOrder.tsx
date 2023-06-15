@@ -34,12 +34,17 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   let items = order.orderDetails;
   return (
     <Box w="100%">
-      <Card paddingX="8" paddingY="4" border="1px solid lightblue">
+      <Card
+        paddingX="8"
+        paddingY="4"
+        border="1px solid lightblue"
+        background={"gray.100"}
+      >
         <VStack>
           {/* ORDER INFO */}
           <HStack w="100%" justifyContent={"space-between"}>
             <Badge p="2" fontSize="md">
-              Cập nhật: 17:59 06/06/2023
+              Cập nhật: {order.lastUpdatedTime}
             </Badge>
             <Badge p="2" fontSize="md" colorScheme="yellow" bg="yellow.200">
               PENDING | Chờ xác nhận
@@ -55,9 +60,9 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
             alignItems="stretch"
           >
             <Badge flex="1" p="4" fontSize="md">
-              Ngày tạo đơn: 06/06/2023
+              Ngày tạo đơn: {order.orderTime}
             </Badge>
-            <Badge flex="1">
+            <Badge flex="1" className="none-text-transform">
               <HStack justifyContent={"space-between"}>
                 <VStack alignItems={"flex-start"}>
                   <Text fontSize="lg">Tổng đơn hàng</Text>
@@ -71,8 +76,11 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
                   fontWeight="bold"
                   textAlign="center"
                 >
-                  {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                  {".000đ"}
+                  {(
+                    (items.reduce((acc, item) => acc + item.total, 0) +
+                      order.shippingFee) /
+                    1000
+                  ).toFixed(3) + "đ"}
                 </Text>
               </HStack>
             </Badge>
