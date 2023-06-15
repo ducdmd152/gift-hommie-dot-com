@@ -25,6 +25,7 @@ import CustomerOrderItem from "./CustomerOrderItem";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import CustomerOrderItems from "./CustomerOrderItems";
 import OrderDTO from "../../type/OrderDTO";
+import CustomerOrderActions from "./CustomerOrderActions";
 
 const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
@@ -88,26 +89,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
           {/* separator */}
           <Box w="100%" borderBottom="1px solid lightgray"></Box>
           {/* ORDER ACTIONS */}
-          <HStack w="100%" justifyContent={"right"} p="4">
-            <Button colorScheme="blue">Đánh giá</Button>
-            <Button colorScheme="blue" variant="outline">
-              Chi tiết
-            </Button>
-            <Button
-              background="gray.600"
-              color="white"
-              isDisabled={true}
-              _hover={{
-                background: "gray.600",
-                color: "white",
-              }}
-            >
-              Chờ
-            </Button>
-            <Button colorScheme="red" variant="outline">
-              Hủy
-            </Button>
-          </HStack>
+          <CustomerOrderActions order={order} />
         </VStack>
       </Card>
     </Box>

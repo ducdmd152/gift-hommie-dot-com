@@ -16,7 +16,6 @@ const CustomerOrderDetailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("dsafsaf");
     customerOrderService
       .get(globalContext.orderContext.getOrderId())
       .then((res) => {
@@ -29,7 +28,7 @@ const CustomerOrderDetailPage = () => {
 
   return (
     <Box paddingX="8">
-      <CustomerOrderDetailInfo />
+      <CustomerOrderDetailInfo order={order} />
       <Card p="4" w="100%" mt="4">
         <Heading size="md" textAlign={"center"} mb="4">
           Thông tin sản phẩm
