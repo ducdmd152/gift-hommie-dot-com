@@ -24,13 +24,14 @@ import CartDTO from "../../type/CartDTO";
 import CustomerOrderItem from "./CustomerOrderItem";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import CustomerOrderItems from "./CustomerOrderItems";
+import OrderDTO from "../../type/OrderDTO";
 
-const CustomerOrderOrder = () => {
+const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
-  const [cartQuery, setCartQuery] = useState({} as CartQuery);
-  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
+  // const [cartQuery, setCartQuery] = useState({} as CartQuery);
+  // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
   // GET DATA
-  let items = carts;
+  let items = order.orderDetails;
   return (
     <Box w="100%">
       <Card paddingX="8" paddingY="4" border="1px solid lightblue">
@@ -46,7 +47,7 @@ const CustomerOrderOrder = () => {
           </HStack>
 
           {/* ORDER MAIN ~ ITEMS */}
-          <CustomerOrderItems />
+          <CustomerOrderItems orderDetails={order.orderDetails} />
           {/* ORDER SUMMARY */}
           <HStack
             w="100%"

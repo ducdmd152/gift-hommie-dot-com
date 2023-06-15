@@ -16,6 +16,7 @@ import CartDTO from "./type/CartDTO";
 
 export interface GlobalContext {
   productContext: ProductContext;
+  orderContext: OrderContext;
   rerender: () => void;
   selectedCartContext: SelectedCartContext;
 }
@@ -23,6 +24,11 @@ export interface GlobalContext {
 export interface ProductContext {
   getProductId: () => number;
   setProductId: (productId: number) => number;
+}
+
+export interface OrderContext {
+  getOrderId: () => number;
+  setOrderId: (orderId: number) => number;
 }
 
 export interface SelectedCartContext {
@@ -36,6 +42,7 @@ export const GLOBAL_CONTEXT = createContext({} as GlobalContext);
 
 function App() {
   const [productId, setProductId] = useState(0);
+  const [orderId, setOrderId] = useState(0);
   const [user, setUser] = useState<UserDTO | null>(null);
   const [hook, setHook] = useState(false);
   const [selectedCartItems, setSelectedCartItems] = useState([] as CartDTO[]);
@@ -50,6 +57,17 @@ function App() {
       return productId;
     },
   } as ProductContext;
+
+  globalContext.orderContext = {
+    getOrderId() {
+      return orderId;
+    },
+    setOrderId(id: number) {
+      setOrderId(id);
+      return orderId;
+    },
+  } as OrderContext;
+
   globalContext.rerender = () => {
     setHook(!hook);
   };

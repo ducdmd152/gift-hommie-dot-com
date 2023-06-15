@@ -102,11 +102,14 @@ const CustomerCheckoutPage = () => {
     if (submitData.paymentMethod == 1) {
       // COD
       // Call checkoutService
-      console.log(" Call checkoutService : ", submitData);
+      // console.log(" Call checkoutService : ", submitData);
       checkoutService
         .create(submitData)
         .then((response) => {
           const orderDTO = response.data as OrderDTO;
+          const globalContext = useContext(GLOBAL_CONTEXT);
+          globalContext.orderContext.setOrderId(orderDTO.id);
+          navigate("/order/detail");
         })
         .catch((error) => {
           Swal.fire({
