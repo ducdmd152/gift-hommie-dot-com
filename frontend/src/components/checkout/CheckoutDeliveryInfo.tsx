@@ -81,6 +81,8 @@ const CheckoutDeliveryInfo = ({
     loadProvinces();
   }, []);
 
+  console.log(checkoutData.wardCode);
+
   // FORM HANDLING
   const {
     register,
@@ -182,8 +184,10 @@ const CheckoutDeliveryInfo = ({
               </Select>
             </HStack>
             <p className="form-error-message">
-              {!checkoutData.wardCode ? errors.ward?.message : "‎ "}
+              {(isNaN(checkoutData.wardCode) || checkoutData.wardCode == 0) &&
+                errors.ward?.message}
             </p>
+
             <Textarea
               {...register("address")}
               className="placeholeder-italic"
