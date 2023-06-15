@@ -8,12 +8,10 @@ import { useState, useEffect } from 'react';
 import UserDTO from '../../type/UserDTO';
 import { FieldValues, useForm } from "react-hook-form";
 
-interface Props {
-    userDTO: UserDTO;
-}
+
 interface FormData extends UserDTO { }
 
-const CustomerEditPage = ({ userDTO }: Props) => {
+const CustomerEditProfilePage = () => {
     const [customer, setCustomer] = useState<UserDTO>(
         {} as UserDTO
     )
@@ -45,11 +43,12 @@ const CustomerEditPage = ({ userDTO }: Props) => {
     const onSubmit = (data: FieldValues) => {
         const updateCustomer = data as UserDTO;
         updateCustomer.id = customer.id;
+        console.log(updateCustomer);
 
         customerService
             .update(updateCustomer)
             .then(() => {
-                navigate("/account");
+                navigate("/edit");
             })
             .catch(() => {
                 alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
@@ -61,7 +60,9 @@ const CustomerEditPage = ({ userDTO }: Props) => {
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+                    
                     <UserProfileEdit userDTO={customer} />
+
                     <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
                         <Button type="submit" colorScheme="blue" size="md">
                             Cập nhật
@@ -86,4 +87,4 @@ const CustomerEditPage = ({ userDTO }: Props) => {
     )
 }
 
-export default CustomerEditPage
+export default CustomerEditProfilePage
