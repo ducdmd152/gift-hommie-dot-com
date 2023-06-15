@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gifthommie.backend.dto.CartDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
@@ -54,7 +55,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		
 		
 		List<OrderDetail> orderDetails = new ArrayList<>();
-		for(CartRequestDTO tmp : checkOutDTO.getCarts()) {
+		for(CartDTO tmp : checkOutDTO.getCarts()) {
 			Product tmpProduct = productService.getProductById(tmp.getProductId());
 			OrderDetail orderDetail = new OrderDetail(orderId, tmpProduct.getId(), tmpProduct.getPrice(), tmp.getQuantity());
 			orderDetails.add(orderDetail);

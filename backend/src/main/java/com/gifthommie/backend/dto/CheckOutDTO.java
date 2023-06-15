@@ -18,7 +18,7 @@ public class CheckOutDTO {
 	private String provinceName;
 	
 	private String message;
-	private List<CartRequestDTO> carts;
+	private List<CartDTO> carts;
 	
 	private int paymentMethod;
 	
@@ -95,10 +95,10 @@ public class CheckOutDTO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public List<CartRequestDTO> getCarts() {
+	public List<CartDTO> getCarts() {
 		return carts;
 	}
-	public void setCarts(List<CartRequestDTO> carts) {
+	public void setCarts(List<CartDTO> carts) {
 		this.carts = carts;
 	}
 	public int getPaymentMethod() {

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.CartDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CartResponseDTO;
 import com.gifthommie.backend.entity.Cart;
@@ -32,5 +33,5 @@ public interface CartService {
 	
 	public CartResponseDTO convertToDTO(Cart cart);
 	
-	public void deleteCartTrasit(List<CartRequestDTO> cartList, String email);
+	public void deleteCartTrasit(List<CartDTO> cartList, String email);
 }
