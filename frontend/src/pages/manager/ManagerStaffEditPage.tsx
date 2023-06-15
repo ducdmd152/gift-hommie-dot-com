@@ -22,6 +22,7 @@ const ManagerStaffEditPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     managerStaffService
       .get("")
       .then((res) => {
