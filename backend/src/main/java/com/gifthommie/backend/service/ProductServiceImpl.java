@@ -39,19 +39,24 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	// searchProductsByName
+	// FIXED BY DUY ĐỨC (NO NEED TO MODIFY MORE)
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
 		Pageable pageable = null;
 		
-		String str = sortField; // name-des   name-asc   price-des  price-asc
-		String[] splitSortFeild = str.split("-");
+		if(sortField.equals("id")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+		}
+		else {
+			String str = sortField;
+			if (str.toLowerCase().contains("des")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+			}
+			else {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).ascending());
+			}
+		}
 		
-		if (splitSortFeild[1].equals("des")) {
-			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).descending());
-		}
-		if (splitSortFeild[1].equals("asc")) {
-			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).ascending());
-		}
 		
 		Page<Product> page = productRepository.finfAllByName(true, search, pageable);		
 		return new APIPageableResponseDTO<Product>(page);
@@ -59,19 +64,23 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	// searchProductsByNameInCategory
+	// FIXED BY DUY ĐỨC (NO NEED TO MODIFY MORE)
 	@Override
 	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
 			String search, Integer category, String sortField) {
 		Pageable pageable = null;
 		
-		String str = sortField; // name-des   name-asc   price-des  price-asc
-		String[] splitSortFeild = str.split("-");
-		
-		if (splitSortFeild[1].equals("des")) {
-			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).descending());
+		if(sortField.equals("id")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
 		}
-		if (splitSortFeild[1].equals("asc")) {
-			pageable = PageRequest.of(pageNo, pageSize, Sort.by(splitSortFeild[0]).ascending());
+		else {
+			String str = sortField;
+			if (str.toLowerCase().contains("des")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+			}
+			else {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).ascending());
+			}
 		}
 		
 		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
