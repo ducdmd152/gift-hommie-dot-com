@@ -79,6 +79,9 @@ public class Cart {
 		this.lastTimeUpdate = lastTimeUpdate;
 	}
 
+	public float getTotal() {
+		return quantity*product.getPrice();
+	}
 	@Override
 	public String toString() {
 		return "Cart [id=" + id + ", email=" + email + ", product=" + product + ", quantity=" + quantity

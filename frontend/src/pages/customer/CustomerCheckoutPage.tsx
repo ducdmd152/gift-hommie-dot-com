@@ -61,12 +61,12 @@ const CustomerCheckoutPage = () => {
   const selectedCartContext = useContext(GLOBAL_CONTEXT).selectedCartContext;
   const navigate = useNavigate();
   let carts = selectedCartContext.getItems();
-  console.log(carts);
+
   useEffect(() => {
     if (carts == null || carts.length == 0) {
       navigate("/cart");
     } else {
-      console.log(carts.length);
+      // console.log(carts.length);
     }
   }, []);
 
@@ -118,7 +118,7 @@ const CustomerCheckoutPage = () => {
         .create(submitData)
         .then((response) => {
           const orderDTO = response.data as OrderDTO;
-          console.log(orderDTO);
+          // console.log(orderDTO);
 
           globalContext.orderContext.setOrderId(orderDTO.id);
           navigate("/order/detail");
@@ -134,7 +134,7 @@ const CustomerCheckoutPage = () => {
             timer: 2000,
           });
           setTimeout(() => {
-            console.log(window.location.pathname);
+            // console.log(window.location.pathname);
             navigate(window.location.pathname);
           }, 1900);
         });

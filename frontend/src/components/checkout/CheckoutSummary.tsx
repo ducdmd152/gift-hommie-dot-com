@@ -50,11 +50,12 @@ const CheckoutSummary = ({
   // UI
   return (
     <Box>
-      <Card p={2}>
+      <Card p={2} background="gray.100">
         <CheckoutPaymentSelector
           checkoutData={checkoutData}
           setCheckoutData={setCheckoutData}
         />
+        <Box mt="2"></Box>
         <CheckoutShippingMethod
           checkoutData={checkoutData}
           setCheckoutData={setCheckoutData}
@@ -73,6 +74,7 @@ const CheckoutSummary = ({
             <HStack spacing="4" w="100%">
               <Text fontSize="md" flex="2" textAlign="left">
                 Phí vận chuyển
+                <br></br>
               </Text>
               <Text fontSize="lg" textAlign="right" flex="1" fontWeight="bold">
                 {(shippingFee / 1000).toFixed(3) + "đ"}

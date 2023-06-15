@@ -11,7 +11,9 @@ import HttpRequestQuery from "../type/HttpRequestQuery";
 import OrderDTO from "../type/OrderDTO";
 import useFetchEntities from "./useFetchEntities";
 
-export interface CustomerOrderQuery extends HttpRequestQuery, PaginationQuery {}
+export interface CustomerOrderQuery extends HttpRequestQuery, PaginationQuery {
+  status: string;
+}
 
 const useFetchCustomerOrder = (requestQuery: CustomerOrderQuery) => {
   const { entities, pageable, error, isLoading, setEntities, setError } =
@@ -23,10 +25,11 @@ const useFetchCustomerOrder = (requestQuery: CustomerOrderQuery) => {
           size: requestQuery?.size,
           search: requestQuery?.search,
           sort: requestQuery?.sort,
+          status: requestQuery?.status,
           _order: requestQuery?.order,
         },
       },
-      []
+      [requestQuery]
     );
 
   return {

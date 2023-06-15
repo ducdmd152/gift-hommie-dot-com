@@ -26,6 +26,8 @@ import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import CustomerOrderItems from "./CustomerOrderItems";
 import OrderDTO from "../../type/OrderDTO";
 import CustomerOrderActions from "./CustomerOrderActions";
+import ORDER_STATUS_MAP from "../../data/OrderStatusData";
+import { italic } from "@cloudinary/url-gen/qualifiers/fontStyle";
 
 const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
@@ -33,6 +35,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
   // GET DATA
   let items = order.orderDetails;
+  let status = ORDER_STATUS_MAP[order.status];
   return (
     <Box w="100%">
       <Card
@@ -44,11 +47,21 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
         <VStack>
           {/* ORDER INFO */}
           <HStack w="100%" justifyContent={"space-between"}>
-            <Badge p="2" fontSize="md">
-              Cập nhật: {order.lastUpdatedTime}
-            </Badge>
-            <Badge p="2" fontSize="md" colorScheme="yellow" bg="yellow.200">
-              PENDING | Chờ xác nhận
+            <Text
+              p="2"
+              fontSize="md"
+              fontWeight={"medium"}
+              fontStyle={"italic"}
+            >
+              <strong>Cập nhật:</strong> {order.lastUpdatedTime}
+            </Text>
+            <Badge
+              p="2"
+              fontSize="md"
+              colorScheme={status.colorScheme}
+              bg={status.backgroundColor}
+            >
+              {status.label + " | " + status.descCustomer}
             </Badge>
           </HStack>
 
@@ -60,9 +73,15 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
             justifyContent={"space-between"}
             alignItems="stretch"
           >
-            <Badge flex="1" p="4" fontSize="md">
-              Ngày tạo đơn: {order.orderTime}
-            </Badge>
+            <Text
+              flex="1"
+              p="4"
+              fontSize="md"
+              fontWeight={"medium"}
+              fontStyle={"italic"}
+            >
+              <strong>Ngày tạo đơn:</strong> {order.orderTime}
+            </Text>
             <Badge flex="1" className="none-text-transform">
               <HStack justifyContent={"space-between"}>
                 <VStack alignItems={"flex-start"}>

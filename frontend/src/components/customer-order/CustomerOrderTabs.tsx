@@ -8,8 +8,12 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import React from "react";
+import { CustomerOrderQuery } from "../../hooks/useFetchCustomerOrder";
 
-const CustomerOrderTabs = () => {
+interface Props {
+  onStatus: (status: string) => void;
+}
+const CustomerOrderTabs = ({ onStatus }: Props) => {
   return (
     <Box mt="4" w="100%">
       <Tabs isFitted variant="enclosed">
