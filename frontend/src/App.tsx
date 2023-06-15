@@ -34,6 +34,7 @@ export interface OrderContext {
 export interface SelectedCartContext {
   getItems: () => CartDTO[];
   addItem: (cart: CartDTO) => void;
+  updateItem: (cart: CartDTO) => void;
   removeItem: (cart: CartDTO) => void;
   isChecked: (cartId: number) => boolean;
   clean: () => void;
@@ -79,9 +80,13 @@ function App() {
     getItems() {
       return selectedCartItems;
     },
+    updateItem(item) {
+      setSelectedCartItems([
+        ...selectedCartItems.filter((cart) => cart.id !== item.id),
+        item,
+      ]);
+    },
     addItem(item) {
-      // console.log("Hello");
-
       if (selectedCartItems.find((cart) => cart.id === item.id)) return;
       setSelectedCartItems([...selectedCartItems, item]);
     },

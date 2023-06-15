@@ -48,6 +48,10 @@ const CartListItem = ({ cart, onDelete }: Props) => {
 
     cart = await cartActionSerivce.updateQuantityOf(cart);
 
+    if (selectedCartContext.isChecked(cart.id)) {
+      selectedCartContext.updateItem(cart);
+    }
+
     if (cart.quantity != quantity) {
       if (quantityRef.current) {
         quantityRef.current.value = cart.quantity.toString();
