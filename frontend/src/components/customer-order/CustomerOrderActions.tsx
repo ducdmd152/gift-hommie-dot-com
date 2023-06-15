@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const navigate = useNavigate();
+  const status = order.status;
 
   return (
     <HStack w="100%" justifyContent={"right"} p="4">
-      <Button colorScheme="blue">Đánh giá</Button>
+      {status == "SUCCESSFUL" && <Button colorScheme="blue">Đánh giá</Button>}
+
       <Button
         colorScheme="blue"
         variant="outline"
@@ -21,20 +23,24 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
       >
         Chi tiết
       </Button>
-      <Button
-        background="gray.600"
-        color="white"
-        isDisabled={true}
-        _hover={{
-          background: "gray.600",
-          color: "white",
-        }}
-      >
-        Chờ
-      </Button>
-      <Button colorScheme="red" variant="outline">
-        Hủy
-      </Button>
+      {status == "PENDING" && (
+        <Button
+          background="gray.600"
+          color="white"
+          isDisabled={true}
+          _hover={{
+            background: "gray.600",
+            color: "white",
+          }}
+        >
+          Chờ
+        </Button>
+      )}
+      {status == "PENDING" && (
+        <Button colorScheme="red" variant="outline">
+          Hủy
+        </Button>
+      )}
     </HStack>
   );
 };

@@ -26,6 +26,7 @@ import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import CustomerOrderItems from "./CustomerOrderItems";
 import OrderDTO from "../../type/OrderDTO";
 import CustomerOrderActions from "./CustomerOrderActions";
+import ORDER_STATUS_MAP from "../../data/OrderStatusData";
 
 const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
@@ -33,6 +34,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
   // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
   // GET DATA
   let items = order.orderDetails;
+  let status = ORDER_STATUS_MAP[order.status];
   return (
     <Box w="100%">
       <Card
@@ -47,8 +49,13 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
             <Badge p="2" fontSize="md">
               Cập nhật: {order.lastUpdatedTime}
             </Badge>
-            <Badge p="2" fontSize="md" colorScheme="yellow" bg="yellow.200">
-              PENDING | Chờ xác nhận
+            <Badge
+              p="2"
+              fontSize="md"
+              colorScheme={status.colorScheme}
+              bg={status.backgroundColor}
+            >
+              {status.label + " | " + status.descCustomer}
             </Badge>
           </HStack>
 
