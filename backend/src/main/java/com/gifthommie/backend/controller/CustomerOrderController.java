@@ -56,21 +56,7 @@ public class CustomerOrderController {
 		return orderService.getOrderList(pageNo, pageSize, email);
 	}
 	
-	//http://localhost:8080/customer/order
-		@PostMapping
-		public OrderResponseDTO cartCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
-			
-			//refresh before check out
-			//OrderResponseDTO
-			User user = SecurityUtils.getPrincipal().getUser();
-			String email = user.getEmail();
-			OrderResponseDTO newOrder = orderService.save(checkOutDTO,email);
-			int orderId = newOrder.getId();
-			orderDetailService.addOrderDetail(checkOutDTO, orderId);
-			cartService.deleteCartTrasit(checkOutDTO.getCarts(), email);
-			return newOrder;
-		
-		}
+	
 	
 	@GetMapping("/{orderId}")
 	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {

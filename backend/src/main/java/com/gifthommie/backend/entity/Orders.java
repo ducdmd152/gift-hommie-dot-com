@@ -19,7 +19,8 @@ import com.gifthommie.backend.dto.CheckOutDTO;
 @Entity
 @Table(name = "orders")
 public class Orders {
-
+	
+	private static final String DEFAULT_STATUS = "PENDING";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,12 @@ public class Orders {
 	
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "shipping_order_code")
+	private String shippingOrderCode;
+	
+	@Column(name = "shipping_method")
+	private Integer shippingMethod;
 	
 	@Column(name = "payment_id")
 	private Integer paymentId;
@@ -93,11 +100,30 @@ public class Orders {
 		this.districtId = checkOutDTO.getDistrictID();
 		this.proviceId = checkOutDTO.getProvinceID();
 		this.message = checkOutDTO.getMessage();
+		this.paymentId=checkOutDTO.getPaymentMethod();
+		this.shippedFee=checkOutDTO.getShippingFee();
+		this.shippingMethod=checkOutDTO.getShippingMethod();
+		this.status = DEFAULT_STATUS;
+		this.lastUpdatedTime=LocalDateTime.now();
 	}
 
 
 
+	public String getShippingOrderCode() {
+		return shippingOrderCode;
+	}
 
+	public void setShippingOrderCode(String shippingOrderCode) {
+		this.shippingOrderCode = shippingOrderCode;
+	}
+
+	public Integer getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(Integer shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
 
 	public Integer getId() {
 		return id;

@@ -10,15 +10,24 @@ import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.entity.Orders;
+import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.repository.UserRepository;
 
 @Service
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	OrderRepository orderRepository;
 	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	OrderDetailRepository orderDetailRepository;
 	private final String ORDER_PENDING_STATUS = "PENDING";
 	
 	@Override
@@ -32,7 +41,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public OrderResponseDTO save(CheckOutDTO checkOutDTO,String email) {
+	public Orders save(CheckOutDTO checkOutDTO,String email) {
 //		Orders order = new Orders();
 //		order.setEmail(email);
 //		order.setOrderTime(LocalDateTime.now());
@@ -46,13 +55,16 @@ public class OrderServiceImpl implements OrderService{
 //		orderResponseDTO.setTotalPrice(totalPrice);
 //		
 //		return orderResponseDTO;
+//		Orders order = new Orders(checkOutDTO,email);
+//		orderRepository.save(order);
+//		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
+//		orderResponseDTO.setId(order.getId());
+//		orderResponseDTO.setOrderTime(order.getOrderTime());
+		
 		Orders order = new Orders(checkOutDTO,email);
 		orderRepository.save(order);
-		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
-		orderResponseDTO.setId(order.getId());
-		orderResponseDTO.setOrderTime(order.getOrderTime());
 		
-		return orderResponseDTO;
+		return order;
 	}
 
 	@Override
