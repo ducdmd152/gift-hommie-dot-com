@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import { Badge, Card, HStack, Heading, VStack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import OrderDTO from "../../type/OrderDTO";
 
-const CustomerOrderDetailInfo = () => {
+const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)
-  const [cartQuery, setCartQuery] = useState({} as CartQuery);
-  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
+  // const [cartQuery, setCartQuery] = useState({} as CartQuery);
+  // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
+
   // GET DATA
-  let items = carts;
+  let items = order.orderDetails;
+  const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
+  const total =
+    (items.reduce((acc, item) => acc + item.total, 0) + order.shippingFee) /
+    1000;
   return (
     <Card>
       <VStack w="100%" alignItems={"flex-start"}>
@@ -30,7 +36,7 @@ const CustomerOrderDetailInfo = () => {
           <VStack flex="1" spacing="0">
             <Badge p="2" fontSize={"lg"} w="100%">
               Chi tiết đơn hàng
-              {" | ID >> 01"}
+              {" | ID >> " + order.id}
             </Badge>
             <Badge
               w="100%"
@@ -40,7 +46,7 @@ const CustomerOrderDetailInfo = () => {
               fontStyle={"italic"}
               color="gray"
             >
-              Ngày tạo đơn: 06/06/2023
+              Ngày tạo đơn: {order.orderTime}
             </Badge>
           </VStack>
           <VStack flex="1" spacing="0">
@@ -72,7 +78,7 @@ const CustomerOrderDetailInfo = () => {
               color="gray"
               textAlign={"right"}
             >
-              Ngày cập nhật: 17:59 06/06/2023
+              Ngày cập nhật: {order.lastUpdatedTime}
             </Badge>
           </VStack>
         </HStack>
@@ -83,13 +89,13 @@ const CustomerOrderDetailInfo = () => {
             Người nhận
           </Heading>
           <VStack w="100%" alignItems="flex-start">
-            <Text fontWeight={"bold"}>TRẦN CƯƠNG QUYẾT </Text>
+            <Text fontWeight={"bold"}>{order.name} </Text>
             <Text>
               {" "}
-              Điện thoại: <strong>01214212412</strong>
+              Điện thoại: <strong>{order.phone}</strong>
             </Text>
             <Text>
-              Địa chỉ: <strong>TX25, P.THẠNH XUÂN, Q12,THÀNH PHỐ HCM</strong>{" "}
+              Địa chỉ: <strong>{order.address}</strong>{" "}
             </Text>
           </VStack>
         </Card>
@@ -104,7 +110,7 @@ const CustomerOrderDetailInfo = () => {
               <VStack>
                 <HStack spacing="4" w="100%">
                   <Text fontSize="md" flex="2" textAlign="left">
-                    Tổng thanh toán
+                    Tổng tiền hàng
                   </Text>
                   <Text
                     fontSize="lg"
@@ -112,8 +118,7 @@ const CustomerOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {amount.toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -126,7 +131,7 @@ const CustomerOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    Freeship
+                    {(order.shippingFee / 1000).toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -139,8 +144,7 @@ const CustomerOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {total.toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -153,8 +157,7 @@ const CustomerOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {(order.paymentMethod == 2 ? 0 : total).toFixed(3) + "đ"}
                   </Text>
                 </HStack>
               </VStack>
@@ -168,12 +171,14 @@ const CustomerOrderDetailInfo = () => {
                     Hình thức thanh toán
                   </Text>
                   <Text
-                    fontSize="lg"
+                    fontSize="md"
                     textAlign="right"
                     flex="3"
                     fontWeight="bold"
                   >
-                    Thanh toán khi nhận hàng (COD)
+                    {order.paymentMethod == 1
+                      ? "Thanh toán khi nhận hàng (COD)"
+                      : "Thanh toán qua Paypal (đã thanh toán)"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -181,12 +186,14 @@ const CustomerOrderDetailInfo = () => {
                     Hình thức vận chuyển
                   </Text>
                   <Text
-                    fontSize="lg"
+                    fontSize="md"
                     textAlign="right"
                     flex="3"
                     fontWeight="bold"
                   >
-                    Giao hàng tiêu chuẩn (nhanh)
+                    {order.shippingMethod == 2
+                      ? "Giao hàng tiêu chuẩn (nhanh)"
+                      : "Giao hàng tốc hành (express)"}
                   </Text>
                 </HStack>
               </VStack>

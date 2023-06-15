@@ -5,11 +5,14 @@ import { Badge, Box, Card, Heading } from "@chakra-ui/react";
 import CustomerOrderDetailInfo from "../../components/customer-order/CustomerOrderDetailInfo";
 import { Link, useNavigate } from "react-router-dom";
 import OrderDTO from "../../type/OrderDTO";
+import OrderDetailDTO from "../../type/OrderDetailDTO";
 import customerOrderService from "../../services/customer-order-service";
 import { GLOBAL_CONTEXT } from "../../App";
 const CustomerOrderDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
-  const [order, setOrder] = useState<OrderDTO>({} as OrderDTO);
+  const [order, setOrder] = useState<OrderDTO>({
+    orderDetails: [] as OrderDetailDTO[],
+  } as OrderDTO);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const CustomerOrderDetailPage = () => {
 
   return (
     <Box paddingX="8">
-      <CustomerOrderDetailInfo />
+      <CustomerOrderDetailInfo order={order} />
       <Card p="4" w="100%" mt="4">
         <Heading size="md" textAlign={"center"} mb="4">
           Thông tin sản phẩm
