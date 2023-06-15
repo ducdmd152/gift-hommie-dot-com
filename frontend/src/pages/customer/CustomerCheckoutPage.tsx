@@ -112,6 +112,7 @@ const CustomerCheckoutPage = () => {
 
           globalContext.orderContext.setOrderId(orderDTO.id);
           navigate("/order/detail");
+          globalContext.selectedCartContext.clean();
         })
         .catch((error) => {
           Swal.fire({

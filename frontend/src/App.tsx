@@ -36,6 +36,7 @@ export interface SelectedCartContext {
   addItem: (cart: CartDTO) => void;
   removeItem: (cart: CartDTO) => void;
   isChecked: (cartId: number) => boolean;
+  clean: () => void;
 }
 
 export const GLOBAL_CONTEXT = createContext({} as GlobalContext);
@@ -72,6 +73,9 @@ function App() {
     setHook(!hook);
   };
   globalContext.selectedCartContext = {
+    clean() {
+      setSelectedCartItems([] as CartDTO[]);
+    },
     getItems() {
       return selectedCartItems;
     },

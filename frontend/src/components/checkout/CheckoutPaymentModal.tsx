@@ -98,6 +98,7 @@ const PayPalButtonWrapper = ({
 }) => {
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
+  const globalContext = useContext(GLOBAL_CONTEXT);
   const navigate = useNavigate();
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   console.log(amount.toFixed(2));
@@ -139,8 +140,8 @@ const PayPalButtonWrapper = ({
             .create(checkoutData)
             .then((response) => {
               const orderDTO = response.data as OrderDTO;
-              const globalContext = useContext(GLOBAL_CONTEXT);
               globalContext.orderContext.setOrderId(orderDTO.id);
+              globalContext.selectedCartContext.clean();
               navigate("/order/detail");
             })
             .catch((error) => {

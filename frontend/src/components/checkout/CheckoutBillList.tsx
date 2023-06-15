@@ -86,8 +86,8 @@ export const CheckoutBillItem = ({
           objectFit="cover"
           src={selectedItem.product.avatar}
         />
-        <Text fontSize="xl" fontWeight="medium">
-          Cốc sứ 2 màu
+        <Text fontSize="lg" fontWeight="medium">
+          {selectedItem.product.name}
         </Text>
       </HStack>
     </HStack>
