@@ -112,7 +112,6 @@ public class ManagerStaffController {
 		//userProfile USE TO GAIN NEW PROFILE OF USER STAFF
 		//PASSWORD CAN BE CUSTOMIZE BUT I WANT TO DEFAULT PASSWORD
 		//AFTER EDIT PROFILE OF STAFF
-		
 		User user = userService.getUserByEmailOrUsername(check, ACTIVE_ENABLED);
 		
 		//CANNOT FOUND THE USER
