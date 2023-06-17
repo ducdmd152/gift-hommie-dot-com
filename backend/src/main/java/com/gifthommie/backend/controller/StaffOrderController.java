@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
+import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.OrderService;
+import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
-@RequestMapping("/staff/orders")
+@RequestMapping("/staff/order")
 public class StaffOrderController {
 	@Autowired
 	OrderService orderService;
@@ -47,13 +50,24 @@ public class StaffOrderController {
 		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/orders?status=DELIVERYING
 		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/orders?status=SUCCSESSFUL
 		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/orders?status=CANCELED
-		@GetMapping
-		public APIPageableResponseDTO<Orders> getOrdersWithStatus (
-				@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
-				@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
-				@RequestParam(defaultValue = "", name = "status") String status){
-			return orderService.getPageableOrder(pageNo, pageSize, status);
-		}
+//		@GetMapping
+//		public APIPageableResponseDTO<Orders> getOrdersWithStatus (
+//				@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+//				@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+//				@RequestParam(defaultValue = "", name = "status") String status){
+//			return orderService.getPageableOrder(pageNo, pageSize, status);
+//		}
+	
+	@GetMapping
+	public APIPageableResponseDTO<OrderDTO> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize){
+//		User user = SecurityUtils.getPrincipal().getUser();
+		//String email = user.getEmail();
+		
+		return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
+	}
+
+	
 	@PutMapping("/{orderID}")
 	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
 		

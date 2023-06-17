@@ -137,6 +137,38 @@ public class OrderServiceImpl implements OrderService {
 		apiResponse.setPageable(apiPageble);
 		return apiResponse;
 	}
+	
+	@Override
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize) {
+		Page<Orders> page = orderRepository.findAll( PageRequest.of(pageNo, pageSize));
+//		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+		List<OrderDTO> orderDTOList = new ArrayList<>();
+		for (Orders order : page) {
+			OrderDTO orderDTO = new OrderDTO(order);
+			
+			User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
+			
+			List<OrderDetailDTO> orderDetailDTOs = new ArrayList<OrderDetailDTO>(); // CONVERT DETAILS TO DETAIL-DTOs
+			;
+			for(OrderDetail orderDetail : order.getOrderDetails()) {				
+				Product product = productService.getProductById(orderDetail.getProductId());
+				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
+			}
+				
+			
+			// SET
+			orderDTO.setUser(tmpUser);
+			orderDTO.setOrderDetails(orderDetailDTOs);
+			
+			orderDTOList.add(orderDTO);
+		}
+		
+		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
+		apiResponse.setContent(orderDTOList);
+		APIPageableDTO apiPageble = new APIPageableDTO(page);
+		apiResponse.setPageable(apiPageble);
+		return apiResponse;
+	}
 
 	@Override
 	public void setStatusOfOrderById(int orderId, String status) {
