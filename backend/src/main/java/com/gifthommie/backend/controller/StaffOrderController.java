@@ -45,11 +45,11 @@ public class StaffOrderController {
 		
 		
 		// Get Order of Customer Pageable Without status              http://localhost:8080/staff/orders
-		// Get Order of Customer Pageable satus is PENDING            http://localhost:8080/staff/orders?status=PENDING
-		// Get Order of Customer Pageable satus is CONFIRMED          http://localhost:8080/staff/orders?status=CONFIRMED
-		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/orders?status=DELIVERYING
-		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/orders?status=SUCCSESSFUL
-		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/orders?status=CANCELED
+		// Get Order of Customer Pageable satus is PENDING            http://localhost:8080/staff/order?status=PENDING
+		// Get Order of Customer Pageable satus is CONFIRMED          http://localhost:8080/staff/order?status=CONFIRMED
+		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/order?status=DELIVERYING
+		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/order?status=SUCCSESSFUL
+		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/order?status=CANCELED
 //		@GetMapping
 //		public APIPageableResponseDTO<Orders> getOrdersWithStatus (
 //				@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
