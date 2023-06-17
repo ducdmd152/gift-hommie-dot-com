@@ -114,7 +114,7 @@ const CartSummaryItem = ({ selectedItem }: { selectedItem: CartDTO }) => {
           src={selectedItem.product.avatar}
         />
         <VStack alignItems={"flex-start"} spacing="2">
-          <Text fontSize="md">Cốc sứ 2 màu</Text>
+          <Text fontSize="md">{selectedItem.product.name}</Text>
           <HStack>
             <HStack spacing="2">
               <Text fontSize="sm" color="gray">

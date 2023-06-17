@@ -33,7 +33,7 @@ const CheckoutShippingMethod = ({ checkoutData, setCheckoutData }: Props) => {
         </VStack>
       </RadioGroup>
       {checkoutData.expectedDeliveryTime && (
-        <Text fontSize="sm" color="gray" fontStyle="italic">
+        <Text paddingLeft="4" fontSize="sm" color="blue.300" fontStyle="italic">
           Dự kiến giao hàng:{" "}
           {new Date(checkoutData.expectedDeliveryTime).toLocaleDateString(
             "en-GB"

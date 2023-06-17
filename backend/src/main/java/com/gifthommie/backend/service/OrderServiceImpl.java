@@ -71,6 +71,8 @@ public class OrderServiceImpl implements OrderService {
 //		orderResponseDTO.setOrderTime(order.getOrderTime());
 
 		Orders order = new Orders(checkOutDTO, email);
+		String extendAddress = checkOutDTO.getWardName() + ", \n" + checkOutDTO.getDistrictName() + ", \n" + checkOutDTO.getProvinceName();
+		order.setAddress(checkOutDTO.getAddress() + ", \n" + extendAddress);
 		orderRepository.save(order);
 
 		return order;
