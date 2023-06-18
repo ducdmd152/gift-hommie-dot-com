@@ -12,6 +12,7 @@ import { GLOBAL_CONTEXT } from "../../App";
 import UserDTO from "../../type/UserDTO";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Swal from "sweetalert2";
 const schema = z
   .object({
     name: z
@@ -100,6 +101,13 @@ const Register = () => {
       let res = await authService.register(data as UserDTO);
 
       if (res) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Đăng kí tài khoản thành công",
+          showConfirmButton: false,
+          timer: 2000,
+        });
         onAuthenticated();
       } else {
         setRegisterStatus("Đăng kí thất bại.");
