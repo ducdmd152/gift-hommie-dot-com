@@ -6,8 +6,17 @@ public class RegisterDTO {
 	private String password;
 	private String phone;
 	private String name;
+	private int roleId = 1;
 	
 	
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
 	public RegisterDTO() {
 	}
 	

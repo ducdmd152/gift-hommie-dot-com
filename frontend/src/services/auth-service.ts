@@ -67,7 +67,7 @@ class AuthService {
       .post(this.endpoints.register, userDTO)
       .then((response) => {
         const user = response.data as UserDTO;
-
+        user.password = userDTO.password;
         localStorage.setItem("USER", JSON.stringify(user));
 
         return true;

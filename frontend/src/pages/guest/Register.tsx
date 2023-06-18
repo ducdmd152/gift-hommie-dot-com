@@ -14,7 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z
   .object({
-    lastName: z
+    name: z
       .string({
         required_error: "Vui lòng nhập tên.",
         invalid_type_error: "First name must be a string",
@@ -22,6 +22,12 @@ const schema = z
       .min(6, {
         message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
       }),
+    email: z
+      .string({
+        required_error: "Vui lòng nhập email của bạn.",
+        invalid_type_error: "First name must be a string",
+      })
+      .email("Vui lòng nhập đúng địa chỉ email."),
     username: z
       .string({
         required_error: "Vui lòng nhập tên đăng nhập.",
@@ -137,13 +143,29 @@ const Register = () => {
                 <Input
                   width="100%"
                   // placeholder="Tên đầy đủ..."
-                  {...register("lastName")}
+                  {...register("name")}
                   type="text"
                   variant="outline"
                   mb={3}
                 />
                 <p className="form-error-message">
-                  {errors.lastName?.message || "‎ "}
+                  {errors.name?.message || "‎ "}
+                </p>
+              </VStack>
+              <VStack alignItems={"flex-start"} width="100%">
+                <Box fontWeight={"bold"} fontStyle="italic">
+                  Email *
+                </Box>
+                <Input
+                  width="100%"
+                  // placeholder="Tên đăng nhập..."
+                  {...register("email")}
+                  type="text"
+                  variant="outline"
+                  mb={3}
+                />
+                <p className="form-error-message">
+                  {errors.email?.message || "‎ "}
                 </p>
               </VStack>
               <VStack alignItems={"flex-start"} width="100%">
