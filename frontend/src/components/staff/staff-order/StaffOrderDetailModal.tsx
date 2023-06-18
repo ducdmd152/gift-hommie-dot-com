@@ -10,15 +10,38 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StaffOrderDetailInfo from "./StaffOrderDetailInfo";
 import StaffOrderItems from "./StaffOrderItems";
+import OrderDTO from "../../../type/OrderDTO";
+import staffOrderService from "../../../services/staff-order-service";
+import { useNavigate } from "react-router-dom";
+import OrderDetailDTO from "../../../type/OrderDetailDTO";
+import { GLOBAL_CONTEXT } from "../../../App";
 interface Props {
+  order: OrderDTO;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
-const StaffOrderDetailModal = ({ isOpen, onOpen, onClose }: Props) => {
+const StaffOrderDetailModal = ({ isOpen, onOpen, onClose, order }: Props) => {
+  // const globalContext = useContext(GLOBAL_CONTEXT);
+  // const [order, setOrder] = useState<OrderDTO>({
+  //   orderDetails: [] as OrderDetailDTO[],
+  // } as OrderDTO);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   staffOrderService
+  //     .get(globalContext.orderContext.getOrderId())
+  //     .then((res) => {
+  //       setOrder(res.data as OrderDTO);
+  //       console.log("in", res.data as OrderDTO);
+  //     })
+  //     .catch((err) => {
+  //       // navigate("/order");
+  //     });
+  // }, []);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} preserveScrollBarGap={false}>
       <ModalOverlay />
@@ -27,15 +50,15 @@ const StaffOrderDetailModal = ({ isOpen, onOpen, onClose }: Props) => {
         maxW="90vw"
         style={{ overflowY: "scroll", height: "90vh" }}
       >
-        <ModalHeader>Chi tiết đơn hàng</ModalHeader>
-        <ModalCloseButton />
+        {/* <ModalHeader>Chi tiết đơn hàng</ModalHeader> */}
+        <ModalCloseButton zIndex={4} />
         <ModalBody>
-          <StaffOrderDetailInfo />
+          <StaffOrderDetailInfo order={order} />
           <Card p="4" w="100%" mt="4">
             <Heading size="md" textAlign={"center"} mb="4">
               Thông tin sản phẩm
             </Heading>
-            <StaffOrderItems />
+            <StaffOrderItems order={order} />
           </Card>
         </ModalBody>
 

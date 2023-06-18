@@ -11,7 +11,7 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
 
   // GET DATA
-  console.log(order);
+  // console.log(order);
 
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;

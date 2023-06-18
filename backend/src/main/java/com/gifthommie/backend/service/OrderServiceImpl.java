@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableDTO;
@@ -110,7 +112,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
     public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize) {
-        Page<Orders> page = orderRepository.findAll( PageRequest.of(pageNo, pageSize));
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("orderTime").descending()); // MODIFIED BY DUY DUC
+        Page<Orders> page = orderRepository.findAll( pageable);
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         List<OrderDTO> orderDTOList = new ArrayList<>();
         for (Orders order : page) {
