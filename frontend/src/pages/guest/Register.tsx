@@ -63,6 +63,31 @@ const schema = z
       );
     },
     { message: "Số điện thoại không hợp lệ.", path: ["phone"] }
+  )
+  .refine(
+    async (data) => {
+      let username = data.username;
+      let check = await authService.noneExistUsername(username);
+
+      return check;
+    },
+    {
+      message:
+        "Tên đăng nhập đã tồn tại, vui lòng chọn một tên đăng nhập khác.",
+      path: ["username"],
+    }
+  )
+  .refine(
+    async (data) => {
+      let email = data.email;
+      let check = await authService.noneExistEmail(email);
+
+      return check;
+    },
+    {
+      message: "Email đã tồn tại, vui lòng chọn một email khác.",
+      path: ["email"],
+    }
   );
 type FormData = z.infer<typeof schema>;
 const Register = () => {

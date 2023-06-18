@@ -76,6 +76,35 @@ class AuthService {
         return false;
       });
   }
+  async noneExistUsername(username: string) {
+    return await this.apiClient
+      .post("/auth/register/error/username", undefined, {
+        params: {
+          username: username,
+        },
+      })
+      .then((response) => {
+        return true;
+      })
+      .catch((err) => {
+        return false;
+      });
+  }
+
+  async noneExistEmail(email: string) {
+    return await this.apiClient
+      .post("/auth/register/error/email", undefined, {
+        params: {
+          email: email,
+        },
+      })
+      .then((response) => {
+        return true;
+      })
+      .catch((err) => {
+        return false;
+      });
+  }
 }
 
 export default new AuthService(apiClient);
