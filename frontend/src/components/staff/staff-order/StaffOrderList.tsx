@@ -20,12 +20,18 @@ import useFetchStaffOrder, {
   StaffOrderQuery,
 } from "../../../hooks/useFetchStaffOrder";
 import ORDER_STATUS_MAP from "../../../data/OrderStatusData";
+import OrderDTO from "../../../type/OrderDTO";
 
-const StaffOrderList = () => {
-  const [customerOrderQuery, setCustomerOrderQuery] = useState(
-    {} as StaffOrderQuery
-  );
-  const { orders, pageable, error } = useFetchStaffOrder(customerOrderQuery);
+interface Props {
+  orders: OrderDTO[];
+  staffOrderQuery: StaffOrderQuery;
+  setStaffOrderQuery: (staffOrderQuery: StaffOrderQuery) => void;
+}
+const StaffOrderList = ({
+  orders,
+  staffOrderQuery,
+  setStaffOrderQuery,
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>

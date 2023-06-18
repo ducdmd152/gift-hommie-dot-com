@@ -8,13 +8,18 @@ import {
   Tabs,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import StaffOrderList from "../../components/staff/staff-order/StaffOrderList";
 import StaffOrderTabs from "../../components/staff/staff-order/StaffOrderTabs";
 import Pagination from "../../components/Pagination";
 import PageableDTO from "../../type/PageableDTO";
+import useFetchStaffOrder, {
+  StaffOrderQuery,
+} from "../../hooks/useFetchStaffOrder";
 
 const StaffOrderPage = () => {
+  const [staffOrderQuery, setStaffOrderQuery] = useState({} as StaffOrderQuery);
+  const { orders, pageable, error } = useFetchStaffOrder(staffOrderQuery);
   return (
     <VStack
       className="child-full-width"
@@ -27,11 +32,17 @@ const StaffOrderPage = () => {
       </Heading>
 
       <StaffOrderTabs />
-      <StaffOrderList />
+      <StaffOrderList
+        orders={orders}
+        staffOrderQuery={staffOrderQuery}
+        setStaffOrderQuery={setStaffOrderQuery}
+      />
       <HStack w="unset">
         <Pagination
-          onSelectPageIndex={(id: number) => {}}
-          pageable={{} as PageableDTO}
+          onSelectPageIndex={(index: number) => {
+            setStaffOrderQuery({ ...staffOrderQuery, page: index });
+          }}
+          pageable={pageable}
         />
       </HStack>
     </VStack>
