@@ -1,6 +1,6 @@
 import CartDTO from "./CartDTO";
 export default interface CheckoutDTO {
-  id: string;
+  id: string; // BE không cần
   name: string;
   phone: string;
 

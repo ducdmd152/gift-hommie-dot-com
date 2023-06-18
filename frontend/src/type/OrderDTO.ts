@@ -30,4 +30,6 @@ export default interface OrderDTO {
   comment: string;
   orderTime: string; // Auto-update by BE when CREATE ORDER
   lastUpdatedTime: string; // Auto-update by BE when CREATE/UPDATE ORDER
+
+  expectedDeliveryTime: string; // ADD MORE // DATETIME
 }

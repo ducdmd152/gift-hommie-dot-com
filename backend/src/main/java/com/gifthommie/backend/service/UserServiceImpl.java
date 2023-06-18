@@ -3,6 +3,7 @@ package com.gifthommie.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
@@ -119,10 +120,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	@Autowired
+	RoleService roleService;
 	@Override
 	public User register(RegisterDTO registerDTO) {
 		String username = registerDTO.getUsername();
 		String email = registerDTO.getEmail();
+		
 		if(userRepository.getUserByUsername(username) != null) {
 			return null;
 		}
@@ -130,13 +136,16 @@ public class UserServiceImpl implements UserService {
 		if(userRepository.getUserByEmail(email) != null) {
 			return null;
 		}
-		
+						
 		User user = new User();
 		user.setUsername(username);
 		user.setEmail(email);
 		user.setLastName(registerDTO.getName());
-		user.setPassword(registerDTO.getPassword());
-		user.setEnabled(true);
+		user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+		user.setEnabled(true);		
+		user.setRole(roleService.getRoleById(registerDTO.getRoleId()));
+		user.setPhone(registerDTO.getPhone());
+		
 		return userRepository.save(user);
 	}
 

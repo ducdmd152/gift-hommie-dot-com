@@ -40,9 +40,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/register")
-	public User register(@RequestBody RegisterDTO registerDTO) {
-		String username = registerDTO.getUsername();
-		String email = registerDTO.getPassword();
+	public User register(@RequestBody RegisterDTO registerDTO) {	
 		User user = userService.register(registerDTO);
 		if(user == null) {
 			throw new RuntimeException("Can not sign up for the data.");

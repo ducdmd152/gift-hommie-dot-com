@@ -61,26 +61,44 @@ class AuthService {
     localStorage.removeItem("USER");
     window.location.href = "/";
   }
-  register(username: String, password: String, isMale: boolean) {
-    let auth = {
-      username,
-      email: username + "@dsocial.com",
-      password: password,
-      avt: avatarService.getRandomAvatar(isMale),
-    };
 
+  register(userDTO: UserDTO) {
     return this.apiClient
-      .post(this.endpoints.register, auth)
+      .post(this.endpoints.register, userDTO)
       .then((response) => {
-        const { accessToken, user } = response.data;
+        const user = response.data as UserDTO;
+        user.password = userDTO.password;
+        localStorage.setItem("USER", JSON.stringify(user));
 
-        this.apiClient.defaults.params = {
-          ...this.apiClient.defaults.params,
-          accessToken: accessToken,
-        };
+        return true;
+      })
+      .catch((err) => {
+        return false;
+      });
+  }
+  async noneExistUsername(username: string) {
+    return await this.apiClient
+      .post("/auth/register/error/username", undefined, {
+        params: {
+          username: username,
+        },
+      })
+      .then((response) => {
+        return true;
+      })
+      .catch((err) => {
+        return false;
+      });
+  }
 
-        localStorage.setItem("user", JSON.stringify(user));
-
+  async noneExistEmail(email: string) {
+    return await this.apiClient
+      .post("/auth/register/error/email", undefined, {
+        params: {
+          email: email,
+        },
+      })
+      .then((response) => {
         return true;
       })
       .catch((err) => {
