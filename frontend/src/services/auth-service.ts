@@ -61,25 +61,14 @@ class AuthService {
     localStorage.removeItem("USER");
     window.location.href = "/";
   }
-  register(username: String, password: String, isMale: boolean) {
-    let auth = {
-      username,
-      email: username + "@dsocial.com",
-      password: password,
-      avt: avatarService.getRandomAvatar(isMale),
-    };
 
+  register(userDTO: UserDTO) {
     return this.apiClient
-      .post(this.endpoints.register, auth)
+      .post(this.endpoints.register, userDTO)
       .then((response) => {
-        const { accessToken, user } = response.data;
+        const user = response.data as UserDTO;
 
-        this.apiClient.defaults.params = {
-          ...this.apiClient.defaults.params,
-          accessToken: accessToken,
-        };
-
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("USER", JSON.stringify(user));
 
         return true;
       })
