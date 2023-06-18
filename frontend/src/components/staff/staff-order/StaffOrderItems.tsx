@@ -18,13 +18,10 @@ import {
 import React, { useContext, useState } from "react";
 import StaffOrderItem from "./StaffOrderItem";
 import useFetchCart, { CartQuery } from "../../../hooks/useFetchCart";
+import OrderDTO from "../../../type/OrderDTO";
 
-const StaffOrderItems = () => {
-  //CODE FAKE DATA (TEMPORARY)
-  const [cartQuery, setCartQuery] = useState({} as CartQuery);
-  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
-  // GET DATA
-  let items = carts;
+const StaffOrderItems = ({ order }: { order: OrderDTO }) => {
+  let items = order.orderDetails;
   return (
     <VStack spacing={"4"} w="100%">
       {items.map((item) => {

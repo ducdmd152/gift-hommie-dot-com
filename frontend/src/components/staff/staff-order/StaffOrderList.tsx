@@ -14,13 +14,14 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import StaffOrderDetailModal from "./StaffOrderDetailModal";
 import useFetchStaffOrder, {
   StaffOrderQuery,
 } from "../../../hooks/useFetchStaffOrder";
 import ORDER_STATUS_MAP from "../../../data/OrderStatusData";
 import OrderDTO from "../../../type/OrderDTO";
+import { GLOBAL_CONTEXT } from "../../../App";
 
 interface Props {
   orders: OrderDTO[];
@@ -32,7 +33,10 @@ const StaffOrderList = ({
   staffOrderQuery,
   setStaffOrderQuery,
 }: Props) => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [order, setOrder] = useState({} as OrderDTO);
+
   return (
     <Box>
       <TableContainer borderRadius="12" border="solid 1px gray">
@@ -94,6 +98,7 @@ const StaffOrderList = ({
                     size="sm"
                     onClick={() => {
                       onOpen();
+                      setOrder(order);
                     }}
                   >
                     Chi tiết
@@ -105,6 +110,7 @@ const StaffOrderList = ({
         </Table>
       </TableContainer>
       <StaffOrderDetailModal
+        order={order}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}

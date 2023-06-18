@@ -7,33 +7,42 @@ import {
   VStack,
   Text,
   Button,
+  Show,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import useFetchCart, { CartQuery } from "../../../hooks/useFetchCart";
 import Selector from "../../Selector";
+import OrderDTO from "../../../type/OrderDTO";
+import ORDER_STATUS_MAP, {
+  OrderStatusItem,
+} from "../../../data/OrderStatusData";
 
-const StaffOrderDetailInfo = () => {
-  //CODE FAKE DATA (TEMPORARY)
-  const [cartQuery, setCartQuery] = useState({} as CartQuery);
-  const { carts, pageable, setCarts } = useFetchCart(cartQuery);
-  // GET DATA
-  let items = carts;
+const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
+  let items = order.orderDetails;
+  const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
+  const total =
+    (items.reduce((acc, item) => acc + item.total, 0) + order.shippingFee) /
+    1000;
+  const status = order?.status
+    ? ORDER_STATUS_MAP[order.status]
+    : ({} as OrderStatusItem);
+
   return (
-    <Card>
+    <Card mt="8">
       <VStack w="100%" alignItems={"flex-start"} className="child-full-width">
         {/* HEADER INFO */}
-        <HStack justifyContent={"flex-end"}>
-          <Button colorScheme="blue">Xác nhận</Button>
-          <Button colorScheme="red" variant={"outline"}>
-            Từ chối
-          </Button>
-          {/* <Button colorScheme="red">Hủy</Button> */}
-        </HStack>
-        <HStack w="100%" justifyContent={"space-between"} spacing="0">
-          <VStack flex="1" spacing="0">
+
+        {/* HEADER INFO */}
+        <HStack
+          w="100%"
+          justifyContent={"space-between"}
+          spacing="0"
+          background={"rgb(237, 242, 247)"}
+        >
+          <VStack flex="2" spacing="0">
             <Badge p="2" fontSize={"lg"} w="100%">
               Chi tiết đơn hàng
-              {" | ID >> 01"}
+              {" | ID >> " + order.id}
             </Badge>
             <Badge
               w="100%"
@@ -41,12 +50,26 @@ const StaffOrderDetailInfo = () => {
               fontSize={"md"}
               className="none-text-transform"
               fontStyle={"italic"}
+              fontWeight={"medium"}
               color="gray"
             >
-              Ngày tạo đơn: 06/06/2023
+              Ngày tạo đơn: {order.orderTime}
             </Badge>
           </VStack>
-          <VStack flex="1" spacing="0">
+
+          {/* ACTIONS */}
+          <HStack
+            justifyContent={"flex-end"}
+            paddingX="12"
+            display={order.status == "PENDING" ? "inline-block" : "none"}
+          >
+            <Button colorScheme="blue">Xác nhận</Button>
+            <Button colorScheme="red" variant={"outline"}>
+              Từ chối
+            </Button>
+            {/* <Button colorScheme="red">Hủy</Button> */}
+          </HStack>
+          <VStack flex="2" spacing="0">
             <Badge
               w="100%"
               p="2"
@@ -57,12 +80,13 @@ const StaffOrderDetailInfo = () => {
               <HStack w="100%" justifyContent="flex-end">
                 <Text>Trạng thái đơn hàng: </Text>
                 <Badge
-                  colorScheme="yellow"
-                  fontSize={"lg"}
+                  colorScheme={status.colorScheme}
+                  color="white"
+                  bg={status.backgroundColor}
+                  fontSize={"md"}
                   className="none-text-transform"
                 >
-                  {" "}
-                  PENDING | Chờ xác nhận
+                  {status.label + " | " + status.descCustomer}
                 </Badge>
               </HStack>
             </Badge>
@@ -74,8 +98,9 @@ const StaffOrderDetailInfo = () => {
               fontStyle={"italic"}
               color="gray"
               textAlign={"right"}
+              fontWeight={"medium"}
             >
-              Ngày cập nhật: 17:59 06/06/2023
+              Ngày cập nhật: {order.lastUpdatedTime}
             </Badge>
           </VStack>
         </HStack>
@@ -86,13 +111,13 @@ const StaffOrderDetailInfo = () => {
             Người nhận
           </Heading>
           <VStack w="100%" alignItems="flex-start">
-            <Text fontWeight={"bold"}>TRẦN CƯƠNG QUYẾT </Text>
+            <Text fontWeight={"bold"}>{order.name} </Text>
             <Text>
               {" "}
-              Điện thoại: <strong>01214212412</strong>
+              Điện thoại: <strong>{order.phone}</strong>
             </Text>
             <Text>
-              Địa chỉ: <strong>TX25, P.THẠNH XUÂN, Q12,THÀNH PHỐ HCM</strong>{" "}
+              Địa chỉ: <strong>{order.address}</strong>{" "}
             </Text>
           </VStack>
         </Card>
@@ -107,7 +132,7 @@ const StaffOrderDetailInfo = () => {
               <VStack>
                 <HStack spacing="4" w="100%">
                   <Text fontSize="md" flex="2" textAlign="left">
-                    Tổng thanh toán
+                    Tổng tiền hàng
                   </Text>
                   <Text
                     fontSize="lg"
@@ -115,8 +140,7 @@ const StaffOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {amount.toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -129,7 +153,7 @@ const StaffOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    Freeship
+                    {(order.shippingFee / 1000).toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -142,8 +166,7 @@ const StaffOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {total.toFixed(3) + "đ"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -156,8 +179,7 @@ const StaffOrderDetailInfo = () => {
                     flex="1"
                     fontWeight="bold"
                   >
-                    {items.reduce((acc, item) => acc + item.total, 0) / 1000}
-                    {".000đ"}
+                    {(order.paymentMethod == 2 ? 0 : total).toFixed(3) + "đ"}
                   </Text>
                 </HStack>
               </VStack>
@@ -171,12 +193,14 @@ const StaffOrderDetailInfo = () => {
                     Hình thức thanh toán
                   </Text>
                   <Text
-                    fontSize="lg"
+                    fontSize="md"
                     textAlign="right"
                     flex="3"
                     fontWeight="bold"
                   >
-                    Thanh toán khi nhận hàng (COD)
+                    {order.paymentMethod == 1
+                      ? "Thanh toán khi nhận hàng (COD)"
+                      : "Thanh toán qua Paypal (đã thanh toán)"}
                   </Text>
                 </HStack>
                 <HStack spacing="4" w="100%">
@@ -184,12 +208,14 @@ const StaffOrderDetailInfo = () => {
                     Hình thức vận chuyển
                   </Text>
                   <Text
-                    fontSize="lg"
+                    fontSize="md"
                     textAlign="right"
                     flex="3"
                     fontWeight="bold"
                   >
-                    Giao hàng tiêu chuẩn (nhanh)
+                    {order.shippingMethod == 2
+                      ? "Giao hàng tiêu chuẩn (nhanh)"
+                      : "Giao hàng tốc hành (express)"}
                   </Text>
                 </HStack>
               </VStack>
