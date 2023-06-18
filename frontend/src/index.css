@@ -84,7 +84,6 @@
 }
 
 .text-truncate {
-  width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -109,4 +108,15 @@
 
 .child-full-width > * {
   width: 100%;
+}
+
+.word-wrap,
+.word-wrap *,
+.word-wrap ::before,
+.word-wrap ::after,
+.word-wrap *::before,
+.word-wrap *::after {
+  width: 160px !important;
+  overflow: hidden !important;
+  word-wrap: break-word !important;
 }

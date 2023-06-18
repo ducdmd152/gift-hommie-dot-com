@@ -11,12 +11,21 @@ import {
   Th,
   Thead,
   Tr,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import StaffOrderDetailModal from "./StaffOrderDetailModal";
+import useFetchStaffOrder, {
+  StaffOrderQuery,
+} from "../../../hooks/useFetchStaffOrder";
+import ORDER_STATUS_MAP from "../../../data/OrderStatusData";
 
 const StaffOrderList = () => {
+  const [customerOrderQuery, setCustomerOrderQuery] = useState(
+    {} as StaffOrderQuery
+  );
+  const { orders, pageable, error } = useFetchStaffOrder(customerOrderQuery);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
@@ -26,40 +35,66 @@ const StaffOrderList = () => {
             <Tr>
               <Th>ID</Th>
               <Th>Ngày tạo đơn</Th>
+              <Th>Trạng thái</Th>
               <Th>Người nhận</Th>
               <Th>Số điện thoại</Th>
               <Th>Địa chỉ nhận hàng</Th>
               <Th>Tổng thanh toán</Th>
-              <Th>Trạng thái</Th>
+
               <Th>Chi tiết</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>ID</Td>
-              <Td>Ngày tạo đơn</Td>
-              <Td>Người nhận</Td>
-              <Td>Số điện thoại</Td>
-              <Td>Địa chỉ nhận hàng</Td>
-              <Td>Tổng thanh toán</Td>
-              <Td>
-                <Badge colorScheme="yellow" w="unset">
-                  PENDING
-                </Badge>
-              </Td>
-              <Td>
-                <Button
-                  colorScheme="blue"
-                  paddingX="4"
-                  size="sm"
-                  onClick={() => {
-                    onOpen();
-                  }}
-                >
-                  Chi tiết
-                </Button>
-              </Td>
-            </Tr>
+            {orders.map((order) => (
+              <Tr key={order.id}>
+                <Td>
+                  <strong>{order.id}</strong>
+                </Td>
+                <Td>{order.orderTime}</Td>
+                <Td>
+                  <Badge
+                    colorScheme={ORDER_STATUS_MAP[order.status].colorScheme}
+                    w="unset"
+                  >
+                    {ORDER_STATUS_MAP[order.status].label}
+                  </Badge>
+                </Td>
+                <Td>
+                  <strong>{order.name}</strong>
+                </Td>
+                <Td>
+                  <strong>{order.phone}</strong>
+                </Td>
+                <Td maxW="320px">
+                  <div className="text-truncate">{order.address}</div>
+                </Td>
+                <Td>
+                  <strong>
+                    {(
+                      (order.orderDetails.reduce(
+                        (acc, item) => acc + item.total,
+                        0
+                      ) +
+                        order.shippingFee) /
+                      1000
+                    ).toFixed(3) + "đ"}
+                  </strong>
+                </Td>
+
+                <Td>
+                  <Button
+                    colorScheme="blue"
+                    paddingX="4"
+                    size="sm"
+                    onClick={() => {
+                      onOpen();
+                    }}
+                  >
+                    Chi tiết
+                  </Button>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
