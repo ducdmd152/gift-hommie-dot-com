@@ -38,15 +38,14 @@ public class StaffOrderController {
 		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/order?status=DELIVERYING
 		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/order?status=SUCCSESSFUL
 		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/order?status=CANCELED
-		@GetMapping
-		public APIPageableResponseDTO<Orders> getOrdersWithStatus (
-				@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
-				@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
-				@RequestParam(defaultValue = "", name = "status") String status){
-			return orderService.getPageableOrder(pageNo, pageSize, status);
-		}
-		
-		
+	@GetMapping
+    public APIPageableResponseDTO<OrderDTO> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+            @RequestParam(defaultValue = "12", name = "size") Integer pageSize){
+//        User user = SecurityUtils.getPrincipal().getUser();
+        //String email = user.getEmail();
+
+        return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
+    }
 		
 		@GetMapping("/{orderId}")
 		public OrderDTO viewOrderDetail(@PathVariable int orderId) {
