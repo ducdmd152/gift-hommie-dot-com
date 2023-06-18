@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.exception.NotFoundException;
@@ -18,21 +19,11 @@ import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.OrderService;
 
 @RestController
-@RequestMapping("/staff/orders")
+@RequestMapping("/staff/order")
 public class StaffOrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@GetMapping("/{orderId}")
-	public List<OrderDetail> viewOrderDetail(@PathVariable int orderId) {
-		
-		Orders order = orderService.getOrderByOrderId(orderId);
-		if (order == null)
-			throw new NotFoundException("ORDER CANNOT BE FOUND");
-		
-		return order.getOrderDetails();
-		
-	}
 	
 	
 	/// ------- NOTICE ------------- ///
@@ -42,11 +33,11 @@ public class StaffOrderController {
 		
 		
 		// Get Order of Customer Pageable Without status              http://localhost:8080/staff/orders
-		// Get Order of Customer Pageable satus is PENDING            http://localhost:8080/staff/orders?status=PENDING
-		// Get Order of Customer Pageable satus is CONFIRMED          http://localhost:8080/staff/orders?status=CONFIRMED
-		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/orders?status=DELIVERYING
-		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/orders?status=SUCCSESSFUL
-		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/orders?status=CANCELED
+		// Get Order of Customer Pageable satus is PENDING            http://localhost:8080/staff/order?status=PENDING
+		// Get Order of Customer Pageable satus is CONFIRMED          http://localhost:8080/staff/order?status=CONFIRMED
+		// Get Order of Customer Pageable satus is DELIVERYING        http://localhost:8080/staff/order?status=DELIVERYING
+		// Get Order of Customer Pageable satus is SUCCSESSFUL        http://localhost:8080/staff/order?status=SUCCSESSFUL
+		// Get Order of Customer Pageable satus is CANCELED           http://localhost:8080/staff/order?status=CANCELED
 		@GetMapping
 		public APIPageableResponseDTO<Orders> getOrdersWithStatus (
 				@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
@@ -54,6 +45,19 @@ public class StaffOrderController {
 				@RequestParam(defaultValue = "", name = "status") String status){
 			return orderService.getPageableOrder(pageNo, pageSize, status);
 		}
+		
+		
+		
+		@GetMapping("/{orderId}")
+		public OrderDTO viewOrderDetail(@PathVariable int orderId) {
+			OrderDTO orderDTO = orderService.getOrderDTOByOrderId(orderId);
+			
+			if (orderDTO == null)
+				throw new NotFoundException("ORDER CANNOT BE FOUND");
+			
+			return orderDTO;
+		}
+		
 	@PutMapping("/{orderID}")
 	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
 		
