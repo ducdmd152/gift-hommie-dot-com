@@ -291,6 +291,19 @@ const StaffOrderDetailInfo = ({
                       : "Giao hàng tốc hành (express)"}
                   </Text>
                 </HStack>
+                <Text
+                  mt="-4"
+                  w="100%"
+                  textAlign={"right"}
+                  fontSize="sm"
+                  color="blue.300"
+                  fontStyle="italic"
+                >
+                  Dự kiến giao hàng:{" "}
+                  {new Date(order.expectedDeliveryTime).toLocaleDateString(
+                    "en-GB"
+                  )}
+                </Text>
               </VStack>
             </Card>
             {/* SUMMARY INFO */}

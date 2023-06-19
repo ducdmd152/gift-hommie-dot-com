@@ -164,6 +164,9 @@ public class Orders {
 		this.status = DEFAULT_STATUS;
 		this.lastUpdatedTime=LocalDateTime.now();
 		this.expectedDeliveryTime=checkOutDTO.getExpectedDeliveryTime();
+		if(this.expectedDeliveryTime == null) {
+			this.expectedDeliveryTime = LocalDateTime.now().plusDays(2);
+		}
 	}
 
 
