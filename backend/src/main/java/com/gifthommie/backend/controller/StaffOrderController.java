@@ -46,7 +46,9 @@ public class StaffOrderController {
             @RequestParam(name = "status", required = false) String status){
 //        User user = SecurityUtils.getPrincipal().getUser();
         //String email = user.getEmail();
-
+		if(status.isEmpty())
+			status = null;
+		
 		if(status == null)
 			return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
 		return orderService.getOrderDTOList_noEmail(pageNo, pageSize, status);

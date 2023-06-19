@@ -22,6 +22,9 @@ const StaffOrderPage = () => {
   const { orders, pageable, error, setOrders } =
     useFetchStaffOrder(staffOrderQuery);
 
+  const onStatus = (status: string) => {
+    setStaffOrderQuery({ ...staffOrderQuery, status });
+  };
   return (
     <VStack
       className="child-full-width"
@@ -33,7 +36,7 @@ const StaffOrderPage = () => {
         Quản lí đơn hàng
       </Heading>
 
-      <StaffOrderTabs />
+      <StaffOrderTabs onStatus={onStatus} />
       <StaffOrderList
         orders={orders}
         setOrders={setOrders}
