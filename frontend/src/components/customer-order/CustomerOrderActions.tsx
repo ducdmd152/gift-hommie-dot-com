@@ -4,6 +4,8 @@ import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../services/customer-order-service";
+import cartActionSerivce from "../../services/cart-action-service";
+import CartDTO from "../../type/CartDTO";
 
 const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
@@ -26,7 +28,21 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
       </Button>
 
       {status == "SUCCESSFUL" && (
-        <Button colorScheme="blue" variant="outline">
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          onClick={() => {
+            order.orderDetails.forEach(async (od) => {
+              let cart = await cartActionSerivce.addToCart(od.product.id, 0);
+
+              cart.quantity = od.quantity;
+              cart = await cartActionSerivce.updateCart(cart);
+
+              globalContext.selectedCartContext.addItem(cart);
+              navigate("/cart");
+            });
+          }}
+        >
           Mua lại
         </Button>
       )}
