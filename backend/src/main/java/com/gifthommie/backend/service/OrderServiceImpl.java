@@ -143,10 +143,76 @@ public class OrderServiceImpl implements OrderService {
         return apiResponse;
     }
 	
+	@Override
+    public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status) {
+		if(status == null)
+			return getOrderDTOList_noEmail(pageNo, pageSize);
+		
+		List<String> statuses = new ArrayList<>();
+		if(status.toLowerCase().equals("others")) {
+			statuses.add("CANCELLED");
+			statuses.add("REFUSED");		
+        }
+		else {
+			statuses.add(status);
+		}
+		
+		
+        Page<Orders> page = orderRepository.findAllWithStatus(statuses, PageRequest.of(pageNo, pageSize));
+        
+        
+        
+//        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        for (Orders order : page) {
+            OrderDTO orderDTO = new OrderDTO(order);
+
+            User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
+
+            List<OrderDetailDTO> orderDetailDTOs = new ArrayList<OrderDetailDTO>(); // CONVERT DETAILS TO DETAIL-DTOs
+            ;
+            for(OrderDetail orderDetail : order.getOrderDetails()) {
+                Product product = productService.getProductById(orderDetail.getProductId());
+                orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
+            }
+
+
+            // SET
+            orderDTO.setUser(tmpUser);
+            orderDTO.setOrderDetails(orderDetailDTOs);
+
+            orderDTOList.add(orderDTO);
+        }
+
+        APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
+        apiResponse.setContent(orderDTOList);
+        APIPageableDTO apiPageble = new APIPageableDTO(page);
+        apiResponse.setPageable(apiPageble);
+        return apiResponse;
+    }
 	
 	@Override
-	public APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email) {
-		Page<Orders> page = orderRepository.findAllByEmail(email, PageRequest.of(pageNo, pageSize));
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email, String status) {
+		Page<Orders> page = null;
+		
+		if(status == null) {
+			page = orderRepository.findAllByEmail(email, PageRequest.of(pageNo, pageSize));
+		}
+		else {
+			List<String> statuses = new ArrayList<>();
+			if(status.toLowerCase().equals("others")) {
+				statuses.add("CANCELLED");
+				statuses.add("REFUSED");		
+	        }
+			else {
+				statuses.add(status);
+			}
+			page = orderRepository.findAllByEmailWithStatus(email, statuses, PageRequest.of(pageNo, pageSize));
+		}
+		
+		
+		
+		
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {

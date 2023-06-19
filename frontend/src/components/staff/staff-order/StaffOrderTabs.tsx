@@ -9,7 +9,11 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const StaffOrderTabs = () => {
+const StaffOrderTabs = ({
+  onStatus,
+}: {
+  onStatus: (status: string) => void;
+}) => {
   return (
     <Box mt="4" w="100%">
       <Tabs isFitted variant="enclosed">
@@ -17,52 +21,61 @@ const StaffOrderTabs = () => {
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "teal.600" }}
+            onClick={() => onStatus("")}
           >
             Tất cả
           </Tab>
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "yellow.400" }}
+            onClick={() => onStatus("PENDING")}
           >
             Chờ xác nhận
           </Tab>
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "teal.300" }}
+            onClick={() => onStatus("CONFIRMED")}
           >
             Đã xác nhận
           </Tab>
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "green.300" }}
+            onClick={() => onStatus("DELIVERYING")}
           >
             Đang giao
           </Tab>
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "green.400" }}
+            onClick={() => onStatus("SUCCESSFULLY")}
           >
             Đã hoàn thành
           </Tab>
 
           <Tab
             className="customer-order-tab"
-            _selected={{ color: "white", bg: "orange.800" }}
+            _selected={{ color: "white", bg: "gray.400" }}
+            onClick={() => onStatus("REFUSED")}
           >
-            Không thành công
+            Đã từ chối
           </Tab>
 
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "gray.400" }}
+            onClick={() => onStatus("CANCELLED")}
           >
             Đã hủy
           </Tab>
+
           <Tab
             className="customer-order-tab"
-            _selected={{ color: "white", bg: "gray.400" }}
+            _selected={{ color: "white", bg: "orange.800" }}
+            onClick={() => onStatus("FAIL")}
           >
-            Đã từ chối
+            Thất bại
           </Tab>
         </TabList>
         <TabIndicator

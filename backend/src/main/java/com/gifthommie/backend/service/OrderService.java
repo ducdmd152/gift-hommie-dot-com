@@ -21,10 +21,12 @@ public interface OrderService {
 	public void setStatusOfOrderById(int orderId, String status);
 	
 	APIPageableResponseDTO<Orders> getPageableOrder(Integer pageNo, Integer pageSize, String status);
-	APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email);
+	APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email, String status);
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize) ;
 	
 	public Orders save(Orders order);
 
 	public OrderDTO getOrderDTOByOrderId(int orderId);
+
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status);
 }
