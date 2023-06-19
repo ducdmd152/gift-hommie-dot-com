@@ -84,7 +84,7 @@ public class CustomerOrderController {
 	
 	//UPDATE ORDER
 	@PutMapping("/{id}")
-	public OrderDTO updateOrder(@PathVariable int orderId, 
+	public OrderDTO updateOrder(@PathVariable Integer orderId, 
 						@RequestBody OrderDTO orderDTO) {
 		Orders order = orderService.getOrderByOrderId(orderId);
 		//IF CANNOT FIND THE ORDER BY ID
