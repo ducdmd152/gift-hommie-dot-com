@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,17 +58,32 @@ public class StaffOrderController {
 			return orderDTO;
 		}
 		
-	@PutMapping("/{orderID}")
-	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
-		
-		String STATUS[] = {"PENDING","CONFIRMED","DELIVERYING","SUCCESSFUL","CANCELED"};
-		Orders order = orderService.getOrderByOrderId(orderID);
-		if (order == null)
-			throw new NotFoundException("ORDER CANNOT BE FOUND");
-		if (order.getStatus().equals(STATUS[0]) || order.getStatus().equals(STATUS[1]) || order.getStatus().equals(STATUS[2])) {
-			order.setStatus(STATUS[status]);
-			order.setComment(comment);
-			orderService.save(order);
+//	@PutMapping("/{orderID}")
+//	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
+//		
+//		String STATUS[] = {"PENDING","CONFIRMED","DELIVERYING","SUCCESSFUL","CANCELED"};
+//		Orders order = orderService.getOrderByOrderId(orderID);
+//		if (order == null)
+//			throw new NotFoundException("ORDER CANNOT BE FOUND");
+//		if (order.getStatus().equals(STATUS[0]) || order.getStatus().equals(STATUS[1]) || order.getStatus().equals(STATUS[2])) {
+//			order.setStatus(STATUS[status]);
+//			order.setComment(comment);
+//			orderService.save(order);
+//		}
+//	}
+		//UPDATE ORDER
+		@PutMapping("/{orderId}")
+		public OrderDTO updateOrder(@PathVariable Integer orderId, 
+							@RequestBody OrderDTO orderDTO) {
+			Orders order = orderService.getOrderByOrderId(orderId);
+			//IF CANNOT FIND THE ORDER BY ID
+			
+			if (order == null)
+				throw new NotFoundException("ORDER CANNOT BE FOUND");
+			
+//			Orders update = new Orders(orderDTO);
+			order.autoUpdateFromDTO(orderDTO);
+			
+			return new OrderDTO(orderService.save(order));
 		}
-	}
 }
