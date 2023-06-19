@@ -1,6 +1,7 @@
 package com.gifthommie.backend.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -258,4 +259,27 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.save(order);
 	}
 
+	// MOCK ~ API FOR UPDATING ORDER STATUS FROM THE DELIVERYING SERVICE
+	private long getTimeMillis(LocalDateTime time) {
+		return time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+	}
+	public Orders updateStatus(Orders order) {
+		if(order.getStatus().toUpperCase().equals("PENDING"))
+			return order;
+		
+		long exp = getTimeMillis(order.getExpectedDeliveryTime());
+		long cur = System.currentTimeMillis();
+		long ort = getTimeMillis(order.getOrderTime());
+		
+		long part = (exp - ort)/10;
+		long currentPart = (cur - ort)/part;
+		
+		if(currentPart>=3)
+			order.setStatus("DELIVERYING");
+		
+		if(currentPart>=7)
+			order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
+		
+		return order;
+	}
 }
