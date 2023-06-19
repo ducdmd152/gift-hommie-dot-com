@@ -6,3 +6,15 @@ import createHttpService from "./http-service";
 const endpoint = "staff/order";
 
 export default createHttpService<OrderDTO>(apiClient, endpoint);
+
+const orderService = createHttpService<OrderDTO>(apiClient, endpoint);
+export const staffUpdateOrder = async (order: OrderDTO) => {
+  return await orderService
+    .update(order)
+    .then((response) => {
+      return response.data as OrderDTO;
+    })
+    .catch((error) => {
+      return order;
+    });
+};

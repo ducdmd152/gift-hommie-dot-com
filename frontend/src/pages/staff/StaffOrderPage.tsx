@@ -19,8 +19,8 @@ import useFetchStaffOrder, {
 
 const StaffOrderPage = () => {
   const [staffOrderQuery, setStaffOrderQuery] = useState({} as StaffOrderQuery);
-  const { orders, pageable, error } = useFetchStaffOrder(staffOrderQuery);
-  console.log(orders);
+  const { orders, pageable, error, setOrders } =
+    useFetchStaffOrder(staffOrderQuery);
 
   return (
     <VStack
@@ -36,6 +36,7 @@ const StaffOrderPage = () => {
       <StaffOrderTabs />
       <StaffOrderList
         orders={orders}
+        setOrders={setOrders}
         staffOrderQuery={staffOrderQuery}
         setStaffOrderQuery={setStaffOrderQuery}
       />

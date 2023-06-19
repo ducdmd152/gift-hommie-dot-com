@@ -20,11 +20,18 @@ import OrderDetailDTO from "../../../type/OrderDetailDTO";
 import { GLOBAL_CONTEXT } from "../../../App";
 interface Props {
   order: OrderDTO;
+  setOrder: (order: OrderDTO) => void;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
-const StaffOrderDetailModal = ({ isOpen, onOpen, onClose, order }: Props) => {
+const StaffOrderDetailModal = ({
+  isOpen,
+  onOpen,
+  onClose,
+  order,
+  setOrder,
+}: Props) => {
   // const globalContext = useContext(GLOBAL_CONTEXT);
   // const [order, setOrder] = useState<OrderDTO>({
   //   orderDetails: [] as OrderDetailDTO[],
@@ -53,7 +60,7 @@ const StaffOrderDetailModal = ({ isOpen, onOpen, onClose, order }: Props) => {
         {/* <ModalHeader>Chi tiết đơn hàng</ModalHeader> */}
         <ModalCloseButton zIndex={4} />
         <ModalBody>
-          <StaffOrderDetailInfo order={order} />
+          <StaffOrderDetailInfo order={order} setOrder={setOrder} />
           <Card p="4" w="100%" mt="4">
             <Heading size="md" textAlign={"center"} mb="4">
               Thông tin sản phẩm
