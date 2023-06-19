@@ -100,11 +100,12 @@ public class Orders {
 	}
 	
 	public Orders(OrderDTO orderDTO) {
-		String dateFormat = "HH:mm dd/MM/yyyy";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+//		String dateFormat = "HH:mm dd/MM/yyyy";
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+//		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+//		
+//		this.orderTime = date;
 		
-		this.orderTime = date;
 		this.shippedFee = orderDTO.getShippingFee();
 		this.name = orderDTO.getName();
 		this.phone = orderDTO.getPhone();

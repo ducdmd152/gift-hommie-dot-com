@@ -53,7 +53,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
               fontWeight={"medium"}
               fontStyle={"italic"}
             >
-              <strong>Cập nhật:</strong> {order.lastUpdatedTime}
+              <strong>Cập nhật:</strong> {order.updatedTime}
             </Text>
             <Badge
               p="2"
@@ -80,7 +80,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
               fontWeight={"medium"}
               fontStyle={"italic"}
             >
-              <strong>Ngày tạo đơn:</strong> {order.orderTime}
+              <strong>Ngày tạo đơn:</strong> {order.createTime}
             </Text>
             <Badge flex="1" className="none-text-transform">
               <HStack justifyContent={"space-between"}>

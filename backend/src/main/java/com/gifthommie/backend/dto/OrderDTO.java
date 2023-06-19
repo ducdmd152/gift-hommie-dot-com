@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.User;
@@ -31,7 +32,9 @@ public class OrderDTO {
 	
 	private String status;
 	private String comment;
+	@JsonIgnore
 	private LocalDateTime orderTime;
+	@JsonIgnore
 	private LocalDateTime lastUpdatedTime;
 	
 	private LocalDateTime expectedDeliveryTime;
@@ -198,6 +201,18 @@ public class OrderDTO {
 	}
 	
 	public String getOrderTime() {
+		return formatLocalDatime(orderTime);
+	}
+	
+	public LocalDateTime getOrderTimeBE() {
+		return this.orderTime;
+	}
+	
+	public String getCreateTime() {
+		return formatLocalDatime(orderTime);
+	}
+	
+	public String getUpdatedTime() {
 		return formatLocalDatime(orderTime);
 	}
 	
