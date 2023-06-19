@@ -79,7 +79,16 @@ public class Orders {
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
 
+	@Column(name = "expected_delivery_time")
+	private LocalDateTime expectedDeliveryTime;
 	
+	public LocalDateTime getExpectedDeliveryTime() {
+		return expectedDeliveryTime;
+	}
+
+	public void setExpectedDeliveryTime(LocalDateTime expectedDeliveryTime) {
+		this.expectedDeliveryTime = expectedDeliveryTime;
+	}
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
@@ -105,6 +114,7 @@ public class Orders {
 		this.shippingMethod=checkOutDTO.getShippingMethod();
 		this.status = DEFAULT_STATUS;
 		this.lastUpdatedTime=LocalDateTime.now();
+		this.expectedDeliveryTime=checkOutDTO.getExpectedDeliveryTime();
 	}
 
 

@@ -78,6 +78,8 @@ public class StaffProductController {
 		return result;
 	}
 	
+	
+	
 	@PutMapping("/{productId}")
 	public Product updateProduct(@PathVariable int productId, @RequestBody ProductRequestDTO productRequestDTO) {
 		Product result = productService.update(productId, productRequestDTO);

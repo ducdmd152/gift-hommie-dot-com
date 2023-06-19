@@ -34,8 +34,16 @@ public class OrderDTO {
 	private LocalDateTime orderTime;
 	private LocalDateTime lastUpdatedTime;
 	
+	private LocalDateTime expectedDeliveryTime;
 	
-	
+	public LocalDateTime getExpectedDeliveryTime() {
+		return expectedDeliveryTime;
+	}
+
+	public void setExpectedDeliveryTime(LocalDateTime expectedDeliveryTime) {
+		this.expectedDeliveryTime = expectedDeliveryTime;
+	}
+
 	public OrderDTO() {
 		super();
 	}
@@ -55,6 +63,8 @@ public class OrderDTO {
 		this.status=order.getStatus();
 		this.orderTime=order.getOrderTime();
 		this.lastUpdatedTime=order.getLastUpdatedTime();
+		this.expectedDeliveryTime=order.getExpectedDeliveryTime();
+		
 	}
 	
 	public OrderDTO(Orders order,User userDTO,List<OrderDetailDTO> orderDetailDTOs) {
@@ -76,6 +86,7 @@ public class OrderDTO {
 		this.status=order.getStatus();
 		this.orderTime=LocalDateTime.now();
 		this.lastUpdatedTime=LocalDateTime.now();
+		this.expectedDeliveryTime=order.getExpectedDeliveryTime();
 	}
 	public OrderDTO(List<OrderDetailDTO> orderDetailDTOs) {
 		this.orderDetails=orderDetailDTOs;

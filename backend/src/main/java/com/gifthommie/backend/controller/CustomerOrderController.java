@@ -78,6 +78,12 @@ public class CustomerOrderController {
 //		return order.getOrderDetails();
 //	}
 	
+	//PUT mapping 
+	
+//	public OrderDTO updateOrder() {
+//		
+//	}
+	
 	@GetMapping("/{orderId}")
 	public OrderDTO viewOrderDetail(@PathVariable int orderId) {
 		OrderDTO orderDTO = orderService.getOrderDTOByOrderId(orderId);
