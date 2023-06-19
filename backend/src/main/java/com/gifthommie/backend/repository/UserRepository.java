@@ -48,6 +48,9 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	
 	
+	// Tìm reset password token
+	@Query("SELECT u FROM User u WHERE u.vertification_code = :token")
+	public User getResetPasswordToken(String token);
 	
 	
 }
