@@ -1,24 +1,18 @@
 package com.gifthommie.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
-import com.gifthommie.backend.dto.CartRequestDTO;
-import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
-import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.dto.RatingRequestDTO;
-import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
@@ -88,18 +82,19 @@ public class CustomerOrderController {
 		return orderDTO;
 	}
 	
-	@DeleteMapping("/{orderId}")
-	public void cancelOrder(@PathVariable int orderId) {
+	//UPDATE ORDER
+	@PutMapping("/{id}")
+	public OrderDTO updateOrder(@PathVariable Integer orderId, 
+						@RequestBody OrderDTO orderDTO) {
 		Orders order = orderService.getOrderByOrderId(orderId);
+		//IF CANNOT FIND THE ORDER BY ID
 		
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
 		
-		if (!order.getStatus().equals("PENDING"))
-			throw new RuntimeException("CANNOT CANCEL THIS ORDER");
+		order = new Orders(orderDTO);
 		
-		//CANCEL AN ORDER BY SET STATUS TO CANCEL
-		orderService.setStatusOfOrderById(orderId, CANCEL_ORDER_STATUS);
+		return new OrderDTO(orderService.save(order));
 	}
 	
 	@PostMapping("/rating")

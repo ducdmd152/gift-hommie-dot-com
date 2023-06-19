@@ -1,6 +1,7 @@
 package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,8 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.dto.CheckOutDTO;
+import com.gifthommie.backend.dto.OrderDTO;
 
 @Entity
 @Table(name = "orders")
@@ -79,7 +80,16 @@ public class Orders {
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
 
+	@Column(name = "expected_delivery_time")
+	private LocalDateTime expectedDeliveryTime;
 	
+	public LocalDateTime getExpectedDeliveryTime() {
+		return expectedDeliveryTime;
+	}
+
+	public void setExpectedDeliveryTime(LocalDateTime expectedDeliveryTime) {
+		this.expectedDeliveryTime = expectedDeliveryTime;
+	}
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
@@ -88,8 +98,31 @@ public class Orders {
 	public Orders() {
 		
 	}
-
-	public Orders(CheckOutDTO checkOutDTO,String email) {
+	
+	public Orders(OrderDTO orderDTO) {
+		String dateFormat = "HH:mm dd/MM/yyyy";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+		
+		this.orderTime = date;
+		this.shippedFee = orderDTO.getShippingFee();
+		this.name = orderDTO.getName();
+		this.phone = orderDTO.getPhone();
+		this.address = orderDTO.getAddress();
+		this.wardCode = orderDTO.getWardCode();
+		this.districtId = orderDTO.getDistrictID();
+		this.proviceId = orderDTO.getProvinceID();
+		this.message = orderDTO.getMessage();
+		this.paymentId = orderDTO.getPaymentMethod();
+		this.shippedFee = orderDTO.getShippingFee();
+		this.shippingMethod = orderDTO.getShippingMethod();
+		this.status = orderDTO.getStatus();
+		this.lastUpdatedTime = LocalDateTime.now();
+		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
+	
+	}
+	
+	public Orders(CheckOutDTO checkOutDTO, String email) {
 		this.email = email;
 		this.orderTime = LocalDateTime.now();
 		this.shippedFee = checkOutDTO.getShippingFee();
@@ -105,6 +138,7 @@ public class Orders {
 		this.shippingMethod=checkOutDTO.getShippingMethod();
 		this.status = DEFAULT_STATUS;
 		this.lastUpdatedTime=LocalDateTime.now();
+		this.expectedDeliveryTime=checkOutDTO.getExpectedDeliveryTime();
 	}
 
 

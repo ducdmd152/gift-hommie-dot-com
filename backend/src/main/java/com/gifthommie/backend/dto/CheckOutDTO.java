@@ -1,5 +1,6 @@
 package com.gifthommie.backend.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.gifthommie.backend.entity.Cart;
@@ -22,10 +23,18 @@ public class CheckOutDTO {
 	
 	private int paymentMethod;
 	
+	private LocalDateTime expectedDeliveryTime;
+	
 	private Float shippingFee;
 	private int shippingMethod;
 	
 	
+	public LocalDateTime getExpectedDeliveryTime() {
+		return expectedDeliveryTime;
+	}
+	public void setExpectedDeliveryTime(LocalDateTime expectedDeliveryTime) {
+		this.expectedDeliveryTime = expectedDeliveryTime;
+	}
 	public int getShippingMethod() {
 		return shippingMethod;
 	}
