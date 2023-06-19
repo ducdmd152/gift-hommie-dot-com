@@ -23,7 +23,13 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
       >
         Chi tiết
       </Button>
-      {status == "PENDING" && (
+
+      {status == "SUCCESSFUL" && (
+        <Button colorScheme="blue" variant="outline">
+          Mua lại
+        </Button>
+      )}
+      {["PENDING", "DELIVERYING"].includes(status) && (
         <Button
           background="gray.600"
           color="white"
