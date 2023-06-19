@@ -54,6 +54,14 @@ public class User {
 	@Column(name = "enabled")
 	@JsonIgnore
 	private boolean enabled;
+	
+	@Column(name = "vertification_code")
+	@JsonIgnore
+	private String vertification_code;
+	
+	@Column(name = "reset_password_token")
+	@JsonIgnore
+	private String reset_password_token;
 
 //	@Column(name = "gender")
 //	private String gender;
@@ -61,6 +69,22 @@ public class User {
 //	public void setGender(String gender) {
 //		this.gender = gender;
 //	}
+
+	public String getVertification_code() {
+		return vertification_code;
+	}
+
+	public void setVertification_code(String vertification_code) {
+		this.vertification_code = vertification_code;
+	}
+
+	public String getReset_password_token() {
+		return reset_password_token;
+	}
+
+	public void setReset_password_token(String reset_password_token) {
+		this.reset_password_token = reset_password_token;
+	}
 
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
