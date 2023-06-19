@@ -63,7 +63,7 @@ public class CustomerOrderController {
 			 @RequestParam(name = "status", required = false) String status){
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
-		if(status.isEmpty())
+		if(status!=null && status.isEmpty())
 			status = null;
 		
 		return orderService.getOrderDTOList(pageNo, pageSize, email, status);

@@ -46,7 +46,7 @@ public class StaffOrderController {
             @RequestParam(name = "status", required = false) String status){
 //        User user = SecurityUtils.getPrincipal().getUser();
         //String email = user.getEmail();
-		if(status.isEmpty())
+		if(status!=null && status.isEmpty())
 			status = null;
 		
 		if(status == null)

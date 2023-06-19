@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		List<String> statuses = new ArrayList<>();
 		if(status.toLowerCase().equals("others")) {
-			statuses.add("CANCALLED");
+			statuses.add("CANCELLED");
 			statuses.add("REFUSED");		
         }
 		else {
@@ -193,19 +193,26 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList(Integer pageNo, Integer pageSize, String email, String status) {
-		if(status == null)
-			return getOrderDTOList_noEmail(pageNo, pageSize);
+		Page<Orders> page = null;
 		
-		List<String> statuses = new ArrayList<>();
-		if(status.toLowerCase().equals("others")) {
-			statuses.add("CANCALLED");
-			statuses.add("REFUSED");		
-        }
+		if(status == null) {
+			page = orderRepository.findAllByEmail(email, PageRequest.of(pageNo, pageSize));
+		}
 		else {
-			statuses.add(status);
+			List<String> statuses = new ArrayList<>();
+			if(status.toLowerCase().equals("others")) {
+				statuses.add("CANCELLED");
+				statuses.add("REFUSED");		
+	        }
+			else {
+				statuses.add(status);
+			}
+			page = orderRepository.findAllByEmailWithStatus(email, statuses, PageRequest.of(pageNo, pageSize));
 		}
 		
-		Page<Orders> page = orderRepository.findAllByEmailWithStatus(email, statuses, PageRequest.of(pageNo, pageSize));
+		
+		
+		
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {
