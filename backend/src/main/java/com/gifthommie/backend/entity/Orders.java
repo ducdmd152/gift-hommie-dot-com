@@ -1,6 +1,7 @@
 package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,12 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
-
-import javafx.util.converter.LocalDateStringConverter;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 @Entity
 @Table(name = "orders")
@@ -103,7 +100,11 @@ public class Orders {
 	}
 	
 	public Orders(OrderDTO orderDTO) {
-		this.orderTime = new LocalDateTimeStringConverter().fromString(orderDTO.getOrderTime());
+		String dateFormat = "HH:mm dd/MM/yyyy";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+		
+		this.orderTime = date;
 		this.shippedFee = orderDTO.getShippingFee();
 		this.name = orderDTO.getName();
 		this.phone = orderDTO.getPhone();
