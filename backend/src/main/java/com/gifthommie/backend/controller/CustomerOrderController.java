@@ -98,8 +98,9 @@ public class CustomerOrderController {
 		
 //		Orders update = new Orders(orderDTO);
 		order.autoUpdateFromDTO(orderDTO);
+		orderService.save(order);
 		
-		return new OrderDTO(orderService.save(order));
+		return orderService.getOrderDTOByOrderId(orderId);
 	}
 	
 	@PostMapping("/rating")

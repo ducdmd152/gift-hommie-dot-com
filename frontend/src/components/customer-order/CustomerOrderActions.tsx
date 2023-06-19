@@ -7,7 +7,13 @@ import { updateOrder } from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import CartDTO from "../../type/CartDTO";
 
-const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
+const CustomerOrderActions = ({
+  order,
+  setOrder,
+}: {
+  order: OrderDTO;
+  setOrder: (order: OrderDTO) => void;
+}) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const navigate = useNavigate();
   const status = order.status;
@@ -64,13 +70,13 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
           colorScheme="red"
           variant="outline"
           onClick={async () => {
-            const orderDTO = { ...order, status: "CANCELLED" };
-            if (orderDTO === (await updateOrder(orderDTO))) {
+            order.status = "CANCELLED";
+            const orderDTO = await updateOrder(order);
+            if (order === orderDTO) {
               alert("Không thể hủy đơn hàng.");
+              order.status = "PENDING";
             } else {
-              // globalContext.rerender();
-              navigate("/");
-              navigate("/order");
+              setOrder(orderDTO);
             }
           }}
         >

@@ -29,7 +29,13 @@ import CustomerOrderActions from "./CustomerOrderActions";
 import ORDER_STATUS_MAP from "../../data/OrderStatusData";
 import { italic } from "@cloudinary/url-gen/qualifiers/fontStyle";
 
-const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
+const CustomerOrderOrder = ({
+  order,
+  setOrder,
+}: {
+  order: OrderDTO;
+  setOrder: (order: OrderDTO) => void;
+}) => {
   //CODE FAKE DATA (TEMPORARY)
   // const [cartQuery, setCartQuery] = useState({} as CartQuery);
   // const { carts, pageable, setCarts } = useFetchCart(cartQuery);
@@ -108,7 +114,7 @@ const CustomerOrderOrder = ({ order }: { order: OrderDTO }) => {
           {/* separator */}
           <Box w="100%" borderBottom="1px solid lightgray"></Box>
           {/* ORDER ACTIONS */}
-          <CustomerOrderActions order={order} />
+          <CustomerOrderActions order={order} setOrder={setOrder} />
         </VStack>
       </Card>
     </Box>
