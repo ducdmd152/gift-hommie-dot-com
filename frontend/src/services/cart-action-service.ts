@@ -2,23 +2,27 @@ import CartDTO from "../type/CartDTO";
 import cartService from "./cart-service";
 
 const cartActionSerivce = {
-  addToCart(productId: number, quantity: number = 1) {
+  async addToCart(productId: number, quantity: number = 1) {
     let cart = {
       id: productId,
       productId: productId,
       quantity: quantity,
-    };
+    } as CartDTO;
 
-    return (async () => {
+    let result = cart;
+
+    await (async () => {
       await cartService
         .create(cart as CartDTO)
         .then((res) => {
-          return res.data as CartDTO;
+          result = res.data as CartDTO;
         })
         .catch((err) => {
-          return cart;
+          // return cart;
         });
     })();
+
+    return result;
   },
 
   removeOutCart(cartId: number) {
@@ -26,15 +30,15 @@ const cartActionSerivce = {
       return await cartService
         .delete(cartId)
         .then((res) => {
-          // return true;
+          return true;
         })
         .catch((err) => {
-          // return false;
+          return false;
         });
     })();
   },
 
-  async updateQuantityOf(cart: CartDTO) {
+  async updateCart(cart: CartDTO) {
     let result = cart;
     await (async () => {
       return await cartService
