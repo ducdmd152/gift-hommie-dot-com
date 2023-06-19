@@ -1,4 +1,4 @@
-package com.gifthommie.backend.service;
+ package com.gifthommie.backend.service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.RegisterDTO;
@@ -30,4 +30,11 @@ public interface UserService {
 	public APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, boolean enabled, String search);
 
 	public User register(RegisterDTO registerDTO);
+	
+	
+	public User getResetPasswordToken(String resetPaswordToken);
+	
+	public void updateResetPassword (String token, String email);
+	
+	public void updateUserPassword (User user, String new_Password);
 }
