@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import UserDTO from '../../type/UserDTO';
 import { FieldValues, useForm } from "react-hook-form";
 
-
 interface FormData extends UserDTO { }
 
 const CustomerEditProfilePage = () => {
@@ -60,7 +59,7 @@ const CustomerEditProfilePage = () => {
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-                    
+
                     <UserProfileEdit userDTO={customer} />
 
                     <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>

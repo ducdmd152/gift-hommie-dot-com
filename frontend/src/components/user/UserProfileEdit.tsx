@@ -27,6 +27,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
 
   return (
     <>
+
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
         <Wrap justifyContent='center'>
           <WrapItem >
@@ -95,8 +96,8 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             <Input
               maxW='450px'
               color="gray"
-              {...register("email", { required: true })}
-              defaultValue={userDTO.email}
+              // {...register("email", { required: true })}
+              value={userDTO.email}
               fontWeight="bold"
             />
           </HStack>
@@ -138,9 +139,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <RadioGroup >
                 <Stack direction='row' spacing={100}>
-                  <Radio value='1'>Male</Radio>
-                  <Radio value='2'>Female</Radio>
-                  <Radio value='3'>Other</Radio>
+                  <Radio value='Male'>Male</Radio>
+                  <Radio value='Female'>Female</Radio>
+                  <Radio value='Other'>Other</Radio>
                 </Stack>
               </RadioGroup>
             </HStack>
