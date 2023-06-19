@@ -44,7 +44,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Orders getOrderByOrderId(Integer orderId) {
-		return orderRepository.findOrderByOrderId(orderId);
+		Orders order = orderRepository.findOrderByOrderId(orderId) ;
+		return updateStatus(order);
 	}
 
 	@Override
@@ -95,6 +96,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderDTO getOrderDTOByOrderId(int orderId) {
 		Orders order = getOrderByOrderId(orderId);
+		order = updateStatus(order);
 		OrderDTO orderDTO = new OrderDTO(order);
 		User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
 		
@@ -118,6 +120,7 @@ public class OrderServiceImpl implements OrderService {
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         List<OrderDTO> orderDTOList = new ArrayList<>();
         for (Orders order : page) {
+        	order = updateStatus(order);
             OrderDTO orderDTO = new OrderDTO(order);
 
             User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
@@ -166,6 +169,7 @@ public class OrderServiceImpl implements OrderService {
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         List<OrderDTO> orderDTOList = new ArrayList<>();
         for (Orders order : page) {
+        	order = updateStatus(order);
             OrderDTO orderDTO = new OrderDTO(order);
 
             User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
@@ -217,6 +221,7 @@ public class OrderServiceImpl implements OrderService {
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {
+			order = updateStatus(order);
 			OrderDTO orderDTO = new OrderDTO(order);
 			
 			User tmpUser = userRepository.getUserByEmail(email); // GET USER
@@ -266,6 +271,14 @@ public class OrderServiceImpl implements OrderService {
 	public Orders updateStatus(Orders order) {
 		if(order.getStatus().toUpperCase().equals("PENDING"))
 			return order;
+		if(order.getStatus().toUpperCase().equals("REFUSED"))
+			return order;
+		if(order.getStatus().toUpperCase().equals("CANCELLED"))
+			return order;
+		if(order.getStatus().toUpperCase().equals("SUCCESSFUL"))
+			return order;
+		if(order.getStatus().toUpperCase().equals("FAIL"))
+			return order;
 		
 		long exp = getTimeMillis(order.getExpectedDeliveryTime());
 		long cur = System.currentTimeMillis();
@@ -279,7 +292,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		if(currentPart>=7)
 			order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
-		
-		return order;
+				
+		return save(order);
 	}
 }

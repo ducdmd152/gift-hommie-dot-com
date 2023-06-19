@@ -39,12 +39,12 @@ const ORDER_STATUS_MAP: { [status: string]: OrderStatusItem } = {
     label: "CONFIRMED",
     desc: "Đã xác nhận",
     descStaff: "Đã xác nhận",
-    descCustomer: "Đã được xác nhận, shop đang chuẩn bị hàng.",
+    descCustomer: "Shop đang chuẩn bị hàng",
     colorScheme: "teal",
     backgroundColor: "teal.300",
   } as OrderStatusItem,
-  DELIVERING: {
-    label: "DELIVERING",
+  DELIVERYING: {
+    label: "DELIVERYING",
     desc: "Đang vận chuyển",
     descStaff: "Đang giao",
     descCustomer: "Đang giao",
