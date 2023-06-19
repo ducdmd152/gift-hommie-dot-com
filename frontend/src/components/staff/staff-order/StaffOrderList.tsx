@@ -36,6 +36,7 @@ const StaffOrderList = ({
   const globalContext = useContext(GLOBAL_CONTEXT);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [order, setOrder] = useState({} as OrderDTO);
+  console.log(orders);
 
   return (
     <Box>

@@ -20,6 +20,8 @@ import useFetchStaffOrder, {
 const StaffOrderPage = () => {
   const [staffOrderQuery, setStaffOrderQuery] = useState({} as StaffOrderQuery);
   const { orders, pageable, error } = useFetchStaffOrder(staffOrderQuery);
+  console.log(orders);
+
   return (
     <VStack
       className="child-full-width"
