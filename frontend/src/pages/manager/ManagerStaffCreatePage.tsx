@@ -29,13 +29,10 @@ const schema = z.object({
     invalid_type_error: "First name must be a string",
   }),
   phone: z
-    .number({
-    required_error: "Vui lòng nhập số điện thoại.",
-    invalid_type_error: "First name must be a number",
-  })
-  .min(10, {
-    message: "Vui lòng nhập số điện thoại ít nhất 10 số.",
-  }),
+      .string({
+      required_error: "Vui lòng nhập số điện thoại.",
+      invalid_type_error: "First name must be a string",
+    }),
 
   address: z.string({
     required_error: "Vui lòng nhập địa chỉ.",
@@ -146,9 +143,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={errors.username}
                 fontWeight="bold"
               />
-              {errors.username && (
+              {/* {errors.username && (
                 <p className="form-error-message">{errors.username?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
 
@@ -165,9 +162,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {errors.firstName && (
+              {/* {errors.firstName && (
                 <p className="form-error-message">{errors.firstName?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
 
@@ -184,9 +181,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {errors.lastName && (
+              {/* {errors.lastName && (
                 <p className="form-error-message">{errors.lastName?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
 
@@ -203,9 +200,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {errors.email && (
+              {/* {errors.email && (
                 <p className="form-error-message">{errors.email?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
           <FormControl marginTop='50px'>
@@ -221,9 +218,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {errors.phone && (
+              {/* {errors.phone && (
                 <p className="form-error-message">{errors.phone?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
 
@@ -240,9 +237,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {errors.address && (
+              {/* {errors.address && (
                 <p className="form-error-message">{errors.address?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
 
@@ -274,9 +271,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name} 
                 fontWeight="bold"
               />
-              {errors.yob && (
+              {/* {errors.yob && (
                 <p className="form-error-message">{errors.yob?.message}</p>
-              )}
+              )} */}
             </HStack>
           </FormControl>
         </Box>
