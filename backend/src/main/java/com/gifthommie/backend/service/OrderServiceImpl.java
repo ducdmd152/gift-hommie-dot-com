@@ -188,10 +188,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void save(Orders order) {
+	public Orders save(Orders order) {
 		// TODO Auto-generated method stub
-		orderRepository.save(order);
-
+		return orderRepository.save(order);
 	}
 
 }

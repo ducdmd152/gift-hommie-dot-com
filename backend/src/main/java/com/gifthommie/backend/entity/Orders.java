@@ -15,6 +15,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.dto.CheckOutDTO;
+import com.gifthommie.backend.dto.OrderDTO;
+
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.LocalDateTimeStringConverter;
 
 @Entity
 @Table(name = "orders")
@@ -97,8 +101,27 @@ public class Orders {
 	public Orders() {
 		
 	}
-
-	public Orders(CheckOutDTO checkOutDTO,String email) {
+	
+	public Orders(OrderDTO orderDTO) {
+		this.orderTime = new LocalDateTimeStringConverter().fromString(orderDTO.getOrderTime());
+		this.shippedFee = orderDTO.getShippingFee();
+		this.name = orderDTO.getName();
+		this.phone = orderDTO.getPhone();
+		this.address = orderDTO.getAddress();
+		this.wardCode = orderDTO.getWardCode();
+		this.districtId = orderDTO.getDistrictID();
+		this.proviceId = orderDTO.getProvinceID();
+		this.message = orderDTO.getMessage();
+		this.paymentId = orderDTO.getPaymentMethod();
+		this.shippedFee = orderDTO.getShippingFee();
+		this.shippingMethod = orderDTO.getShippingMethod();
+		this.status = orderDTO.getStatus();
+		this.lastUpdatedTime = LocalDateTime.now();
+		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
+	
+	}
+	
+	public Orders(CheckOutDTO checkOutDTO, String email) {
 		this.email = email;
 		this.orderTime = LocalDateTime.now();
 		this.shippedFee = checkOutDTO.getShippingFee();

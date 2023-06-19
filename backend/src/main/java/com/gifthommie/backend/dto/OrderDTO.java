@@ -64,7 +64,6 @@ public class OrderDTO {
 		this.orderTime=order.getOrderTime();
 		this.lastUpdatedTime=order.getLastUpdatedTime();
 		this.expectedDeliveryTime=order.getExpectedDeliveryTime();
-		
 	}
 	
 	public OrderDTO(Orders order,User userDTO,List<OrderDetailDTO> orderDetailDTOs) {
