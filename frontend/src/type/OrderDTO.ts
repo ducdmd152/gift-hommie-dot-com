@@ -28,8 +28,8 @@ export default interface OrderDTO {
   // CONFIRMED DELIVERING SUCCESSFUL FAIL
   // AUTO => PENDING WHEN CREATING
   comment: string;
-  orderTime: string; // Auto-update by BE when CREATE ORDER
-  lastUpdatedTime: string; // Auto-update by BE when CREATE/UPDATE ORDER
+  createTime: string; // Auto-update by BE when CREATE ORDER
+  updatedTime: string; // Auto-update by BE when CREATE/UPDATE ORDER
 
   expectedDeliveryTime: string; // ADD MORE // DATETIME
 }

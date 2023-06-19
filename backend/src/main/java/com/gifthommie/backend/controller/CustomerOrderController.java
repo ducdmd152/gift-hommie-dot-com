@@ -21,6 +21,7 @@ import com.gifthommie.backend.service.OrderDetailService;
 import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.ProductService;
 import com.gifthommie.backend.service.ReviewService;
+import com.gifthommie.backend.service.UserService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
@@ -40,6 +41,9 @@ public class CustomerOrderController {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	UserService userService;
 	
 	private final String CANCEL_ORDER_STATUS = "CANCEL";
 	
@@ -83,7 +87,7 @@ public class CustomerOrderController {
 	}
 	
 	//UPDATE ORDER
-	@PutMapping("/{id}")
+	@PutMapping("/{orderId}")
 	public OrderDTO updateOrder(@PathVariable Integer orderId, 
 						@RequestBody OrderDTO orderDTO) {
 		Orders order = orderService.getOrderByOrderId(orderId);
@@ -92,7 +96,8 @@ public class CustomerOrderController {
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
 		
-		order = new Orders(orderDTO);
+//		Orders update = new Orders(orderDTO);
+		order.autoUpdateFromDTO(orderDTO);
 		
 		return new OrderDTO(orderService.save(order));
 	}

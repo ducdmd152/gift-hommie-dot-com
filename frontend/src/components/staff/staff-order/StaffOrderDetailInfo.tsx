@@ -53,7 +53,7 @@ const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               fontWeight={"medium"}
               color="gray"
             >
-              Ngày tạo đơn: {order.orderTime}
+              Ngày tạo đơn: {order.createTime}
             </Badge>
           </VStack>
 
@@ -100,7 +100,7 @@ const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               textAlign={"right"}
               fontWeight={"medium"}
             >
-              Ngày cập nhật: {order.lastUpdatedTime}
+              Ngày cập nhật: {order.updatedTime}
             </Badge>
           </VStack>
         </HStack>

@@ -60,7 +60,7 @@ const StaffOrderList = ({
                 <Td>
                   <strong>{order.id}</strong>
                 </Td>
-                <Td>{order.orderTime}</Td>
+                <Td>{order.createTime}</Td>
                 <Td>
                   <Badge
                     colorScheme={ORDER_STATUS_MAP[order.status].colorScheme}

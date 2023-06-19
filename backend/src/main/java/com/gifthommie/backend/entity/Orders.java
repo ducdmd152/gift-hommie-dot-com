@@ -100,11 +100,36 @@ public class Orders {
 	}
 	
 	public Orders(OrderDTO orderDTO) {
-		String dateFormat = "HH:mm dd/MM/yyyy";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
-		
-		this.orderTime = date;
+//		String dateFormat = "HH:mm dd/MM/yyyy";
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+//		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+//		
+//		this.orderTime = date;
+		this.email = orderDTO.getUser().getEmail();
+		this.shippedFee = orderDTO.getShippingFee();
+		this.name = orderDTO.getName();
+		this.phone = orderDTO.getPhone();
+		this.address = orderDTO.getAddress();
+		this.wardCode = orderDTO.getWardCode();
+		this.districtId = orderDTO.getDistrictID();
+		this.proviceId = orderDTO.getProvinceID();
+		this.message = orderDTO.getMessage();
+		this.paymentId = orderDTO.getPaymentMethod();
+		this.shippedFee = orderDTO.getShippingFee();
+		this.shippingMethod = orderDTO.getShippingMethod();
+		this.status = orderDTO.getStatus();
+		this.lastUpdatedTime = LocalDateTime.now();
+		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
+	
+	}
+	
+	public void autoUpdateFromDTO(OrderDTO orderDTO) {
+//		String dateFormat = "HH:mm dd/MM/yyyy";
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+//		LocalDateTime date = LocalDateTime.parse(orderDTO.getOrderTime(), formatter);
+//		
+//		this.orderTime = date;
+//		this.email = orderDTO.getUser().getEmail();
 		this.shippedFee = orderDTO.getShippingFee();
 		this.name = orderDTO.getName();
 		this.phone = orderDTO.getPhone();

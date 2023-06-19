@@ -65,10 +65,12 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
           variant="outline"
           onClick={async () => {
             const orderDTO = { ...order, status: "CANCELLED" };
-            if (orderDTO == (await updateOrder(orderDTO))) {
+            if (orderDTO === (await updateOrder(orderDTO))) {
               alert("Không thể hủy đơn hàng.");
             } else {
-              globalContext.rerender();
+              // globalContext.rerender();
+              navigate("/");
+              navigate("/order");
             }
           }}
         >
