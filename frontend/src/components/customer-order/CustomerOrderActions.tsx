@@ -53,21 +53,10 @@ const CustomerOrderActions = ({
     <HStack w="100%" justifyContent={"right"} p="4">
       {status == "SUCCESSFUL" && <Button colorScheme="blue">Đánh giá</Button>}
 
-      <Button
-        colorScheme="blue"
-        variant="outline"
-        onClick={() => {
-          globalContext.orderContext.setOrderId(order.id);
-          navigate("/order/detail");
-        }}
-      >
-        Chi tiết
-      </Button>
-
-      {status == "SUCCESSFUL" && (
+      {["SUCCESSFUL", "CANCELLED"].includes(status) && (
         <Button
-          colorScheme="blue"
-          variant="outline"
+          colorScheme="teal"
+          // variant="outline"
           onClick={() => {
             order.orderDetails.forEach(async (od) => {
               let cart = await cartActionSerivce.addToCart(od.product.id, 0);
@@ -83,6 +72,20 @@ const CustomerOrderActions = ({
           Mua lại
         </Button>
       )}
+
+      {window.location.pathname == "/order" && (
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          onClick={() => {
+            globalContext.orderContext.setOrderId(order.id);
+            navigate("/order/detail");
+          }}
+        >
+          Chi tiết
+        </Button>
+      )}
+
       {["PENDING", "DELIVERYING"].includes(status) && (
         <Button
           background="gray.600"
