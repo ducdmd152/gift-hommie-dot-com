@@ -70,6 +70,11 @@ const StaffOrderList = ({
                 <Td>
                   <Badge
                     colorScheme={ORDER_STATUS_MAP[order.status].colorScheme}
+                    border={
+                      ORDER_STATUS_MAP[order.status].colorScheme == "gray"
+                        ? "1px solid gray"
+                        : "none"
+                    }
                     w="unset"
                   >
                     {ORDER_STATUS_MAP[order.status].label}

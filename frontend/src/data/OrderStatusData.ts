@@ -33,7 +33,7 @@ const ORDER_STATUS_MAP: { [status: string]: OrderStatusItem } = {
 
     descCustomer: "Shop đã từ chối",
     colorScheme: "gray",
-    backgroundColor: "gray.400",
+    backgroundColor: "gray.500",
   } as OrderStatusItem,
   CONFIRMED: {
     label: "CONFIRMED",
