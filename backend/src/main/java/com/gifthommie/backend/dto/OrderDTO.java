@@ -222,6 +222,9 @@ public class OrderDTO {
 	}
 	
 	private String formatLocalDatime(LocalDateTime time) {
+		if(time == null) {
+			return null;
+		}
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 		return time.format(formatter);
 	}
