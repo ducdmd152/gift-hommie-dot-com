@@ -57,12 +57,14 @@ public class CustomerOrderController {
 //	}
 	
 	@GetMapping
-	public APIPageableResponseDTO<OrderDTO> getOrderList(@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
-			@RequestParam(defaultValue = "12", name = "size") Integer pageSize){
+	public APIPageableResponseDTO<OrderDTO> getOrderList(
+			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+			 @RequestParam(name = "status", required = false) String status){
 		User user = SecurityUtils.getPrincipal().getUser();
 		String email = user.getEmail();
 		
-		return orderService.getOrderDTOList(pageNo, pageSize, email);
+		return orderService.getOrderDTOList(pageNo, pageSize, email, status);
 	}
 	
 	
