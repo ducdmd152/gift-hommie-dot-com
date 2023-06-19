@@ -28,9 +28,13 @@ const schema = z.object({
     required_error: "Vui lòng nhập Email.",
     invalid_type_error: "First name must be a string",
   }),
-  phone: z.number({
+  phone: z
+    .number({
     required_error: "Vui lòng nhập số điện thoại.",
-    invalid_type_error: "First name must be a string",
+    invalid_type_error: "First name must be a number",
+  })
+  .min(10, {
+    message: "Vui lòng nhập số điện thoại ít nhất 10 số.",
   }),
 
   address: z.string({
@@ -40,7 +44,7 @@ const schema = z.object({
 
   yob: z.number({
     required_error: "Vui lòng nhập năm sinh.",
-    invalid_type_error: "First name must be a string",
+    invalid_type_error: "First name must be a number",
   }),
 });
 
@@ -60,7 +64,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const staff = data as ManagerStaffDTO;
-    //  staff.id = setUserId;
+    staff.id = "";
 
 
     managerStaffService
@@ -81,9 +85,6 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
         <HStack justifyContent="space-between">
           <VStack alignItems="start">
-            {/* <Badge variant="outline" display="inline-block">
-            {"id >> " + "new"}
-          </Badge> */}
             <HStack>
               <Heading size="lg" colorScheme="gray">
                 {"Tạo mới nhân viên"}
@@ -160,9 +161,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Họ"
+                {...register("firstName")}
                 // value={product.name}
                 fontWeight="bold"
               />
+              {errors.firstName && (
+                <p className="form-error-message">{errors.firstName?.message}</p>
+              )}
             </HStack>
           </FormControl>
 
@@ -175,9 +180,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Tên"
+                {...register("lastName")}
                 // value={product.name}
                 fontWeight="bold"
               />
+              {errors.lastName && (
+                <p className="form-error-message">{errors.lastName?.message}</p>
+              )}
             </HStack>
           </FormControl>
 
@@ -190,9 +199,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Email"
+                {...register("email")}
                 // value={product.name}
                 fontWeight="bold"
               />
+              {errors.email && (
+                <p className="form-error-message">{errors.email?.message}</p>
+              )}
             </HStack>
           </FormControl>
           <FormControl marginTop='50px'>
@@ -204,9 +217,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Số Điện Thoại"
+                {...register("phone")}
                 // value={product.name}
                 fontWeight="bold"
               />
+              {errors.phone && (
+                <p className="form-error-message">{errors.phone?.message}</p>
+              )}
             </HStack>
           </FormControl>
 
@@ -219,26 +236,30 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 maxW='450px'
                 color="gray"
                 placeholder="Địa Chỉ"
+                {...register("address")}
                 // value={product.name}
                 fontWeight="bold"
               />
+              {errors.address && (
+                <p className="form-error-message">{errors.address?.message}</p>
+              )}
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
+          {/* <FormControl marginTop='50px'>
             <HStack justifyContent='space-between' >
               <FormLabel size="md" fontWeight="bold">
                 Gender
               </FormLabel>
               <RadioGroup >
                 <Stack direction='row' spacing={100}>
-                  <Radio value='1'>Male</Radio>
-                  <Radio value='2'>Female</Radio>
-                  <Radio value='3'>Other</Radio>
+                  <Radio value='Male'>Male</Radio>
+                  <Radio value='Female'>Female</Radio>
+                  <Radio value='Other'>Other</Radio>
                 </Stack>
               </RadioGroup>
             </HStack>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl marginTop='50px' >
             <HStack justifyContent='space-between' marginRight='350px'>
@@ -249,9 +270,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 placeholder="YYYY"
                 maxW='100px'
                 color="gray"
+                {...register("yob")}
                 // value={product.name} 
                 fontWeight="bold"
               />
+              {errors.yob && (
+                <p className="form-error-message">{errors.yob?.message}</p>
+              )}
             </HStack>
           </FormControl>
         </Box>
