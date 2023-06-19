@@ -24,19 +24,6 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   return (
     <Card>
       <VStack w="100%" alignItems={"flex-start"}>
-        <Badge
-          p="2"
-          color="gray"
-          _hover={{
-            cursor: "pointer",
-            color: "rgb(54, 113, 214)",
-          }}
-          fontSize={"sm"}
-          className="none-text-transform"
-          borderRight="1px solid lightgray"
-        >
-          <Link to="/order">{"< < < Trở lại "}</Link>
-        </Badge>
         {/* HEADER INFO */}
         <HStack w="100%" justifyContent={"space-between"} spacing="0">
           <VStack flex="1" spacing="0">

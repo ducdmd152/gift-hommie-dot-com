@@ -38,7 +38,7 @@ const useFetchStaffOrder = (requestQuery: StaffOrderQuery) => {
     isLoading,
     error,
     // setError,
-    // setUsers: setEntities,
+    setOrders: setEntities,
   };
 };
 

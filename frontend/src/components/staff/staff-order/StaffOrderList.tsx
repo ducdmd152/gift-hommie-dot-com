@@ -25,17 +25,23 @@ import { GLOBAL_CONTEXT } from "../../../App";
 
 interface Props {
   orders: OrderDTO[];
+  setOrders: (orders: OrderDTO[]) => void;
   staffOrderQuery: StaffOrderQuery;
   setStaffOrderQuery: (staffOrderQuery: StaffOrderQuery) => void;
 }
 const StaffOrderList = ({
   orders,
+  setOrders,
   staffOrderQuery,
   setStaffOrderQuery,
 }: Props) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [order, setOrder] = useState({} as OrderDTO);
+  const onSetOrder = (order: OrderDTO) => {
+    setOrder(order);
+    setOrders(orders.map((o) => (o.id != order.id ? o : order)));
+  };
 
   return (
     <Box>
@@ -49,7 +55,7 @@ const StaffOrderList = ({
               <Th>Người nhận</Th>
               <Th>Số điện thoại</Th>
               <Th>Địa chỉ nhận hàng</Th>
-              <Th>Tổng thanh toán</Th>
+              <Th>Thanh toán</Th>
 
               <Th>Chi tiết</Th>
             </Tr>
@@ -64,6 +70,11 @@ const StaffOrderList = ({
                 <Td>
                   <Badge
                     colorScheme={ORDER_STATUS_MAP[order.status].colorScheme}
+                    border={
+                      ORDER_STATUS_MAP[order.status].colorScheme == "gray"
+                        ? "1px solid gray"
+                        : "none"
+                    }
                     w="unset"
                   >
                     {ORDER_STATUS_MAP[order.status].label}
@@ -78,7 +89,7 @@ const StaffOrderList = ({
                 <Td maxW="320px">
                   <div className="text-truncate">{order.address}</div>
                 </Td>
-                <Td>
+                <Td textAlign={"right"} color={"yellow.500"}>
                   <strong>
                     {(
                       (order.orderDetails.reduce(
@@ -111,6 +122,7 @@ const StaffOrderList = ({
       </TableContainer>
       <StaffOrderDetailModal
         order={order}
+        setOrder={onSetOrder}
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}

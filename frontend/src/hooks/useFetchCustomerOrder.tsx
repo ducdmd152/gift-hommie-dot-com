@@ -37,6 +37,7 @@ const useFetchCustomerOrder = (requestQuery: CustomerOrderQuery) => {
     pageable,
     isLoading,
     error,
+    setOrders: setEntities,
     // setError,
     // setUsers: setEntities,
   };

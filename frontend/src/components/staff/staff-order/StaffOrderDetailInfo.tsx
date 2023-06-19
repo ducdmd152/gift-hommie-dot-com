@@ -16,8 +16,16 @@ import OrderDTO from "../../../type/OrderDTO";
 import ORDER_STATUS_MAP, {
   OrderStatusItem,
 } from "../../../data/OrderStatusData";
+import Swal from "sweetalert2";
+import { staffUpdateOrder } from "../../../services/staff-order-service";
 
-const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
+const StaffOrderDetailInfo = ({
+  order,
+  setOrder,
+}: {
+  order: OrderDTO;
+  setOrder: (order: OrderDTO) => void;
+}) => {
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
   const total =
@@ -27,6 +35,65 @@ const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
     ? ORDER_STATUS_MAP[order.status]
     : ({} as OrderStatusItem);
 
+  // CONFIRM/REFUSE
+  const onConfirm = async () => {
+    Swal.fire({
+      title: "Xác nhận đơn hàng",
+      text: "Bạn muốn xác nhận đơn hàng?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "blue",
+      cancelButtonColor: "gray",
+      confirmButtonText: "Ok",
+      cancelButtonText: "Hủy",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const orderDTO = await staffUpdateOrder({
+          ...order,
+          status: "CONFIRMED",
+        });
+
+        setOrder(orderDTO);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Đã xác nhận thành công \n đơn hàng số: " + order.id + ".",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    });
+  };
+
+  const onRefuse = async () => {
+    Swal.fire({
+      title: "Từ chối đơn hàng?",
+      text: "Bạn có thực sự muốn từ chối đơn hàng không!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "orange",
+      cancelButtonColor: "gray",
+      confirmButtonText: "Có",
+      cancelButtonText: "Không",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const orderDTO = await staffUpdateOrder({
+          ...order,
+          status: "REFUSED",
+        });
+
+        setOrder(orderDTO);
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "Đã từ chối \n đơn hàng số: " + order.id + ".",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    });
+  };
+  // UI
   return (
     <Card mt="8">
       <VStack w="100%" alignItems={"flex-start"} className="child-full-width">
@@ -63,8 +130,14 @@ const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
             paddingX="12"
             display={order.status == "PENDING" ? "inline-block" : "none"}
           >
-            <Button colorScheme="blue">Xác nhận</Button>
-            <Button colorScheme="red" variant={"outline"}>
+            <Button colorScheme="blue" onClick={() => onConfirm()}>
+              Xác nhận
+            </Button>
+            <Button
+              colorScheme="red"
+              variant={"outline"}
+              onClick={() => onRefuse()}
+            >
               Từ chối
             </Button>
             {/* <Button colorScheme="red">Hủy</Button> */}
@@ -86,7 +159,7 @@ const StaffOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
                   fontSize={"md"}
                   className="none-text-transform"
                 >
-                  {status.label + " | " + status.descCustomer}
+                  {status.label + " | " + status.descStaff}
                 </Badge>
               </HStack>
             </Badge>
