@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import CartDTO from "../../type/CartDTO";
+import Swal from "sweetalert2";
 
 const CustomerOrderActions = ({
   order,
@@ -17,6 +18,36 @@ const CustomerOrderActions = ({
   const globalContext = useContext(GLOBAL_CONTEXT);
   const navigate = useNavigate();
   const status = order.status;
+  const onCancel = async () => {
+    Swal.fire({
+      title: "Bạn có muốn hủy đơn hàng?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "orange",
+      cancelButtonColor: "gray",
+      confirmButtonText: "Có",
+      cancelButtonText: "Không",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        order.status = "CANCELLED";
+        const orderDTO = await updateOrder(order);
+        if (order === orderDTO) {
+          alert("Không thể hủy đơn hàng.");
+          order.status = "PENDING";
+        } else {
+          setOrder(orderDTO);
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title: "Đã hủy đơn hàng.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+      }
+    });
+  };
 
   return (
     <HStack w="100%" justifyContent={"right"} p="4">
@@ -66,20 +97,7 @@ const CustomerOrderActions = ({
         </Button>
       )}
       {status == "PENDING" && (
-        <Button
-          colorScheme="red"
-          variant="outline"
-          onClick={async () => {
-            order.status = "CANCELLED";
-            const orderDTO = await updateOrder(order);
-            if (order === orderDTO) {
-              alert("Không thể hủy đơn hàng.");
-              order.status = "PENDING";
-            } else {
-              setOrder(orderDTO);
-            }
-          }}
-        >
+        <Button colorScheme="red" variant="outline" onClick={onCancel}>
           Hủy
         </Button>
       )}
