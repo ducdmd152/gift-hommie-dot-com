@@ -83,7 +83,7 @@ public class CustomerOrderController {
 	}
 	
 	//UPDATE ORDER
-	@PutMapping("/{id}")
+	@PutMapping("/{orderId}")
 	public OrderDTO updateOrder(@PathVariable Integer orderId, 
 						@RequestBody OrderDTO orderDTO) {
 		Orders order = orderService.getOrderByOrderId(orderId);
