@@ -204,9 +204,9 @@ public class OrderDTO {
 		return formatLocalDatime(orderTime);
 	}
 	
-	public LocalDateTime getOrderTimeBE() {
-		return this.orderTime;
-	}
+//	public LocalDateTime getOrderTimeBE() {
+//		return this.orderTime;
+//	}
 	
 	public String getCreateTime() {
 		return formatLocalDatime(orderTime);
