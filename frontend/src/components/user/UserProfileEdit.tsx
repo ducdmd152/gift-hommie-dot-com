@@ -27,6 +27,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
 
   return (
     <>
+
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
         <Wrap justifyContent='center'>
           <WrapItem >

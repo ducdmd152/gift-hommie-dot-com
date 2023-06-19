@@ -70,7 +70,7 @@ const StaffPage = () => {
           <Route path="/order" element={<StaffOrderPage />} />
           <Route
             path="/account"
-            element={<StaffViewProfilePage />}
+            element={<AccountViewProfilePage />}
           />
         </Routes>
       </GridItem>
