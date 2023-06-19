@@ -26,10 +26,10 @@ const cartActionSerivce = {
       return await cartService
         .delete(cartId)
         .then((res) => {
-          // return true;
+          return true;
         })
         .catch((err) => {
-          // return false;
+          return false;
         });
     })();
   },

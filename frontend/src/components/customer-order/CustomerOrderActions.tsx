@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { updateOrder } from "../../services/customer-order-service";
 
 const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
@@ -43,7 +44,18 @@ const CustomerOrderActions = ({ order }: { order: OrderDTO }) => {
         </Button>
       )}
       {status == "PENDING" && (
-        <Button colorScheme="red" variant="outline">
+        <Button
+          colorScheme="red"
+          variant="outline"
+          onClick={async () => {
+            const orderDTO = { ...order, status: "CANCELLED" };
+            if (orderDTO == (await updateOrder(orderDTO))) {
+              alert("Không thể hủy đơn hàng.");
+            } else {
+              globalContext.rerender();
+            }
+          }}
+        >
           Hủy
         </Button>
       )}
