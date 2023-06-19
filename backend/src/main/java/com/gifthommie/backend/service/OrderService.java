@@ -27,4 +27,6 @@ public interface OrderService {
 	public Orders save(Orders order);
 
 	public OrderDTO getOrderDTOByOrderId(int orderId);
+
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status);
 }

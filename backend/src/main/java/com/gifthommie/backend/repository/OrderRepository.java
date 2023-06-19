@@ -1,5 +1,6 @@
 package com.gifthommie.backend.repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -36,6 +37,10 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	@Query("SELECT o FROM Orders o WHERE "
 			+ "o.email = :email ORDER BY o.orderTime DESC")
 	public Page<Orders> findAllByEmail(@Param("email") String email, PageRequest pageRequest);
+	
+	@Query("SELECT o FROM Orders o WHERE "
+			+ "o.status in :statuses ORDER BY o.orderTime DESC")
+	public Page<Orders> findAllWithStatus(@Param("statuses") List<String> statuses, PageRequest pageRequest);
 	
 	//SET STATUS FOR ORDER BY ID
 	@Transactional
