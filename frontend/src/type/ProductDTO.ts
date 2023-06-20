@@ -8,7 +8,7 @@ export default interface ProductDTO {
   categoryName: string;
   avatar: string;
 
-  // available: number;
+  available: number;
   // sold: number;
   // ordered: number;
 }

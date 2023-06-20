@@ -26,6 +26,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductRepository productRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	CartService cartService;
 	
 	// getPageableProducts
 	@Override
@@ -58,7 +60,14 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		
-		Page<Product> page = productRepository.finfAllByName(true, search, pageable);		
+		Page<Product> page = productRepository.finfAllByName(true, search, pageable);	
+		
+		for(Product product : page) {
+//			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+//			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+//			System.out.println("---------------------------");
+		}
 		return new APIPageableResponseDTO<Product>(page);
 	}
 	
@@ -127,7 +136,9 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProductById(int productId) {
 		Optional<Product> result = productRepository.findById(productId);
 		if(result.isPresent()) {
-			return result.get();
+			Product product = result.get();
+			product.setAvailable(cartService.getShopAvailableQuantity(productId));
+			return product;
 		}
 		
 		return null;

@@ -11,15 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.ProductService;
 
 @Entity
 @Table(name = "product")
-public class Product { 
+public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -156,5 +158,16 @@ public class Product {
 		}
 		
 		return "";
+	}
+	
+	@Transient
+	private int available;
+	
+	public int getAvailable() {
+		return available;
+	}
+	
+	public void setAvailable(int available) {
+		this.available = available;
 	}
 }

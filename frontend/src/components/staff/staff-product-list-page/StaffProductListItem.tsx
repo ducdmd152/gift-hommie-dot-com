@@ -60,7 +60,7 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
             </Badge>
             <Badge colorScheme="gray" variant="outline">
               {" "}
-              {"Số lượng: "} {product.quantity}
+              {"Số lượng: "} {product.available}
             </Badge>
           </HStack>
         </VStack>

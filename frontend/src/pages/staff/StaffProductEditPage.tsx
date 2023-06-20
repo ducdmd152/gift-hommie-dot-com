@@ -74,8 +74,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
     const updateProduct = data as StaffProductDTO;
     updateProduct.id = product.id;
     updateProduct.avatar = productAvatarURL;
-    console.log(productAvatarURL);
-    console.log(updateProduct);
+    updateProduct.quantity = product.quantity;
+    // console.log(productAvatarURL);
+    // console.log(updateProduct);
     staffProductService
       .update(updateProduct)
       .then(() => {
@@ -204,14 +205,14 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     Số lượng
                   </FormLabel>
                   <Input
-                    {...register("quantity", {
+                    {...register("available", {
                       required: true,
                       min: 0,
                     })}
                     color="black"
                     type="number"
                     min={0}
-                    defaultValue={product.quantity}
+                    defaultValue={product.available}
                     fontWeight="bold"
                   />
                 </FormControl>

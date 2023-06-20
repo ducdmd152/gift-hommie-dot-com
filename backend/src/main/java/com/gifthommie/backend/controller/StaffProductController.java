@@ -15,6 +15,7 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.exception.NotFoundException;
+import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.ProductService;
 
 @RestController
@@ -22,6 +23,7 @@ import com.gifthommie.backend.service.ProductService;
 public class StaffProductController {
 	@Autowired
 	ProductService productService;
+	
 	
 
 	//------------ Default DES------------------------------
@@ -82,6 +84,15 @@ public class StaffProductController {
 	
 	@PutMapping("/{productId}")
 	public Product updateProduct(@PathVariable int productId, @RequestBody ProductRequestDTO productRequestDTO) {
+		Product dbProduct = productService.getProductById(productId);
+		int differentAvailable = productRequestDTO.getAvailable() -  dbProduct.getAvailable();
+		int newQuantity = dbProduct.getQuantity() + differentAvailable;
+		
+		if(newQuantity < 0) {
+			throw new RuntimeException("Conflicts about product quantity.");
+		}
+		
+		productRequestDTO.setQuantity(newQuantity);
 		Product result = productService.update(productId, productRequestDTO);
 		return result;
 	}
