@@ -153,13 +153,14 @@ public class UserServiceImpl implements UserService {
 
 
 	
-	// cập nhật token mới mỗi khi resetpassword
+	// cập nhật token mới và thời gian quá hạn token mới mỗi khi resetpassword
 	@Override
 	public void updateResetPassword(String token, String email) {
 		User u = userRepository.getUserByEmail(email);
 		
 		if (u != null) {
 			u.setReset_password_token(token);
+			u.updateExpiredVertificationCode();
 			userRepository.save(u);	
 		} else {
 			throw  new RuntimeException("Email"+ email +" not found");
