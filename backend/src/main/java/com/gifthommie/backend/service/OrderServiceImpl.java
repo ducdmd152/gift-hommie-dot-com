@@ -287,11 +287,12 @@ public class OrderServiceImpl implements OrderService {
 		long part = (exp - ort)/10;
 		long currentPart = (cur - ort)/part;
 		
-		if(currentPart>=3)
+		if(currentPart>=1)
 			order.setStatus("DELIVERYING");
 		
-		if(currentPart>=7)
-			order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
+		if(currentPart>=6)
+			if(Math.random()%10 == 4) // 1:10 FOR DELIVERYING EARLY
+				order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
 				
 		return save(order);
 	}
