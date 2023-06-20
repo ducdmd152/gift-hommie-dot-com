@@ -282,7 +282,7 @@ const Register = () => {
             </Button>
 
             <HStack color="gray.400" marginX="auto">
-              <Text>Already have an account?</Text>
+              <Text>Bạn đã có tài khoản?</Text>
               <Link to="/login">
                 <Button
                   color="teal"
@@ -290,7 +290,7 @@ const Register = () => {
                   variant={"link"}
                   // onClick={() => setRoute("login")}
                 >
-                  Login
+                  Đăng nhập
                 </Button>
               </Link>
             </HStack>
