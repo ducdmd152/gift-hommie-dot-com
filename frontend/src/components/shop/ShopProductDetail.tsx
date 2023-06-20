@@ -31,6 +31,7 @@ import utilService from "../../services/util-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
 const ShopProductDetail = () => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
   const id = productContext.getProductId();
 
@@ -202,6 +203,12 @@ const ShopProductDetail = () => {
                   colorScheme="blue"
                   fontWeight="medium"
                   isDisabled={product.available == 0}
+                  onClick={async () => {
+                    let cart = await cartActionSerivce.addToCart(product.id);
+
+                    globalContext.selectedCartContext.addItem(cart);
+                    navigate("/cart");
+                  }}
                 >
                   Mua ngay
                 </Button>
