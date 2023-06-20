@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Product;
+import com.gifthommie.backend.entity.Review;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.ProductService;
+import com.gifthommie.backend.service.ReviewService;
 
 @RestController
 @RequestMapping("/customer/product")
@@ -18,6 +20,9 @@ public class CustomerProductController {
 	
 	@Autowired
 	ProductService productService;
+	@Autowired
+	ReviewService reviewService;
+	private final int ENABLED_REVIEW = 1;
 	//------------ Default DES------------------------------
 			//List Product 				            : http://localhost:8080/staff/product
 			//List Product Filter Sort By Name      : http://localhost:8080/staff/product?sort=name-des
@@ -71,7 +76,14 @@ public class CustomerProductController {
 		return productService.getProductById(productId);
 	}
 	
-	
+	@GetMapping("/review/{productId}")
+	public APIPageableResponseDTO<Review> getReviewOfProduct(
+			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+			@PathVariable int productId) {
+		
+		return reviewService.findReviewsByProductId(pageNo, pageSize, productId, ENABLED_REVIEW);
+	}
 	
 	
 }

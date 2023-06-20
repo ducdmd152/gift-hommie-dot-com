@@ -5,9 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.dto.RatingRequestDTO;
+import com.gifthommie.backend.repository.OrderDetailRepository;
+import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.service.OrderDetailService;
 
 @Entity
 @Table(name = "review")
@@ -23,8 +31,13 @@ public class Review {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "order_detail_id")
-	private Integer orderDetailID;
+//	@Column(name = "order_detail_id")
+//	private Integer orderDetailID;
+	
+	@ManyToOne
+	@JoinColumn(name = "order_detail_id", referencedColumnName = "id")
+	@JsonIgnore
+	private OrderDetail orderDetail;
 	
 	@Column(name = "comment")
 	private String comment;
@@ -34,12 +47,14 @@ public class Review {
 	
 	@Column(name = "enable")
 	private Integer enable;
-
 	
-
-	public Review(RatingRequestDTO ratingRequestDTO,String email) {
+	public Review() {
+		
+	}
+	
+	public Review(RatingRequestDTO ratingRequestDTO, String email) {
 		this.email = email;
-		this.orderDetailID = ratingRequestDTO.getOrderDetailID();
+//		this.orderDetail = orderDetailRepository.findOrderDetailById(ratingRequestDTO.getOrderDetailID());
 		this.comment = ratingRequestDTO.getComment();
 		this.rating = ratingRequestDTO.getRating();
 		this.enable=DEFAULT_ENABLE_VALUE;
@@ -61,12 +76,22 @@ public class Review {
 		this.email = email;
 	}
 
-	public Integer getOrderDetailID() {
-		return orderDetailID;
+	
+	
+//	public Integer getOrderDetailID() {
+//		return orderDetailID;
+//	}
+//
+//	public void setOrderDetailID(Integer orderDetailID) {
+//		this.orderDetailID = orderDetailID;
+//	}
+
+	public OrderDetail getOrderDetail() {
+		return orderDetail;
 	}
 
-	public void setOrderDetailID(Integer orderDetailID) {
-		this.orderDetailID = orderDetailID;
+	public void setOrderDetail(OrderDetail orderDetail) {
+		this.orderDetail = orderDetail;
 	}
 
 	public String getComment() {
