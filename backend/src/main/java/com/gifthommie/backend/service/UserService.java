@@ -37,4 +37,6 @@ public interface UserService {
 	public void updateResetPassword (String token, String email);
 	
 	public void updateUserPassword (User user, String new_Password);
+	
+	public User getExTime(String token);
 }

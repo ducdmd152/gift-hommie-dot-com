@@ -1,14 +1,23 @@
 package com.gifthommie.backend.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gifthommie.backend.dto.VerifyPasswordDTO;
 import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.UserService;
 
 import net.bytebuddy.utility.RandomString;
@@ -19,6 +28,9 @@ public class ForgotPasswordController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	JavaMailSender mailSender;
@@ -64,5 +76,26 @@ public class ForgotPasswordController {
 		return email +"-"+ token +"-"+ u.getExpired_verification_code();
 	}
 	
+	@GetMapping()
+	public ResponseEntity<String> showResetPasswordForm(@RequestParam String token) {
+		User user= userService.getResetPasswordToken(token);
+		User timeUserToken = userService.getExTime(token);
+		if(user != null && timeUserToken != null) {
+			return ResponseEntity.ok("Correct");
+		}else if(user!=null && timeUserToken == null){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Het thoi gian ma code");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("sai ma code");
+	}
 	
+	@PostMapping
+	public String processResetPwd(@RequestBody VerifyPasswordDTO verifyPasswordDTO) {
+		User user = userService.getResetPasswordToken(verifyPasswordDTO.getToken());
+		if(user == null) {
+			return "something went wrong";
+		}else {
+			userService.updateUserPassword(user, verifyPasswordDTO.getPassword());
+			return "Reset password successful";
+		}
+	}
 }

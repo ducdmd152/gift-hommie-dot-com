@@ -189,6 +189,14 @@ public class UserServiceImpl implements UserService {
 		// lưu lại 
 		userRepository.save(user);
 	}
+
+
+	@Override
+	public User getExTime(String token) {
+		// TODO Auto-generated method stub
+		User user = userRepository.getExTime(token);
+		return user;
+	}
 	
 	
 	
