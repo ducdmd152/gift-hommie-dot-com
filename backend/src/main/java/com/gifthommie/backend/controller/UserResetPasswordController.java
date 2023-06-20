@@ -24,7 +24,7 @@ import net.bytebuddy.utility.RandomString;
 
 @RestController
 @RequestMapping("/account/forgotPassword")
-public class ForgotPasswordController {
+public class UserResetPasswordController {
 
 	@Autowired
 	UserService userService;
