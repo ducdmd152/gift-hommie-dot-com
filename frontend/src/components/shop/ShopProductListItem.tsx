@@ -30,7 +30,8 @@ const ShopProductListItem = ({ product }: Props) => {
       to="/shop/detail"
       onClick={(e) => {
         productContext.setProductId(product.id);
-        // window.scrollTo({ top: 0, behavior: "smooth" });
+        if (window.location.pathname == "/shop/detail")
+          window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
       <Card className="cursor-pointer product-card">
@@ -60,8 +61,8 @@ const ShopProductListItem = ({ product }: Props) => {
                     timer: 1000,
                   });
                 }
-                window.screenX = x;
-                window.screenY = y;
+                // window.screenX = x;
+                // window.screenY = y;
               }}
             >
               <BsFillCartPlusFill size="22px" />
