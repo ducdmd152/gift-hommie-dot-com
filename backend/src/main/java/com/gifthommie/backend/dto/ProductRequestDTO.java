@@ -10,6 +10,7 @@ public class ProductRequestDTO implements Serializable {
 	private float price;
 	private String avatar;
 	private Integer categoryId;
+	private Integer available;
 	public Integer getId() {
 		return id;
 	}
@@ -51,6 +52,12 @@ public class ProductRequestDTO implements Serializable {
 	}
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+	public Integer getAvailable() {
+		return available;
+	}
+	public void setAvailable(Integer available) {
+		this.available = available;
 	}
 	
 	

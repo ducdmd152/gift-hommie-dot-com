@@ -205,7 +205,7 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     Số lượng
                   </FormLabel>
                   <Input
-                    {...register("quantity", {
+                    {...register("available", {
                       required: true,
                       min: 0,
                     })}

@@ -84,6 +84,15 @@ public class StaffProductController {
 	
 	@PutMapping("/{productId}")
 	public Product updateProduct(@PathVariable int productId, @RequestBody ProductRequestDTO productRequestDTO) {
+		Product dbProduct = productService.getProductById(productId);
+		int differentAvailable = productRequestDTO.getAvailable() -  dbProduct.getAvailable();
+		int newQuantity = dbProduct.getQuantity() + differentAvailable;
+		
+		if(newQuantity < 0) {
+			throw new RuntimeException("Conflicts about product quantity.");
+		}
+		
+		productRequestDTO.setQuantity(newQuantity);
 		Product result = productService.update(productId, productRequestDTO);
 		return result;
 	}
