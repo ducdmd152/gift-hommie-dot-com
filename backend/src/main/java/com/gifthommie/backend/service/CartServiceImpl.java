@@ -56,7 +56,13 @@ public class CartServiceImpl implements CartService {
 		
 		//Convert Page<Cart> -> Page<CartResponseDTO>
 		List<CartResponseDTO> cartResponseList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-		APIPageableResponseDTO<CartResponseDTO> apiResponse = new APIPageableResponseDTO<>();		
+		for(CartResponseDTO cart : cartResponseList) {
+			int available = getShopAvailableQuantity(cart.getProductId());
+			cart.getProduct().setAvailable(available);
+		}
+		
+		APIPageableResponseDTO<CartResponseDTO> apiResponse = new APIPageableResponseDTO<>();
+		
 		apiResponse.setContent(cartResponseList);
 		APIPageableDTO apiPageble = new APIPageableDTO(page);
 		apiResponse.setPageable(apiPageble);

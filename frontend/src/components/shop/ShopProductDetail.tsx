@@ -139,7 +139,9 @@ const ShopProductDetail = () => {
                   fontWeight="bold"
                   paddingX="2"
                 >
-                  {product.quantity} sản phẩm có sẵn
+                  {product.available > 0
+                    ? product.available + " sản phẩm có sẵn sản phẩm có sẵn"
+                    : "Sản phẩm tạm hết hàng"}
                 </Badge>
               </HStack>
 
@@ -199,6 +201,7 @@ const ShopProductDetail = () => {
                   fontSize="xl"
                   colorScheme="blue"
                   fontWeight="medium"
+                  isDisabled={product.available == 0}
                 >
                   Mua ngay
                 </Button>
