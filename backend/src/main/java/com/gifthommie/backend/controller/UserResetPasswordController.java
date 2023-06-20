@@ -23,7 +23,7 @@ import com.gifthommie.backend.service.UserService;
 import net.bytebuddy.utility.RandomString;
 
 @RestController
-@RequestMapping("/account/forgotPassword")
+@RequestMapping("/account/reset_password")
 public class UserResetPasswordController {
 
 	@Autowired
@@ -36,19 +36,29 @@ public class UserResetPasswordController {
 	JavaMailSender mailSender;
 	
 	
-	// http://localhost:8080/account/forgotPassword/www.tranlenovo123@gmail.com
-	@PostMapping("/{email}")
-	public String process_forgotPassword (@PathVariable String email) {	
+	
+	
+	
+	
+	// http://localhost:8080/account/reset_password
+	
+//	{
+//		"email": "www.tranlenovo123@gmail.com"
+//		
+//	}
+	// Hàm này để người dùng click vào để hệ thống gửi token qua email của họ
+	@PostMapping()
+	public String process_forgotPassword (@RequestBody VerifyPasswordDTO verifyPasswordDTO) {	
 		String token  = RandomString.make(7);
 		User u = new User();
 		try {
-			userService.updateResetPassword(token, email);
-			u = userService.getUserByEmail(email);
+			userService.updateResetPassword(token, verifyPasswordDTO.getEmail());
+			u = userService.getUserByEmail(verifyPasswordDTO.getEmail());
 			
 			// Phần url tạm để là local host
-			String resetPasswordLink = "http://localhost:8080/account/forgotPassword?token=" + token;
+			String resetPasswordLink = "http://localhost:8080/account/reset_password?token=" + token;
 			SimpleMailMessage message = new SimpleMailMessage();
-			    message.setTo(email);
+			    message.setTo(verifyPasswordDTO.getEmail());
 			    message.setSubject("Reset Password");
 			    
 			    // Phần này là chổ gửi kèm link và code token
@@ -74,12 +84,15 @@ public class UserResetPasswordController {
 		// Phần này là link nhận reset password
 		// send email	
 		// return này để test xem email và token in ra như thế nào
-		return email +"-"+ token +"-"+ u.getExpired_verification_code();
+		return verifyPasswordDTO.getEmail() +"-"+ token +"-"+ u.getExpired_verification_code();
 	}
 	
 	
 	
-	//Get       http://localhost:8080/account/forgotPassword?token=9lEjKGw
+	
+	
+	
+	//Get       http://localhost:8080/account/reset_password?token=9lEjKGw
 	
 	// Cái mã token có thể thấy ở Mail người nhận hoặc kết quả trả về của hàm process_forgotPassword
 	// Hàm này để check kết quả của người dùng sao khi nhập token
@@ -97,9 +110,11 @@ public class UserResetPasswordController {
 	}
 	
 	
-	// Hàm này dùng để chỉnh mật khẩu mới
-	// Post Maping
-	// Post       http://localhost:8080/account/forgotPassword
+	
+	
+	
+	
+
 	
 	// json value
 	/* 
@@ -108,7 +123,10 @@ public class UserResetPasswordController {
         "password": 12345678	
 		} 
 	*/
-	@PostMapping
+
+	// Hàm này được gọi ở trang mới, cho phép người dùng nhập mật mới
+	// http://localhost:8080/account/reset_password/reset_page
+	@PostMapping("/reset_page")
 	public String processResetPwd(@RequestBody VerifyPasswordDTO verifyPasswordDTO) {
 		User user = userService.getResetPasswordToken(verifyPasswordDTO.getToken());
 		if(user == null) {
