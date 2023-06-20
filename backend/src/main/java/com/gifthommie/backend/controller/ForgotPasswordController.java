@@ -32,7 +32,7 @@ public class ForgotPasswordController {
 			u = userService.getUserByEmail(email);
 			// Phần url tạm để là local host
 			
-			String resetPasswordLink = "http://localhost:8080/reset-password?token=" + token;
+			String resetPasswordLink = "http://localhost:8080/account/forgotPassword?token=" + token;
 			SimpleMailMessage message = new SimpleMailMessage();
 			    message.setTo(email);
 			    message.setSubject("Reset Password");
@@ -47,8 +47,8 @@ public class ForgotPasswordController {
 			    		+ "\n\nĐể tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã thông báo khi được yêu cầu:\n\n" + resetPasswordLink 
 			    		+ "\n\nMã thông báo của bạn sẽ hết hạn vào lúc "
 			    		+ "\n\n[" + u.getExpired_verification_code() + "]. "
-			    		+ "\n\nVui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc."
-			    		+ "\n\nNếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này. "
+			    		+ "\nVui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc."
+			    		+ "\nNếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này. "
 			    		+ "Nếu bạn tin rằng có ai đó đang cố gắng truy cập vào tài khoản của bạn, vui lòng liên hệ với chúng tôi ngay lập tức để được trợ giúp."
 			    		+ "\n\nTrân trọng,\nHommieStore");
 
