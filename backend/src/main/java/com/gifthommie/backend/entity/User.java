@@ -57,9 +57,7 @@ public class User {
 	@JsonIgnore
 	private boolean enabled;
 	
-	@Column(name = "vertification_code")
-	@JsonIgnore
-	private String vertification_code;
+
 	
 	@Column(name = "reset_password_token")
 	@JsonIgnore
@@ -84,13 +82,7 @@ public class User {
 		this.expired_verification_code = expired_verification_code;
 	}
 
-	public String getVertification_code() {
-		return vertification_code;
-	}
-
-	public void setVertification_code(String vertification_code) {
-		this.vertification_code = vertification_code;
-	}
+	
 
 	public String getReset_password_token() {
 		return reset_password_token;
