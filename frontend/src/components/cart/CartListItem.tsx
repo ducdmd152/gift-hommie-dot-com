@@ -66,7 +66,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
     Swal.fire({
       position: "center",
       icon: "warning",
-      title: `Bạn đã chọn đủ ${product.quantity} sản phẩm có sẵn của sản phẩm.`,
+      title: `Bạn đã chọn đủ ${product.available} sản phẩm có sẵn của sản phẩm.`,
       showConfirmButton: false,
       timer: 2000,
     });
@@ -88,6 +88,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
       <HStack spacing={4}>
         <Box>
           <Checkbox
+            isDisabled={product.available <= 0}
             isChecked={selectedCartContext.isChecked(cart.id)}
             colorScheme="green"
             iconSize="32"
@@ -152,7 +153,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                       size="32px"
                       onClick={() => {
                         let quantity = Math.max(currentQuantity - 1, 1);
-                        quantity = Math.min(quantity, product.quantity);
+                        quantity = Math.min(quantity, product.available);
                         updateQuantity(quantity);
                       }}
                     />
@@ -166,7 +167,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                         // e.target.value = currentQuantity.toString();
                         return;
                       }
-                      console.log(value);
+                      // console.log(value);
 
                       updateQuantity(value);
                     }}
@@ -190,23 +191,26 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     textAlign="center"
                   />
                   <Box
-                    className="cursor-pointer"
                     color={
-                      currentQuantity >= product.quantity ? "gray" : "unset"
+                      currentQuantity >= product.available ? "gray" : "unset"
                     }
+                    className="cursor-pointer"
+                    // color={
+                    //   currentQuantity >= product.available ? "gray" : "unset"
+                    // }
                     _hover={{
                       transform: "scale(1.02)",
                       color:
-                        currentQuantity >= product.quantity ? "gray" : "unset",
+                        currentQuantity >= product.available ? "gray" : "unset",
                     }}
                     onClick={() => {
-                      if (currentQuantity >= product.quantity) {
+                      if (currentQuantity >= product.available) {
                         outOfQuantity();
                         return;
                       }
                       let quantity = Math.min(
                         currentQuantity + 1,
-                        product.quantity
+                        product.available
                       );
                       updateQuantity(quantity);
                     }}
