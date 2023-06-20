@@ -49,7 +49,7 @@ const StaffOrderTabs = ({
           <Tab
             className="customer-order-tab"
             _selected={{ color: "white", bg: "green.400" }}
-            onClick={() => onStatus("SUCCESSFULLY")}
+            onClick={() => onStatus("SUCCESSFUL")}
           >
             Đã hoàn thành
           </Tab>
