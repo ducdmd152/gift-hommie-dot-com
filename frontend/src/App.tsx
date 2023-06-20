@@ -81,12 +81,17 @@ function App() {
       return selectedCartItems;
     },
     updateItem(item) {
+      if (item.quantity <= 0)
+        setSelectedCartItems([
+          ...selectedCartItems.filter((cart) => cart.id !== item.id),
+        ]);
       setSelectedCartItems([
         ...selectedCartItems.filter((cart) => cart.id !== item.id),
         item,
       ]);
     },
     addItem(item) {
+      if (item.quantity <= 0) return;
       if (selectedCartItems.find((cart) => cart.id === item.id)) return;
       setSelectedCartItems([...selectedCartItems, item]);
     },
