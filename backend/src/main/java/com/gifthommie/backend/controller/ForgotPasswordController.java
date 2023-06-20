@@ -31,15 +31,25 @@ public class ForgotPasswordController {
 			userService.updateResetPassword(token, email);
 			u = userService.getUserByEmail(email);
 			// Phần url tạm để là local host
-			String resetPasswordLink = "http://localhost:8080/account/forgotPassword";
+			
+			String resetPasswordLink = "http://localhost:8080/reset-password?token=" + token;
 			SimpleMailMessage message = new SimpleMailMessage();
 			    message.setTo(email);
 			    message.setSubject("Reset Password");
 			    
 			    // Phần này là chổ gửi kèm link và code token
 			    //message.setText(MessageFormat.format(resetPasswordLink, token));
-			    message.setText("Chào bạn, reset mật khẩu đê, token nè: [ " + token + " ]. Token sẽ hết hạn vào lúc: " + u.getExpired_verification_code() );
-			    
+			
+			    message.setSubject("Đặt lại mật khẩu");
+
+			    message.setText("Chào bạn,\n\nBạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình tại HommieStore. "
+			    		+ "\n\nMã xác nhận của bạn là: \n\n [ "  + token + " ]"
+			    		+ "\n\nĐể tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã thông báo khi được yêu cầu:\n\n" + resetPasswordLink + "\n\nMã thông báo của bạn sẽ hết hạn vào lúc " + u.getExpired_verification_code() + ". "
+			    		+ "Vui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc."
+			    		+ "\n\nNếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này. "
+			    		+ "Nếu bạn tin rằng có ai đó đang cố gắng truy cập vào tài khoản của bạn, vui lòng liên hệ với chúng tôi ngay lập tức để được trợ giúp."
+			    		+ "\n\nTrân trọng,\nHommieStore");
+
 			    mailSender.send(message);			
 		} catch (Exception e) {
 			return e.getMessage();
