@@ -35,6 +35,8 @@ public class ForgotPasswordController {
 	@Autowired
 	JavaMailSender mailSender;
 	
+	
+	// http://localhost:8080/account/forgotPassword/www.tranlenovo123@gmail.com
 	@PostMapping("/{email}")
 	public String process_forgotPassword (@PathVariable String email) {	
 		String token  = RandomString.make(7);
@@ -42,8 +44,8 @@ public class ForgotPasswordController {
 		try {
 			userService.updateResetPassword(token, email);
 			u = userService.getUserByEmail(email);
-			// Phần url tạm để là local host
 			
+			// Phần url tạm để là local host
 			String resetPasswordLink = "http://localhost:8080/account/forgotPassword?token=" + token;
 			SimpleMailMessage message = new SimpleMailMessage();
 			    message.setTo(email);
@@ -66,8 +68,7 @@ public class ForgotPasswordController {
 
 			    mailSender.send(message);			
 		} catch (Exception e) {
-			return e.getMessage();
-			
+			return e.getMessage();			
 		}
 		
 		// Phần này là link nhận reset password
@@ -76,24 +77,44 @@ public class ForgotPasswordController {
 		return email +"-"+ token +"-"+ u.getExpired_verification_code();
 	}
 	
+	
+	
+	//Get       http://localhost:8080/account/forgotPassword?token=9lEjKGw
+	
+	// Cái mã token có thể thấy ở Mail người nhận hoặc kết quả trả về của hàm process_forgotPassword
+	// Hàm này để check kết quả của người dùng sao khi nhập token
+	// Sau khi hàm này chạy chạy ok thì mới tiếp tục xuống hàm processResetPwd phía dưới
 	@GetMapping()
 	public ResponseEntity<String> showResetPasswordForm(@RequestParam String token) {
-		User user= userService.getResetPasswordToken(token);
-		User timeUserToken = userService.getExTime(token);
+		User user= userService.getResetPasswordToken(token); // lấy ra user với token vừa nhập
+		User timeUserToken = userService.getExTime(token);   // lấy ra user với thời gian quá hạn
 		if(user != null && timeUserToken != null) {
-			return ResponseEntity.ok("Correct");
+			return ResponseEntity.ok("Correct"); // nhập đúng token và ko quá thời gian
 		}else if(user!=null && timeUserToken == null){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Het thoi gian ma code");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Het thoi gian ma code"); // hết thời gian của token
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("sai ma code");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("sai ma code"); // sai token
 	}
 	
+	
+	// Hàm này dùng để chỉnh mật khẩu mới
+	// Post Maping
+	// Post       http://localhost:8080/account/forgotPassword
+	
+	// json value
+	/* 
+	 * {
+		"token": "Zvv8GSC",
+        "password": 12345678	
+		} 
+	*/
 	@PostMapping
 	public String processResetPwd(@RequestBody VerifyPasswordDTO verifyPasswordDTO) {
 		User user = userService.getResetPasswordToken(verifyPasswordDTO.getToken());
 		if(user == null) {
 			return "something went wrong";
 		}else {
+			//									 verifyPasswordDTO.getPassword() là password mới
 			userService.updateUserPassword(user, verifyPasswordDTO.getPassword());
 			return "Reset password successful";
 		}
