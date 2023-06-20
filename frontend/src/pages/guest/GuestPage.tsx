@@ -8,6 +8,7 @@ import CustomerPage from "../customer/CustomerPage";
 import Register from "./Register";
 import GuestShopDetailPage from "./GuestShopDetailPage";
 import ImageUpload from "../../components/image/ImageUpload";
+import GuestForgotPasswordPage from "./GuestForgotPasswordPage";
 
 const GuestPage = () => {
   return (
@@ -37,6 +38,10 @@ const GuestPage = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<GuestShopPage />} />
           <Route path="/shop/detail" element={<GuestShopDetailPage />} />
+          <Route
+            path="/forgot-password"
+            element={<GuestForgotPasswordPage />}
+          />
         </Routes>
       </GridItem>
     </Grid>

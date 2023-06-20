@@ -111,9 +111,22 @@ const Login = () => {
               placeholder="Mật khẩu"
               type="password"
               variant="filled"
-              mb={6}
+              mb={2}
               border="gray 1px solid"
             />
+
+            <HStack color="gray.400" w="100%" justifyContent={"flex-end"}>
+              <Link to="/forgot-password">
+                <Button
+                  color="teal.400"
+                  fontWeight="500"
+                  variant="link"
+                  // onClick={() => setRoute("register")}
+                >
+                  Quên mật khẩu?
+                </Button>
+              </Link>
+            </HStack>
 
             <Text color="tomato" fontStyle="italic" mt={0} mb={2}>
               {loginStatus}
