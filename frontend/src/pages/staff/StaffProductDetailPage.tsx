@@ -178,12 +178,12 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   Số lượng
                 </FormLabel>
                 <NumberInput
-                  value={product.quantity}
+                  value={product.available}
                   isReadOnly
                   color="gray"
                   min={0}
                 >
-                  <NumberInputField defaultValue={product.quantity} />
+                  <NumberInputField defaultValue={product.available} />
                 </NumberInput>
               </FormControl>
             </VStack>
