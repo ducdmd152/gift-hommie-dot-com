@@ -1,6 +1,7 @@
 import FeedbackDTO from "../type/FeedbackDTO";
 import PageableDTO from "../type/PageableDTO";
 import apiClient from "./api-client";
+
 export interface ProductAdditionalDTO {
   sold: number;
   rating: number;
@@ -20,6 +21,7 @@ const getFeedbacks = async (productId: number) => {
       result = response.data as FeedbackResponse;
     })
     .catch((error) => {});
+
   return result;
 };
 

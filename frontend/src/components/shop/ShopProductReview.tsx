@@ -1,13 +1,27 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Card } from "@chakra-ui/card";
 import { Box, HStack, VStack, Text } from "@chakra-ui/layout";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
-
+import { GLOBAL_CONTEXT } from "../../App";
+import shopProductService from "../../services/shop-product-service-additional";
+import { FeedbackResponse } from "../../services/shop-product-service-additional";
 const ShopProductReview = () => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
+  const id = globalContext.productContext.getProductId();
+  const [feedbackResponse, setFeedbackResponse] = useState(
+    {} as FeedbackResponse
+  );
+
+  useEffect(() => {
+    (async () => {
+      setFeedbackResponse(await shopProductService.getFeedbacks(id));
+    })();
+  }, []);
+
   return (
     <Box w="100%">
-      <VStack w="100%">
+      <VStack w="100%" spacing={"2"}>
         <Card w="100%" paddingX="4" paddingY="2">
           <HStack>
             <Avatar
@@ -29,6 +43,29 @@ const ShopProductReview = () => {
             hic aliquid harum consectetur iure dicta a mollitia totam? Voluptas.
           </Text>
         </Card>
+
+        {feedbackResponse.feedbacks.map((feedback) => (
+          <Card w="100%" paddingX="4" paddingY="2">
+            <HStack>
+              <Avatar size="md" src={feedback.user.avatar} />
+
+              <VStack justifyContent={"flex-start"} spacing="0">
+                <Text size="md" mt="2" mb="0">
+                  @{feedback.user.username}
+                </Text>
+                <Rating
+                  initialValue={feedback.rating}
+                  readonly={true}
+                  size={18}
+                ></Rating>
+              </VStack>
+            </HStack>
+
+            <Text color="gray" p="2" maxH="100px" overflowY={"auto"}>
+              {feedback.feedback}
+            </Text>
+          </Card>
+        ))}
       </VStack>
     </Box>
   );
