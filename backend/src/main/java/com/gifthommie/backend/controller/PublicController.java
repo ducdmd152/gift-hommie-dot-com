@@ -105,6 +105,7 @@ public class PublicController {
 		return new APIPageableResponseDTO<>(feedbackService.getFeedbackByProductId(pageNo, pageSize, productId));
 	}
 	
+	
 	@GetMapping("/feedback/additional/{productId}")
 	public ProductReportDTO getProductReportById(@PathVariable Integer productId) {
 		return feedbackService.getProductReportByProductId(productId);
