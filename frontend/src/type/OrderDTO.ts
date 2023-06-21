@@ -33,5 +33,5 @@ export default interface OrderDTO {
 
   expectedDeliveryTime: string; // ADD MORE // DATETIME
 
-  isEvaluated: boolean;
+  evaluated: boolean;
 }

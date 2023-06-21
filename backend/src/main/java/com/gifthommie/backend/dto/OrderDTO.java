@@ -27,9 +27,9 @@ public class OrderDTO {
 	private int paymentMethod;
 	private float shippingFee;
 	private int shippingMethod;
-	private boolean isEvaluated;
+	private Boolean isEvaluated = false;
 	
-	public boolean isEvaluated() {
+	public Boolean isEvaluated() {
 		return isEvaluated;
 	}
 

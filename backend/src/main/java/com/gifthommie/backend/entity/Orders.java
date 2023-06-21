@@ -84,9 +84,9 @@ public class Orders {
 	private LocalDateTime expectedDeliveryTime;
 
 	@Column(name = "is_evaluated")
-	private boolean isEvaluated;
+	private Boolean isEvaluated = false;
 
-	public boolean isEvaluated() {
+	public Boolean isEvaluated() {
 		return isEvaluated;
 	}
 

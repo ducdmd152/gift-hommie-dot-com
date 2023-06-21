@@ -12,10 +12,10 @@ public class OrderDetailDTO {
 	private int quantity;
 	private Product product;
 	
-	private float rating;
+	private Float rating;
 	private String feedback;
 	
-	public float getRating() {
+	public Float getRating() {
 		return rating;
 	}
 

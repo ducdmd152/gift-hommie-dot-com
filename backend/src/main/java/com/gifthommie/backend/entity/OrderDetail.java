@@ -47,10 +47,10 @@ public class OrderDetail {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	private float rating;
+	private Float rating;
 	private String feedback;
 	
-	public float getRating() {
+	public Float getRating() {
 		return rating;
 	}
 
