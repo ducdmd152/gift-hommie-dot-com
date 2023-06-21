@@ -16,5 +16,7 @@ public interface OrderDetailService {
 	public List<OrderDetail> getOrderDetailsByProductId(int productId);
 	
 	public List<OrderDetail> addOrderDetail(CheckOutDTO checkOutDTO, int orderId,Orders order,User user);
+
+	public OrderDetail save(OrderDetail od);
 	
 }

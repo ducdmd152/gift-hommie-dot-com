@@ -124,3 +124,6 @@
 .swal2-container {
   z-index: 9999999999 !important;
 }
+svg.star-svg {
+  display: inline;
+}

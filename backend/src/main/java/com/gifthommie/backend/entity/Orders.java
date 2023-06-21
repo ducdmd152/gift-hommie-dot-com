@@ -2,8 +2,10 @@ package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,73 +18,85 @@ import javax.persistence.Table;
 
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
+import com.gifthommie.backend.dto.OrderDetailDTO;
 
 @Entity
 @Table(name = "orders")
 public class Orders {
-	
+
 	private static final String DEFAULT_STATUS = "PENDING";
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "shipping_order_code")
 	private String shippingOrderCode;
-	
+
 	@Column(name = "shipping_method")
 	private Integer shippingMethod;
-	
+
 	@Column(name = "payment_id")
 	private Integer paymentId;
-	
-	@OneToMany(fetch = FetchType.LAZY)
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 //	@JsonIgnore
 	private List<OrderDetail> orderDetails;
-	
+
 	@Column(name = "order_time")
 	private LocalDateTime orderTime;
-	
+
 	@Column(name = "shipping_fee")
 	private Float shippedFee;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "phone")
 	private String phone;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "ward_code")
 	private int wardCode;
-	
+
 	@Column(name = "district_id")
 	private int districtId;
-	
+
 	@Column(name = "province_id")
 	private int proviceId;
-	
+
 	@Column(name = "message")
 	private String message;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "comment")
 	private String comment;
-	
+
 	@Column(name = "last_updated_time")
 	private LocalDateTime lastUpdatedTime;
 
 	@Column(name = "expected_delivery_time")
 	private LocalDateTime expectedDeliveryTime;
-	
+
+	@Column(name = "is_evaluated")
+	private Boolean isEvaluated = false;
+
+	public Boolean isEvaluated() {
+		return isEvaluated;
+	}
+
+	public void setEvaluated(boolean isEvaluated) {
+		this.isEvaluated = isEvaluated;
+	}
+
 	public LocalDateTime getExpectedDeliveryTime() {
 		return expectedDeliveryTime;
 	}
@@ -96,9 +110,9 @@ public class Orders {
 	}
 
 	public Orders() {
-		
+
 	}
-	
+
 	public Orders(OrderDTO orderDTO) {
 //		String dateFormat = "HH:mm dd/MM/yyyy";
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
@@ -120,9 +134,16 @@ public class Orders {
 		this.status = orderDTO.getStatus();
 		this.lastUpdatedTime = LocalDateTime.now();
 		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
-	
+		
+		// added by Duy Duc
+				this.isEvaluated = orderDTO.isEvaluated();
+				this.orderDetails = new ArrayList<>();
+				for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+					this.orderDetails.add(new OrderDetail(odd));
+				
+					
 	}
-	
+
 	public void autoUpdateFromDTO(OrderDTO orderDTO) {
 //		String dateFormat = "HH:mm dd/MM/yyyy";
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
@@ -144,9 +165,13 @@ public class Orders {
 		this.status = orderDTO.getStatus();
 		this.lastUpdatedTime = LocalDateTime.now();
 		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
-	
+		// added by Duy Duc
+		this.isEvaluated = orderDTO.isEvaluated();
+		this.orderDetails = new ArrayList<>();
+		for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+			this.orderDetails.add(new OrderDetail(odd));
 	}
-	
+
 	public Orders(CheckOutDTO checkOutDTO, String email) {
 		this.email = email;
 		this.orderTime = LocalDateTime.now();
@@ -158,18 +183,16 @@ public class Orders {
 		this.districtId = checkOutDTO.getDistrictID();
 		this.proviceId = checkOutDTO.getProvinceID();
 		this.message = checkOutDTO.getMessage();
-		this.paymentId=checkOutDTO.getPaymentMethod();
-		this.shippedFee=checkOutDTO.getShippingFee();
-		this.shippingMethod=checkOutDTO.getShippingMethod();
+		this.paymentId = checkOutDTO.getPaymentMethod();
+		this.shippedFee = checkOutDTO.getShippingFee();
+		this.shippingMethod = checkOutDTO.getShippingMethod();
 		this.status = DEFAULT_STATUS;
-		this.lastUpdatedTime=LocalDateTime.now();
-		this.expectedDeliveryTime=checkOutDTO.getExpectedDeliveryTime();
-		if(this.expectedDeliveryTime == null) {
+		this.lastUpdatedTime = LocalDateTime.now();
+		this.expectedDeliveryTime = checkOutDTO.getExpectedDeliveryTime();
+		if (this.expectedDeliveryTime == null) {
 			this.expectedDeliveryTime = LocalDateTime.now().plusDays(2);
 		}
 	}
-
-
 
 	public String getShippingOrderCode() {
 		return shippingOrderCode;
@@ -310,14 +333,11 @@ public class Orders {
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
-	
+
 	public int getPaymentMethod() {
 		return paymentId;
 	}
-	
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", email=" + email + ", paymentId=" + paymentId + ", orderDetails=" + orderDetails
@@ -327,9 +347,4 @@ public class Orders {
 				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
 
-
-
-	
-
-	
 }

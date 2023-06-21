@@ -3,33 +3,58 @@ package com.gifthommie.backend.dto;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Product;
 
-public class OrderDetailDTO {
+public class OrderDetailDTO  {
 	
 	private int id;
-	private int orderID;
-	private int productID;
+	private int orderId;
+	private int productId;
 	private float price;
 	private int quantity;
 	private Product product;
 	
+	private Float rating;
+	private String feedback;
+	
+	public Float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
 	public OrderDetailDTO() {
 		
 	}
 	
 	public OrderDetailDTO(OrderDetail orderDetail) {
-		this.id=orderDetail.getId();
-		this.orderID=orderDetail.getOrderId();
-		this.price=orderDetail.getPrice();
-		this.quantity=orderDetail.getQuantity();
+		this.setId(orderDetail.getId());
+		this.setOrderId(orderDetail.getOrderId());		
+		this.setPrice(orderDetail.getPrice());
+		this.setQuantity(orderDetail.getQuantity());
+		// added by Duy Duc
+		this.setRating( orderDetail.getRating());
+		this.setFeedback( orderDetail.getFeedback());
 	}
 	
 	public OrderDetailDTO(OrderDetail orderDetail,Product tmpProduct) {
-		this.id=orderDetail.getId();
-		this.orderID=orderDetail.getOrderId();
-		this.productID=tmpProduct.getId();
-		this.price=orderDetail.getPrice();
-		this.quantity=orderDetail.getQuantity();
-		this.product=tmpProduct;
+		this.setId(orderDetail.getId());
+		this.setOrderId(orderDetail.getOrderId());		
+		this.setPrice(orderDetail.getPrice());
+		this.setQuantity(orderDetail.getQuantity());
+		this.setProductId(tmpProduct.getId());
+		this.setProduct(tmpProduct);
+		// added by Duy Duc
+		this.setRating( orderDetail.getRating());
+		this.setFeedback( orderDetail.getFeedback());
 	}
 	
 	
@@ -42,20 +67,20 @@ public class OrderDetailDTO {
 		this.id = id;
 	}
 
-	public int getOrderID() {
-		return orderID;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setOrderID(int orderID) {
-		this.orderID = orderID;
+	public void setOrderId(int orderID) {
+		this.orderId = orderID;
 	}
 
-	public int getProductID() {
-		return productID;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setProductId(int productID) {
+		this.productId = productID;
 	}
 
 	public float getPrice() {
@@ -83,6 +108,6 @@ public class OrderDetailDTO {
 	}
 
 	public float getTotal() {
-		return (quantity*price);
+		return this.getQuantity()*this.getPrice();
 	}
 }
