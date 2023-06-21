@@ -18,10 +18,32 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { set } from "zod";
+import { set, z } from "zod";
 import authService from "../../services/auth-service";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import resetPasswordService from "../../services/reset-password-serivce";
+import { FieldValues, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+const schema = z
+  .object({
+    password: z
+      .string({
+        required_error: "Vui lòng nhập mật khẩu.",
+        invalid_type_error: "First name must be a string",
+      })
+      .min(6, {
+        message: "Vui lòng nhập mật khẩu ít nhất 6 kí tự.",
+      }),
+    confirmPassword: z.string(),
+    phone: z.string().optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Mật khẩu không trùng khớp.",
+    path: ["confirmPassword"], // path of error
+  });
+
+type PasswordFormData = z.infer<typeof schema>;
 
 const GuestForgotPasswordPage = () => {
   const [step, setStep] = useState(1);
@@ -29,6 +51,12 @@ const GuestForgotPasswordPage = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<PasswordFormData>({ resolver: zodResolver(schema) });
 
   if (step == 1)
     return (
@@ -80,7 +108,7 @@ const GuestForgotPasswordPage = () => {
                 bg: "blue.500",
               }}
               onClick={async () => {
-                console.log("email");
+                // console.log("email");
                 if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
                   setError("Vui lòng nhập đúng định dạng của email.");
                   return;
@@ -91,7 +119,8 @@ const GuestForgotPasswordPage = () => {
                   return;
                 }
 
-                setStep(2);
+                if (await resetPasswordService.sendRequest(email)) setStep(2);
+                else setError("Yêu cầu thất bại!");
               }}
             >
               Gửi
@@ -112,7 +141,7 @@ const GuestForgotPasswordPage = () => {
         <Stack
           spacing={4}
           w={"full"}
-          maxW={"sm"}
+          maxW={"md"}
           bg={useColorModeValue("white", "gray.700")}
           rounded={"xl"}
           boxShadow={"lg"}
@@ -144,10 +173,20 @@ const GuestForgotPasswordPage = () => {
                   type="text"
                   textAlign={"center"}
                   placeholder="Nhập mã xác thực..."
+                  onChange={(e) => setCode(e.currentTarget.value)}
                 />
               </HStack>
             </Center>
           </FormControl>
+          <Text
+            textAlign="center"
+            color="tomato"
+            fontStyle="italic"
+            mt={1}
+            mb={2}
+          >
+            {error}
+          </Text>
           <Stack spacing={6}>
             <Button
               bg={"blue.400"}
@@ -155,11 +194,10 @@ const GuestForgotPasswordPage = () => {
               _hover={{
                 bg: "blue.500",
               }}
-              onClick={(e) => {
-                setCode(e.currentTarget.value);
-                // Send email + code => BE => Receive STATUS
-                // If 200
-                setStep(3);
+              onClick={async (e) => {
+                if (await resetPasswordService.checkCode(email, code))
+                  setStep(3);
+                else setError("Mã code vừa nhập không đúng hoặc đã hết hạn!");
               }}
             >
               Xác thực
@@ -169,73 +207,86 @@ const GuestForgotPasswordPage = () => {
       </Flex>
     );
 
+  const onSubmit = async (data: FieldValues) => {
+    console.log(data);
+    // IF 200
+    if (await resetPasswordService.resetPassword(email, code, data.password)) {
+      setStep(4);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Đặt lại mật khẩu thành công.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      navigate("/login");
+      return;
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Hết hạn thời gian xác thực.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      navigate("/");
+    }
+  };
+
   if (step == 3)
     return (
-      <Flex
-        minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
-      >
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"md"}
-          bg={useColorModeValue("white", "gray.700")}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={12}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Flex
+          minH={"100vh"}
+          align={"center"}
+          justify={"center"}
+          bg={useColorModeValue("gray.50", "gray.800")}
         >
-          <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
-            Đặt lại mật khẩu
-          </Heading>
-          <FormControl isRequired>
-            <FormLabel>Mật khẩu mới</FormLabel>
-            <Input _placeholder={{ color: "gray.500" }} type="email" />
-          </FormControl>
-          <FormControl id="password" isRequired>
-            <FormLabel>Xác nhận mật khẩu</FormLabel>
-            <Input type="password" />
-          </FormControl>
-          <Stack spacing={6}>
-            <Button
-              bg={"blue.400"}
-              color={"white"}
-              _hover={{
-                bg: "blue.500",
-              }}
-              onClick={() => {
-                // SEND email + code + password => BE => STATUS
+          <Stack
+            spacing={4}
+            w={"full"}
+            maxW={"md"}
+            bg={useColorModeValue("white", "gray.700")}
+            rounded={"xl"}
+            boxShadow={"lg"}
+            p={6}
+            my={12}
+          >
+            <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
+              Đặt lại mật khẩu
+            </Heading>
+            <FormControl isRequired>
+              <FormLabel>Mật khẩu mới</FormLabel>
+              <Input
+                {...register("password")}
+                type="password"
+                _placeholder={{ color: "gray.500" }}
+              />
+              <p className="form-error-message">{errors.password?.message}</p>
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Xác nhận mật khẩu</FormLabel>
+              <Input {...register("confirmPassword")} type="password" />
+              <p className="form-error-message">
+                {errors.confirmPassword?.message}
+              </p>
+            </FormControl>
 
-                if (true) {
-                  // IF 200
-                  setStep(4);
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Đặt lại mật khẩu thành công.",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  navigate("/login");
-                } else {
-                  Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Hết hạn thời gian xác thực.",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  navigate("/");
-                }
-              }}
-            >
-              Đặt lại
-            </Button>
+            <Stack spacing={6}>
+              <Button
+                type="submit"
+                bg={"blue.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.500",
+                }}
+              >
+                Đặt lại
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </Flex>
+        </Flex>
+      </form>
     );
 
   return <div>Nothing here</div>;

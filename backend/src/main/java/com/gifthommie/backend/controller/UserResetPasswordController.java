@@ -23,7 +23,7 @@ import com.gifthommie.backend.service.UserService;
 import net.bytebuddy.utility.RandomString;
 
 @RestController
-@RequestMapping("/account/reset_password")
+@RequestMapping("public/account/reset")
 public class UserResetPasswordController {
 
 	@Autowired
@@ -47,7 +47,7 @@ public class UserResetPasswordController {
 //		
 //	}
 	// Hàm này để người dùng click vào để hệ thống gửi token qua email của họ
-	@PostMapping()
+	@PostMapping("/password/request")
 	public String process_forgotPassword (@RequestBody VerifyPasswordDTO verifyPasswordDTO) {	
 		String token  = RandomString.make(7);
 		User u = new User();
@@ -97,8 +97,9 @@ public class UserResetPasswordController {
 	// Cái mã token có thể thấy ở Mail người nhận hoặc kết quả trả về của hàm process_forgotPassword
 	// Hàm này để check kết quả của người dùng sao khi nhập token
 	// Sau khi hàm này chạy chạy ok thì mới tiếp tục xuống hàm processResetPwd phía dưới
-	@GetMapping()
-	public ResponseEntity<String> showResetPasswordForm(@RequestParam String token) {
+	@PostMapping("/password/token/check")
+	public ResponseEntity<String> showResetPasswordForm(@RequestBody VerifyPasswordDTO verifyPasswordDTO) {
+		String token = verifyPasswordDTO.getToken();
 		User user= userService.getResetPasswordToken(token); // lấy ra user với token vừa nhập
 		User timeUserToken = userService.getExTime(token);   // lấy ra user với thời gian quá hạn
 		if(user != null && timeUserToken != null) {
@@ -126,7 +127,7 @@ public class UserResetPasswordController {
 
 	// Hàm này được gọi ở trang mới, cho phép người dùng nhập mật mới
 	// http://localhost:8080/account/reset_password/reset_page
-	@PostMapping("/reset_page")
+	@PostMapping("/password/reset")
 	public String processResetPwd(@RequestBody VerifyPasswordDTO verifyPasswordDTO) {
 		User user = userService.getResetPasswordToken(verifyPasswordDTO.getToken());
 		if(user == null) {
