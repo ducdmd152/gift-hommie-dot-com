@@ -3,6 +3,8 @@ package com.gifthommie.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -148,5 +150,55 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.save(user);
 	}
+
+
+	
+	// cập nhật token mới và thời gian quá hạn token mới mỗi khi resetpassword
+	@Override
+	public void updateResetPassword(String token, String email) {
+		User u = userRepository.getUserByEmail(email);
+		
+		if (u != null) {
+			u.setReset_password_token(token);
+			u.updateExpiredVertificationCode();
+			userRepository.save(u);	
+		} else {
+			throw  new RuntimeException("Email"+ email +" not found");
+		}		
+		
+	}
+
+	// lấy cái token vừa được cập nhật
+	@Override
+	public User getResetPasswordToken(String resetPaswordToken) {
+		return userRepository.getResetPasswordToken(resetPaswordToken);
+	}
+
+	// thay đổi mật khẩu từ người dùng
+	@Override
+	public void updateUserPassword(User user, String new_Password) {
+		BCryptPasswordEncoder passWordEncoder = new BCryptPasswordEncoder();
+		String encodePassword = passWordEncoder.encode(new_Password);
+		
+		// sau khi cập nhật mật khẩu mới thì setReset_password_token thành null. 
+		// Tạo điều kiện thay đổi password nếu có
+		user.setPassword(encodePassword);
+		user.setReset_password_token(null);
+		
+		
+		// lưu lại 
+		userRepository.save(user);
+	}
+
+
+	@Override
+	public User getExTime(String token) {
+		// TODO Auto-generated method stub
+		User user = userRepository.getExTime(token);
+		return user;
+	}
+	
+	
+	
 
 }

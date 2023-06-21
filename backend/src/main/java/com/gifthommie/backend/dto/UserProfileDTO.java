@@ -33,6 +33,8 @@ public class UserProfileDTO {
 	
 	private boolean enabled;
 	
+
+	
 	//private String gender;
 	
 //	

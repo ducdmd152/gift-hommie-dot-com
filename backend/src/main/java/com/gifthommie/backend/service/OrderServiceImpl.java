@@ -266,6 +266,7 @@ public class OrderServiceImpl implements OrderService {
 
 	// MOCK ~ API FOR UPDATING ORDER STATUS FROM THE DELIVERYING SERVICE
 	private long getTimeMillis(LocalDateTime time) {
+		//return time.getLong(null);
 		return time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 	}
 	public Orders updateStatus(Orders order) {

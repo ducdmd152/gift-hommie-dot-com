@@ -1,5 +1,7 @@
 package com.gifthommie.backend.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -54,6 +56,16 @@ public class User {
 	@Column(name = "enabled")
 	@JsonIgnore
 	private boolean enabled;
+	
+
+	
+	@Column(name = "reset_password_token")
+	@JsonIgnore
+	private String reset_password_token;
+	
+	@Column(name = "expired_vertification_code")
+	@JsonIgnore
+	private LocalDateTime expired_verification_code;
 
 //	@Column(name = "gender")
 //	private String gender;
@@ -62,6 +74,30 @@ public class User {
 //		this.gender = gender;
 //	}
 
+	public LocalDateTime getExpired_verification_code() {
+		return expired_verification_code;
+	}
+
+	public void setExpired_verification_code(LocalDateTime expired_verification_code) {
+		this.expired_verification_code = expired_verification_code;
+	}
+
+	
+
+	public String getReset_password_token() {
+		return reset_password_token;
+	}
+
+	public void setReset_password_token(String reset_password_token) {
+		this.reset_password_token = reset_password_token;
+	}
+
+	
+	// Update 
+	public void updateExpiredVertificationCode () {
+		 this.expired_verification_code = LocalDateTime.now().plusMinutes(5);		
+	}
+	
 	// SEND DATA TO EDIT PROFILE
 	public boolean editProfile(UserProfileDTO userProfile, Role role) {
 		email = userProfile.getEmail();
@@ -82,6 +118,7 @@ public class User {
 //		return gender;
 //		
 //	}
+
 	
 	public String getEmail() {
 		return email;

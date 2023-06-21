@@ -1,5 +1,7 @@
 package com.gifthommie.backend.repository;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,6 +50,12 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	
 	
+	// Tìm reset password token
+	@Query("SELECT u FROM User u WHERE u.reset_password_token = :token")
+	public User getResetPasswordToken(@Param("token") String token);
 	
+	
+	@Query("SELECT u FROM User u WHERE u.reset_password_token = :token and expired_vertification_code > CURRENT_TIMESTAMP")
+	public User getExTime(@Param("token") String token);
 	
 }
