@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +28,14 @@ public class FeedbackServiceImpl implements FeedbackService{
 	UserRepository userRepository;
 	
 	@Override
-	public List<FeedbackDTO> getFeedbackByProductId(int pageNo, int pageSize, int productId) {
+	public Page<FeedbackDTO> getFeedbackByProductId(int pageNo, int pageSize, int productId) {
 		Page<OrderDetail> page = orderDetailRepository.findOrderDetailsByProductId(
 				PageRequest.of(pageNo, pageSize), productId);
 		
 		List<FeedbackDTO> feedbacks = new ArrayList<>();
 		
-		for (OrderDetail o : page)
+		for (OrderDetail o : page) {
+//			System.out.println(o.getRating());
 			if (o.getRating() != null && o.getRating() != 0) {
 				String email = orderRepository.findOrderByOrderId(o.getOrderId()).getEmail();
 				User user = userRepository.getUserByEmail(email);
@@ -41,12 +43,15 @@ public class FeedbackServiceImpl implements FeedbackService{
 				
 				feedbacks.add(f);
 			}
+		}
+			
 		
+		final Page<FeedbackDTO> paging = new PageImpl<>(feedbacks, page.getPageable(), feedbacks.size());
 //		APIPageableResponseDTO<FeedbackDTO> p = new APIPageableResponseDTO<>();
 //		
 //		p.setPageable(new APIPageableDTO(page));
 //		p.setContent(feedbacks);
-		return feedbacks;
+		return  paging;
 	}
 
 }

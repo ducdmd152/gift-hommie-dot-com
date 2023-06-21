@@ -95,12 +95,12 @@ public class PublicController {
 	}
 	
 	@GetMapping("/feedback/{productId}")
-	public List<FeedbackDTO> getFeedbackByProductId(
+	public APIPageableResponseDTO<FeedbackDTO> getFeedbackByProductId(
 			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
 			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
 			@PathVariable int productId) {
 		
-		return feedbackService.getFeedbackByProductId(pageNo, pageSize, productId);
+		return new APIPageableResponseDTO<>(feedbackService.getFeedbackByProductId(pageNo, pageSize, productId));
 	}
 	
 }
