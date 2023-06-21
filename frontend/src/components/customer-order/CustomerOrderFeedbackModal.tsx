@@ -116,6 +116,7 @@ const CustomerOrderFeedbackModal = ({
               colorScheme="blue"
               mr={3}
               onClick={async () => {
+                order.evaluated = true;
                 if (await updateOrder(order)) {
                   Swal.fire({
                     position: "center",
@@ -127,6 +128,7 @@ const CustomerOrderFeedbackModal = ({
                   });
                   onClose();
                 } else {
+                  order.evaluated = false;
                   Swal.fire({
                     position: "center",
                     icon: "success",

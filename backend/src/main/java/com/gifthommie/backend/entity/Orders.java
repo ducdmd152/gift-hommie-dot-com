@@ -2,6 +2,7 @@ package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
+import com.gifthommie.backend.dto.OrderDetailDTO;
 
 @Entity
 @Table(name = "orders")
@@ -134,6 +136,9 @@ public class Orders {
 		
 		// added by Duy Duc
 				this.isEvaluated = orderDTO.isEvaluated();
+				this.orderDetails = new ArrayList<>();
+				for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+					this.orderDetails.add(odd);
 	}
 
 	public void autoUpdateFromDTO(OrderDTO orderDTO) {
@@ -159,6 +164,9 @@ public class Orders {
 		this.expectedDeliveryTime = orderDTO.getExpectedDeliveryTime();
 		// added by Duy Duc
 		this.isEvaluated = orderDTO.isEvaluated();
+		this.orderDetails = new ArrayList<>();
+		for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+			this.orderDetails.add(odd);
 	}
 
 	public Orders(CheckOutDTO checkOutDTO, String email) {
