@@ -1,9 +1,10 @@
 package com.gifthommie.backend.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,9 @@ import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.repository.CategoryRepository;
+import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.service.FeedbackService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
@@ -20,6 +23,10 @@ public class TestController {
 	CategoryRepository categoryRepository;
 	@Autowired
 	OrderRepository orderRepository;
+	@Autowired
+	FeedbackService feedbackService;
+	@Autowired
+	OrderDetailRepository orderDetailRepository;
 	
 	@GetMapping("/public/test")
 	public String publicx() {
@@ -65,5 +72,11 @@ public class TestController {
 		
 		return ans;
 	
+	}
+	
+	@GetMapping("public/test-feedback")
+	public String getFeedback() {
+//		return orderDetailRepository.findOrderDetailsByProductId(PageRequest.of(1, 12), 59);
+		return "123";
 	}
 }
