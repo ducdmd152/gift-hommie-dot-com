@@ -26,11 +26,6 @@ public class OrderDetail {
 	@Column(name = "order_id")
 	private Integer orderId;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "order_id", referencedColumnName = "id")
-//	@JsonIgnore
-//	private Orders order;
-	
 	@Column(name = "product_id")
 	private Integer productId;
 	
@@ -39,6 +34,28 @@ public class OrderDetail {
 	
 	@Column(name = "quantity")
 	private Integer quantity;
+	
+	@Column(name = "feedback")
+	private String feedback;
+	
+	@Column(name = "rating")
+	private Float rating;
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public Float getRating() {
+		return rating;
+	}
+
+	public void setRating(Float rating) {
+		this.rating = rating;
+	}
 
 	public Integer getId() {
 		return id;
@@ -48,19 +65,11 @@ public class OrderDetail {
 		this.id = id;
 	}
 
-//	public Orders getOrder() {
-//		return order;
-//	}
-//
-//	public void setOrder(Orders order) {
-//		this.order = order;
-//	}
-
 	public Integer getOrderId() {
 		return orderId;
 	}
 
-	public OrderDetail( Integer orderId, Integer productId, Float price, Integer quantity) {
+	public OrderDetail(Integer orderId, Integer productId, Float price, Integer quantity) {
 		
 		this.orderId = orderId;
 		this.productId = productId;

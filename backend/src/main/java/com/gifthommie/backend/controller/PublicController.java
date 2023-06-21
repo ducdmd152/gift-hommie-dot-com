@@ -1,5 +1,7 @@
 package com.gifthommie.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
+import com.gifthommie.backend.dto.FeedbackDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.Review;
 import com.gifthommie.backend.exception.NotFoundException;
+import com.gifthommie.backend.service.FeedbackService;
 import com.gifthommie.backend.service.ProductService;
 import com.gifthommie.backend.service.ReviewService;
 
@@ -22,6 +26,9 @@ public class PublicController {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	FeedbackService feedbackService;
 	
 	private final int ENABLED_REVIEW = 1;
 
@@ -85,6 +92,15 @@ public class PublicController {
 			@PathVariable int productId) {
 		
 		return reviewService.findReviewsByProductId(pageNo, pageSize, productId, ENABLED_REVIEW);
+	}
+	
+	@GetMapping("/feedback/{productId}")
+	public List<FeedbackDTO> getFeedbackByProductId(
+			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+			@PathVariable int productId) {
+		
+		return feedbackService.getFeedbackByProductId(pageNo, pageSize, productId);
 	}
 	
 }
