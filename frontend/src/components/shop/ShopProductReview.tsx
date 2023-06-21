@@ -24,10 +24,9 @@ const ShopProductReview = () => {
             </VStack>
           </HStack>
 
-          <Text color="gray" p="2">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat,
-            consectetur error mollitia autem officiis voluptatum illum numquam
-            repellendus ea explicabo.
+          <Text color="gray" p="2" maxH="100px" overflowY={"auto"}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt omnis
+            hic aliquid harum consectetur iure dicta a mollitia totam? Voluptas.
           </Text>
         </Card>
       </VStack>
