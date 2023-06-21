@@ -63,7 +63,9 @@ const CustomerOrderFeedbackModal = ({
         <ModalHeader>Đánh giá sản phẩm</ModalHeader>
         <ModalCloseButton zIndex={4} />
         <ModalBody>
-          <Box></Box>
+          <Box>
+            <Rating transition />
+          </Box>
 
           <Card p="2">
             <ProductItem product={orderDetail.product} />

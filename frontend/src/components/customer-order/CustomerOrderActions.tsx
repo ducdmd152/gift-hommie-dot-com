@@ -1,4 +1,4 @@
-import { Button, HStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, HStack, useDisclosure } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
@@ -61,6 +61,10 @@ const CustomerOrderActions = ({
         onOpen={onOpen}
         onClose={onClose}
       />
+
+      <Box w="200px">
+        <Rating transition />
+      </Box>
       {status == "SUCCESSFUL" && (
         <Button
           colorScheme="blue"
