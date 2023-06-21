@@ -39,16 +39,18 @@ const CustomerOrderFeedbackModal = ({
   setOrder,
 }: Props) => {
   const [index, setIndex] = useState(0);
+  const [error, setError] = useState("");
   const getCurrentOrderDetail = () => {
     // if (!order.orderDetails?.length) return null;
     // if (index > order.orderDetails.length) return null;
     return order.orderDetails[index];
   };
 
-  //   const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(0);
 
   // Catch Rating value
   const handleRating = (rate: number) => {
+    setRating(rate);
     getCurrentOrderDetail().rating = rate;
   };
 
@@ -82,6 +84,7 @@ const CustomerOrderFeedbackModal = ({
               <Rating
                 transition
                 onClick={handleRating}
+                initialValue={rating}
                 //   onPointerEnter={onPointerEnter}
                 //   onPointerLeave={onPointerLeave}
                 //   onPointerMove={onPointerMove}
@@ -94,6 +97,10 @@ const CustomerOrderFeedbackModal = ({
                 placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."
                 onChange={(e) => onChangeComment(e.target.value)}
               ></Textarea>
+
+              <Text color="teal" fontStyle="italic" mt={0} mb={2}>
+                {error}
+              </Text>
             </VStack>
           </Card>
         </ModalBody>
@@ -117,10 +124,18 @@ const CustomerOrderFeedbackModal = ({
           )}
           {index + 1 < order.orderDetails.length && (
             <Button
+              isDisabled={!rating}
               colorScheme="blue"
               mr={3}
               onClick={() => {
+                console.log(getCurrentOrderDetail());
+
+                if (!getCurrentOrderDetail().rating) {
+                  setError("Vui lòng đánh giá sản phẩm trước khi tiếp tục.");
+                  return;
+                }
                 setIndex(index + 1);
+                setRating(0);
               }}
             >
               Tiếp tục
