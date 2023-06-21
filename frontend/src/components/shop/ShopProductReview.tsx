@@ -28,8 +28,8 @@ const ShopProductReview = () => {
 
   return (
     <Box w="100%">
-      {/* <VStack w="100%" spacing={"2"}>
-        <Card w="100%" paddingX="4" paddingY="2">
+      <VStack w="100%" spacing={"2"}>
+        {/* <Card w="100%" paddingX="4" paddingY="2">
           <HStack>
             <Avatar
               size="md"
@@ -56,11 +56,11 @@ const ShopProductReview = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt omnis
             hic aliquid harum consectetur iure dicta a mollitia totam? Voluptas.
           </Text>
-        </Card>
+        </Card> */}
 
         {feedbackResponse.feedbacks &&
           feedbackResponse.feedbacks.map((feedback) => (
-            <Card w="100%" paddingX="4" paddingY="2">
+            <Card w="100%" paddingX="4" paddingY="2" background={"gray.100"}>
               <HStack>
                 <Avatar size="md" src={feedback.user.avatar} />
 
@@ -85,7 +85,7 @@ const ShopProductReview = () => {
               </Text>
             </Card>
           ))}
-      </VStack> */}
+      </VStack>
       {feedbackResponse.pageable?.pageNumber &&
       feedbackResponse.pageable?.pageNumber > 1 ? (
         <Pagination
