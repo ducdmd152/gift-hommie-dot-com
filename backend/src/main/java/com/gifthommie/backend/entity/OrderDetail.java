@@ -1,5 +1,7 @@
 package com.gifthommie.backend.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,28 +47,27 @@ public class OrderDetail {
 	
 	@Column(name = "quantity")
 	private Integer quantity;
+
+	@Column(name = "rating")
+	private Float rating;
 	
-//	@Column(name = "feedback")
-//	private String feedback;
-//	
-//	@Column(name = "rating")
-//	private Float rating;
-//
-//	public String getFeedback() {
-//		return feedback;
-//	}
-//
-//	public void setFeedback(String feedback) {
-//		this.feedback = feedback;
-//	}
-//
-//	public Float getRating() {
-//		return rating;
-//	}
-//
-//	public void setRating(Float rating) {
-//		this.rating = rating;
-//	}
+	@Column(name = "feedback")
+	private String feedback;
+
+	@Column(name = "feedback_time")
+	private LocalDateTime feedbackTime;
+	
+	public LocalDateTime getFeedbackTime() {
+		return feedbackTime;
+	}
+
+	public void setFeedbackTime(LocalDateTime feedbackTime) {
+		this.feedbackTime = feedbackTime;
+	}
+
+	public void setRating(Float rating) {
+		this.rating = rating;
+	}
 
 	public Integer getId() {
 		return id;
@@ -76,14 +77,10 @@ public class OrderDetail {
 		this.id = id;
 	}
 	
-	@Column(name = "rating")
-	private Float rating;
-	@Column(name = "feedback")
-	private String feedback;
-	
 	public Float getRating() {
 		if(rating == null)
 			return 0f;
+		
 		return rating;
 	}
 

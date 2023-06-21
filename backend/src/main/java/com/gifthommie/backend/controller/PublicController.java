@@ -85,14 +85,14 @@ public class PublicController {
 		return productService.getProductById(productId);
 	}
 	
-	@GetMapping("/review/{productId}")
-	public APIPageableResponseDTO<Review> getReviewOfProduct(
-			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
-			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
-			@PathVariable int productId) {
-		
-		return reviewService.findReviewsByProductId(pageNo, pageSize, productId, ENABLED_REVIEW);
-	}
+//	@GetMapping("/review/{productId}")
+//	public APIPageableResponseDTO<Review> getReviewOfProduct(
+//			@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
+//			@RequestParam(defaultValue = "12", name = "size") Integer pageSize,
+//			@PathVariable int productId) {
+//		
+//		return reviewService.findReviewsByProductId(pageNo, pageSize, productId, ENABLED_REVIEW);
+//	}
 	
 	@GetMapping("/feedback/{productId}")
 	public APIPageableResponseDTO<FeedbackDTO> getFeedbackByProductId(

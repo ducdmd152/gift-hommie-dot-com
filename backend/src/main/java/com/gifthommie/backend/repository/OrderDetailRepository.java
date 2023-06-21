@@ -15,6 +15,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 	public OrderDetail findOrderDetailById(@Param("orderDetailId") int orderDetailId);
 	
 	@Query("SELECT o FROM OrderDetail o "
-			+ "WHERE o.productId = :productId")
-	public Page<OrderDetail> findOrderDetailsByProductId(Pageable pageable, @Param("productId") int productId);
+			+ "WHERE o.productId = :productId AND "
+			+ "o.rating IS NOT NULL OR o.rating <> 0")
+	public Page<OrderDetail> findRatedOrderDetailsByProductId(Pageable pageable, @Param("productId") int productId);
 }
