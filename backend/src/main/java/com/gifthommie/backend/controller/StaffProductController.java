@@ -23,8 +23,6 @@ import com.gifthommie.backend.service.ProductService;
 public class StaffProductController {
 	@Autowired
 	ProductService productService;
-	
-	
 
 	//------------ Default DES------------------------------
 		//List Product 				            : http://localhost:8080/staff/product
