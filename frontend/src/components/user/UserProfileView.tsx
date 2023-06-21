@@ -18,6 +18,10 @@ interface Props {
 }
 const UserProfileView = ({ userDTO }: Props) => {
 
+  const years = [];
+  for (let year = 1900; year <= 2023; year++) {
+    years.push(year.toString());
+  }
   return (
     <>
       <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
@@ -147,7 +151,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         </FormControl> */}
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between" marginRight="350px">
-            <FormLabel size="md" fontWeight="bold">
+            {/* <FormLabel size="md" fontWeight="bold">
               Năm Sinh
             </FormLabel>
             <Input
@@ -156,7 +160,24 @@ const UserProfileView = ({ userDTO }: Props) => {
               color="gray"
               value={userDTO.yob}
               fontWeight="bold"
-            />
+            /> */}
+
+            <FormLabel size="md" fontWeight="bold">
+              Năm Sinh
+            </FormLabel>
+            <Select
+              maxW="100px"
+              isReadOnly
+              color="gray"
+              value={userDTO.yob}
+              fontWeight="bold"
+            >
+              {years.map((year) => (
+                <option key={year} value={year} disabled>
+                  {year}
+                </option>
+              ))}
+            </Select>
           </HStack>
         </FormControl>
       </Box>
