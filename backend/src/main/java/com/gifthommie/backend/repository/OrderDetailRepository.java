@@ -18,4 +18,14 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 			+ "WHERE o.productId = :productId AND "
 			+ "o.rating IS NOT NULL OR o.rating <> 0")
 	public Page<OrderDetail> findRatedOrderDetailsByProductId(Pageable pageable, @Param("productId") int productId);
+	
+	@Query("SELECT SUM(o.quantity) FROM OrderDetail o "
+			+ "WHERE (o.rating IS NOT NULL OR o.rating <> 0) AND "
+			+ "o.productId = :productId")
+	public Integer getSoldProductQuantityByProductId(@Param("productId") int productId);
+	
+	@Query("SELECT AVG(o.rating) FROM OrderDetail o "
+			+ "WHERE (o.rating IS NOT NULL OR o.rating <> 0) AND "
+			+ "o.productId = :productId")
+	public Float getAverageRatingByProductId(@Param("productId") int productId);
 }

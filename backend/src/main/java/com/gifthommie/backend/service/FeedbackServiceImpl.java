@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.gifthommie.backend.dto.APIPageableDTO;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.FeedbackDTO;
+import com.gifthommie.backend.dto.ProductReportDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.OrderDetailRepository;
@@ -44,6 +45,19 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 		Page<FeedbackDTO> paging = new PageImpl<>(feedbacks, page.getPageable(), feedbacks.size());
 		return paging;
+	}
+
+	@Override
+	public ProductReportDTO getProductReportByProductId(int productId) {
+		ProductReportDTO p = new ProductReportDTO();
+		Integer sold = orderDetailRepository.getSoldProductQuantityByProductId(productId);
+		
+		sold = (sold == null) ? 0 : sold;
+		
+		p.setSold(sold);
+		p.setRating((sold == 0) ? 5 : orderDetailRepository.getAverageRatingByProductId(productId));
+		
+		return p;
 	}
 
 }

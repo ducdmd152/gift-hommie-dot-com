@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.FeedbackDTO;
+import com.gifthommie.backend.dto.ProductReportDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.Review;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.FeedbackService;
+import com.gifthommie.backend.service.OrderDetailService;
 import com.gifthommie.backend.service.ProductService;
 import com.gifthommie.backend.service.ReviewService;
 
@@ -101,6 +103,11 @@ public class PublicController {
 			@PathVariable int productId) {
 		
 		return new APIPageableResponseDTO<>(feedbackService.getFeedbackByProductId(pageNo, pageSize, productId));
+	}
+	
+	@GetMapping("/feedback/additional/{productId}")
+	public ProductReportDTO getProductReportById(@PathVariable Integer productId) {
+		return feedbackService.getProductReportByProductId(productId);
 	}
 	
 }
