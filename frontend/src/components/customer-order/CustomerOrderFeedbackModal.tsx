@@ -24,6 +24,8 @@ import ProductDTO from "../../type/ProductDTO";
 import { Link } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../../App";
 import { Rating } from "react-simple-star-rating";
+import { updateOrder } from "../../services/customer-order-service";
+import Swal from "sweetalert2";
 interface Props {
   order: OrderDTO;
   setOrder: (order: OrderDTO) => void;
@@ -113,10 +115,30 @@ const CustomerOrderFeedbackModal = ({
             <Button
               colorScheme="blue"
               mr={3}
-              onClick={() => {
+              onClick={async () => {
+                if (await updateOrder(order)) {
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title:
+                      "Cám ơn bạn rất nhiều. \n Shop đã ghi nhận đánh giá.",
+                    showConfirmButton: false,
+                    timer: 2500,
+                  });
+                  onClose();
+                } else {
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title:
+                      "Có lỗi xảy ra trong quá trình xử lí \n Vui lòng thử lại.",
+                    showConfirmButton: false,
+                    timer: 3000,
+                  });
+                  // onClose();
+                }
                 // update
                 // inform success/fail
-                // onClose();
               }}
             >
               Hoàn thành
@@ -128,7 +150,7 @@ const CustomerOrderFeedbackModal = ({
               colorScheme="blue"
               mr={3}
               onClick={() => {
-                console.log(getCurrentOrderDetail());
+                // console.log(getCurrentOrderDetail());
 
                 if (!getCurrentOrderDetail().rating) {
                   setError("Vui lòng đánh giá sản phẩm trước khi tiếp tục.");
