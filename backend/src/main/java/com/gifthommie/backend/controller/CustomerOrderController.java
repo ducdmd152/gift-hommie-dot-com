@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.OrderDTO;
+import com.gifthommie.backend.dto.OrderDetailDTO;
 import com.gifthommie.backend.dto.RatingRequestDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
@@ -103,10 +104,15 @@ public class CustomerOrderController {
 		
 //		Orders update = new Orders(orderDTO);
 		order.autoUpdateFromDTO(orderDTO);
-		orderService.save(order);
 		
-		for(OrderDetail od : order.getOrderDetails())
-			orderDetailService.save(od);
+////		for(OrderDetailDTO od : orderDTO.getOrderDetails()) {
+//		for(OrderDetail od : order.getOrderDetails()) {
+////			System.out.println(od.getId() + " " + od.getRating() + " : " + od.getOrderId());
+//			OrderDetail OD = orderDetailService.save(od);
+////			System.out.println(OD.getId() + " " + OD.getRating());
+//		}
+		
+		orderService.save(order);			
 		
 		return orderService.getOrderDTOByOrderId(orderId);
 	}

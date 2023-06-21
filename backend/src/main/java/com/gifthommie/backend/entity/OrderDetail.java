@@ -10,12 +10,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gifthommie.backend.dto.OrderDetailDTO;
 
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail {
 	public OrderDetail() {
 		
+	}
+	
+	public OrderDetail(OrderDetailDTO odDTO) {
+		this.setId(odDTO.getId());
+		this.setOrderId(odDTO.getOrderId());
+		this.setProductId(odDTO.getProductId());
+		this.setPrice(odDTO.getPrice());
+		this.setQuantity(odDTO.getQuantity());
+		this.setRating(odDTO.getRating());
+		this.setFeedback(odDTO.getFeedback());
 	}
 	
 	@Id
@@ -47,7 +58,10 @@ public class OrderDetail {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Column(name = "rating")
 	private Float rating;
+	@Column(name = "feedback")
 	private String feedback;
 	
 	public Float getRating() {

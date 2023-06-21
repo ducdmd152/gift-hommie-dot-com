@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,7 +42,7 @@ public class Orders {
 	@Column(name = "payment_id")
 	private Integer paymentId;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 //	@JsonIgnore
 	private List<OrderDetail> orderDetails;
@@ -137,10 +138,8 @@ public class Orders {
 		// added by Duy Duc
 				this.isEvaluated = orderDTO.isEvaluated();
 				this.orderDetails = new ArrayList<>();
-				for(OrderDetailDTO odd : orderDTO.getOrderDetails()) {
-					this.orderDetails.add(odd);
-					
-				}
+				for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+					this.orderDetails.add(new OrderDetail(odd));
 				
 					
 	}
@@ -170,9 +169,7 @@ public class Orders {
 		this.isEvaluated = orderDTO.isEvaluated();
 		this.orderDetails = new ArrayList<>();
 		for(OrderDetailDTO odd : orderDTO.getOrderDetails())
-			this.orderDetails.add(odd);
-//		for(OrderDetail od : this.getOrderDetails())
-//			System.out.println(od.getRating());
+			this.orderDetails.add(new OrderDetail(odd));
 	}
 
 	public Orders(CheckOutDTO checkOutDTO, String email) {
