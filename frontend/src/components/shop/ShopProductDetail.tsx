@@ -226,7 +226,7 @@ const ShopProductDetail = () => {
           borderRadius="8"
         >
           <Heading fontSize="lg" paddingY="2">
-            MÔ TẢ SẢN PHẨM
+            Mô tả sản phẩm
           </Heading>
           <Text>{product.description}</Text>
         </Box>
