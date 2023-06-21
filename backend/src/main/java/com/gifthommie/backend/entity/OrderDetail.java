@@ -47,6 +47,24 @@ public class OrderDetail {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	private float rating;
+	private String feedback;
+	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
 
 //	public Orders getOrder() {
 //		return order;

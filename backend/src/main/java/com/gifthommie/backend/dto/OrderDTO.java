@@ -27,7 +27,16 @@ public class OrderDTO {
 	private int paymentMethod;
 	private float shippingFee;
 	private int shippingMethod;
+	private boolean isEvaluated;
 	
+	public boolean isEvaluated() {
+		return isEvaluated;
+	}
+
+	public void setEvaluated(boolean isEvaluated) {
+		this.isEvaluated = isEvaluated;
+	}
+
 	private User user;
 	
 	private String status;
@@ -67,6 +76,9 @@ public class OrderDTO {
 		this.orderTime=order.getOrderTime();
 		this.lastUpdatedTime=order.getLastUpdatedTime();
 		this.expectedDeliveryTime=order.getExpectedDeliveryTime();
+		
+		// added by Duy Duc
+		this.isEvaluated = order.isEvaluated();
 	}
 	
 	public OrderDTO(Orders order,User userDTO,List<OrderDetailDTO> orderDetailDTOs) {
@@ -89,6 +101,9 @@ public class OrderDTO {
 		this.orderTime=LocalDateTime.now();
 		this.lastUpdatedTime=LocalDateTime.now();
 		this.expectedDeliveryTime=order.getExpectedDeliveryTime();
+		
+		// added by Duy Duc
+		this.isEvaluated = order.isEvaluated();
 	}
 	public OrderDTO(List<OrderDetailDTO> orderDetailDTOs) {
 		this.orderDetails=orderDetailDTOs;

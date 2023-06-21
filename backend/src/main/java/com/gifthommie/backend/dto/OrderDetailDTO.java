@@ -12,6 +12,25 @@ public class OrderDetailDTO {
 	private int quantity;
 	private Product product;
 	
+	private float rating;
+	private String feedback;
+	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
 	public OrderDetailDTO() {
 		
 	}
@@ -21,6 +40,10 @@ public class OrderDetailDTO {
 		this.orderID=orderDetail.getOrderId();
 		this.price=orderDetail.getPrice();
 		this.quantity=orderDetail.getQuantity();
+		
+		// added by Duy Duc
+		this.rating = orderDetail.getRating();
+		this.feedback = orderDetail.getFeedback();
 	}
 	
 	public OrderDetailDTO(OrderDetail orderDetail,Product tmpProduct) {
@@ -30,6 +53,9 @@ public class OrderDetailDTO {
 		this.price=orderDetail.getPrice();
 		this.quantity=orderDetail.getQuantity();
 		this.product=tmpProduct;
+		// added by Duy Duc
+		this.rating = orderDetail.getRating();
+		this.feedback = orderDetail.getFeedback();
 	}
 	
 	
