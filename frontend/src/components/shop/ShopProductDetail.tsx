@@ -30,6 +30,7 @@ import shopProductService, {
 import utilService from "../../services/util-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
+import ShopProductReview from "./ShopProductReview";
 const ShopProductDetail = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
@@ -224,11 +225,19 @@ const ShopProductDetail = () => {
           border="1px solid rgba(0,0,0,0.1)"
           borderRadius="8"
         >
-          <Heading fontSize="2xl" paddingY="2">
-            Mô tả sản phẩm
+          <Heading fontSize="lg" paddingY="2">
+            MÔ TẢ SẢN PHẨM
           </Heading>
           <Text>{product.description}</Text>
         </Box>
+      </Box>
+      <Box borderRadius="8" m="2" border="1px solid lightgray" width="100%">
+        <VStack width="100%" padding="4" spacing="4">
+          <Heading fontSize="lg" textAlign="left" w="100%">
+            ĐÁNH GIÁ SẢN PHẨM
+          </Heading>
+          <ShopProductReview />
+        </VStack>
       </Box>
     </Card>
   );
