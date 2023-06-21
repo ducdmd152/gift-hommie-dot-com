@@ -61,10 +61,6 @@ const CustomerOrderActions = ({
         onOpen={onOpen}
         onClose={onClose}
       />
-
-      <Box w="200px">
-        <Rating transition />
-      </Box>
       {status == "SUCCESSFUL" && (
         <Button
           colorScheme="blue"

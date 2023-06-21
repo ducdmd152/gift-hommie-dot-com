@@ -13,6 +13,8 @@ import {
   Image,
   Text,
   Box,
+  VStack,
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import OrderDTO from "../../type/OrderDTO";
@@ -43,9 +45,12 @@ const CustomerOrderFeedbackModal = ({
   // Catch Rating value
   const handleRating = (rate: number) => {
     setRating(rate);
-
-    // other logic
   };
+
+  const onChangeComment = (comment: string) => {
+    ///....
+  };
+
   // Optinal callback functions
   const onPointerEnter = () => console.log("Enter");
   const onPointerLeave = () => console.log("Leave");
@@ -63,13 +68,27 @@ const CustomerOrderFeedbackModal = ({
         <ModalHeader>Đánh giá sản phẩm</ModalHeader>
         <ModalCloseButton zIndex={4} />
         <ModalBody>
-          <Box>
-            <Rating transition />
-          </Box>
-
           <Card p="2">
-            <ProductItem product={orderDetail.product} />
-            <Card></Card>
+            <Card>
+              <ProductItem product={orderDetail.product} />
+            </Card>
+
+            <VStack textAlign={"center"} w="100%" spacing="2" mt="4">
+              <Rating
+                transition
+                onClick={handleRating}
+                //   onPointerEnter={onPointerEnter}
+                //   onPointerLeave={onPointerLeave}
+                //   onPointerMove={onPointerMove}
+              />
+
+              <Textarea
+                _placeholder={{
+                  fontStyle: "italic",
+                }}
+                placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."
+              ></Textarea>
+            </VStack>
           </Card>
         </ModalBody>
 
