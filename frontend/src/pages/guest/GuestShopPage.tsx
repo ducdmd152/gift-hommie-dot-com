@@ -38,7 +38,7 @@ const GuestShopPage = () => {
         </GridItem>
         {/* </Show> */}
         <GridItem area="main" className="main">
-          {/* <ShopProductReview /> */}
+          <ShopProductReview />
           <ShopProductListMain
             shopProductQuery={shopProductQuery}
             setShopProductQuery={setShopProductQuery}

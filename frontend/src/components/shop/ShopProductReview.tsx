@@ -46,9 +46,9 @@ const ShopProductReview = () => {
                 w="100%"
                 display={"inline-block"}
               >
-                @username
+                @duyduc
               </Box>
-              <Rating initialValue={5} readonly={true} size={18}></Rating>
+              <Rating initialValue={5} readonly={true} size={18} />
             </Box>
           </HStack>
 
@@ -64,7 +64,11 @@ const ShopProductReview = () => {
               <HStack>
                 <Avatar size="md" src={feedback.user.avatar} />
 
-                <VStack justifyContent={"flex-start"} spacing="0">
+                <VStack
+                  justifyContent={"flex-start"}
+                  alignItems={"flex-start"}
+                  spacing="0"
+                >
                   <Text size="md" mt="2" mb="0">
                     @{feedback.user.username}
                   </Text>
