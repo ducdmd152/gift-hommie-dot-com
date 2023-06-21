@@ -1,4 +1,4 @@
-import { Button, HStack } from "@chakra-ui/react";
+import { Button, HStack, useDisclosure } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
@@ -7,6 +7,8 @@ import { updateOrder } from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import CartDTO from "../../type/CartDTO";
 import Swal from "sweetalert2";
+import CustomerOrderFeedbackModal from "./CustomerOrderFeedbackModal";
+import { Rating } from "react-simple-star-rating";
 
 const CustomerOrderActions = ({
   order,
@@ -16,6 +18,7 @@ const CustomerOrderActions = ({
   setOrder: (order: OrderDTO) => void;
 }) => {
   const globalContext = useContext(GLOBAL_CONTEXT);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const status = order.status;
   const onCancel = async () => {
@@ -51,7 +54,24 @@ const CustomerOrderActions = ({
 
   return (
     <HStack w="100%" justifyContent={"right"} p="4">
-      {status == "SUCCESSFUL" && <Button colorScheme="blue">Đánh giá</Button>}
+      <CustomerOrderFeedbackModal
+        order={order}
+        setOrder={setOrder}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+      />
+      {status == "SUCCESSFUL" && (
+        <Button
+          colorScheme="blue"
+          onClick={() => {
+            onOpen();
+            setOrder(order);
+          }}
+        >
+          Đánh giá{" "}
+        </Button>
+      )}
 
       {["SUCCESSFUL", "CANCELLED"].includes(status) && (
         <Button
