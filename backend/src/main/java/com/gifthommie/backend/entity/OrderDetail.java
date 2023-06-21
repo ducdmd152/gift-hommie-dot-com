@@ -46,27 +46,27 @@ public class OrderDetail {
 	@Column(name = "quantity")
 	private Integer quantity;
 	
-	@Column(name = "feedback")
-	private String feedback;
-	
-	@Column(name = "rating")
-	private Float rating;
-
-	public String getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
-	}
-
-	public Float getRating() {
-		return rating;
-	}
-
-	public void setRating(Float rating) {
-		this.rating = rating;
-	}
+//	@Column(name = "feedback")
+//	private String feedback;
+//	
+//	@Column(name = "rating")
+//	private Float rating;
+//
+//	public String getFeedback() {
+//		return feedback;
+//	}
+//
+//	public void setFeedback(String feedback) {
+//		this.feedback = feedback;
+//	}
+//
+//	public Float getRating() {
+//		return rating;
+//	}
+//
+//	public void setRating(Float rating) {
+//		this.rating = rating;
+//	}
 
 	public Integer getId() {
 		return id;

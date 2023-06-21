@@ -33,11 +33,12 @@ const getFeedbacks = async (
       },
     })
     .then((response) => {
-      result = response.data as FeedbackResponse;
+      result.feedbacks = response.data.content;
+      result.pageable = response.data.pageable;
     })
     .catch((error) => {});
 
-  return { result, pageable };
+  return result;
 };
 
 const getProductAdditional = async (productId: number) => {

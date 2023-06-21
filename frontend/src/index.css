@@ -127,3 +127,7 @@
 svg.star-svg {
   display: inline;
 }
+
+.flex-start {
+  align-items: flex-start !important;
+}
