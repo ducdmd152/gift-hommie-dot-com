@@ -9,7 +9,7 @@ export default interface OrderDetailDTO {
   product: ProductDTO;
   total: number;
   rating: number;
-  comment: string;
+  feedback: string;
   // tạo một hàm getTotal { return quantity*price }
   // => auto có field total trong json
 }

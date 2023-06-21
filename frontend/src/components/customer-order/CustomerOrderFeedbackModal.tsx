@@ -57,7 +57,7 @@ const CustomerOrderFeedbackModal = ({
   };
 
   const onChangeComment = (comment: string) => {
-    getCurrentOrderDetail().comment = comment;
+    getCurrentOrderDetail().feedback = comment;
   };
 
   // Optinal callback functions

@@ -32,4 +32,6 @@ export default interface OrderDTO {
   updatedTime: string; // Auto-update by BE when CREATE/UPDATE ORDER
 
   expectedDeliveryTime: string; // ADD MORE // DATETIME
+
+  isEvaluated: boolean;
 }
