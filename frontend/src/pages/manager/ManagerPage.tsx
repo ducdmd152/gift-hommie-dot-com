@@ -54,7 +54,7 @@ const ManagerPage = () => {
           />
           <Route
             path="staff/edit"
-            element={<ManagerStaffEditPage />}
+            element={<ManagerStaffEditPage userId={userId}/>}
           />
           <Route
             path="/account"

@@ -12,9 +12,12 @@ import Swal from "sweetalert2";
 import UserDTO from '../../type/UserDTO';
 import staffService from '../../services/staff-service';
 
+interface Props {
+  userId: string;
+}
 interface FormData extends UserDTO { }
 
-const ManagerStaffEditPage = () => {
+const ManagerStaffEditPage = ({ userId }: Props) => {
   const [staff, setStaff] = useState<UserDTO>(
     {} as UserDTO
   );
@@ -64,9 +67,6 @@ const ManagerStaffEditPage = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-
-          <UserProfileEdit userDTO={staff} />
-
           <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
             <Button type="submit" colorScheme="blue" size="md">
               Cập nhật
@@ -78,13 +78,154 @@ const ManagerStaffEditPage = () => {
                     `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
                   )
                 ) {
-                  navigate("/staff/detail");
+                  navigate("/account");
                 }
               }}
             >
               Hủy
             </Button>
           </HStack>
+
+          <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
+            <Wrap>
+              <Box>
+                <WrapItem justifyContent="center">
+                  <Avatar size="2xl" name="" src="" border="1px lightgray solid" />{" "}
+                </WrapItem>
+                <Heading
+                  size="sm"
+                  textAlign="center"
+                  marginBottom="4"
+                  marginTop="8"
+                >
+                  {staff.firstName + " " + staff.lastName}
+                </Heading>
+                <Heading
+                  className="border-b"
+                  style={{ border: "1px lightgray solid", width: "800px" }}
+                ></Heading>
+              </Box>
+            </Wrap>
+          </VStack>
+
+          <Box marginLeft="50px" marginTop="30px" marginRight="100px">
+            <FormControl>
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Tên Đăng Nhập
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.username}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Họ
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.firstName}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Tên
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.lastName}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Email
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.email}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Số Điện Thoại
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.phone}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
+                  Địa Chỉ
+                </FormLabel>
+                <Input
+                  maxW="450px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.address}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+            {/* <FormControl marginTop='50px'>
+          <HStack justifyContent='space-between' >
+            <FormLabel size="md" fontWeight="bold">
+              Gender
+            </FormLabel>
+            <RadioGroup >
+              <Stack direction='row' spacing={100}>
+                <Radio value='1'>Male</Radio>
+                <Radio value='2'>Female</Radio>
+                <Radio value='3'>Other</Radio>
+              </Stack>
+            </RadioGroup>
+          </HStack>
+        </FormControl> */}
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between" marginRight="350px">
+                <FormLabel size="md" fontWeight="bold">
+                  Năm Sinh
+                </FormLabel>
+                <Input
+                  maxW="100px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.yob}
+                  fontWeight="bold"
+                />
+              </HStack>
+            </FormControl>
+          </Box>
         </Card>
       </form>
     </>
