@@ -63,28 +63,15 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
       });
   };
 
+  const years = [];
+  for (let year = 1900; year <= 2023; year++) {
+    years.push(year.toString());
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-          <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-            <Button type="submit" colorScheme="blue" size="md">
-              Cập nhật
-            </Button>
-            <Button colorScheme="red" size="md"
-              onClick={() => {
-                if (
-                  confirm(
-                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                  )
-                ) {
-                  navigate("/account");
-                }
-              }}
-            >
-              Hủy
-            </Button>
-          </HStack>
 
           <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
             <Wrap>
@@ -213,7 +200,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
         </FormControl> */}
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between" marginRight="350px">
-                <FormLabel size="md" fontWeight="bold">
+                {/* <FormLabel size="md" fontWeight="bold">
                   Năm Sinh
                 </FormLabel>
                 <Input
@@ -222,10 +209,45 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   color="gray"
                   value={staff.yob}
                   fontWeight="bold"
-                />
+                /> */}
+
+                <FormLabel size="md" fontWeight="bold">
+                  Năm Sinh
+                </FormLabel>
+                <Select
+                  maxW="100px"
+                  isReadOnly
+                  color="gray"
+                  value={staff.yob}
+                  fontWeight="bold"
+                >
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </Select>
               </HStack>
             </FormControl>
           </Box>
+          <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
+            <Button type="submit" colorScheme="blue" size="md">
+              Cập nhật
+            </Button>
+            <Button colorScheme="red" size="md"
+              onClick={() => {
+                if (
+                  confirm(
+                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                  )
+                ) {
+                  navigate("/staff/detail");
+                }
+              }}
+            >
+              Hủy
+            </Button>
+          </HStack>
         </Card>
       </form>
     </>
