@@ -4,18 +4,26 @@ import { Box, HStack, VStack, Text } from "@chakra-ui/layout";
 import React, { useContext, useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { GLOBAL_CONTEXT } from "../../App";
-import shopProductService from "../../services/shop-product-service-additional";
+import shopProductService, {
+  FeedBackResponseQuery,
+} from "../../services/shop-product-service-additional";
 import { FeedbackResponse } from "../../services/shop-product-service-additional";
+import PageableDTO from "../../type/PageableDTO";
 const ShopProductReview = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const id = globalContext.productContext.getProductId();
+  const [pageable, setPageable] = useState({} as PageableDTO);
+  const [requestQuery, setRequestQuery] = useState({} as FeedBackResponseQuery);
   const [feedbackResponse, setFeedbackResponse] = useState(
     {} as FeedbackResponse
   );
 
   useEffect(() => {
     (async () => {
-      setFeedbackResponse(await shopProductService.getFeedbacks(id));
+      const { result: response, pageable: page } =
+        await shopProductService.getFeedbacks(id, requestQuery);
+      setFeedbackResponse(response);
+      setPageable(page);
     })();
   }, []);
 
