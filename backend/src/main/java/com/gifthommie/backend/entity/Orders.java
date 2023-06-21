@@ -137,8 +137,12 @@ public class Orders {
 		// added by Duy Duc
 				this.isEvaluated = orderDTO.isEvaluated();
 				this.orderDetails = new ArrayList<>();
-				for(OrderDetailDTO odd : orderDTO.getOrderDetails())
+				for(OrderDetailDTO odd : orderDTO.getOrderDetails()) {
 					this.orderDetails.add(odd);
+					
+				}
+				
+					
 	}
 
 	public void autoUpdateFromDTO(OrderDTO orderDTO) {
@@ -167,6 +171,8 @@ public class Orders {
 		this.orderDetails = new ArrayList<>();
 		for(OrderDetailDTO odd : orderDTO.getOrderDetails())
 			this.orderDetails.add(odd);
+//		for(OrderDetail od : this.getOrderDetails())
+//			System.out.println(od.getRating());
 	}
 
 	public Orders(CheckOutDTO checkOutDTO, String email) {

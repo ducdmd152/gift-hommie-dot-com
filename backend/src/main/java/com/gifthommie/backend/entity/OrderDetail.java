@@ -51,6 +51,8 @@ public class OrderDetail {
 	private String feedback;
 	
 	public Float getRating() {
+		if(rating == null)
+			return 0f;
 		return rating;
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.RatingRequestDTO;
+import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
@@ -103,6 +104,9 @@ public class CustomerOrderController {
 //		Orders update = new Orders(orderDTO);
 		order.autoUpdateFromDTO(orderDTO);
 		orderService.save(order);
+		
+		for(OrderDetail od : order.getOrderDetails())
+			orderDetailService.save(od);
 		
 		return orderService.getOrderDTOByOrderId(orderId);
 	}
