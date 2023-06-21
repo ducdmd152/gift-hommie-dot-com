@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
+import ShopProductReview from "../../components/shop/ShopProductReview";
 const HEADER_HEIGHT = "100px";
 const GuestShopPage = () => {
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>(
@@ -37,6 +38,7 @@ const GuestShopPage = () => {
         </GridItem>
         {/* </Show> */}
         <GridItem area="main" className="main">
+          <ShopProductReview />
           <ShopProductListMain
             shopProductQuery={shopProductQuery}
             setShopProductQuery={setShopProductQuery}
