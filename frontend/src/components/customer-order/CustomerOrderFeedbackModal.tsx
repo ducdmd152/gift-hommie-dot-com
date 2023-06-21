@@ -38,17 +38,22 @@ const CustomerOrderFeedbackModal = ({
   order,
   setOrder,
 }: Props) => {
-  const [orderDetail, setOrderDetail] = useState(order.orderDetails[0]);
+  const [index, setIndex] = useState(0);
+  const getCurrentOrderDetail = () => {
+    // if (!order.orderDetails?.length) return null;
+    // if (index > order.orderDetails.length) return null;
+    return order.orderDetails[index];
+  };
 
-  const [rating, setRating] = useState(0);
+  //   const [rating, setRating] = useState(0);
 
   // Catch Rating value
   const handleRating = (rate: number) => {
-    setRating(rate);
+    getCurrentOrderDetail().rating = rate;
   };
 
   const onChangeComment = (comment: string) => {
-    ///....
+    getCurrentOrderDetail().comment = comment;
   };
 
   // Optinal callback functions
@@ -70,7 +75,7 @@ const CustomerOrderFeedbackModal = ({
         <ModalBody>
           <Card p="2">
             <Card>
-              <ProductItem product={orderDetail.product} />
+              <ProductItem product={getCurrentOrderDetail().product} />
             </Card>
 
             <VStack textAlign={"center"} w="100%" spacing="2" mt="4">
@@ -87,15 +92,40 @@ const CustomerOrderFeedbackModal = ({
                   fontStyle: "italic",
                 }}
                 placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."
+                onChange={(e) => onChangeComment(e.target.value)}
               ></Textarea>
             </VStack>
           </Card>
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
             Close
-          </Button>
+          </Button> */}
+          {index + 1 == order.orderDetails.length && (
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                // update
+                // inform success/fail
+                // onClose();
+              }}
+            >
+              Hoàn thành
+            </Button>
+          )}
+          {index + 1 < order.orderDetails.length && (
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                setIndex(index + 1);
+              }}
+            >
+              Tiếp tục
+            </Button>
+          )}
           {/* <Button variant="ghost">Secondary Action</Button> */}
         </ModalFooter>
       </ModalContent>
