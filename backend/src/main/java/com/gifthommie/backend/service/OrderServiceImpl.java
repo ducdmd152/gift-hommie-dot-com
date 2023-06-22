@@ -288,13 +288,25 @@ public class OrderServiceImpl implements OrderService {
 		long part = (exp - ort)/10;
 		long currentPart = (cur - ort)/part;
 		
-		if(currentPart>=1)
+		if(order.getStatus().equals("DELIVERYING") == false && currentPart >= 1) {
 			order.setStatus("DELIVERYING");
+			order.setLastUpdatedTime(LocalDateTime.now());
+		}
+			
 		
-		if(currentPart>=6)
-			if(Math.random()%10 == 4) // 1:10 FOR DELIVERYING EARLY
+		if(order.getStatus().equals("DELIVERYING") && currentPart>=5)
+			if(Math.random()%5 == 2) // 1:5 FOR DELIVERYING EARLY
+			{
 				order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
+				order.setLastUpdatedTime(LocalDateTime.now());
+			}
+		if(order.getStatus().equals("DELIVERYING") && currentPart>=7)
+			{
+				order.setStatus(Math.random()%10 == 1 ? "FAIL" : "SUCCESSFUL"); // 1:10 => FAIL
+				order.setLastUpdatedTime(LocalDateTime.now());
+			}
 				
+//		System.out.println("Update the order: " + order.getStatus());
 		return save(order);
 	}
 }

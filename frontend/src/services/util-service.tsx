@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../App";
+import sjcl from "sjcl";
 
 export default {
   HEADER_HEIGHT: "100px",
@@ -22,5 +23,11 @@ export default {
   },
   getURLImageUploadPresent() {
     return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
+  },
+  hashBySHA256(id: number | string) {
+    // let message = id.toString();
+    // const myBitArray = sjcl.hash.sha256.hash(message);
+    // const myHash = sjcl.codec.hex.fromBits(myBitArray);
+    // return myHash;
   },
 };
