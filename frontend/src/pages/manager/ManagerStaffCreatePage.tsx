@@ -29,7 +29,7 @@ const schema = z.object({
     invalid_type_error: "First name must be a string",
   }),
   phone: z
-      .string({
+    .string({
       required_error: "Vui lòng nhập số điện thoại.",
       invalid_type_error: "First name must be a string",
     }),
@@ -77,6 +77,12 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
         navigate("/staff/create");
       });
   };
+
+  const years = [];
+  for (let year = 1900; year <= 2023; year++) {
+    years.push(year.toString());
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
@@ -149,7 +155,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
+          {/* <FormControl marginTop='50px'>
             <HStack justifyContent='space-between'>
               <FormLabel size="md" fontWeight="bold" >
                 Họ
@@ -162,11 +168,11 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 // value={product.name}
                 fontWeight="bold"
               />
-              {/* {errors.firstName && (
+              {errors.firstName && (
                 <p className="form-error-message">{errors.firstName?.message}</p>
-              )} */}
+              )}
             </HStack>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl marginTop='50px'>
             <HStack justifyContent='space-between'>
@@ -263,17 +269,19 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               <FormLabel size="md" fontWeight="bold">
                 Năm Sinh
               </FormLabel>
-              <Input
-                placeholder="YYYY"
-                maxW='100px'
-                color="gray"
-                {...register("yob")}
-                // value={product.name} 
+              <Select
+                {...register("yob", { required: true })}
+                maxW="100px"
+                color="black"
+                // value={staff.yob}
                 fontWeight="bold"
-              />
-              {/* {errors.yob && (
-                <p className="form-error-message">{errors.yob?.message}</p>
-              )} */}
+              >
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </Select>
             </HStack>
           </FormControl>
         </Box>
