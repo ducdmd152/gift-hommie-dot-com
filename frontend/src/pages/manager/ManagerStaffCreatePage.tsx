@@ -14,34 +14,34 @@ const schema = z.object({
   username: z
     .string({
       required_error: "Vui lòng nhập tên đăng nhập.",
-      invalid_type_error: "First name must be a string",
+      invalid_type_error: "Vui lòng nhập tên đăng nhập",
     }),
-  firstName: z.string({
-    required_error: "Vui lòng nhập Họ.",
-    invalid_type_error: "First name must be a string",
-  }),
+  // firstName: z.string({
+  //   required_error: "Vui lòng nhập Họ.",
+  //   invalid_type_error: "First name must be a string",
+  // }),
   lastName: z.string({
     required_error: "Vui lòng nhập Tên.",
-    invalid_type_error: "First name must be a string",
+    invalid_type_error: "Vui lòng nhập Tên",
   }),
   email: z.string({
     required_error: "Vui lòng nhập Email.",
-    invalid_type_error: "First name must be a string",
+    invalid_type_error: "Vui lòng nhập Email",
   }),
   phone: z
     .string({
       required_error: "Vui lòng nhập số điện thoại.",
-      invalid_type_error: "First name must be a string",
+      invalid_type_error: "Vui lòng nhập số điện thoại",
     }),
 
   address: z.string({
     required_error: "Vui lòng nhập địa chỉ.",
-    invalid_type_error: "First name must be a string",
+    invalid_type_error: "Vui lòng nhập địa chỉ",
   }),
 
   yob: z.number({
     required_error: "Vui lòng nhập năm sinh.",
-    invalid_type_error: "First name must be a number",
+    invalid_type_error: "Vui lòng nhập năm sinh",
   }),
 });
 
