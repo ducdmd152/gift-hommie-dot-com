@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import UserDTO from '../../type/UserDTO';
 import staffService from '../../services/staff-service';
 
+
 interface Props {
   userId: string;
 }
@@ -168,6 +169,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   {...register("phone", { required: true })}
                   maxW="450px"
                   color="black"
+                  type="number"
                   defaultValue={staff.phone}
                   fontWeight="bold"
                 />
@@ -204,17 +206,6 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
         </FormControl> */}
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between" marginRight="350px">
-                {/* <FormLabel size="md" fontWeight="bold">
-                  Năm Sinh
-                </FormLabel>
-                <Input
-                  maxW="100px"
-                  isReadOnly
-                  color="black"
-                  value={staff.yob}
-                  fontWeight="bold"
-                /> */}
-
                 <FormLabel size="md" fontWeight="bold">
                   Năm Sinh
                 </FormLabel>
