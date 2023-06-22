@@ -11,6 +11,7 @@ import {
   MenuItem,
   MenuList,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
@@ -20,6 +21,7 @@ import utilService from "../../services/util-service";
 import UserDTO from "../../type/UserDTO";
 import { Link } from "react-router-dom";
 import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
+import { BsCartFill } from "react-icons/bs";
 
 const HeaderUser = () => {
   const USER = utilService.getCurrentUser() as UserDTO;
@@ -59,7 +61,8 @@ const HeaderUser = () => {
     );
 
   return (
-    <Box>
+    <HStack spacing="2">
+      {/* <BsCartFill /> */}
       <Stack alignItems={"center"}>
         <Menu>
           <MenuButton
@@ -69,12 +72,27 @@ const HeaderUser = () => {
             cursor={"pointer"}
             minW={0}
           >
-            <Avatar size={"sm"} src={USER.avatar || ""} />
+            <HStack>
+              <Avatar size={"sm"} src={USER.avatar || ""} />
+              <Text _hover={{ textTransform: "none!important" }}>
+                {USER.firstName + USER.lastName}
+              </Text>
+            </HStack>
           </MenuButton>
           <MenuList minW="0" w={"180px"}>
             <Link to="/account">
               <MenuItem>Tài khoản</MenuItem>
             </Link>
+            {/* {USER.authority == "ROLE_CUSTOMER" && (
+              <Link to="/cart">
+                <MenuItem>Giỏ hàng</MenuItem>
+              </Link>
+            )}
+            {USER.authority == "ROLE_CUSTOMER" && (
+              <Link to="/order">
+                <MenuItem>Đơn mua</MenuItem>
+              </Link>
+            )} */}
             <MenuItem
               onClick={() => {
                 utilService.logout();
@@ -86,7 +104,7 @@ const HeaderUser = () => {
           </MenuList>
         </Menu>
       </Stack>
-    </Box>
+    </HStack>
   );
   return (
     <HStack onClick={() => authService.logout()}>

@@ -6,6 +6,7 @@ import RoleNavLinks from "../../data/RoleNavLinks";
 import utilService from "../../services/util-service";
 
 const HeaderNav = () => {
+  const [pathname, setPathname] = useState("");
   const user = utilService.getCurrentUser() as UserDTO;
   let navs = RoleNavLinks["GUEST"];
   if (user != null) {
@@ -17,12 +18,17 @@ const HeaderNav = () => {
       {navs.map((nav) => (
         <Link key={nav.label} to={nav.link}>
           <Button
+            onClick={() => setPathname(window.location.pathname)}
             fontSize="md"
-            fontWeight={"medium"}
+            // fontWeight={"medium"}
             variant="link"
             whiteSpace="normal"
             textAlign="left"
             paddingRight={8}
+            color={window.location.pathname == nav.link ? "blue.600" : "gray"}
+            fontWeight={
+              window.location.pathname == nav.link ? "bold" : "medium"
+            }
           >
             {nav.label}
           </Button>

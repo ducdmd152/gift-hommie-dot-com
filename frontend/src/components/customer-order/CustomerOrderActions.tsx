@@ -83,16 +83,19 @@ const CustomerOrderActions = ({
         <Button
           colorScheme="teal"
           // variant="outline"
-          onClick={() => {
-            order.orderDetails.forEach(async (od) => {
+          onClick={async () => {
+            globalContext.selectedCartContext.clean();
+
+            await order.orderDetails.forEach(async (od) => {
               let cart = await cartActionSerivce.addToCart(od.product.id, 0);
 
               cart.quantity = od.quantity;
               cart = await cartActionSerivce.updateCart(cart);
 
               globalContext.selectedCartContext.addItem(cart);
-              navigate("/cart");
             });
+
+            navigate("/cart");
           }}
         >
           Mua lại
