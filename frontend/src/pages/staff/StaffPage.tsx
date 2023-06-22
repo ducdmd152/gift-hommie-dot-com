@@ -9,6 +9,8 @@ import StaffProductCreatePage from "./StaffProductCreatePage";
 import StaffViewProfilePage from "./StaffViewProfilePage";
 import StaffOrderPage from "./StaffOrderPage";
 import AccountViewProfilePage from "../AccountProfileView";
+import Login from "../guest/Login";
+import Register from "../guest/Register";
 const HEADER_HEIGHT = "100px";
 const StaffPage = () => {
   const [productId, setProductId] = useState<number | null>(null);
@@ -68,10 +70,9 @@ const StaffPage = () => {
             }
           />
           <Route path="/order" element={<StaffOrderPage />} />
-          <Route
-            path="/account"
-            element={<AccountViewProfilePage />}
-          />
+          <Route path="/account" element={<AccountViewProfilePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </GridItem>
     </Grid>

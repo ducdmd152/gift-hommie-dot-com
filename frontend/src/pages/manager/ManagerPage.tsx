@@ -9,6 +9,8 @@ import ManagerStaffDetailPage from "./ManagerStaffDetailPage";
 import ManagerViewProfilePage from "./ManagerViewProfilePage";
 import AccountViewProfilePage from "../AccountProfileView";
 import ManagerEditProfilePage from "./ManagerEditProfilePage";
+import Login from "../guest/Login";
+import Register from "../guest/Register";
 const HEADER_HEIGHT = "100px";
 const ManagerPage = () => {
   const [userId, setUserId] = useState<string>("");
@@ -54,16 +56,12 @@ const ManagerPage = () => {
           />
           <Route
             path="staff/edit"
-            element={<ManagerStaffEditPage userId={userId}/>}
+            element={<ManagerStaffEditPage userId={userId} />}
           />
-          <Route
-            path="/account"
-            element={<AccountViewProfilePage />}
-          />
-          <Route
-            path="/edit"
-            element={<ManagerEditProfilePage />}
-          />
+          <Route path="/account" element={<AccountViewProfilePage />} />
+          <Route path="/edit" element={<ManagerEditProfilePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </GridItem>
     </Grid>
