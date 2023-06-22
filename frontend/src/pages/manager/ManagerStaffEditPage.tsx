@@ -197,9 +197,9 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
             </FormLabel>
             <RadioGroup >
               <Stack direction='row' spacing={100}>
-                <Radio value='1'>Male</Radio>
-                <Radio value='2'>Female</Radio>
-                <Radio value='3'>Other</Radio>
+                <Radio value='Male'>Male</Radio>
+                <Radio value='Female'>Female</Radio>
+                <Radio value='Other'>Other</Radio>
               </Stack>
             </RadioGroup>
           </HStack>
@@ -213,7 +213,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   {...register("yob", { required: true })}
                   maxW="100px"
                   color="black"
-                  value={staff.yob}
+                  defaultValue={staff.yob}
                   fontWeight="bold"
                 >
                   {years.map((year) => (

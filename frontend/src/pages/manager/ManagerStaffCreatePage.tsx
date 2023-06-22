@@ -10,16 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, set, useForm } from "react-hook-form";
 import managerStaffService, { ManagerStaffDTO } from "../../services/manager-staff-service";
 
+
 const schema = z.object({
   username: z
     .string({
       required_error: "Vui lòng nhập tên đăng nhập.",
       invalid_type_error: "Vui lòng nhập tên đăng nhập",
     }),
-  // firstName: z.string({
-  //   required_error: "Vui lòng nhập Họ.",
-  //   invalid_type_error: "First name must be a string",
-  // }),
+
   lastName: z.string({
     required_error: "Vui lòng nhập Tên.",
     invalid_type_error: "Vui lòng nhập Tên",
@@ -32,6 +30,9 @@ const schema = z.object({
     .string({
       required_error: "Vui lòng nhập số điện thoại.",
       invalid_type_error: "Vui lòng nhập số điện thoại",
+    })
+    .min(10, {
+      message: "Số điện thoại phải từ 10 số trở lên",
     }),
 
   address: z.string({
@@ -39,7 +40,7 @@ const schema = z.object({
     invalid_type_error: "Vui lòng nhập địa chỉ",
   }),
 
-  yob: z.number({
+  yob: z.string({
     required_error: "Vui lòng nhập năm sinh.",
     invalid_type_error: "Vui lòng nhập năm sinh",
   }),
@@ -51,6 +52,7 @@ interface Props {
   setUserId: (id: string) => void;
 }
 const ManagerStaffCreatePage = ({ setUserId }: Props) => {
+
   const navigate = useNavigate();
 
   const {
@@ -62,13 +64,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
   const onSubmit = (data: FieldValues) => {
     const staff = data as ManagerStaffDTO;
     staff.id = "";
-
+    console.log(staff);
 
     managerStaffService
       .create(staff)
       .then((res) => {
         setUserId(res.data.id);
-        navigate("/staff/detail");
+        navigate("/staff");
       })
       .catch(() => {
         alert(
@@ -84,85 +86,82 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-        <HStack justifyContent="space-between">
-          <VStack alignItems="start">
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+          <HStack justifyContent="space-between">
+            <VStack alignItems="start">
+              <HStack>
+                <Heading size="lg" colorScheme="black">
+                  {"Tạo mới nhân viên"}
+                </Heading>
+              </HStack>
+            </VStack>
+
             <HStack>
-              <Heading size="lg" colorScheme="gray">
-                {"Tạo mới nhân viên"}
-              </Heading>
+              <Button type="submit" colorScheme="blue" size="md">
+                Hoàn tất
+              </Button>
+              <Button colorScheme="red" size="md"
+                onClick={() => {
+                  if (
+                    confirm(
+                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
+                    )
+                  ) {
+                    navigate("/staff");
+                  }
+                }}
+              >
+                Hủy
+              </Button>
             </HStack>
+          </HStack>
+
+          <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+            <Wrap>
+              <Box>
+                <WrapItem justifyContent='center'>
+                  <Avatar size='2xl'
+                    border="1px lightgray solid"
+                  />{' '}
+                </WrapItem>
+                <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
+                  {/* {errors.username} */}
+                </Heading>
+              </Box>
+            </Wrap>
+            <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='20px'>
+            </Heading>
           </VStack>
 
-          <HStack>
-            <Button type="submit" colorScheme="blue" size="md">
-              Hoàn tất
-            </Button>
+          <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
+            <FormControl marginTop='50px'>
+              <HStack justifyContent='space-between'>
+                <FormLabel size="md" fontWeight="bold" >
+                  Tên Đăng Nhập
+                </FormLabel>
+                <Input
+                  {...register("username")}
+                  maxW='450px'
+                  color="black"
+                  placeholder="Tên Đăng Nhập"
+                  fontWeight="bold"
+                />
+                {/* {errors.username && (
+                  <p className="form-error-message">{errors.username?.message}</p>
+                )} */}
+              </HStack>
+            </FormControl>
 
-            <Button colorScheme="red" size="md"
-              onClick={() => {
-                if (
-                  confirm(
-                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                  )
-                ) {
-                  navigate("/staff");
-                }
-              }}
-            >
-              Hủy
-            </Button>
-          </HStack>
-        </HStack>
-
-
-        <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
-          <Wrap>
-            <Box>
-              <WrapItem justifyContent='center'>
-                <Avatar size='2xl'
-                  border="1px lightgray solid"
-                />{' '}
-              </WrapItem>
-              <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
-                {/* {errors.username} */}
-              </Heading>
-            </Box>
-          </Wrap>
-          <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='20px'>
-          </Heading>
-        </VStack>
-
-
-        <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
-                Tên Đăng Nhập
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="gray"
-                placeholder="Tên Đăng Nhập"
-                {...register("username")}
-                // value={errors.username}
-                fontWeight="bold"
-              />
-              {/* {errors.username && (
-                <p className="form-error-message">{errors.username?.message}</p>
-              )} */}
-            </HStack>
-          </FormControl>
-
-          {/* <FormControl marginTop='50px'>
+            {/* <FormControl marginTop='50px'>
             <HStack justifyContent='space-between'>
               <FormLabel size="md" fontWeight="bold" >
                 Họ
               </FormLabel>
               <Input
                 maxW='450px'
-                color="gray"
+                color="black"
                 placeholder="Họ"
                 {...register("firstName")}
                 // value={product.name}
@@ -174,82 +173,78 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </HStack>
           </FormControl> */}
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
-                Tên
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="gray"
-                placeholder="Tên"
-                {...register("lastName")}
-                // value={product.name}
-                fontWeight="bold"
-              />
-              {/* {errors.lastName && (
-                <p className="form-error-message">{errors.lastName?.message}</p>
-              )} */}
-            </HStack>
-          </FormControl>
+            <FormControl marginTop='50px'>
+              <HStack justifyContent='space-between'>
+                <FormLabel size="md" fontWeight="bold" >
+                  Tên
+                </FormLabel>
+                <Input
+                  {...register("lastName")}
+                  maxW='450px'
+                  color="black"
+                  placeholder="Tên"
+                  fontWeight="bold"
+                />
+                {/* {errors.lastName && (
+                  <p className="form-error-message">{errors.lastName?.message}</p>
+                )} */}
+              </HStack>
+            </FormControl>
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
-                Email
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="gray"
-                placeholder="Email"
-                {...register("email")}
-                // value={product.name}
-                fontWeight="bold"
-              />
-              {/* {errors.email && (
-                <p className="form-error-message">{errors.email?.message}</p>
-              )} */}
-            </HStack>
-          </FormControl>
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold">
-                Số Điện Thoại
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="gray"
-                placeholder="Số Điện Thoại"
-                {...register("phone")}
-                // value={product.name}
-                fontWeight="bold"
-              />
-              {/* {errors.phone && (
+            <FormControl marginTop='50px'>
+              <HStack justifyContent='space-between'>
+                <FormLabel size="md" fontWeight="bold" >
+                  Email
+                </FormLabel>
+                <Input
+                  {...register("email")}
+                  maxW='450px'
+                  color="black"
+                  placeholder="Email"
+                  fontWeight="bold"
+                />
+                {/* {errors.email && (
+                  <p className="form-error-message">{errors.email?.message}</p>
+                )} */}
+              </HStack>
+            </FormControl>
+            <FormControl marginTop='50px'>
+              <HStack justifyContent='space-between'>
+                <FormLabel size="md" fontWeight="bold">
+                  Số Điện Thoại
+                </FormLabel>
+                <Input
+                  {...register("phone")}
+                  maxW='450px'
+                  color="black"
+                  placeholder="Số Điện Thoại"
+                  fontWeight="bold"
+                />
+              </HStack>
+              {errors.phone && (
                 <p className="form-error-message">{errors.phone?.message}</p>
-              )} */}
-            </HStack>
-          </FormControl>
+              )}
+            </FormControl>
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold">
-                Địa Chỉ
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="gray"
-                placeholder="Địa Chỉ"
-                {...register("address")}
-                // value={product.name}
-                fontWeight="bold"
-              />
-              {/* {errors.address && (
-                <p className="form-error-message">{errors.address?.message}</p>
-              )} */}
-            </HStack>
-          </FormControl>
+            <FormControl marginTop='50px'>
+              <HStack justifyContent='space-between'>
+                <FormLabel size="md" fontWeight="bold">
+                  Địa Chỉ
+                </FormLabel>
+                <Input
+                  {...register("address")}
+                  maxW='450px'
+                  color="black"
+                  placeholder="Địa Chỉ"
+                  fontWeight="bold"
+                />
+                {errors.address && (
+                  <p className="form-error-message">{errors.address?.message}</p>
+                )}
+              </HStack>
+            </FormControl>
 
-          {/* <FormControl marginTop='50px'>
+            {/* <FormControl marginTop='50px'>
             <HStack justifyContent='space-between' >
               <FormLabel size="md" fontWeight="bold">
                 Gender
@@ -264,30 +259,29 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </HStack>
           </FormControl> */}
 
-          <FormControl marginTop='50px' >
-            <HStack justifyContent='space-between' marginRight='350px'>
-              <FormLabel size="md" fontWeight="bold">
-                Năm Sinh
-              </FormLabel>
-              <Select
-                {...register("yob", { required: true })}
-                maxW="100px"
-                color="black"
-                // value={staff.yob}
-                fontWeight="bold"
-              >
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </Select>
-            </HStack>
-          </FormControl>
-        </Box>
-
-      </Card>
-    </form>
+            <FormControl marginTop='50px' >
+              <HStack justifyContent='space-between' marginRight='350px'>
+                <FormLabel size="md" fontWeight="bold">
+                  Năm Sinh
+                </FormLabel>
+                <Select
+                  {...register("yob", { required: true })}
+                  maxW="100px"
+                  color="black"
+                  fontWeight="bold"
+                >
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </Select>
+              </HStack>
+            </FormControl>
+          </Box>
+        </Card>
+      </form>
+    </>
   )
 };
 
