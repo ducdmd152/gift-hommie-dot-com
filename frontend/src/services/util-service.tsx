@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../App";
-import sjcl from "sjcl";
 
 export default {
   HEADER_HEIGHT: "100px",
