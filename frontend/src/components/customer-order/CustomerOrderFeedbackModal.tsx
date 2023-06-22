@@ -113,6 +113,7 @@ const CustomerOrderFeedbackModal = ({
           </Button> */}
           {index + 1 == order.orderDetails.length && (
             <Button
+              isDisabled={!rating}
               colorScheme="blue"
               mr={3}
               onClick={async () => {
