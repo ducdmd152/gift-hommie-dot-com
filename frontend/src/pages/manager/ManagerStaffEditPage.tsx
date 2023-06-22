@@ -15,22 +15,25 @@ import staffService from '../../services/staff-service';
 interface Props {
   userId: string;
 }
-interface FormData extends UserDTO { }
+interface FormData extends ManagerStaffDTO { }
 
 const ManagerStaffEditPage = ({ userId }: Props) => {
-  const [staff, setStaff] = useState<UserDTO>(
-    {} as UserDTO
+  const [staff, setStaff] = useState<ManagerStaffDTO>(
+    {} as ManagerStaffDTO
   );
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    let id = userId;
 
+    if (id == "") {
+      navigate("/staff");
+    }
     managerStaffService
-      .get("")
+      .get(id)
       .then((res) => {
         setStaff(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         Swal.fire({
@@ -49,14 +52,14 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FieldValues) => {
-    const updateStaff = data as UserDTO;
+    const updateStaff = data as ManagerStaffDTO;
     updateStaff.id = staff.id;
     console.log(updateStaff);
 
     managerStaffService
       .update(updateStaff)
       .then(() => {
-        navigate("staff/edit");
+        navigate("/staff");
       })
       .catch(() => {
         alert(`Không thể sửa thông tin của "${staff.username}".\n Vui lòng thử lại.`);
@@ -104,14 +107,14 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                 <Input
                   maxW="450px"
                   isReadOnly
-                  color="gray"
+                  color="black"
                   value={staff.username}
                   fontWeight="bold"
                 />
               </HStack>
             </FormControl>
 
-            <FormControl marginTop="50px">
+            {/* <FormControl marginTop="50px">
               <HStack justifyContent="space-between">
                 <FormLabel size="md" fontWeight="bold">
                   Họ
@@ -119,12 +122,12 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                 <Input
                   maxW="450px"
                   isReadOnly
-                  color="gray"
+                  color="black"
                   value={staff.firstName}
                   fontWeight="bold"
                 />
               </HStack>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between">
@@ -132,10 +135,10 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   Tên
                 </FormLabel>
                 <Input
+                  {...register("lastName", { required: true })}
                   maxW="450px"
-                  isReadOnly
-                  color="gray"
-                  value={staff.lastName}
+                  color="black"
+                  defaultValue={staff.lastName}
                   fontWeight="bold"
                 />
               </HStack>
@@ -147,10 +150,11 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   Email
                 </FormLabel>
                 <Input
+                  {...register("email", { required: true })}
                   maxW="450px"
                   isReadOnly
-                  color="gray"
-                  value={staff.email}
+                  color="black"
+                  defaultValue={staff.email}
                   fontWeight="bold"
                 />
               </HStack>
@@ -161,10 +165,10 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   Số Điện Thoại
                 </FormLabel>
                 <Input
+                  {...register("phone", { required: true })}
                   maxW="450px"
-                  isReadOnly
-                  color="gray"
-                  value={staff.phone}
+                  color="black"
+                  defaultValue={staff.phone}
                   fontWeight="bold"
                 />
               </HStack>
@@ -176,10 +180,10 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   Địa Chỉ
                 </FormLabel>
                 <Input
+                  {...register("address", { required: true })}
                   maxW="450px"
-                  isReadOnly
-                  color="gray"
-                  value={staff.address}
+                  color="black"
+                  defaultValue={staff.address}
                   fontWeight="bold"
                 />
               </HStack>
@@ -206,7 +210,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                 <Input
                   maxW="100px"
                   isReadOnly
-                  color="gray"
+                  color="black"
                   value={staff.yob}
                   fontWeight="bold"
                 /> */}
@@ -215,9 +219,9 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                   Năm Sinh
                 </FormLabel>
                 <Select
+                  {...register("yob", { required: true })}
                   maxW="100px"
-                  isReadOnly
-                  color="gray"
+                  color="black"
                   value={staff.yob}
                   fontWeight="bold"
                 >
