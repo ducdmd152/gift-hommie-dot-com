@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, set, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import managerStaffService, { ManagerStaffDTO } from "../../services/manager-staff-service";
 
 
@@ -15,21 +15,28 @@ const schema = z.object({
   username: z
     .string({
       required_error: "Vui lòng nhập tên đăng nhập.",
-      invalid_type_error: "Vui lòng nhập tên đăng nhập",
+      invalid_type_error: "First name must be a string",
+    })
+    .min(6, {
+      message: "Vui lòng nhập tên đăng nhập ít nhất 6 kí tự.",
     }),
 
   lastName: z.string({
     required_error: "Vui lòng nhập Tên.",
-    invalid_type_error: "Vui lòng nhập Tên",
-  }),
+    invalid_type_error: "First name must be a string",
+  })
+    .min(6, {
+      message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
+    }),
   email: z.string({
     required_error: "Vui lòng nhập Email.",
-    invalid_type_error: "Vui lòng nhập Email",
-  }),
+    invalid_type_error: "First name must be a string",
+  })
+    .email("Vui lòng nhập đúng địa chỉ email."),
   phone: z
     .string({
       required_error: "Vui lòng nhập số điện thoại.",
-      invalid_type_error: "Vui lòng nhập số điện thoại",
+      invalid_type_error: "First name must be a string",
     })
     .min(10, {
       message: "Số điện thoại phải từ 10 số trở lên",
@@ -37,12 +44,12 @@ const schema = z.object({
 
   address: z.string({
     required_error: "Vui lòng nhập địa chỉ.",
-    invalid_type_error: "Vui lòng nhập địa chỉ",
+    invalid_type_error: "First name must be a string",
   }),
 
   yob: z.string({
     required_error: "Vui lòng nhập năm sinh.",
-    invalid_type_error: "Vui lòng nhập năm sinh",
+    invalid_type_error: "First name must be a string",
   }),
 });
 
@@ -148,30 +155,11 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                   placeholder="Tên Đăng Nhập"
                   fontWeight="bold"
                 />
-                {/* {errors.username && (
-                  <p className="form-error-message">{errors.username?.message}</p>
-                )} */}
               </HStack>
-            </FormControl>
-
-            {/* <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
-                Họ
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="black"
-                placeholder="Họ"
-                {...register("firstName")}
-                // value={product.name}
-                fontWeight="bold"
-              />
-              {errors.firstName && (
-                <p className="form-error-message">{errors.firstName?.message}</p>
+              {errors.username && (
+                <p className="form-error-message">{errors.username?.message}</p>
               )}
-            </HStack>
-          </FormControl> */}
+            </FormControl>
 
             <FormControl marginTop='50px'>
               <HStack justifyContent='space-between'>
@@ -185,10 +173,10 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                   placeholder="Tên"
                   fontWeight="bold"
                 />
-                {/* {errors.lastName && (
-                  <p className="form-error-message">{errors.lastName?.message}</p>
-                )} */}
               </HStack>
+              {errors.lastName && (
+                <p className="form-error-message">{errors.lastName?.message}</p>
+              )}
             </FormControl>
 
             <FormControl marginTop='50px'>
@@ -203,10 +191,10 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                   placeholder="Email"
                   fontWeight="bold"
                 />
-                {/* {errors.email && (
-                  <p className="form-error-message">{errors.email?.message}</p>
-                )} */}
               </HStack>
+              {errors.email && (
+                <p className="form-error-message">{errors.email?.message}</p>
+              )}
             </FormControl>
             <FormControl marginTop='50px'>
               <HStack justifyContent='space-between'>
@@ -238,10 +226,10 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                   placeholder="Địa Chỉ"
                   fontWeight="bold"
                 />
-                {errors.address && (
-                  <p className="form-error-message">{errors.address?.message}</p>
-                )}
               </HStack>
+              {errors.address && (
+                <p className="form-error-message">{errors.address?.message}</p>
+              )}
             </FormControl>
 
             {/* <FormControl marginTop='50px'>
@@ -265,7 +253,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                   Năm Sinh
                 </FormLabel>
                 <Select
-                  {...register("yob", { required: true })}
+                  {...register("yob")}
                   maxW="100px"
                   color="black"
                   fontWeight="bold"
