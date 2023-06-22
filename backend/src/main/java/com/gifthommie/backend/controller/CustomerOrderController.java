@@ -1,5 +1,7 @@
 package com.gifthommie.backend.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,8 +104,14 @@ public class CustomerOrderController {
 		if (order == null)
 			throw new NotFoundException("ORDER CANNOT BE FOUND");
 		
+		boolean feedbackMode = order.isEvaluated() != orderDTO.isEvaluated();
+			
 //		Orders update = new Orders(orderDTO);
 		order.autoUpdateFromDTO(orderDTO);
+		
+		// FEEDBACKMODE
+		for(OrderDetail od : order.getOrderDetails())
+			od.setFeedbackTime(LocalDateTime.now());
 		
 ////		for(OrderDetailDTO od : orderDTO.getOrderDetails()) {
 //		for(OrderDetail od : order.getOrderDetails()) {
