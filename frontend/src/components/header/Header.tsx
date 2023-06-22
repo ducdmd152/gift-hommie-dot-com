@@ -18,14 +18,18 @@ const Header = () => {
       borderColor={useColorModeValue("gray.200", "gray.900")}
     >
       <Link to="/">
-        <Logo />
+        <Box w="200px">
+          <Logo />
+        </Box>
       </Link>
 
       <Box flex="1">
         <HeaderNav />
       </Box>
 
-      <HeaderUser />
+      <Box maxW="200px">
+        <HeaderUser />
+      </Box>
     </HStack>
   );
 };
