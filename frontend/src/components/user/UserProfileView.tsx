@@ -62,7 +62,7 @@ const UserProfileView = ({ userDTO }: Props) => {
           </HStack>
         </FormControl>
 
-        <FormControl marginTop="50px">
+        {/* <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
               Họ
@@ -75,7 +75,7 @@ const UserProfileView = ({ userDTO }: Props) => {
               fontWeight="bold"
             />
           </HStack>
-        </FormControl>
+        </FormControl> */}
 
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
