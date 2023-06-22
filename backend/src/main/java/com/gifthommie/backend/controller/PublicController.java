@@ -106,7 +106,7 @@ public class PublicController {
 	}
 	
 	
-	@GetMapping("/feedback/additional/{productId}")
+	@GetMapping("/additional/{productId}")
 	public ProductReportDTO getProductReportById(@PathVariable Integer productId) {
 		return feedbackService.getProductReportByProductId(productId);
 	}
