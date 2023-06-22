@@ -43,7 +43,10 @@ const CustomerOrderFeedbackModal = ({
   const [index, setIndex] = useState(0);
   const [error, setError] = useState("");
   const getCurrentOrderDetail = () => {
-    // if (!order.orderDetails?.length) return null;
+    if (!order.orderDetails?.length)
+      return {
+        product: {} as ProductDTO,
+      } as OrderDetailDTO;
     // if (index > order.orderDetails.length) return null;
     return order.orderDetails[index];
   };
@@ -128,6 +131,7 @@ const CustomerOrderFeedbackModal = ({
                     timer: 2500,
                   });
                   onClose();
+                  setOrder({ ...order });
                 } else {
                   order.evaluated = false;
                   Swal.fire({
