@@ -16,7 +16,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 	
 	@Query("SELECT o FROM OrderDetail o "
 			+ "WHERE o.productId = :productId AND "
-			+ "o.rating IS NOT NULL OR o.rating <> 0")
+			+ "o.rating IS NOT NULL AND o.rating <> 0")
 	public Page<OrderDetail> findRatedOrderDetailsByProductId(Pageable pageable, @Param("productId") int productId);
 	
 	@Query("SELECT SUM(o.quantity) FROM OrderDetail o "

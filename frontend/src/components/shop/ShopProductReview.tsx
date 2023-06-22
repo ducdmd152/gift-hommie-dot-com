@@ -83,6 +83,11 @@ const ShopProductReview = () => {
               <Text color="gray" p="2" maxH="100px" overflowY={"auto"}>
                 {feedback.feedback}
               </Text>
+
+              <Text color="gray" p="2" fontStyle="italic" overflowY={"auto"}>
+                Đã đánh vào{" "}
+                {new Date(feedback.time).toLocaleDateString("en-GB")}
+              </Text>
             </Card>
           ))}
       </VStack>

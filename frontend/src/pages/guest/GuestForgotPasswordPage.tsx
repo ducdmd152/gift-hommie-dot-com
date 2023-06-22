@@ -118,9 +118,12 @@ const GuestForgotPasswordPage = () => {
                   setError("Email chưa được đăng ký.");
                   return;
                 }
-
-                if (await resetPasswordService.sendRequest(email)) setStep(2);
-                else setError("Yêu cầu thất bại!");
+                setStep(2);
+                if (await resetPasswordService.sendRequest(email)) {
+                } else {
+                  setStep(1);
+                  setError("Yêu cầu thất bại!");
+                }
               }}
             >
               Gửi

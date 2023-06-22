@@ -61,7 +61,7 @@ const CustomerOrderActions = ({
         onOpen={onOpen}
         onClose={onClose}
       />
-      {status == "SUCCESSFUL" && (
+      {status == "SUCCESSFUL" && !order.evaluated && (
         <Button
           colorScheme="blue"
           onClick={() => {
@@ -70,6 +70,12 @@ const CustomerOrderActions = ({
           }}
         >
           Đánh giá{" "}
+        </Button>
+      )}
+
+      {order.evaluated && (
+        <Button colorScheme="blue" isDisabled={true}>
+          Đã đánh giá
         </Button>
       )}
 

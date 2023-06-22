@@ -31,12 +31,18 @@ import utilService from "../../services/util-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
 import ShopProductReview from "./ShopProductReview";
+import shopProductServiceAdditional, {
+  ProductAdditionalDTO,
+} from "../../services/shop-product-service-additional";
+import { Rating } from "react-simple-star-rating";
 const ShopProductDetail = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
   const productContext = useContext(GLOBAL_CONTEXT).productContext;
   const id = productContext.getProductId();
 
   const [product, setProduct] = useState<ShopProductDTO>({} as ShopProductDTO);
+  const [additional, setAdditional] = useState({} as ProductAdditionalDTO);
+
   const navigate = useNavigate();
 
   // fetch product from API
@@ -53,6 +59,11 @@ const ShopProductDetail = () => {
       .catch((err) => {
         navigate("/shop");
       });
+    (async () => {
+      setAdditional(
+        await shopProductServiceAdditional.getProductAdditional(id)
+      );
+    })();
   }, [id]);
 
   return (
@@ -94,18 +105,18 @@ const ShopProductDetail = () => {
                   </Heading>
                   <Badge colorScheme="red">Yêu thích</Badge>
                 </HStack>
-                <HStack>
-                  <Text>
-                    <HStack spacing="1px">
-                      <AiFillStar color="gold" />
-                      <AiFillStar color="gold" />
-                      <AiFillStar color="gold" />
-                      <AiFillStar color="gold" />
-                      <AiFillStar color="gold" />
-                    </HStack>
+                <HStack mt="-1">
+                  <Text mt="1">
+                    <Rating
+                      size={18}
+                      allowFraction={true}
+                      readonly={true}
+                      initialValue={additional.rating}
+                    />
                   </Text>
+
                   <Text>|</Text>
-                  <Text>2,1k đã bán</Text>
+                  <Text>{additional.sold} đã bán</Text>
                   <Text>|</Text>
                   <Text>Bán chạy</Text>
                 </HStack>
