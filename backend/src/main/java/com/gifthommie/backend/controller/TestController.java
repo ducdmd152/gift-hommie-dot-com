@@ -71,7 +71,6 @@ public class TestController {
 			return 0;
 		
 		return ans;
-	
 	}
 	
 	@GetMapping("public/test-feedback")
