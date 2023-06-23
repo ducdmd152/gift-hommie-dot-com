@@ -5,7 +5,7 @@ import UserDTO from "../type/UserDTO";
 const endpoint = "account"; // 1. modify root endpoint
 
 // 2. Create the form of data type => DTO
-export interface CustomerDTO extends UserDTO {}
+export interface CustomerDTO extends UserDTO { }
 
 // 3. Modify generic type
 export default createHttpService<CustomerDTO>(apiClient, endpoint);

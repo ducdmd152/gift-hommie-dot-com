@@ -55,11 +55,11 @@ const ManagerPage = () => {
             element={<ManagerStaffDetailPage userId={userId} />}
           />
           <Route
-            path="staff/edit"
+            path="/staff/edit"
             element={<ManagerStaffEditPage userId={userId} />}
           />
           <Route path="/account" element={<AccountViewProfilePage />} />
-          <Route path="/edit" element={<ManagerEditProfilePage />} />
+          <Route path="/account/edit" element={<ManagerEditProfilePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

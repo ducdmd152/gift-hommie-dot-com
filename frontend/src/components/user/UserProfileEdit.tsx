@@ -8,16 +8,16 @@ import managerStaffService, { ManagerStaffDTO } from '../../services/manager-sta
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
 import UserDTO from '../../type/UserDTO';
-import accountService from '../../services/account-service';
+import accountService, { AccountDTO } from '../../services/account-service';
 
 interface Props {
-  userDTO: UserDTO;
+  userDTO: AccountDTO;
 }
-interface FormData extends UserDTO { }
+interface FormData extends AccountDTO { }
 
 const UserProfileEdit = ({ userDTO }: Props) => {
-  const [user, setUser] = useState<UserDTO>(
-    {} as UserDTO
+  const [user, setUser] = useState<AccountDTO>(
+    {} as AccountDTO
   );
 
   const navigate = useNavigate();
@@ -28,8 +28,12 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     formState: { errors, isValid },
   } = useForm<FormData>();
 
+  useEffect(() => {
+    setUser(userDTO);
+  }, [userDTO]);
+
   const onSubmit = (data: FieldValues) => {
-    const updateUser = data as UserDTO;
+    const updateUser = data as AccountDTO;
     updateUser.id = user.id;
     console.log(updateUser);
 
@@ -39,7 +43,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
         navigate("/account");
       })
       .catch(() => {
-        alert(`Không thể sửa thông tin của "${user.username}".\n Vui lòng thử lại.`);
+        alert(`Không thể sửa thông tin của "${userDTO.username}".\n Vui lòng thử lại.`);
       });
   };
 
@@ -73,6 +77,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Input
                 maxW='450px'
+                isReadOnly
                 color="black"
                 value={userDTO.username}
                 fontWeight="bold"
@@ -86,9 +91,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 Tên
               </FormLabel>
               <Input
+                {...register("lastName", { required: true })}
                 maxW='450px'
                 color="black"
-                {...register("lastName", { required: true })}
                 defaultValue={userDTO.lastName}
                 fontWeight="bold"
               />
@@ -101,9 +106,10 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 Email
               </FormLabel>
               <Input
-                maxW='450px'
-                color="black"
                 {...register("email", { required: true })}
+                maxW='450px'
+                isReadOnly
+                color="black"
                 value={userDTO.email}
                 fontWeight="bold"
               />
@@ -115,9 +121,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 Số Điện Thoại
               </FormLabel>
               <Input
+                {...register("phone", { required: true })}
                 maxW='450px'
                 color="black"
-                {...register("phone", { required: true })}
                 defaultValue={userDTO.phone}
                 fontWeight="bold"
               />
@@ -130,9 +136,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 Địa Chỉ
               </FormLabel>
               <Input
+                {...register("address", { required: true })}
                 maxW='450px'
                 color="black"
-                {...register("address", { required: true })}
                 defaultValue={userDTO.address}
                 fontWeight="bold"
               />
@@ -198,4 +204,4 @@ const UserProfileEdit = ({ userDTO }: Props) => {
   )
 }
 
-export default UserProfileEdit
+export default UserProfileEdit;

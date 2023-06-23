@@ -33,36 +33,36 @@ const ManagerEditProfilePage = () => {
             });
     }, []);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm<FormData>();
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors, isValid },
+    // } = useForm<FormData>();
 
-    const onSubmit = (data: FieldValues) => {
-        const updateManager = data as UserDTO;
-        updateManager.id = manager.id;
-        console.log(updateManager);
+    // const onSubmit = (data: FieldValues) => {
+    //     const updateManager = data as UserDTO;
+    //     updateManager.id = manager.id;
+    //     console.log(updateManager);
 
-        managerService
-            .update(updateManager)
-            .then(() => {
-                navigate("/edit");
-            })
-            .catch(() => {
-                alert(`Không thể sửa thông tin của "${manager.username}".\n Vui lòng thử lại.`);
-            });
-    };
+    //     managerService
+    //         .update(updateManager)
+    //         .then(() => {
+    //             navigate("/account");
+    //         })
+    //         .catch(() => {
+    //             alert(`Không thể sửa thông tin của "${manager.username}".\n Vui lòng thử lại.`);
+    //         });
+    // };
 
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+            <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
-                    <UserProfileEdit userDTO={manager} />
-                </Card>
-            </form>
+                <UserProfileEdit userDTO={manager} />
+            </Card>
+            {/* </form> */}
         </>
     )
 }
