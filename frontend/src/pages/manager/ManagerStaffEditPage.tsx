@@ -115,21 +115,6 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
               </HStack>
             </FormControl>
 
-            {/* <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
-                  Họ
-                </FormLabel>
-                <Input
-                  maxW="450px"
-                  isReadOnly
-                  color="black"
-                  value={staff.firstName}
-                  fontWeight="bold"
-                />
-              </HStack>
-            </FormControl> */}
-
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between">
                 <FormLabel size="md" fontWeight="bold">

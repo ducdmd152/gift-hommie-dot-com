@@ -50,7 +50,7 @@ const CustomerPage = () => {
           <Route path="/cart" element={<CustomerCartPage />} />
           <Route path="/checkout" element={<CustomerCheckoutPage />} />
           <Route path="/account" element={<AccountViewProfilePage />} />
-          <Route path="/edit" element={<CustomerEditProfilePage />} />
+          <Route path="/account/edit" element={<CustomerEditProfilePage />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

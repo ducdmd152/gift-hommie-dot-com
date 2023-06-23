@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import UserDTO from '../../type/UserDTO';
 import { FieldValues, useForm } from "react-hook-form";
 
+
 interface FormData extends UserDTO { }
 
 const CustomerEditProfilePage = () => {
@@ -33,36 +34,36 @@ const CustomerEditProfilePage = () => {
             });
     }, []);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm<FormData>();
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors, isValid },
+    // } = useForm<FormData>();
 
-    const onSubmit = (data: FieldValues) => {
-        const updateCustomer = data as UserDTO;
-        updateCustomer.id = customer.id;
-        console.log(updateCustomer);
+    // const onSubmit = (data: FieldValues) => {
+    //     const updateCustomer = data as UserDTO;
+    //     updateCustomer.id = customer.id;
+    //     console.log(updateCustomer);
 
-        customerService
-            .update(updateCustomer)
-            .then(() => {
-                navigate("/account");
-            })
-            .catch(() => {
-                alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
-            });
-    };
+    //     customerService
+    //         .update(updateCustomer)
+    //         .then(() => {
+    //             navigate("/account");
+    //         })
+    //         .catch(() => {
+    //             alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
+    //         });
+    // };
 
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+            <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
-                    <UserProfileEdit userDTO={customer} />
-                </Card>
-            </form>
+                <UserProfileEdit userDTO={customer} />
+            </Card>
+            {/* </form> */}
         </>
     )
 }
