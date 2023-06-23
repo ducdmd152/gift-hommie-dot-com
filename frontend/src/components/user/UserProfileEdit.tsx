@@ -8,6 +8,7 @@ import managerStaffService, { ManagerStaffDTO } from '../../services/manager-sta
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from "react-hook-form";
 import UserDTO from '../../type/UserDTO';
+import accountService from '../../services/account-service';
 
 interface Props {
   userDTO: UserDTO;
@@ -15,7 +16,7 @@ interface Props {
 interface FormData extends UserDTO { }
 
 const UserProfileEdit = ({ userDTO }: Props) => {
-  const [staff, setStaff] = useState<UserDTO>(
+  const [user, setUser] = useState<UserDTO>(
     {} as UserDTO
   );
 
@@ -29,16 +30,16 @@ const UserProfileEdit = ({ userDTO }: Props) => {
 
   const onSubmit = (data: FieldValues) => {
     const updateUser = data as UserDTO;
-    updateUser.id = staff.id;
+    updateUser.id = user.id;
     console.log(updateUser);
 
-    managerStaffService
+    accountService
       .update(updateUser)
       .then(() => {
-        navigate("/staff");
+        navigate("/account");
       })
       .catch(() => {
-        alert(`Không thể sửa thông tin của "${staff.username}".\n Vui lòng thử lại.`);
+        alert(`Không thể sửa thông tin của "${user.username}".\n Vui lòng thử lại.`);
       });
   };
 
@@ -82,21 +83,6 @@ const UserProfileEdit = ({ userDTO }: Props) => {
           <FormControl marginTop='50px'>
             <HStack justifyContent='space-between'>
               <FormLabel size="md" fontWeight="bold" >
-                Họ
-              </FormLabel>
-              <Input
-                maxW='450px'
-                color="black"
-                {...register("firstName", { required: true })}
-                defaultValue={userDTO.firstName}
-                fontWeight="bold"
-              />
-            </HStack>
-          </FormControl>
-
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
                 Tên
               </FormLabel>
               <Input
@@ -117,7 +103,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               <Input
                 maxW='450px'
                 color="black"
-                // {...register("email", { required: true })}
+                {...register("email", { required: true })}
                 value={userDTO.email}
                 fontWeight="bold"
               />

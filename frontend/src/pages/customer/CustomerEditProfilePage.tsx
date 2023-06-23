@@ -47,7 +47,7 @@ const CustomerEditProfilePage = () => {
         customerService
             .update(updateCustomer)
             .then(() => {
-                navigate("/edit");
+                navigate("/account");
             })
             .catch(() => {
                 alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
@@ -61,8 +61,6 @@ const CustomerEditProfilePage = () => {
                 <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
                     <UserProfileEdit userDTO={customer} />
-
-                    
                 </Card>
             </form>
         </>
