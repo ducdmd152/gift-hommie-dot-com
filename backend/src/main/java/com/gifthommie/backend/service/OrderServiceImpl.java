@@ -24,6 +24,7 @@ import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderDetailDTO;
 import com.gifthommie.backend.dto.OrderStatisticsDTO;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Day;
+import com.gifthommie.backend.dto.OrderStatisticsDTO.Week;
 import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
@@ -371,8 +372,8 @@ public class OrderServiceImpl implements OrderService {
         
         //set data for day[] of week
         while(lastDayOfWeek.compareTo(firstDayOfWeek)>=0) {
-        	firstDayOfWeek = firstDayOfWeek.plusDays(1);
         	List<Orders> orderDayList = orderRepository.findOrderByDay(firstDayOfWeek, firstDayOfWeek.plusDays(1));
+        	firstDayOfWeek = firstDayOfWeek.plusDays(1);
         	double dayrevenue = 0;
         	int dayPENDING = 0;
         	int dayCANCELLED = 0;
@@ -447,8 +448,40 @@ public class OrderServiceImpl implements OrderService {
 	     LocalDateTime lastDateTimeOfMonth = lastDayOfMonth.atTime(firstDateOfMonth.toLocalTime());
 	     
 	     List<Orders> orderList = orderRepository.findOrderByDay(firstDateOfMonth, lastDateTimeOfMonth);
-	     System.out.println(firstDateOfMonth);
-	     System.out.println(lastDayOfMonth);
+	     
+	     int count = 0;
+	     while(lastDateTimeOfMonth.compareTo(firstDateOfMonth) >= 0 && count < 4) {
+	        	List<Orders> orderWeekList = orderRepository.findOrderByDay(firstDateOfMonth, firstDateOfMonth.plusDays(7));
+	        	count+=1;
+	        	firstDateOfMonth = firstDateOfMonth.plusDays(7);
+	        	double weekrevenue = 0;
+	        	int weekPENDING = 0;
+	        	int weekCANCELLED = 0;
+	        	int weekREFUSED = 0;
+	        	int weekCONFIRMED = 0;
+	        	int weekDELIVERING = 0;
+	        	int weekFAIL = 0;
+	        	int weekSUCCESSFUL = 0;
+	        	if (orderList!=null) {
+	    			for (Orders orders : orderWeekList) {
+	    				//iteration each order detail
+	    				for (OrderDetail tmp : orders.getOrderDetails()) {
+	    					if(orders.getStatus().equals("SUCCESSFUL")) {
+	    						weekrevenue+=(tmp.getPrice()*tmp.getQuantity());
+	    					}
+	    				}
+	    				if(orders.getStatus().equals("SUCCESSFUL")) weekSUCCESSFUL+=1;
+	    				if(orders.getStatus().equals("PENDING")) weekPENDING+=1;
+	    				if(orders.getStatus().equals("CANCELLED")) weekCANCELLED+=1;
+	    				if(orders.getStatus().equals("REFUSED")) weekREFUSED+=1;
+	    				if(orders.getStatus().equals("CONFIRMED")) weekCONFIRMED+=1;
+	    				if(orders.getStatus().equals("DELIVERING")) weekDELIVERING+=1;
+	    				if(orders.getStatus().equals("FAIL")) weekFAIL+=1;
+	    			}
+	    		}
+	        	orderStatisticsDTO.getMonth().getWeek().add(new Week(orderWeekList.size(), weekrevenue, weekPENDING, weekCANCELLED, weekREFUSED, weekCONFIRMED, weekDELIVERING, weekFAIL, weekSUCCESSFUL));
+	        }
+	     
 	     //set up
 	        double revenue = 0;
 	    	int PENDING = 0;
