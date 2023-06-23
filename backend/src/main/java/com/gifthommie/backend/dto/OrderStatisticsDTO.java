@@ -6,11 +6,13 @@ import java.util.List;
 public class OrderStatisticsDTO {
     private Day day;
     private Week week;
+    private Month month;
     
 	public OrderStatisticsDTO() {
 		super();
 		this.day = new Day();
 		this.week = new Week();
+		this.month = new Month();
 	}
 	    
     public Day getDay() {
@@ -28,6 +30,17 @@ public class OrderStatisticsDTO {
 	public void setWeek(Week week) {
 		this.week = week;
 	}
+
+	
+	
+	public Month getMonth() {
+		return month;
+	}
+
+	public void setMonth(Month month) {
+		this.month = month;
+	}
+
 
 
 	public static class Day{
@@ -152,6 +165,20 @@ public class OrderStatisticsDTO {
 			day = new ArrayList<>();
 		}
 
+		public Week(int total, double revenue, int pENDING, int cANCELLED, int rEFUSED, int cONFIRMED, int dELIVERING,
+				int fAIL, int sUCCESSFUL) {
+			super();
+			this.total = total;
+			this.revenue = revenue;
+			PENDING = pENDING;
+			CANCELLED = cANCELLED;
+			REFUSED = rEFUSED;
+			CONFIRMED = cONFIRMED;
+			DELIVERING = dELIVERING;
+			FAIL = fAIL;
+			SUCCESSFUL = sUCCESSFUL;
+		}
+
 		public int getTotal() {
 			return total;
 		}
@@ -231,8 +258,105 @@ public class OrderStatisticsDTO {
 		public void setDay(List<Day> day) {
 			this.day = day;
 		}
+	}
+	
+	public static class Month{
+		private int total;
+    	private double revenue;
+    	private int PENDING;
+    	private int CANCELLED;
+    	private int REFUSED;
+    	private int CONFIRMED;
+    	private int DELIVERING;
+    	private int FAIL;
+    	private int SUCCESSFUL;
+    	private List<Week> week;
     	
-		
+		public Month() {
+			super();
+			week = new ArrayList<>();
+		}
+
+		public int getTotal() {
+			return total;
+		}
+
+		public void setTotal(int total) {
+			this.total = total;
+		}
+
+		public double getRevenue() {
+			return revenue;
+		}
+
+		public void setRevenue(double revenue) {
+			this.revenue = revenue;
+		}
+
+		public int getPENDING() {
+			return PENDING;
+		}
+
+		public void setPENDING(int pENDING) {
+			PENDING = pENDING;
+		}
+
+		public int getCANCELLED() {
+			return CANCELLED;
+		}
+
+		public void setCANCELLED(int cANCELLED) {
+			CANCELLED = cANCELLED;
+		}
+
+		public int getREFUSED() {
+			return REFUSED;
+		}
+
+		public void setREFUSED(int rEFUSED) {
+			REFUSED = rEFUSED;
+		}
+
+		public int getCONFIRMED() {
+			return CONFIRMED;
+		}
+
+		public void setCONFIRMED(int cONFIRMED) {
+			CONFIRMED = cONFIRMED;
+		}
+
+		public int getDELIVERING() {
+			return DELIVERING;
+		}
+
+		public void setDELIVERING(int dELIVERING) {
+			DELIVERING = dELIVERING;
+		}
+
+		public int getFAIL() {
+			return FAIL;
+		}
+
+		public void setFAIL(int fAIL) {
+			FAIL = fAIL;
+		}
+
+		public int getSUCCESSFUL() {
+			return SUCCESSFUL;
+		}
+
+		public void setSUCCESSFUL(int sUCCESSFUL) {
+			SUCCESSFUL = sUCCESSFUL;
+		}
+
+		public List<Week> getWeek() {
+			return week;
+		}
+
+		public void setWeek(List<Week> week) {
+			this.week = week;
+		}
+    	
     	
 	}
 }

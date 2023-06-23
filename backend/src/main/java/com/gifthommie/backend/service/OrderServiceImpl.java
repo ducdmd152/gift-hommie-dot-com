@@ -440,12 +440,63 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public void getOrderStatisticByMonth(String date, OrderStatisticsDTO orderStatisticsDTO) {
+		
+		 LocalDateTime firstDateOfMonth = convertStringToLocalDateTime(date).withDayOfMonth(1);
+	     LocalDate lastDayOfMonth = YearMonth.from(firstDateOfMonth).atEndOfMonth();
+	     LocalDateTime lastDateTimeOfMonth = lastDayOfMonth.atTime(firstDateOfMonth.toLocalTime());
+	     
+	     List<Orders> orderList = orderRepository.findOrderByDay(firstDateOfMonth, lastDateTimeOfMonth);
+	     System.out.println(firstDateOfMonth);
+	     System.out.println(lastDayOfMonth);
+	     //set up
+	        double revenue = 0;
+	    	int PENDING = 0;
+	    	int CANCELLED = 0;
+	    	int REFUSED = 0;
+	    	int CONFIRMED = 0;
+	    	int DELIVERING = 0;
+	    	int FAIL = 0;
+	    	int SUCCESSFUL = 0;
+	    	if (orderList!=null) {
+				for (Orders orders : orderList) {
+					//iteration each order detail
+					for (OrderDetail tmp : orders.getOrderDetails()) {
+						if(orders.getStatus().equals("SUCCESSFUL")) {
+							revenue+=(tmp.getPrice()*tmp.getQuantity());
+						}
+					}
+					if(orders.getStatus().equals("SUCCESSFUL")) SUCCESSFUL+=1;
+					if(orders.getStatus().equals("PENDING")) PENDING+=1;
+					if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
+					if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
+					if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
+					if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+					if(orders.getStatus().equals("FAIL")) FAIL+=1;
+				}
+			}
+	        
+	        //set data
+			orderStatisticsDTO.getMonth().setTotal(orderList.size());
+	        orderStatisticsDTO.getMonth().setRevenue(revenue);
+	        orderStatisticsDTO.getMonth().setPENDING(PENDING);
+	        orderStatisticsDTO.getMonth().setCANCELLED(CANCELLED);
+	        orderStatisticsDTO.getMonth().setREFUSED(REFUSED);
+	        orderStatisticsDTO.getMonth().setCONFIRMED(CONFIRMED);
+	        orderStatisticsDTO.getMonth().setDELIVERING(DELIVERING);
+	        orderStatisticsDTO.getMonth().setFAIL(FAIL);
+	        orderStatisticsDTO.getMonth().setSUCCESSFUL(SUCCESSFUL);
+	}
+	
+	@Override
 	public OrderStatisticsDTO getOrderStatistic(String date) {
 		OrderStatisticsDTO orderStatisticsDTO = new OrderStatisticsDTO();
 		getOrderStatisticsByDay(date, orderStatisticsDTO);
 		getOrderStatisticByWeek(date, orderStatisticsDTO);
+		getOrderStatisticByMonth(date, orderStatisticsDTO);
 		return orderStatisticsDTO;
 	}
+
 
 
 

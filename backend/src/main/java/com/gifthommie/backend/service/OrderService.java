@@ -3,6 +3,8 @@ package com.gifthommie.backend.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.aspectj.weaver.ast.Or;
+
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
@@ -42,4 +44,6 @@ public interface OrderService {
 	public OrderStatisticsDTO getOrderStatistic(String date);
 	
 	public void getOrderStatisticsByDay(String date,OrderStatisticsDTO orderStatisticsDTO);
+	
+	public void getOrderStatisticByMonth(String date, OrderStatisticsDTO orderStatisticsDTO);
 }
