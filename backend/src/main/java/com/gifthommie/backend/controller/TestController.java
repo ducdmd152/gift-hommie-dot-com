@@ -1,20 +1,21 @@
 package com.gifthommie.backend.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.entity.Category;
-import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.FeedbackService;
+import com.gifthommie.backend.service.OrderService;
+import com.gifthommie.backend.service.RevenueService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
@@ -27,6 +28,8 @@ public class TestController {
 	FeedbackService feedbackService;
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
+	@Autowired
+	RevenueService revenueService;
 	
 	@GetMapping("/public/test")
 	public String publicx() {
@@ -78,4 +81,20 @@ public class TestController {
 //		return orderDetailRepository.findOrderDetailsByProductId(PageRequest.of(1, 12), 59);
 		return "123";
 	}
+	
+//	@GetMapping("public/test-revenue")
+//	public Double getRevenue() {
+//        String startString = "2023-06-15 00:00:00";
+//        
+//		return revenueService.getRevenueOfQuarter(startString);
+//	}
+	
+	@GetMapping("public/test-formetdate")
+	public String getDate() {
+		LocalDateTime nowDate = LocalDateTime.now();
+		
+        // Format the LocalDateTime object
+		return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(nowDate);
+	}
+	
 }

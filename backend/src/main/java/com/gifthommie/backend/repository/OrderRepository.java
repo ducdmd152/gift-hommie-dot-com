@@ -1,6 +1,7 @@
 package com.gifthommie.backend.repository;
 
 import java.awt.print.Pageable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,7 +53,12 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	public int setStatusOfOrderByOrderId(@Param("orderId") int orderId, 
 										@Param("status") String status);
 	
-	
 	@Query("SELECT p FROM Orders p WHERE p.status like %:status%")
 	public Page<Orders> getOrderedWithStatus(String status, PageRequest pageRequest);
+
+	@Query("SELECT o FROM Orders o "
+			+ "WHERE o.status = 'SUCCESSFUL' AND "
+			+ ":startDate <= o.orderTime AND o.orderTime <= :endDate")
+	public List<Orders> findSuccessfulOrdersFromTo(
+			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate); 
 }
