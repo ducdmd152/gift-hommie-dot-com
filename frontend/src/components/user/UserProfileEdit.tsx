@@ -28,14 +28,11 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     formState: { errors, isValid },
   } = useForm<FormData>();
 
-  useEffect(() => {
-    setUser(userDTO);
-  }, [userDTO]);
-
   const onSubmit = (data: FieldValues) => {
-    const updateUser = data as AccountDTO;
-    updateUser.id = user.id;
-    console.log(updateUser);
+    let updateUser = data as UserDTO;
+    updateUser.username = userDTO.username;
+    updateUser.id = "";
+    console.log(user);
 
     accountService
       .update(updateUser)
