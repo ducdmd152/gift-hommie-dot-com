@@ -27,7 +27,7 @@ public class RevenueServiceImpl implements RevenueService{
 	    
 	    return localDateTime;
 	}
-	
+	 
 	private Double getRevenueFromTo(LocalDateTime startDate, LocalDateTime endDate) {
 	    List<Orders> list = orderRepository.findSuccessfulOrdersFromTo(startDate, endDate);
 	    

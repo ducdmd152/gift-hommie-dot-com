@@ -7,6 +7,7 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
+import com.gifthommie.backend.dto.OrderStatisticsDTO;
 import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.entity.Orders;
 
@@ -35,4 +36,10 @@ public interface OrderService {
 	public OrderDTO getOrderDTOByOrderId(int orderId);
 
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status);
+	
+	public void getOrderStatisticByWeek(String date,OrderStatisticsDTO orderStatisticsDTO);
+	
+	public OrderStatisticsDTO getOrderStatistic(String date);
+	
+	public void getOrderStatisticsByDay(String date,OrderStatisticsDTO orderStatisticsDTO);
 }

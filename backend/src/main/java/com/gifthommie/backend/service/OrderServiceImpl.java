@@ -7,6 +7,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderDetailDTO;
+import com.gifthommie.backend.dto.OrderStatisticsDTO;
+import com.gifthommie.backend.dto.OrderStatisticsDTO.Day;
 import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
@@ -299,5 +302,151 @@ public class OrderServiceImpl implements OrderService {
 //		System.out.println("Update the order: " + order.getStatus());
 		return save(order);
 	}
+	
+	private LocalDateTime convertStringToLocalDateTime(String date) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+	    
+	    return localDateTime;
+	}
+
+	@Override
+	public void getOrderStatisticsByDay(String date,OrderStatisticsDTO orderStatisticsDTO) {
+		LocalDateTime startDate = convertStringToLocalDateTime(date);
+        LocalDateTime endDate = startDate.plusDays(1);
+        List<Orders> orderList = orderRepository.findOrderByDay(startDate, endDate);
+        
+        //set up 
+        double revenue = 0;
+    	int PENDING = 0;
+    	int CANCELLED = 0;
+    	int REFUSED = 0;
+    	int CONFIRMED = 0;
+    	int DELIVERING = 0;
+    	int FAIL = 0;
+    	int SUCCESSFUL = 0;
+        
+        if (orderList!=null) {
+			for (Orders orders : orderList) {
+				//iteration each order detail
+				for (OrderDetail tmp : orders.getOrderDetails()) {
+					if(orders.getStatus().equals("SUCCESSFUL")) {
+						revenue+=(tmp.getPrice()*tmp.getQuantity());
+					}
+				}
+				if(orders.getStatus().equals("SUCCESSFUL")) SUCCESSFUL+=1;
+				if(orders.getStatus().equals("PENDING")) PENDING+=1;
+				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
+				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
+				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
+				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("FAIL")) FAIL+=1;
+			}
+		}
+        
+        //set data
+		orderStatisticsDTO.getDay().setTotal(orderList.size());
+        orderStatisticsDTO.getDay().setRevenue(revenue);
+        orderStatisticsDTO.getDay().setPENDING(PENDING);
+        orderStatisticsDTO.getDay().setCANCELLED(CANCELLED);
+        orderStatisticsDTO.getDay().setREFUSED(REFUSED);
+        orderStatisticsDTO.getDay().setCONFIRMED(CONFIRMED);
+        orderStatisticsDTO.getDay().setDELIVERING(DELIVERING);
+        orderStatisticsDTO.getDay().setFAIL(FAIL);
+        orderStatisticsDTO.getDay().setSUCCESSFUL(SUCCESSFUL);
+	}
+	
+	@Override
+	public void getOrderStatisticByWeek(String date, OrderStatisticsDTO orderStatisticsDTO) {
+		LocalDateTime dateTime = convertStringToLocalDateTime(date);
+		//Minus , Plus day formatter
+        LocalDateTime firstDayOfWeek = dateTime;
+        while (firstDayOfWeek.getDayOfWeek() != DayOfWeek.MONDAY)
+            firstDayOfWeek = firstDayOfWeek.minusDays(1);
+        LocalDateTime lastDayOfWeek = dateTime;
+        while (lastDayOfWeek.getDayOfWeek() != DayOfWeek.SUNDAY)
+            lastDayOfWeek = lastDayOfWeek.plusDays(1);
+		
+        List<Orders> orderList = orderRepository.findOrderByDay(firstDayOfWeek, lastDayOfWeek);
+        
+        //set data for day[] of week
+        while(lastDayOfWeek.compareTo(firstDayOfWeek)>=0) {
+        	firstDayOfWeek = firstDayOfWeek.plusDays(1);
+        	List<Orders> orderDayList = orderRepository.findOrderByDay(firstDayOfWeek, firstDayOfWeek.plusDays(1));
+        	double dayrevenue = 0;
+        	int dayPENDING = 0;
+        	int dayCANCELLED = 0;
+        	int dayREFUSED = 0;
+        	int dayCONFIRMED = 0;
+        	int dayDELIVERING = 0;
+        	int dayFAIL = 0;
+        	int daySUCCESSFUL = 0;
+        	if (orderList!=null) {
+    			for (Orders orders : orderDayList) {
+    				//iteration each order detail
+    				for (OrderDetail tmp : orders.getOrderDetails()) {
+    					if(orders.getStatus().equals("SUCCESSFUL")) {
+    						dayrevenue+=(tmp.getPrice()*tmp.getQuantity());
+    					}
+    				}
+    				if(orders.getStatus().equals("SUCCESSFUL")) daySUCCESSFUL+=1;
+    				if(orders.getStatus().equals("PENDING")) dayPENDING+=1;
+    				if(orders.getStatus().equals("CANCELLED")) dayCANCELLED+=1;
+    				if(orders.getStatus().equals("REFUSED")) dayREFUSED+=1;
+    				if(orders.getStatus().equals("CONFIRMED")) dayCONFIRMED+=1;
+    				if(orders.getStatus().equals("DELIVERING")) dayDELIVERING+=1;
+    				if(orders.getStatus().equals("FAIL")) dayFAIL+=1;
+    			}
+    		}
+        	orderStatisticsDTO.getWeek().getDay().add(new Day(orderDayList.size(), dayrevenue, dayPENDING, dayCANCELLED, dayREFUSED, dayCONFIRMED, dayDELIVERING, dayFAIL, daySUCCESSFUL));
+        }
+        //set up
+        double revenue = 0;
+    	int PENDING = 0;
+    	int CANCELLED = 0;
+    	int REFUSED = 0;
+    	int CONFIRMED = 0;
+    	int DELIVERING = 0;
+    	int FAIL = 0;
+    	int SUCCESSFUL = 0;
+    	if (orderList!=null) {
+			for (Orders orders : orderList) {
+				//iteration each order detail
+				for (OrderDetail tmp : orders.getOrderDetails()) {
+					if(orders.getStatus().equals("SUCCESSFUL")) {
+						revenue+=(tmp.getPrice()*tmp.getQuantity());
+					}
+				}
+				if(orders.getStatus().equals("SUCCESSFUL")) SUCCESSFUL+=1;
+				if(orders.getStatus().equals("PENDING")) PENDING+=1;
+				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
+				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
+				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
+				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("FAIL")) FAIL+=1;
+			}
+		}
+        
+        //set data
+		orderStatisticsDTO.getWeek().setTotal(orderList.size());
+        orderStatisticsDTO.getWeek().setRevenue(revenue);
+        orderStatisticsDTO.getWeek().setPENDING(PENDING);
+        orderStatisticsDTO.getWeek().setCANCELLED(CANCELLED);
+        orderStatisticsDTO.getWeek().setREFUSED(REFUSED);
+        orderStatisticsDTO.getWeek().setCONFIRMED(CONFIRMED);
+        orderStatisticsDTO.getWeek().setDELIVERING(DELIVERING);
+        orderStatisticsDTO.getWeek().setFAIL(FAIL);
+        orderStatisticsDTO.getWeek().setSUCCESSFUL(SUCCESSFUL);
+	}
+	
+	@Override
+	public OrderStatisticsDTO getOrderStatistic(String date) {
+		OrderStatisticsDTO orderStatisticsDTO = new OrderStatisticsDTO();
+		getOrderStatisticsByDay(date, orderStatisticsDTO);
+		getOrderStatisticByWeek(date, orderStatisticsDTO);
+		return orderStatisticsDTO;
+	}
+
+
 
 }
