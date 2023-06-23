@@ -61,25 +61,6 @@ const ManagerEditProfilePage = () => {
                 <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
                     <UserProfileEdit userDTO={manager} />
-
-                    <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-                        <Button type="submit" colorScheme="blue" size="md">
-                            Cập nhật
-                        </Button>
-                        <Button colorScheme="red" size="md"
-                            onClick={() => {
-                                if (
-                                    confirm(
-                                        `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                                    )
-                                ) {
-                                    navigate("/account");
-                                }
-                            }}
-                        >
-                            Hủy
-                        </Button>
-                    </HStack>
                 </Card>
             </form>
         </>

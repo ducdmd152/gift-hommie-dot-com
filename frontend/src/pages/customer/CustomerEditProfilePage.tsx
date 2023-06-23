@@ -47,7 +47,7 @@ const CustomerEditProfilePage = () => {
         customerService
             .update(updateCustomer)
             .then(() => {
-                navigate("/edit");
+                navigate("/account");
             })
             .catch(() => {
                 alert(`Không thể sửa thông tin của "${customer.username}".\n Vui lòng thử lại.`);
@@ -61,25 +61,6 @@ const CustomerEditProfilePage = () => {
                 <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
                     <UserProfileEdit userDTO={customer} />
-
-                    <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-                        <Button type="submit" colorScheme="blue" size="md">
-                            Cập nhật
-                        </Button>
-                        <Button colorScheme="red" size="md"
-                            onClick={() => {
-                                if (
-                                    confirm(
-                                        `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                                    )
-                                ) {
-                                    navigate("/account");
-                                }
-                            }}
-                        >
-                            Hủy
-                        </Button>
-                    </HStack>
                 </Card>
             </form>
         </>
