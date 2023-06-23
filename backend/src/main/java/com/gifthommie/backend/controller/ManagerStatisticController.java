@@ -22,8 +22,8 @@ public class ManagerStatisticController {
 	@GetMapping("/revenue")
 	public RevenueDTO getRevenue(@RequestParam(defaultValue = "", name = "date") String date) {
 		if (date.isEmpty())
-			date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
-
-		return revenueService.getRevenue(date);
+			date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
+		
+		return revenueService.getRevenue(date + " 00:00:00");
 	}
 }
