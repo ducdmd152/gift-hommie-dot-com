@@ -162,7 +162,17 @@ public class Product {
 	
 	@Transient
 	private int available;
+	@Transient
+	private int sold;
 	
+	public int getSold() {
+		return sold;
+	}
+
+	public void setSold(int sold) {
+		this.sold = sold;
+	}
+
 	public int getAvailable() {
 		return available;
 	}

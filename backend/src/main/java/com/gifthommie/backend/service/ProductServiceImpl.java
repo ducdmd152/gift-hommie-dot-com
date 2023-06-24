@@ -65,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
 		for(Product product : page) {
 //			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+			
 //			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 //			System.out.println("---------------------------");
 		}
