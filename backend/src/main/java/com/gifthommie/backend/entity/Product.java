@@ -169,7 +169,7 @@ public class Product {
 //	@JsonIgnore
 	private Float rating = 0F;
 
-	public void setRating(float rating) {
+	public void setRating(Float rating) {
 		this.rating = rating;
 	}
 	
@@ -181,7 +181,7 @@ public class Product {
 		return sold;
 	}
 
-	public void setSold(int sold) {
+	public void setSold(Integer sold) {
 		this.sold = sold;
 	}
 
@@ -189,7 +189,7 @@ public class Product {
 		return available;
 	}
 	
-	public void setAvailable(int available) {
+	public void setAvailable(Integer available) {
 		this.available = available;
 	}
 }
