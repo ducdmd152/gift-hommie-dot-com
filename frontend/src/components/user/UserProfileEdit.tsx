@@ -1,24 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import {
-  Box, FormControl, FormLabel, Wrap, WrapItem, Avatar,
-  HStack, Heading, Input, Radio, RadioGroup, Stack,
-  VStack, Button, Select
+  Box,
+  FormControl,
+  FormLabel,
+  Wrap,
+  WrapItem,
+  Avatar,
+  HStack,
+  Heading,
+  Input,
+  Radio,
+  RadioGroup,
+  Stack,
+  VStack,
+  Button,
+  Select,
 } from "@chakra-ui/react";
-import managerStaffService, { ManagerStaffDTO } from '../../services/manager-staff-service';
-import { useNavigate } from 'react-router-dom';
+import managerStaffService, {
+  ManagerStaffDTO,
+} from "../../services/manager-staff-service";
+import { useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
-import UserDTO from '../../type/UserDTO';
-import accountService, { AccountDTO } from '../../services/account-service';
+import UserDTO from "../../type/UserDTO";
+import accountService, { AccountDTO } from "../../services/account-service";
 
 interface Props {
   userDTO: AccountDTO;
 }
-interface FormData extends AccountDTO { }
+interface FormData extends AccountDTO {}
 
 const UserProfileEdit = ({ userDTO }: Props) => {
-  const [user, setUser] = useState<AccountDTO>(
-    {} as AccountDTO
-  );
+  const [user, setUser] = useState<AccountDTO>({} as AccountDTO);
 
   const navigate = useNavigate();
 
@@ -40,7 +52,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
         navigate("/account");
       })
       .catch(() => {
-        alert(`Không thể sửa thông tin của "${userDTO.username}".\n Vui lòng thử lại.`);
+        alert(
+          `Không thể sửa thông tin của "${userDTO.username}".\n Vui lòng thử lại.`
+        );
       });
   };
 
@@ -51,29 +65,30 @@ const UserProfileEdit = ({ userDTO }: Props) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
-          <Wrap justifyContent='center'>
-            <WrapItem >
-              <Avatar size='2xl' name='' src=''
-                border="1px lightgray solid"
-              />{' '}
+        <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
+          <Wrap justifyContent="center">
+            <WrapItem>
+              <Avatar size="2xl" name="" src="" border="1px lightgray solid" />{" "}
             </WrapItem>
           </Wrap>
-          <Heading size="sm" textAlign="center" marginBottom="4" marginTop='30'>
+          <Heading size="sm" textAlign="center" marginBottom="4" marginTop="30">
             {userDTO.firstName + " " + userDTO.lastName}
           </Heading>
         </VStack>
-        <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='30px'>
-        </Heading>
+        <Heading
+          className="border-b"
+          style={{ border: "1px lightgray solid", width: "800px" }}
+          marginTop="30px"
+        ></Heading>
 
-        <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
+        <Box marginLeft="50px" marginTop="30px" marginRight="100px">
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between">
+              <FormLabel size="md" fontWeight="bold">
                 Tên Đăng Nhập
               </FormLabel>
               <Input
-                maxW='450px'
+                maxW="450px"
                 isReadOnly
                 color="black"
                 value={userDTO.username}
@@ -82,14 +97,14 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between">
+              <FormLabel size="md" fontWeight="bold">
                 Tên
               </FormLabel>
               <Input
                 {...register("lastName", { required: true })}
-                maxW='450px'
+                maxW="450px"
                 color="black"
                 defaultValue={userDTO.lastName}
                 fontWeight="bold"
@@ -97,14 +112,14 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
-              <FormLabel size="md" fontWeight="bold" >
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between">
+              <FormLabel size="md" fontWeight="bold">
                 Email
               </FormLabel>
               <Input
                 {...register("email", { required: true })}
-                maxW='450px'
+                maxW="450px"
                 isReadOnly
                 color="black"
                 value={userDTO.email}
@@ -112,14 +127,14 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               />
             </HStack>
           </FormControl>
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between">
               <FormLabel size="md" fontWeight="bold">
                 Số Điện Thoại
               </FormLabel>
               <Input
                 {...register("phone", { required: true })}
-                maxW='450px'
+                maxW="450px"
                 color="black"
                 defaultValue={userDTO.phone}
                 fontWeight="bold"
@@ -127,14 +142,14 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </HStack>
           </FormControl>
 
-          <FormControl marginTop='50px'>
-            <HStack justifyContent='space-between'>
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between">
               <FormLabel size="md" fontWeight="bold">
                 Địa Chỉ
               </FormLabel>
               <Input
-                {...register("address", { required: true })}
-                maxW='450px'
+                {...register("address")}
+                maxW="450px"
                 color="black"
                 defaultValue={userDTO.address}
                 fontWeight="bold"
@@ -157,36 +172,41 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </HStack>
           </FormControl> */}
 
-          <FormControl marginTop='50px' >
-            <HStack justifyContent='space-between' marginRight='350px'>
+          <FormControl marginTop="50px">
+            <HStack justifyContent="space-between" marginRight="350px">
               <FormLabel size="md" fontWeight="bold">
                 Năm Sinh
               </FormLabel>
               <Select
-                {...register("yob", { required: true })}
+                {...register("yob")}
                 maxW="100px"
                 color="black"
-                defaultValue={userDTO.yob}
+                value={userDTO.yob}
                 fontWeight="bold"
+                placeholder="Chọn năm sinh"
               >
                 {years.map((year) => (
-                  <option key={year} value={year}>
+                  <option
+                    key={year}
+                    value={year}
+                    // selected={userDTO.yob.toString() == year}
+                  >
                     {year}
                   </option>
                 ))}
               </Select>
             </HStack>
           </FormControl>
-          <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
+          <HStack justifyContent="center" marginTop="50px" marginLeft="400px">
             <Button type="submit" colorScheme="blue" size="md">
               Cập nhật
             </Button>
-            <Button colorScheme="red" size="md"
+            <Button
+              colorScheme="red"
+              size="md"
               onClick={() => {
                 if (
-                  confirm(
-                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                  )
+                  confirm(`Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`)
                 ) {
                   navigate("/account");
                 }
@@ -198,7 +218,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
         </Box>
       </form>
     </>
-  )
-}
+  );
+};
 
 export default UserProfileEdit;
