@@ -82,6 +82,7 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
 
           <Button colorScheme="red" size="md"
             onClick={() => onDeleteStaff(staff.id)}
+
           >
             Xóa
           </Button>
