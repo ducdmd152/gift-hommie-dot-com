@@ -71,7 +71,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl>
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Tên Đăng Nhập
+              Tên đăng nhập
             </FormLabel>
             <Input
               maxW="450px"
@@ -130,7 +130,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Số Điện Thoại
+              Số điện thoại
             </FormLabel>
             <Input
               maxW="450px"
@@ -145,7 +145,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Địa Chỉ
+              Địa chỉ
             </FormLabel>
             <Input
               maxW="450px"
@@ -184,7 +184,7 @@ const UserProfileView = ({ userDTO }: Props) => {
             /> */}
 
             <FormLabel size="md" fontWeight="bold">
-              Năm Sinh
+              Năm sinh
             </FormLabel>
             <Input
               maxW="100px"

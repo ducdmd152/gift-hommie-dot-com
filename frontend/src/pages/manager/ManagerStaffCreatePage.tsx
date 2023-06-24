@@ -64,7 +64,7 @@ const schema = z
         invalid_type_error: "First name must be a string",
       })
       .min(10, {
-        message: "Số điện thoại phải từ 10 số trở lên",
+        message: "Số điện thoại phải từ 10 số trở lên.",
       }),
 
     address: z.string({
@@ -197,7 +197,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                     w="100%"
                     {...register("username")}
                     color="black"
-                    placeholder="Tên Đăng Nhập"
+                    placeholder="Tên đăng nhập"
                     fontWeight="bold"
                   />
                   {errors.username && (
@@ -210,74 +210,82 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </FormControl>
 
             <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
+              <HStack justifyContent="space-between" alignItems={"flex-start"}>
+                <FormLabel size="md" fontWeight="bold" mt="3">
                   Tên
                 </FormLabel>
-                <Input
-                  {...register("lastName")}
-                  maxW="450px"
-                  color="black"
-                  placeholder="Tên"
-                  fontWeight="bold"
-                />
+                <Box maxW="450px" flex="1">
+                  <Input
+                    {...register("lastName")}
+                    w="100%"
+                    color="black"
+                    placeholder="Tên"
+                    fontWeight="bold"
+                  />
+                  {errors.lastName && (
+                    <p className="form-error-message">{errors.lastName?.message}</p>
+                  )}
+                </Box>
               </HStack>
-              {errors.lastName && (
-                <p className="form-error-message">{errors.lastName?.message}</p>
-              )}
             </FormControl>
 
             <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
+              <HStack justifyContent="space-between" alignItems={"flex-start"}>
+                <FormLabel size="md" fontWeight="bold" mt="3">
                   Email
                 </FormLabel>
-                <Input
-                  {...register("email")}
-                  maxW="450px"
-                  color="black"
-                  placeholder="Email"
-                  fontWeight="bold"
-                />
+                <Box maxW="450px" flex="1">
+                  <Input
+                    {...register("email")}
+                    w="100%"
+                    color="black"
+                    placeholder="Email"
+                    fontWeight="bold"
+                  />
+                  {errors.email && (
+                    <p className="form-error-message">{errors.email?.message}</p>
+                  )}
+                </Box>
               </HStack>
-              {errors.email && (
-                <p className="form-error-message">{errors.email?.message}</p>
-              )}
             </FormControl>
             <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
-                  Số Điện Thoại
+              <HStack justifyContent="space-between" alignItems={"flex-start"}>
+                <FormLabel size="md" fontWeight="bold" mt="3">
+                  Số điện thoại
                 </FormLabel>
-                <Input
-                  {...register("phone")}
-                  maxW="450px"
-                  color="black"
-                  placeholder="Số Điện Thoại"
-                  fontWeight="bold"
-                />
+                <Box maxW="450px" flex="1">
+                  <Input
+                    {...register("phone")}
+                    w="100%"
+                    color="black"
+                    placeholder="Số điện thoại"
+                    fontWeight="bold"
+                  />
+                  {errors.phone && (
+                    <p className="form-error-message">{errors.phone?.message}</p>
+                  )}
+                </Box>
               </HStack>
-              {errors.phone && (
-                <p className="form-error-message">{errors.phone?.message}</p>
-              )}
             </FormControl>
 
             <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
-                  Địa Chỉ
+              <HStack justifyContent="space-between" alignItems={"flex-start"}>
+                <FormLabel size="md" fontWeight="bold" mt="3">
+                  Địa chỉ
                 </FormLabel>
-                <Input
-                  {...register("address")}
-                  maxW="450px"
-                  color="black"
-                  placeholder="Địa Chỉ"
-                  fontWeight="bold"
-                />
+                <Box maxW="450px" flex="1">
+                  <Input
+                    {...register("address")}
+                    w="100%"
+                    color="black"
+                    placeholder="Địa chỉ"
+                    fontWeight="bold"
+                  />
+                  {errors.address && (
+                    <p className="form-error-message">{errors.address?.message}</p>
+                  )}
+                </Box>
               </HStack>
-              {errors.address && (
-                <p className="form-error-message">{errors.address?.message}</p>
-              )}
             </FormControl>
 
             {/* <FormControl marginTop='50px'>
@@ -297,8 +305,8 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
 
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between" marginRight="350px">
-                <FormLabel size="md" fontWeight="bold">
-                  Năm Sinh
+                <FormLabel size="md" fontWeight="bold" mt="3">
+                  Năm sinh
                 </FormLabel>
                 <Select
                   {...register("yob")}
@@ -315,8 +323,8 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               </HStack>
             </FormControl>
           </Box>
-        </Card>
-      </form>
+        </Card >
+      </form >
     </>
   );
 };
