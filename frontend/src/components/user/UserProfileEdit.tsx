@@ -86,7 +86,8 @@ const schema = z
 interface Props {
   userDTO: AccountDTO;
 }
-interface FormData extends AccountDTO { }
+// interface FormData extends AccountDTO { }
+type FormData = z.infer<typeof schema>;
 
 const UserProfileEdit = ({ userDTO }: Props) => {
   const [user, setUser] = useState<AccountDTO>({} as AccountDTO);
@@ -182,7 +183,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                   fontWeight="bold"
                 />
                 {errors.lastName && (
-                  <p className="form-error-message">{errors.lastName?.message}</p>
+                  <p className="form-error-message">
+                    {errors.lastName?.message}
+                  </p>
                 )}
               </Box>
             </HStack>
@@ -316,7 +319,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </Button>
           </HStack>
         </Box>
-      </form >
+      </form>
     </>
   );
 };
