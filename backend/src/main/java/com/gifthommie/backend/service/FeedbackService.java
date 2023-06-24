@@ -11,4 +11,6 @@ public interface FeedbackService {
 									int pageNo, int productId);
 	
 	public ProductReportDTO getProductReportByProductId(int productId);
+	
+//	public int getSoldOfProduct(int productId);
 }
