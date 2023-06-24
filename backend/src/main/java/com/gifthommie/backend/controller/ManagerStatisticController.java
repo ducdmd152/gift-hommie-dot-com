@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.OrderStatisticsDTO;
+import com.gifthommie.backend.dto.ProductStatisticDTO;
 import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.service.OrderService;
+import com.gifthommie.backend.service.ProductStatisticService;
 import com.gifthommie.backend.service.RevenueService;
 
 @RestController
@@ -22,6 +24,10 @@ public class ManagerStatisticController {
 	
 	@Autowired 
 	OrderService orderService;
+	
+	@Autowired
+	ProductStatisticService productStatisticService;
+	
 	@GetMapping("/revenue")
 	public RevenueDTO getRevenue(@RequestParam(defaultValue = "", name = "date") String date) {
 		if (date.isEmpty())
@@ -37,4 +43,13 @@ public class ManagerStatisticController {
 		
 		return orderService.getOrderStatistic(date + " 00:00:00");
 	}
+	
+	@GetMapping("/product")
+	public ProductStatisticDTO getProductStatisticsDTO(@RequestParam(defaultValue = "", name = "date") String date) {
+		if (date.isEmpty())
+			date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
+		
+		return productStatisticService.getProductStatistic(date + " 00:00:00");
+	}
+	
 }

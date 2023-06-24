@@ -8,6 +8,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gifthommie.backend.dto.ProductStatisticDTO;
+import com.gifthommie.backend.dto.ProductStatisticDTO.Day;
+import com.gifthommie.backend.dto.ProductStatisticDTO.ProductStatisticValue;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.repository.CategoryRepository;
@@ -15,6 +19,7 @@ import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.FeedbackService;
 import com.gifthommie.backend.service.OrderService;
+import com.gifthommie.backend.service.ProductStatisticService;
 import com.gifthommie.backend.service.RevenueService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
@@ -30,6 +35,8 @@ public class TestController {
 	OrderDetailRepository orderDetailRepository;
 	@Autowired
 	RevenueService revenueService;
+	@Autowired
+	ProductStatisticService productStatisticService;
 	
 	@GetMapping("/public/test")
 	public String publicx() {
@@ -89,7 +96,12 @@ public class TestController {
 //		return revenueService.getRevenueOfQuarter(startString);
 //	}
 	
-
+//	@GetMapping("public/test-product-statistic")
+//	public Day getProductStatisic() {
+//		
+//		return productStatisticService.("2023-06-14 00:00:00");
+//		
+//	}
 	
 	@GetMapping("public/test-formetdate")
 	public String getDate() {
