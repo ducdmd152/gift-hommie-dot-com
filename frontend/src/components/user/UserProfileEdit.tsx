@@ -208,7 +208,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                     //   setYob(year);
                     //   console.log(yob);
                     // }}
-                    // selected={userDTO.yob.toString() == year}
+                    selected={userDTO.yob == year}
                   >
                     {year}
                   </option>
