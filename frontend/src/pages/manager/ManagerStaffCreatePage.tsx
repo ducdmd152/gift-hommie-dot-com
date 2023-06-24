@@ -33,49 +33,62 @@ import managerStaffService, {
   ManagerStaffDTO,
 } from "../../services/manager-staff-service";
 
-const schema = z.object({
-  username: z
-    .string({
-      required_error: "Vui lòng nhập tên đăng nhập.",
+const schema = z
+  .object({
+    username: z
+      .string({
+        required_error: "Vui lòng nhập tên đăng nhập.",
+        invalid_type_error: "First name must be a string",
+      })
+      .min(6, {
+        message: "Vui lòng nhập tên đăng nhập ít nhất 6 kí tự.",
+      }),
+
+    lastName: z
+      .string({
+        required_error: "Vui lòng nhập Tên.",
+        invalid_type_error: "First name must be a string",
+      })
+      .min(6, {
+        message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
+      }),
+    email: z
+      .string({
+        required_error: "Vui lòng nhập Email.",
+        invalid_type_error: "First name must be a string",
+      })
+      .email("Vui lòng nhập đúng địa chỉ email."),
+    phone: z
+      .string({
+        required_error: "Vui lòng nhập số điện thoại.",
+        invalid_type_error: "First name must be a string",
+      })
+      .min(10, {
+        message: "Số điện thoại phải từ 10 số trở lên",
+      }),
+
+    address: z.string({
+      required_error: "Vui lòng nhập địa chỉ.",
       invalid_type_error: "First name must be a string",
-    })
-    .min(6, {
-      message: "Vui lòng nhập tên đăng nhập ít nhất 6 kí tự.",
     }),
 
-  lastName: z
-    .string({
-      required_error: "Vui lòng nhập Tên.",
+    yob: z.string({
+      required_error: "Vui lòng nhập năm sinh.",
       invalid_type_error: "First name must be a string",
-    })
-    .min(6, {
-      message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
     }),
-  email: z
-    .string({
-      required_error: "Vui lòng nhập Email.",
-      invalid_type_error: "First name must be a string",
-    })
-    .email("Vui lòng nhập đúng địa chỉ email."),
-  phone: z
-    .string({
-      required_error: "Vui lòng nhập số điện thoại.",
-      invalid_type_error: "First name must be a string",
-    })
-    .min(10, {
-      message: "Số điện thoại phải từ 10 số trở lên",
-    }),
-
-  address: z.string({
-    required_error: "Vui lòng nhập địa chỉ.",
-    invalid_type_error: "First name must be a string",
-  }),
-
-  yob: z.string({
-    required_error: "Vui lòng nhập năm sinh.",
-    invalid_type_error: "First name must be a string",
-  }),
-});
+  })
+  .refine(
+    (data) => {
+      let phone = data?.phone;
+      if (phone === undefined || phone.length === 0) {
+        return true;
+      }
+      return phone.match(
+        /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+      );
+    },
+    { message: "Số điện thoại không hợp lệ.", path: ["phone"] }
+  );
 
 type FormData = z.infer<typeof schema>;
 
@@ -175,11 +188,11 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
 
           <Box marginLeft="50px" marginTop="30px" marginRight="100px">
             <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
-                  Tên Đăng Nhập
+              <HStack justifyContent="space-between" alignItems={"flex-start"}>
+                <FormLabel size="md" fontWeight="bold" mt="3">
+                  Tên đăng nhập
                 </FormLabel>
-                <Box maxW="520px" flex="1">
+                <Box maxW="450px" flex="1">
                   <Input
                     w="100%"
                     {...register("username")}
