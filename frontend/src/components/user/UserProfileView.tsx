@@ -1,9 +1,31 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-  VStack, Image, Flex, Grid,
+  Badge,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Wrap,
+  WrapItem,
+  Avatar,
+  HStack,
+  Heading,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Select,
+  Textarea,
+  Radio,
+  RadioGroup,
+  Stack,
+  VStack,
+  Image,
+  Flex,
+  Grid,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ManagerStaffDTO } from "../../services/manager-staff-service";
@@ -17,7 +39,6 @@ interface Props {
   userDTO: UserDTO;
 }
 const UserProfileView = ({ userDTO }: Props) => {
-
   const years = [];
   for (let year = 1900; year <= 2023; year++) {
     years.push(year.toString());
@@ -165,19 +186,15 @@ const UserProfileView = ({ userDTO }: Props) => {
             <FormLabel size="md" fontWeight="bold">
               Năm Sinh
             </FormLabel>
-            <Select
+            <Input
               maxW="100px"
               isReadOnly
               color="gray"
               value={userDTO.yob}
               fontWeight="bold"
             >
-              {years.map((year) => (
-                <option key={year} value={year} disabled>
-                  {year}
-                </option>
-              ))}
-            </Select>
+              {userDTO.yob}
+            </Input>
           </HStack>
         </FormControl>
       </Box>

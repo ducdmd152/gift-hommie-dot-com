@@ -35,9 +35,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
   const [yob, setYob] = useState(userDTO.yob);
   const navigate = useNavigate();
 
-  console.log("UserDTO: ", userDTO);
+  // console.log("UserDTO: ", userDTO);
 
-  console.log("Address before: " + address);
+  // console.log("Address before: " + address);
   const {
     register,
     handleSubmit,
