@@ -46,4 +46,6 @@ public interface OrderService {
 	public void getOrderStatisticsByDay(String date,OrderStatisticsDTO orderStatisticsDTO);
 	
 	public void getOrderStatisticByMonth(String date, OrderStatisticsDTO orderStatisticsDTO);
+	
+	public void getOrderStatisticByQuarter(String date, OrderStatisticsDTO orderStatisticsDTO);
 }

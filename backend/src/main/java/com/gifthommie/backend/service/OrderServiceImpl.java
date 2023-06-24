@@ -24,8 +24,8 @@ import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderDetailDTO;
 import com.gifthommie.backend.dto.OrderStatisticsDTO;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Day;
+import com.gifthommie.backend.dto.OrderStatisticsDTO.Month;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Week;
-import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.Product;
@@ -480,7 +480,7 @@ public class OrderServiceImpl implements OrderService {
 	    			}
 	    		}
 	        	orderStatisticsDTO.getMonth().getWeek().add(new Week(orderWeekList.size(), weekrevenue, weekPENDING, weekCANCELLED, weekREFUSED, weekCONFIRMED, weekDELIVERING, weekFAIL, weekSUCCESSFUL));
-	        }
+	     }
 	     
 	     //set up
 	        double revenue = 0;
@@ -522,15 +522,92 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public void getOrderStatisticByQuarter(String date, OrderStatisticsDTO orderStatisticsDTO) {
+		LocalDateTime dateTime = convertStringToLocalDateTime(date);
+        int currentQuarter = (dateTime.getMonthValue() - 1) / 3 + 1;
+        LocalDateTime firstDayOfQuarter = dateTime.withMonth((currentQuarter - 1) * 3 + 1).withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+        dateTime = firstDayOfQuarter;
+        List<Orders> orderList = orderRepository.findOrderByDay(firstDayOfQuarter, firstDayOfQuarter.plusMonths(3));
+        
+        int count = 1;
+        while( count < 4) {
+        	List<Orders> orderMonthList = orderRepository.findOrderByDay(firstDayOfQuarter, firstDayOfQuarter.plusMonths(1));
+        	count+=1;
+        	firstDayOfQuarter = firstDayOfQuarter.plusMonths(1);
+        	double monthrevenue = 0;
+        	int monthPENDING = 0;
+        	int monthCANCELLED = 0;
+        	int monthREFUSED = 0;
+        	int monthCONFIRMED = 0;
+        	int monthDELIVERING = 0;
+        	int monthFAIL = 0;
+        	int monthSUCCESSFUL = 0;
+        	if (orderList!=null) {
+    			for (Orders orders : orderMonthList) {
+    				//iteration each order detail
+    				for (OrderDetail tmp : orders.getOrderDetails()) {
+    					if(orders.getStatus().equals("SUCCESSFUL")) {
+    						monthrevenue+=(tmp.getPrice()*tmp.getQuantity());
+    					}
+    				}
+    				if(orders.getStatus().equals("SUCCESSFUL"))	monthSUCCESSFUL+=1;
+    				if(orders.getStatus().equals("PENDING")) monthPENDING+=1;
+    				if(orders.getStatus().equals("CANCELLED")) monthCANCELLED+=1;
+    				if(orders.getStatus().equals("REFUSED")) monthREFUSED+=1;
+    				if(orders.getStatus().equals("CONFIRMED")) monthCONFIRMED+=1;
+    				if(orders.getStatus().equals("DELIVERING")) monthDELIVERING+=1;
+    				if(orders.getStatus().equals("FAIL")) monthFAIL+=1;
+    			}
+    		}
+        	orderStatisticsDTO.getQuarter().getMonth().add(new Month(orderMonthList.size(), monthrevenue, monthPENDING, monthCANCELLED, monthREFUSED, monthCONFIRMED, monthDELIVERING, monthFAIL, monthSUCCESSFUL));
+     }
+        
+        double revenue = 0;
+    	int PENDING = 0;
+    	int CANCELLED = 0;
+    	int REFUSED = 0;
+    	int CONFIRMED = 0;
+    	int DELIVERING = 0;
+    	int FAIL = 0;
+    	int SUCCESSFUL = 0;
+    	if (orderList!=null) {
+			for (Orders orders : orderList) {
+				//iteration each order detail
+				for (OrderDetail tmp : orders.getOrderDetails()) {
+					if(orders.getStatus().equals("SUCCESSFUL")) {
+						revenue+=(tmp.getPrice()*tmp.getQuantity());
+					}
+				}
+				if(orders.getStatus().equals("SUCCESSFUL")) SUCCESSFUL+=1;
+				if(orders.getStatus().equals("PENDING")) PENDING+=1;
+				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
+				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
+				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
+				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("FAIL")) FAIL+=1;
+			}
+		}
+        
+        //set data
+		orderStatisticsDTO.getQuarter().setTotal(orderList.size());
+        orderStatisticsDTO.getQuarter().setRevenue(revenue);
+        orderStatisticsDTO.getQuarter().setPENDING(PENDING);
+        orderStatisticsDTO.getQuarter().setCANCELLED(CANCELLED);
+        orderStatisticsDTO.getQuarter().setREFUSED(REFUSED);
+        orderStatisticsDTO.getQuarter().setCONFIRMED(CONFIRMED);
+        orderStatisticsDTO.getQuarter().setDELIVERING(DELIVERING);
+        orderStatisticsDTO.getQuarter().setFAIL(FAIL);
+        orderStatisticsDTO.getQuarter().setSUCCESSFUL(SUCCESSFUL);
+	}
+	
+	@Override
 	public OrderStatisticsDTO getOrderStatistic(String date) {
 		OrderStatisticsDTO orderStatisticsDTO = new OrderStatisticsDTO();
 		getOrderStatisticsByDay(date, orderStatisticsDTO);
 		getOrderStatisticByWeek(date, orderStatisticsDTO);
 		getOrderStatisticByMonth(date, orderStatisticsDTO);
+		getOrderStatisticByQuarter(date, orderStatisticsDTO);
 		return orderStatisticsDTO;
 	}
-
-
-
 
 }
