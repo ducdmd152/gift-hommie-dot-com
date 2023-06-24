@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Box,
   FormControl,
@@ -31,9 +31,13 @@ interface FormData extends AccountDTO {}
 
 const UserProfileEdit = ({ userDTO }: Props) => {
   const [user, setUser] = useState<AccountDTO>({} as AccountDTO);
-
+  const [address, setAddress] = useState(userDTO.address);
+  const [yob, setYob] = useState(userDTO.yob);
   const navigate = useNavigate();
 
+  console.log("UserDTO: ", userDTO);
+
+  console.log("Address before: " + address);
   const {
     register,
     handleSubmit,
@@ -44,7 +48,13 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     let updateUser = data as UserDTO;
     updateUser.username = userDTO.username;
     updateUser.id = "";
-    console.log(user);
+    if (!address) updateUser.address = userDTO.address;
+    if (!yob) updateUser.yob = userDTO.yob;
+
+    // console.log("Address: " + address);
+
+    // console.log("Updating: ", updateUser);
+    // console.log(user);
 
     accountService
       .update(updateUser)
@@ -60,7 +70,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
 
   const years = [];
   for (let year = 1900; year <= 2023; year++) {
-    years.push(year.toString());
+    years.push(year);
   }
   return (
     <>
@@ -152,6 +162,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 maxW="450px"
                 color="black"
                 defaultValue={userDTO.address}
+                onChange={(e) => setAddress(e.target.value)}
                 fontWeight="bold"
               />
             </HStack>
@@ -181,14 +192,22 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 {...register("yob")}
                 maxW="100px"
                 color="black"
-                value={userDTO.yob}
+                defaultValue={userDTO.yob}
                 fontWeight="bold"
                 placeholder="Chọn năm sinh"
+                onChange={(e) => {
+                  let method = parseInt(e.target.value);
+                  userDTO.yob = method;
+                }}
               >
                 {years.map((year) => (
                   <option
                     key={year}
                     value={year}
+                    // onClick={(e) => {
+                    //   setYob(year);
+                    //   console.log(yob);
+                    // }}
                     // selected={userDTO.yob.toString() == year}
                   >
                     {year}
