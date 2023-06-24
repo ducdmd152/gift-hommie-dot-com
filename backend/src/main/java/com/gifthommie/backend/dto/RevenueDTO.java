@@ -1,16 +1,21 @@
 package com.gifthommie.backend.dto;
 
+import com.gifthommie.backend.dto.RevenueObject.Day;
+import com.gifthommie.backend.dto.RevenueObject.Month;
+import com.gifthommie.backend.dto.RevenueObject.Quarter;
+import com.gifthommie.backend.dto.RevenueObject.Week;
+
 public class RevenueDTO {
-	private Double day;
-	private Double week;
-	private Double month;
-	private Double quarter;
+	private Day day;
+	private Week week;
+	private Month month;
+	private Quarter quarter;
 	
 	public RevenueDTO() {
 		
 	}
-
-	public RevenueDTO(Double day, Double week, Double month, Double quarter) {
+	
+	public RevenueDTO(Day day, Week week, Month month, Quarter quarter) {
 		super();
 		this.day = day;
 		this.week = week;
@@ -18,35 +23,37 @@ public class RevenueDTO {
 		this.quarter = quarter;
 	}
 
-	public Double getDay() {
+
+
+	public Day getDay() {
 		return day;
 	}
 
-	public void setDay(Double day) {
+	public void setDay(Day day) {
 		this.day = day;
 	}
 
-	public Double getWeek() {
+	public Week getWeek() {
 		return week;
 	}
 
-	public void setWeek(Double week) {
+	public void setWeek(Week week) {
 		this.week = week;
 	}
 
-	public Double getMonth() {
+	public Month getMonth() {
 		return month;
 	}
 
-	public void setMonth(Double month) {
+	public void setMonth(Month month) {
 		this.month = month;
 	}
 
-	public Double getQuarter() {
+	public Quarter getQuarter() {
 		return quarter;
 	}
 
-	public void setQuarter(Double quarter) {
+	public void setQuarter(Quarter quarter) {
 		this.quarter = quarter;
 	}
 	
