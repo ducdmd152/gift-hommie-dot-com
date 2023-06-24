@@ -36,7 +36,7 @@ const ManagerPage = () => {
         <Header />
       </GridItem>
 
-      <GridItem area="main" mt={HEADER_HEIGHT}>
+      <GridItem area="main" maxW={"1280px"} mt={HEADER_HEIGHT}>
         <Routes>
           <Route
             index

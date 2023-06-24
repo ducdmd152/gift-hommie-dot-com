@@ -33,7 +33,7 @@ const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
           <TableCaption>BẢNG THÔNG TIN NHÂN VIÊN</TableCaption>
           <Thead>
             <Tr>
-              <Th>ID</Th>
+              {/* <Th>ID</Th> */}
               <Th>Tên</Th>
               <Th>Năm sinh</Th>
               <Th>Tên đăng nhập</Th>
@@ -47,7 +47,7 @@ const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
             {staffs.map((staff) => {
               return (
                 <Tr>
-                  <Td>{staff.id}</Td>
+                  {/* <Td>{staff.id}</Td> */}
                   <Td>{staff.firstName + " " + staff.lastName}</Td>
                   <Td>{staff.yob}</Td>
                   <Td>{staff.username}</Td>
