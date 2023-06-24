@@ -192,9 +192,7 @@ const UserProfileView = ({ userDTO }: Props) => {
               color="gray"
               value={userDTO.yob}
               fontWeight="bold"
-            >
-              {userDTO.yob}
-            </Input>
+            />
           </HStack>
         </FormControl>
       </Box>

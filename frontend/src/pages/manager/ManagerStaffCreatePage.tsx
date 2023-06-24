@@ -1,15 +1,37 @@
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Wrap, WrapItem, Avatar,
-  Textarea, VStack, Image, Flex,
+  Badge,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  HStack,
+  Heading,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Select,
+  Wrap,
+  WrapItem,
+  Avatar,
+  Textarea,
+  VStack,
+  Image,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
-import managerStaffService, { ManagerStaffDTO } from "../../services/manager-staff-service";
-
+import managerStaffService, {
+  ManagerStaffDTO,
+} from "../../services/manager-staff-service";
 
 const schema = z.object({
   username: z
@@ -21,17 +43,19 @@ const schema = z.object({
       message: "Vui lòng nhập tên đăng nhập ít nhất 6 kí tự.",
     }),
 
-  lastName: z.string({
-    required_error: "Vui lòng nhập Tên.",
-    invalid_type_error: "First name must be a string",
-  })
+  lastName: z
+    .string({
+      required_error: "Vui lòng nhập Tên.",
+      invalid_type_error: "First name must be a string",
+    })
     .min(6, {
       message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
     }),
-  email: z.string({
-    required_error: "Vui lòng nhập Email.",
-    invalid_type_error: "First name must be a string",
-  })
+  email: z
+    .string({
+      required_error: "Vui lòng nhập Email.",
+      invalid_type_error: "First name must be a string",
+    })
     .email("Vui lòng nhập đúng địa chỉ email."),
   phone: z
     .string({
@@ -59,7 +83,6 @@ interface Props {
   setUserId: (id: string) => void;
 }
 const ManagerStaffCreatePage = ({ setUserId }: Props) => {
-
   const navigate = useNavigate();
 
   const {
@@ -109,7 +132,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               <Button type="submit" colorScheme="blue" size="md">
                 Hoàn tất
               </Button>
-              <Button colorScheme="red" size="md"
+              <Button
+                colorScheme="red"
+                size="md"
                 onClick={() => {
                   if (
                     confirm(
@@ -125,50 +150,60 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </HStack>
           </HStack>
 
-          <VStack flex="1" h="100%" px="8" spacing="4" marginTop='8px'>
+          <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
             <Wrap>
               <Box>
-                <WrapItem justifyContent='center'>
-                  <Avatar size='2xl'
-                    border="1px lightgray solid"
-                  />{' '}
+                <WrapItem justifyContent="center">
+                  <Avatar size="2xl" border="1px lightgray solid" />{" "}
                 </WrapItem>
-                <Heading size="sm" textAlign="center" marginBottom="4" marginTop='8'>
+                <Heading
+                  size="sm"
+                  textAlign="center"
+                  marginBottom="4"
+                  marginTop="8"
+                >
                   {/* {errors.username} */}
                 </Heading>
               </Box>
             </Wrap>
-            <Heading className="border-b" style={{ border: '1px lightgray solid', width: '800px' }} marginTop='20px'>
-            </Heading>
+            <Heading
+              className="border-b"
+              style={{ border: "1px lightgray solid", width: "800px" }}
+              marginTop="20px"
+            ></Heading>
           </VStack>
 
-          <Box marginLeft='50px' marginTop='30px' marginRight='100px'>
-            <FormControl marginTop='50px'>
-              <HStack justifyContent='space-between'>
-                <FormLabel size="md" fontWeight="bold" >
+          <Box marginLeft="50px" marginTop="30px" marginRight="100px">
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
                   Tên Đăng Nhập
                 </FormLabel>
-                <Input
-                  {...register("username")}
-                  maxW='450px'
-                  color="black"
-                  placeholder="Tên Đăng Nhập"
-                  fontWeight="bold"
-                />
+                <Box maxW="520px" flex="1">
+                  <Input
+                    w="100%"
+                    {...register("username")}
+                    color="black"
+                    placeholder="Tên Đăng Nhập"
+                    fontWeight="bold"
+                  />
+                  {errors.username && (
+                    <p className="form-error-message">
+                      {errors.username?.message}
+                    </p>
+                  )}
+                </Box>
               </HStack>
-              {errors.username && (
-                <p className="form-error-message">{errors.username?.message}</p>
-              )}
             </FormControl>
 
-            <FormControl marginTop='50px'>
-              <HStack justifyContent='space-between'>
-                <FormLabel size="md" fontWeight="bold" >
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
                   Tên
                 </FormLabel>
                 <Input
                   {...register("lastName")}
-                  maxW='450px'
+                  maxW="450px"
                   color="black"
                   placeholder="Tên"
                   fontWeight="bold"
@@ -179,14 +214,14 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               )}
             </FormControl>
 
-            <FormControl marginTop='50px'>
-              <HStack justifyContent='space-between'>
-                <FormLabel size="md" fontWeight="bold" >
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
+                <FormLabel size="md" fontWeight="bold">
                   Email
                 </FormLabel>
                 <Input
                   {...register("email")}
-                  maxW='450px'
+                  maxW="450px"
                   color="black"
                   placeholder="Email"
                   fontWeight="bold"
@@ -196,14 +231,14 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 <p className="form-error-message">{errors.email?.message}</p>
               )}
             </FormControl>
-            <FormControl marginTop='50px'>
-              <HStack justifyContent='space-between'>
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
                 <FormLabel size="md" fontWeight="bold">
                   Số Điện Thoại
                 </FormLabel>
                 <Input
                   {...register("phone")}
-                  maxW='450px'
+                  maxW="450px"
                   color="black"
                   placeholder="Số Điện Thoại"
                   fontWeight="bold"
@@ -214,14 +249,14 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               )}
             </FormControl>
 
-            <FormControl marginTop='50px'>
-              <HStack justifyContent='space-between'>
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between">
                 <FormLabel size="md" fontWeight="bold">
                   Địa Chỉ
                 </FormLabel>
                 <Input
                   {...register("address")}
-                  maxW='450px'
+                  maxW="450px"
                   color="black"
                   placeholder="Địa Chỉ"
                   fontWeight="bold"
@@ -247,8 +282,8 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
             </HStack>
           </FormControl> */}
 
-            <FormControl marginTop='50px' >
-              <HStack justifyContent='space-between' marginRight='350px'>
+            <FormControl marginTop="50px">
+              <HStack justifyContent="space-between" marginRight="350px">
                 <FormLabel size="md" fontWeight="bold">
                   Năm Sinh
                 </FormLabel>
@@ -270,7 +305,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
         </Card>
       </form>
     </>
-  )
+  );
 };
 
 export default ManagerStaffCreatePage;
