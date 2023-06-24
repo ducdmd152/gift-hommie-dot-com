@@ -25,6 +25,7 @@ import UserDTO from "../../type/UserDTO";
 import accountService, { AccountDTO } from "../../services/account-service";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Swal from "sweetalert2";
 
 const schema = z
   .object({
@@ -86,8 +87,9 @@ const schema = z
 interface Props {
   userDTO: AccountDTO;
 }
-// interface FormData extends AccountDTO { }
-type FormData = z.infer<typeof schema>;
+interface FormData extends AccountDTO { }
+
+// type FormData = z.infer<typeof schema>;
 
 const UserProfileEdit = ({ userDTO }: Props) => {
   const [user, setUser] = useState<AccountDTO>({} as AccountDTO);
@@ -102,7 +104,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>();
+
+  // { resolver: zodResolver(schema) }
 
   const onSubmit = (data: FieldValues) => {
     let updateUser = data as UserDTO;
@@ -176,7 +180,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("lastName")}
+                  {...register("lastName", { required: true })}
                   w="100%"
                   color="black"
                   defaultValue={userDTO.lastName}
@@ -218,9 +222,10 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("phone")}
+                  {...register("phone", { required: true })}
                   w="100%"
                   color="black"
+                  type="number"
                   defaultValue={userDTO.phone}
                   fontWeight="bold"
                 />
@@ -305,21 +310,29 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               Cập nhật
             </Button>
             <Button
-              colorScheme="red"
-              size="md"
               onClick={() => {
-                if (
-                  confirm(`Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`)
-                ) {
-                  navigate("/account");
-                }
-              }}
+                Swal.fire({
+                  title: 'Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.',
+                  // text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    navigate("/account");
+                    window.scrollTo(0, 0);
+                  }
+                })
+              }
+              }
             >
               Hủy
             </Button>
           </HStack>
         </Box>
-      </form>
+      </form >
     </>
   );
 };

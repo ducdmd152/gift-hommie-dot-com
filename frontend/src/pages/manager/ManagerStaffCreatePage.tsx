@@ -32,6 +32,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import managerStaffService, {
   ManagerStaffDTO,
 } from "../../services/manager-staff-service";
+import Swal from "sweetalert2";
 
 const schema = z
   .object({
@@ -146,16 +147,20 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                 Hoàn tất
               </Button>
               <Button
-                colorScheme="red"
-                size="md"
                 onClick={() => {
-                  if (
-                    confirm(
-                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                    )
-                  ) {
-                    navigate("/staff");
-                  }
+                  Swal.fire({
+                    title: 'Bạn muốn hủy tạo mới nhân viên, thông tin sẽ không được lưu.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/staff");
+                      window.scrollTo(0, 0);
+                    }
+                  })
                 }}
               >
                 Hủy

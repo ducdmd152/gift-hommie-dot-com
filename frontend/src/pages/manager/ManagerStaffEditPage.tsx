@@ -216,14 +216,21 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
             </Button>
             <Button colorScheme="red" size="md"
               onClick={() => {
-                if (
-                  confirm(
-                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                  )
-                ) {
-                  navigate("/staff/detail");
-                }
-              }}
+                Swal.fire({
+                  title: 'Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    navigate("/staff/detail");
+                    window.scrollTo(0, 0);
+                  }
+                })
+              }
+              }
             >
               Hủy
             </Button>
