@@ -162,12 +162,34 @@ public class Product {
 	
 	@Transient
 	private int available;
+	@Transient
+	private Integer sold = 0;
 	
+	@Transient 
+//	@JsonIgnore
+	private Float rating = 0F;
+
+	public void setRating(Float rating) {
+		this.rating = rating;
+	}
+	
+	public Float getRating() {
+		return rating;
+	}
+	
+	public Integer getSold() {
+		return sold;
+	}
+
+	public void setSold(Integer sold) {
+		this.sold = sold;
+	}
+
 	public int getAvailable() {
 		return available;
 	}
 	
-	public void setAvailable(int available) {
+	public void setAvailable(Integer available) {
 		this.available = available;
 	}
 }

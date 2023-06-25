@@ -1,6 +1,7 @@
 package com.gifthommie.backend.repository;
 
 import java.awt.print.Pageable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,7 +53,85 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	public int setStatusOfOrderByOrderId(@Param("orderId") int orderId, 
 										@Param("status") String status);
 	
-	
 	@Query("SELECT p FROM Orders p WHERE p.status like %:status%")
 	public Page<Orders> getOrderedWithStatus(String status, PageRequest pageRequest);
+
+	@Query("SELECT o FROM Orders o "
+			+ "WHERE o.status = 'SUCCESSFUL' AND "
+			+ ":startDate <= o.orderTime AND o.orderTime <= :endDate")
+	public List<Orders> findSuccessfulOrdersFromTo(
+			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate); 
+	
+	@Query("SELECT o FROM Orders o "
+			+ "WHERE :startDate <= o.orderTime AND o.orderTime <= :endDate")
+	public List<Orders> findOrderByDay(
+			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate); 
+	
+	@Query("SELECT o FROM Orders o WHERE "
+			+ "o.email = :email")
+	public List<Orders> findAllByEmail(@Param("email") String email);
+	
+	//===========NEW=================
+	@Query("SELECT SUM(od.price) FROM Orders o JOIN o.orderDetails od "
+			+ "WHERE o.status = 'SUCCESSFUL' "
+			+ "AND :startDate <= o.orderTime "
+			+ "AND o.orderTime <= :endDate")
+	public Double getRevenueFromTo(@Param("startDate") LocalDateTime startDate, 
+						@Param("endDate") LocalDateTime endDate);
+	
+	@Query("SELECT SUM(od.quantity) FROM Orders o JOIN "
+			+ "o.orderDetails od WHERE "
+			+ "od.productId = :productId "
+			+ "AND o.status = :status")
+	public Integer getOrderedQuantityByProductId(@Param("productId") int productId, 
+									@Param("status") String status);
+	
+	@Query("SELECT SUM(od.quantity) FROM Orders o JOIN "
+			+ "o.orderDetails od WHERE "
+			+ "od.productId = :productId "
+			+ "AND o.status = :status "
+			+ "AND :startDate <= o.orderTime "
+			+ "AND o.orderTime <= :endDate")
+	public Integer getOrderedQuantityByProductIdFromTo(@Param("productId") int productId, 
+									@Param("status") String status, 
+									@Param("startDate") LocalDateTime startDate, 
+									@Param("endDate") LocalDateTime endDate);
+	
+	
+	@Query("SELECT AVG(od.rating) FROM Orders o JOIN "
+			+ "o.orderDetails od "
+			+ "WHERE od.productId = :productId "
+			+ "AND o.status = 'SUCCESSFUL' "
+			+ "AND od.rating IS NOT NULL")
+	public Float getAverageRatingByProductId(@Param("productId") int productId);
+	
+	@Query("SELECT AVG(od.rating) FROM Orders o JOIN "
+			+ "o.orderDetails od "
+			+ "WHERE od.productId = :productId "
+			+ "AND o.status = 'SUCCESSFUL' "
+			+ "AND :startDate <= o.orderTime "
+			+ "AND o.orderTime <= :endDate")
+	public Float getAverageRatingByProductIdFromTo(@Param("productId") int productId,  
+								@Param("startDate") LocalDateTime startDate, 
+								@Param("endDate") LocalDateTime endDate);
+	
+	@Query("SELECT od.productId FROM Orders o JOIN "
+			+ "o.orderDetails od WHERE "
+			+ "o.status = 'SUCCESSFUL' "
+			+ "AND :startDate <= o.orderTime "
+			+ "AND o.orderTime <= :endDate "
+			+ "GROUP BY od.productId "
+			+ "ORDER BY SUM(od.quantity) DESC")
+	public List<Integer> findTopSoldProductFromTo(@Param("startDate") LocalDateTime startDate, 
+							@Param("endDate") LocalDateTime endDate);
+
+	@Query("SELECT od.productId FROM Orders o JOIN "
+			+ "o.orderDetails od WHERE "
+			+ "o.status = 'SUCCESSFUL' "
+			+ "AND :startDate <= o.orderTime "
+			+ "AND o.orderTime <= :endDate "
+			+ "GROUP BY od.productId "
+			+ "ORDER BY AVG(od.rating) DESC")
+	public List<Integer> findTopRatingProductFromTo(@Param("startDate") LocalDateTime startDate, 
+							@Param("endDate") LocalDateTime endDate);
 }

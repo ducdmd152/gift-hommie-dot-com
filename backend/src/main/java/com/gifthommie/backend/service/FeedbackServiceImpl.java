@@ -9,8 +9,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.gifthommie.backend.dto.APIPageableDTO;
-import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.FeedbackDTO;
 import com.gifthommie.backend.dto.ProductReportDTO;
 import com.gifthommie.backend.entity.OrderDetail;
@@ -27,7 +25,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 	OrderRepository orderRepository;
 	@Autowired
 	UserRepository userRepository;
-
+	
+	private final String ORDER_SUCCESSFUL = "SUCCESSFUL";
+	
 	@Override
 	public Page<FeedbackDTO> getFeedbackByProductId(int pageNo, int pageSize, int productId) {
 		Page<OrderDetail> page = orderDetailRepository.findRatedOrderDetailsByProductId(PageRequest.of(pageNo, pageSize),
@@ -50,14 +50,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public ProductReportDTO getProductReportByProductId(int productId) {
 		ProductReportDTO p = new ProductReportDTO();
-		Integer sold = orderDetailRepository.getSoldProductQuantityByProductId(productId);
+		//STATUS SUCCESSFUL
+		Integer sold = orderRepository.getOrderedQuantityByProductId(productId, ORDER_SUCCESSFUL);
 		
 		sold = (sold == null) ? 0 : sold;
 		
 		p.setSold(sold);
-		p.setRating((sold == 0) ? 5 : orderDetailRepository.getAverageRatingByProductId(productId));
+		p.setRating((sold == 0) ? 5 : orderRepository.getAverageRatingByProductId(productId));
 		
 		return p;
 	}
 
+	
 }

@@ -1,6 +1,8 @@
 package com.gifthommie.backend.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,5 +59,45 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	@Query("SELECT u FROM User u WHERE u.reset_password_token = :token and expired_vertification_code > CURRENT_TIMESTAMP")
 	public User getExTime(@Param("token") String token);
+	
+	 @Query(value = "SELECT u.* FROM user u "
+	            + "LEFT JOIN (SELECT o.email, COUNT(*) AS order_count FROM orders o GROUP BY o.email) o "
+	            + "ON u.email = o.email "
+	            + "WHERE o.order_count > 0  "
+	            + "ORDER BY o.order_count DESC", nativeQuery = true)
+	 public List<User> findAllByOrderCountDesc();
+	 
+	 @Query(value = "SELECT u.* FROM user u "
+			+"LEFT JOIN ( SELECT o.email, COUNT(od.id) AS total_products FROM orders o "
+			+"LEFT JOIN order_detail od ON o.id = od.order_id where o.status='SUCCESSFUL' GROUP BY o.email) t"
+			+" ON u.email = t.email"
+	 		+ " WHERE total_products > 0  "
+	 		+ " ORDER BY t.total_products DESC", nativeQuery = true)
+	 public List<User> findAllByProductCountDesc();
+	 
+	 @Query(value ="SELECT u.* "
+	 		+ "FROM user u "
+	 		+ "JOIN orders o ON u.email = o.email "
+	 		+ "JOIN order_detail od ON o.id = od.order_id "
+	 		+ "WHERE o.status = 'SUCCESSFUL' "
+	 		+ "GROUP BY  u.email, u.username, u.address "
+	 		+ "ORDER BY SUM(od.price * od.quantity)  DESC ",nativeQuery = true)
+	 public List<User> findAllOrderByTotalSpentDesc();
+	 
+//	 @Query("SELECT SUM(od.price * od.quantity) AS totalSpent "
+//	           + " FROM User u "
+//	           + " JOIN Orders o "
+//	           + " JOIN o.orderDetail od "
+//	           + " WHERE o.status = 'SUCCESSFUL' AND u.email=:email AND u.email=o.email"
+//	           + " GROUP BY u.email, u.username, u.address")
+//	public Long calculateTotalSpent(@Param("email") String email);
+	 
+//	 @Query("SELECT u FROM User u"+
+//			 " LEFT JOIN ( SELECT o.email, COUNT(o.email) AS order_count FROM Orders o GROUP BY o.email ) o "
+//			 +"ON u.email = o.email WHERE o.order_count > 0"
+//			 +" ORDER BY o.order_count DESC")
+//	 public List<User> findAllByOrderCountDesc();
+
+
 	
 }

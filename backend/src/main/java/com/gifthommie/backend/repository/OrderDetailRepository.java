@@ -1,5 +1,8 @@
 package com.gifthommie.backend.repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +31,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 			+ "WHERE (o.rating IS NOT NULL OR o.rating <> 0) AND "
 			+ "o.productId = :productId")
 	public Float getAverageRatingByProductId(@Param("productId") int productId);
+	
+	
 }

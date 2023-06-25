@@ -3,6 +3,7 @@
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.RegisterDTO;
 import com.gifthommie.backend.dto.UserProfileDTO;
+import com.gifthommie.backend.dto.UserStatisticsDTO;
 import com.gifthommie.backend.entity.User;
 
 public interface UserService {
@@ -39,4 +40,9 @@ public interface UserService {
 	public void updateUserPassword (User user, String new_Password);
 	
 	public User getExTime(String token);
+	
+	public void getUserStatictisByOrder(String date, UserStatisticsDTO userStatisticsDTO);
+	public void getUserStatictisByProduct(String date,UserStatisticsDTO userStatisticsDTO);
+	public void getUserStatictisByAmount(String date,UserStatisticsDTO userStatisticsDTO);
+	public UserStatisticsDTO getUserStatictis(String date);
 }

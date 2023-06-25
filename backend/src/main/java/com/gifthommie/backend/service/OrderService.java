@@ -1,12 +1,19 @@
 package com.gifthommie.backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.aspectj.weaver.ast.Or;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderResponseDTO;
+import com.gifthommie.backend.dto.OrderStatisticsDTO;
+import com.gifthommie.backend.dto.RevenueDTO;
 import com.gifthommie.backend.entity.Orders;
+
+import net.bytebuddy.asm.Advice.Local;
 
 public interface OrderService {
 	
@@ -25,8 +32,20 @@ public interface OrderService {
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize) ;
 	
 	public Orders save(Orders order);
-
+	
+//	public Double getRevenueOfWeek(String date);
+	
 	public OrderDTO getOrderDTOByOrderId(int orderId);
 
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status);
+	
+	public void getOrderStatisticByWeek(String date,OrderStatisticsDTO orderStatisticsDTO);
+	
+	public OrderStatisticsDTO getOrderStatistic(String date);
+	
+	public void getOrderStatisticsByDay(String date,OrderStatisticsDTO orderStatisticsDTO);
+	
+	public void getOrderStatisticByMonth(String date, OrderStatisticsDTO orderStatisticsDTO);
+	
+	public void getOrderStatisticByQuarter(String date, OrderStatisticsDTO orderStatisticsDTO);
 }

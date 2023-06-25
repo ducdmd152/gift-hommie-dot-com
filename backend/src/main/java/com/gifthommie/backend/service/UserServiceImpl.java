@@ -1,5 +1,7 @@
 package com.gifthommie.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,15 @@ import org.springframework.stereotype.Service;
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.RegisterDTO;
 import com.gifthommie.backend.dto.UserProfileDTO;
+import com.gifthommie.backend.dto.UserStatisticsDTO;
+import com.gifthommie.backend.dto.UserStatisticsDTO.UserTopAmountDTO;
+import com.gifthommie.backend.dto.UserStatisticsDTO.UserTopOrderDTO;
+import com.gifthommie.backend.dto.UserStatisticsDTO.UserTopProductDTO;
+import com.gifthommie.backend.entity.Orders;
+import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.repository.ProductRepository;
 import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.utils.SecurityUtils;
 
@@ -20,6 +30,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired 
+	OrderRepository orderRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
 	final String DEFAULT_PASSWORD = "$2a$10$eiGJNzsBj.TKTG72BRRMteJlOIBv9x3KoaTAbzYKaX652FUB17pzG";
 	
 	// getPageableUsers by role
@@ -197,8 +212,51 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.getExTime(token);
 		return user;
 	}
+
+	@Override
+	public void getUserStatictisByOrder(String date, UserStatisticsDTO userStatisticsDTO) {
+		List<User> userList = userRepository.findAllByOrderCountDesc();
+		if(userList!=null) {
+			for (User user : userList) {
+				List<Orders> orderList = orderRepository.findAllByEmail(user.getEmail());
+				userStatisticsDTO.getOrder().getUserTopOrderDTOList().add(new UserTopOrderDTO(user, orderList));
+			}
+		}
+	}
 	
+	@Override
+	public void getUserStatictisByProduct(String date, UserStatisticsDTO userStatisticsDTO) {
+		List<User> userList = userRepository.findAllByProductCountDesc();
+//		System.out.println(userList);
+		if(userList!=null) {
+			for (User user : userList) {
+				List<Product> productList = productRepository.findProductByEmai(user.getEmail());
+				userStatisticsDTO.getProduct().getUserTopProductDTOList().add(new UserTopProductDTO(user, productList));
+			}
+		}
+		
+	}
 	
+	@Override
+	public void getUserStatictisByAmount(String date, UserStatisticsDTO userStatisticsDTO) {
+		List<User> userList = userRepository.findAllOrderByTotalSpentDesc();
+		if (userList!=null) {
+			for (User user : userList) {
+				Long amount = productRepository.findAmountByEmail(user.getEmail());
+				userStatisticsDTO.getAmountDTO().getUserTopAmountDTOList().add(new UserTopAmountDTO(user, amount));
+			}
+		}
+		
+	}
+	
+	@Override
+	public UserStatisticsDTO getUserStatictis(String date) {
+		UserStatisticsDTO userStatisticsDTO = new UserStatisticsDTO();
+		getUserStatictisByOrder(date, userStatisticsDTO);
+		getUserStatictisByProduct(date, userStatisticsDTO);
+		getUserStatictisByAmount(date, userStatisticsDTO);
+		return userStatisticsDTO;
+	}
 	
 
 }

@@ -18,6 +18,7 @@ import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.ProductImage;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
+import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.ProductRepository;
 
 @Service
@@ -28,6 +29,8 @@ public class ProductServiceImpl implements ProductService {
 	CategoryRepository categoryRepository;
 	@Autowired
 	CartService cartService;
+	@Autowired
+	OrderDetailRepository orderDetailRepository;
 	
 	// getPageableProducts
 	@Override
@@ -65,6 +68,7 @@ public class ProductServiceImpl implements ProductService {
 		for(Product product : page) {
 //			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+			product.setSold(getSoldOfProduct(product.getId()));
 //			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 //			System.out.println("---------------------------");
 		}
@@ -72,6 +76,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
+	private int getSoldOfProduct(int productId) {
+		return orderDetailRepository.getSoldProductQuantityByProductId(productId);
+	}
 	// searchProductsByNameInCategory
 	// FIXED BY DUY ĐỨC (NO NEED TO MODIFY MORE)
 	@Override
@@ -138,6 +145,7 @@ public class ProductServiceImpl implements ProductService {
 		if(result.isPresent()) {
 			Product product = result.get();
 			product.setAvailable(cartService.getShopAvailableQuantity(productId));
+			product.setSold(getSoldOfProduct(productId));
 			return product;
 		}
 		
