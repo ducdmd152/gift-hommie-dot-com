@@ -42,6 +42,7 @@ public interface UserService {
 	public User getExTime(String token);
 	
 	public void getUserStatictisByOrder(String date, UserStatisticsDTO userStatisticsDTO);
-	
+	public void getUserStatictisByProduct(String date,UserStatisticsDTO userStatisticsDTO);
+	public void getUserStatictisByAmount(String date,UserStatisticsDTO userStatisticsDTO);
 	public UserStatisticsDTO getUserStatictis(String date);
 }

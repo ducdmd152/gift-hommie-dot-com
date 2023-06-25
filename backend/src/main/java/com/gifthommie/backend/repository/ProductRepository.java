@@ -1,5 +1,7 @@
 package com.gifthommie.backend.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +29,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.id = :productId AND p.status = :status")
 	public Product findProductById(@Param("productId") int productId, 
 									@Param("status") boolean status);
+	
+	@Query("SELECT DISTINCT p "
+			+ "FROM Product p "
+			+ " JOIN OrderDetail od ON p.id = od.productId"
+			+ " JOIN Orders o ON od.orderId = o.id"
+			+ " JOIN User u ON o.email = u.email"
+			+ " WHERE u.email = :email"
+			+ " Order by p.id asc")
+	public List<Product> findProductByEmai(@Param("email") String email);
+	
+	@Query("SELECT SUM(od.price*od.quantity) "
+			+ "FROM Product p "
+			+ " JOIN OrderDetail od ON p.id = od.productId"
+			+ " JOIN Orders o ON od.orderId = o.id"
+			+ " JOIN User u ON o.email = u.email"
+			+ " WHERE u.email = :email")
+	public Long findAmountByEmail(@Param("email") String email);
 }

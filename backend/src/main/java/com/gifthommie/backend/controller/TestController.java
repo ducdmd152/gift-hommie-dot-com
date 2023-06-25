@@ -14,13 +14,18 @@ import com.gifthommie.backend.dto.ProductStatisticDTO.Day;
 import com.gifthommie.backend.dto.ProductStatisticDTO.ProductStatisticValue;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Orders;
+import com.gifthommie.backend.entity.Product;
+import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.repository.ProductRepository;
+import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.FeedbackService;
 import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.ProductStatisticService;
 import com.gifthommie.backend.service.RevenueService;
+import com.gifthommie.backend.service.UserService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController
@@ -37,6 +42,10 @@ public class TestController {
 	RevenueService revenueService;
 	@Autowired
 	ProductStatisticService productStatisticService;
+	@Autowired
+	ProductRepository productRepository;
+	@Autowired
+	UserRepository userRepository;
 	
 	@GetMapping("/public/test")
 	public String publicx() {
@@ -102,7 +111,10 @@ public class TestController {
 //		return productStatisticService.("2023-06-14 00:00:00");
 //		
 //	}
-	
+//	@GetMapping("public/productlist")
+//	public Long getProduct(){
+//		return userRepository.ca("dd2023k@gmail.com");
+//	}
 	@GetMapping("public/test-formetdate")
 	public String getDate() {
 		LocalDateTime nowDate = LocalDateTime.now();
