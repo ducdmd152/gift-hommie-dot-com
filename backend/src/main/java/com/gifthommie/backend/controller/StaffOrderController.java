@@ -96,7 +96,7 @@ public class StaffOrderController {
 			if (order == null)
 				throw new NotFoundException("ORDER CANNOT BE FOUND");
 			
-			final boolean CONFIRM_MODE = orderDTO.getStatus().equals("CONFIRMED") && !order.getStatus().equals("CONFIRMED");
+			final boolean CONFIRM_MODE = orderDTO.getStatus().equals("PENDING") == false && order.getStatus().equals("PENDING");
 //			Orders update = new Orders(orderDTO);
 			order.autoUpdateFromDTO(orderDTO);		
 			orderService.save(order);

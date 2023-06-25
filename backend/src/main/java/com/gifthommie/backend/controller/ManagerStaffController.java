@@ -138,8 +138,7 @@ public class ManagerStaffController {
 		user.editProfile(userProfile, user.getRole());
 		
 		//SET ENABLED OF USER TO ACTIVE
-		user.setEnabled(ACTIVE_ENABLED);
-		
+		user.setEnabled(ACTIVE_ENABLED);	
 		return userService.updateUserProfile(user);
 	}
 }
