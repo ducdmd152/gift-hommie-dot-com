@@ -16,9 +16,7 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import managerStaffService, {
-  ManagerStaffDTO,
-} from "../../services/manager-staff-service";
+import managerStaffService, { } from "../../services/manager-staff-service";
 import { useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import UserDTO from "../../type/UserDTO";
@@ -106,7 +104,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     formState: { errors, isValid },
   } = useForm<FormData>();
 
-  // { resolver: zodResolver(schema) }
+  //{ resolver: zodResolver(schema) }
 
   const onSubmit = (data: FieldValues) => {
     let updateUser = data as UserDTO;
