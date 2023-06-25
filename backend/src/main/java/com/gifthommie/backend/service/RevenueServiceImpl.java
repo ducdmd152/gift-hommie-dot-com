@@ -38,16 +38,20 @@ public class RevenueServiceImpl implements RevenueService{
 	}
 	
 	private Double getRevenueFromTo(LocalDateTime startDate, LocalDateTime endDate) {
-	    List<Orders> list = orderRepository.findSuccessfulOrdersFromTo(startDate, endDate);
+//	    List<Orders> list = orderRepository.findSuccessfulOrdersFromTo(startDate, endDate);
 	    
-		Double revenue = 0D;
+//		Double revenue = 0D;
 
-		if (list != null)
-			for (Orders o : list)
-				for (OrderDetail od : o.getOrderDetails())
-					revenue += od.getPrice();
+//		if (list != null)
+//			for (Orders o : list)
+//				for (OrderDetail od : o.getOrderDetails())
+//					revenue += od.getPrice();
 		
-		return revenue;
+//		return revenue;
+		
+		Double revenue = orderRepository.getRevenueFromTo(startDate, endDate);
+		
+		return (revenue == null) ? 0D : revenue;
 	}
 	
 	private Day getRevenueOfDay(String date) {
