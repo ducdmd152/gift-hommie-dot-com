@@ -33,55 +33,36 @@ const ManagerEditProfilePage = () => {
             });
     }, []);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm<FormData>();
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors, isValid },
+    // } = useForm<FormData>();
 
-    const onSubmit = (data: FieldValues) => {
-        const updateManager = data as UserDTO;
-        updateManager.id = manager.id;
-        console.log(updateManager);
+    // const onSubmit = (data: FieldValues) => {
+    //     const updateManager = data as UserDTO;
+    //     updateManager.id = manager.id;
+    //     console.log(updateManager);
 
-        managerService
-            .update(updateManager)
-            .then(() => {
-                navigate("/edit");
-            })
-            .catch(() => {
-                alert(`Không thể sửa thông tin của "${manager.username}".\n Vui lòng thử lại.`);
-            });
-    };
+    //     managerService
+    //         .update(updateManager)
+    //         .then(() => {
+    //             navigate("/account");
+    //         })
+    //         .catch(() => {
+    //             alert(`Không thể sửa thông tin của "${manager.username}".\n Vui lòng thử lại.`);
+    //         });
+    // };
 
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
+            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+            <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
 
-                    <UserProfileEdit userDTO={manager} />
-
-                    <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
-                        <Button type="submit" colorScheme="blue" size="md">
-                            Cập nhật
-                        </Button>
-                        <Button colorScheme="red" size="md"
-                            onClick={() => {
-                                if (
-                                    confirm(
-                                        `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                                    )
-                                ) {
-                                    navigate("/account");
-                                }
-                            }}
-                        >
-                            Hủy
-                        </Button>
-                    </HStack>
-                </Card>
-            </form>
+                <UserProfileEdit userDTO={manager} />
+            </Card>
+            {/* </form> */}
         </>
     )
 }

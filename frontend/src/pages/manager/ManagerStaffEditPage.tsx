@@ -115,21 +115,6 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
               </HStack>
             </FormControl>
 
-            {/* <FormControl marginTop="50px">
-              <HStack justifyContent="space-between">
-                <FormLabel size="md" fontWeight="bold">
-                  Họ
-                </FormLabel>
-                <Input
-                  maxW="450px"
-                  isReadOnly
-                  color="black"
-                  value={staff.firstName}
-                  fontWeight="bold"
-                />
-              </HStack>
-            </FormControl> */}
-
             <FormControl marginTop="50px">
               <HStack justifyContent="space-between">
                 <FormLabel size="md" fontWeight="bold">
@@ -231,14 +216,21 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
             </Button>
             <Button colorScheme="red" size="md"
               onClick={() => {
-                if (
-                  confirm(
-                    `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                  )
-                ) {
-                  navigate("/staff/detail");
-                }
-              }}
+                Swal.fire({
+                  title: 'Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    navigate("/staff/detail");
+                    window.scrollTo(0, 0);
+                  }
+                })
+              }
+              }
             >
               Hủy
             </Button>

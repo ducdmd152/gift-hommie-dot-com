@@ -1,7 +1,6 @@
 package com.gifthommie.backend.entity;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,9 @@ public class Orders {
 
 	private static final String DEFAULT_STATUS = "PENDING";
 
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -170,7 +172,15 @@ public class Orders {
 		this.orderDetails = new ArrayList<>();
 		for(OrderDetailDTO odd : orderDTO.getOrderDetails())
 			this.orderDetails.add(new OrderDetail(odd));
+		
+		
+		
 	}
+	
+	
+	
+	
+	
 
 	public Orders(CheckOutDTO checkOutDTO, String email) {
 		this.email = email;

@@ -1,9 +1,31 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, Wrap, WrapItem, Avatar,
-  HStack, Heading, Input, NumberInput, NumberInputField, Select, Textarea, Radio, RadioGroup, Stack,
-  VStack, Image, Flex, Grid,
+  Badge,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Wrap,
+  WrapItem,
+  Avatar,
+  HStack,
+  Heading,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Select,
+  Textarea,
+  Radio,
+  RadioGroup,
+  Stack,
+  VStack,
+  Image,
+  Flex,
+  Grid,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ManagerStaffDTO } from "../../services/manager-staff-service";
@@ -17,7 +39,6 @@ interface Props {
   userDTO: UserDTO;
 }
 const UserProfileView = ({ userDTO }: Props) => {
-
   const years = [];
   for (let year = 1900; year <= 2023; year++) {
     years.push(year.toString());
@@ -50,7 +71,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl>
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Tên Đăng Nhập
+              Tên đăng nhập
             </FormLabel>
             <Input
               maxW="450px"
@@ -109,7 +130,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Số Điện Thoại
+              Số điện thoại
             </FormLabel>
             <Input
               maxW="450px"
@@ -124,7 +145,7 @@ const UserProfileView = ({ userDTO }: Props) => {
         <FormControl marginTop="50px">
           <HStack justifyContent="space-between">
             <FormLabel size="md" fontWeight="bold">
-              Địa Chỉ
+              Địa chỉ
             </FormLabel>
             <Input
               maxW="450px"
@@ -163,21 +184,15 @@ const UserProfileView = ({ userDTO }: Props) => {
             /> */}
 
             <FormLabel size="md" fontWeight="bold">
-              Năm Sinh
+              Năm sinh
             </FormLabel>
-            <Select
+            <Input
               maxW="100px"
               isReadOnly
               color="gray"
               value={userDTO.yob}
               fontWeight="bold"
-            >
-              {years.map((year) => (
-                <option key={year} value={year} disabled>
-                  {year}
-                </option>
-              ))}
-            </Select>
+            />
           </HStack>
         </FormControl>
       </Box>

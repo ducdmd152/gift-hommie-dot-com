@@ -124,10 +124,18 @@ public class OrderServiceImpl implements OrderService {
 		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("orderTime").descending()); // MODIFIED BY DUY DUC
 		Page<Orders> page = orderRepository.findAll(pageable);
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+// <<<<<<< hoangthien0623
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {
 			order = updateStatus(order);
 			OrderDTO orderDTO = new OrderDTO(order);
+// =======
+//         List<OrderDTO> orderDTOList = new ArrayList<>();
+//         for (Orders order : page) {
+//         	order = updateStatus(order); // AUTO-UPDATE STATUS
+        	
+//             OrderDTO orderDTO = new OrderDTO(order);
+// >>>>>>> main
 
 			User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
 
@@ -217,7 +225,7 @@ public class OrderServiceImpl implements OrderService {
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {
-			order = updateStatus(order);
+			order = updateStatus(order); // AUTO-UPDATE STATUS
 			OrderDTO orderDTO = new OrderDTO(order);
 
 			User tmpUser = userRepository.getUserByEmail(email); // GET USER
