@@ -69,8 +69,8 @@ public class CustomerOrderController {
 		String email = user.getEmail();
 		if(status!=null && status.isEmpty())
 			status = null;
-		orderService.getOrderDTOList(pageNo, pageSize, email, status);
-		return orderService.getOrderDTOList(pageNo, pageSize, email, status);
+		orderService.getOrderDTOList(0, 100, email, status); // FIRST-SHOT TO UPDATE STATE
+		return orderService.getOrderDTOList(pageNo, pageSize, email, status); // SECOND-SHOT TO RETURN
 	}
 	
 	

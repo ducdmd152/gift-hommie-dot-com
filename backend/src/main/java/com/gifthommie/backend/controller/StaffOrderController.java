@@ -54,9 +54,13 @@ public class StaffOrderController {
 		if(status!=null && status.isEmpty())
 			status = null;
 		
-		if(status == null)
+		if(status == null) {
+//			orderService.getOrderDTOList_noEmail(pageNo, pageSize);
 			return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
-		return orderService.getOrderDTOList_noEmail(pageNo, pageSize, status);
+		}
+		
+		orderService.getOrderDTOList_noEmail(0, 1000, status); // FIRST-SHOT FOR AUTO-UPDATE
+		return orderService.getOrderDTOList_noEmail(pageNo, pageSize, status); // SECOND-SHOT FOR RETURN
     }
 		
 		@GetMapping("/{orderId}")
@@ -92,10 +96,12 @@ public class StaffOrderController {
 			if (order == null)
 				throw new NotFoundException("ORDER CANNOT BE FOUND");
 			
+			final boolean CONFIRM_MODE = orderDTO.getStatus().equals("CONFIRMED") && !order.getStatus().equals("CONFIRMED");
 //			Orders update = new Orders(orderDTO);
 			order.autoUpdateFromDTO(orderDTO);		
 			orderService.save(order);
-			if (order.getStatus().equals("CONFIRMED"))
+//			if (order.getStatus().equals("CONFIRMED"))
+			if (CONFIRM_MODE)
 				sendEmailConfirmOrder(order);
 			
 			return orderService.getOrderDTOByOrderId(orderId);
