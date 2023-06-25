@@ -120,7 +120,8 @@ public class OrderServiceImpl implements OrderService {
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         List<OrderDTO> orderDTOList = new ArrayList<>();
         for (Orders order : page) {
-        	order = updateStatus(order);
+        	order = updateStatus(order); // AUTO-UPDATE STATUS
+        	
             OrderDTO orderDTO = new OrderDTO(order);
 
             User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
@@ -221,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
 //		List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
 		for (Orders order : page) {
-			order = updateStatus(order);
+			order = updateStatus(order); // AUTO-UPDATE STATUS
 			OrderDTO orderDTO = new OrderDTO(order);
 			
 			User tmpUser = userRepository.getUserByEmail(email); // GET USER
