@@ -1,7 +1,25 @@
 import { Card } from "@chakra-ui/card";
-import { Text, VStack, Box, HStack, List, ListItem } from "@chakra-ui/layout";
+import {
+  Text,
+  VStack,
+  Box,
+  HStack,
+  List,
+  ListItem,
+  Badge,
+} from "@chakra-ui/layout";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/table";
 import React from "react";
 import { VictoryPie } from "Victory";
+import ORDER_STATUS_MAP from "../../data/OrderStatusData";
 const StatisticRevenue = () => {
   return (
     <VStack>
@@ -123,7 +141,52 @@ const StatisticRevenue = () => {
         </HStack>
       </Card>
 
-      <Card></Card>
+      <Card w="100%" p="4">
+        <TableContainer borderRadius="12" border="solid 1px gray">
+          <Table variant="striped" colorScheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign={"center"}>Thời gian đặt hàng</Th>
+                <Th textAlign={"center"}>Mã đơn hàng</Th>
+                <Th textAlign={"center"}>Trạng thái</Th>
+                <Th textAlign={"center"}>Tổng đơn</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {/* {orders.map((order) => ( */}
+              <Tr key={"order.id"}>
+                <Td textAlign={"center"}>
+                  <strong>{"18:00 18/06/2023"}</strong>
+                </Td>
+                <Td textAlign={"center"}>
+                  <strong>{"order.id"}</strong>
+                </Td>
+                <Td textAlign={"center"}>
+                  <Badge
+                    colorScheme={ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme}
+                    border={
+                      ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme == "gray"
+                        ? "1px solid gray"
+                        : "none"
+                    }
+                    w="unset"
+                  >
+                    {ORDER_STATUS_MAP["SUCCESSFUL"].label}
+                  </Badge>
+                </Td>
+                <Td
+                  //   textAlign={"right"}
+                  color={"yellow.500"}
+                  textAlign={"center"}
+                >
+                  <strong>100.00đ</strong>
+                </Td>
+              </Tr>
+              {/* ))} */}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Card>
     </VStack>
   );
 };
