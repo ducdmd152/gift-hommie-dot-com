@@ -3,6 +3,8 @@ package com.gifthommie.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +20,7 @@ import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.OrderService;
+import com.gifthommie.backend.service.UserService;
 
 @RestController
 @RequestMapping("/staff/order")
@@ -26,6 +29,8 @@ public class StaffOrderController {
 	OrderService orderService;
 	
 	
+	@Autowired
+	JavaMailSender mailSender;
 	
 	/// ------- NOTICE ------------- ///
 		// Make sure name Orders Table in Database is Order
@@ -88,9 +93,32 @@ public class StaffOrderController {
 				throw new NotFoundException("ORDER CANNOT BE FOUND");
 			
 //			Orders update = new Orders(orderDTO);
-			order.autoUpdateFromDTO(orderDTO);
+			order.autoUpdateFromDTO(orderDTO);		
 			orderService.save(order);
+			if (order.getStatus().equals("CONFIRMED"))
+				sendEmailConfirmOrder(order);
 			
 			return orderService.getOrderDTOByOrderId(orderId);
+		}
+		
+		public void sendEmailConfirmOrder (Orders order) {	
+			try {
+			
+				SimpleMailMessage message = new SimpleMailMessage();
+				    message.setTo(order.getEmail());
+				    message.setSubject("Đơn Hàng Mã Số #" + order.getId() + " Đã Được Xác Nhận");
+
+				    message.setText("Chào bạn,\n\nĐơn Hàng Mã Số #" + order.getId() + " Đã Được Xác Nhận tại HommieStore. "
+				    		+ "\n\nĐơn hàng của bạn được cập nhật vào lúc: " +    order.getLastUpdatedTime()  + " ."
+				    		+ "\n\nBạn sẽ nhận được email thông báo khi đơn hàng của bạn được giao\n\n" 
+				    		+ "Thời gian giao hàng dự kiến cho đơn hàng của bạn là : "+ order.getExpectedDeliveryTime()  +"."
+				    		+ "\n\nCảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi"
+				    		+ "\n\nTrân trọng,\nHommieStore");
+				    mailSender.send(message);			
+			} catch (Exception e) {
+					
+			}
+			
+		
 		}
 }
