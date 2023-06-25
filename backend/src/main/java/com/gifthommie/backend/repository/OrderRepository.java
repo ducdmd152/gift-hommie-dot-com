@@ -66,4 +66,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 			+ "WHERE :startDate <= o.orderTime AND o.orderTime <= :endDate")
 	public List<Orders> findOrderByDay(
 			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate); 
+	
+	@Query("SELECT o FROM Orders o WHERE "
+			+ "o.email = :email")
+	public List<Orders> findAllByEmail(@Param("email") String email);
+	
 }

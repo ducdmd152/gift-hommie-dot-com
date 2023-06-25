@@ -1,6 +1,7 @@
 package com.gifthommie.backend.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,5 +58,20 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	@Query("SELECT u FROM User u WHERE u.reset_password_token = :token and expired_vertification_code > CURRENT_TIMESTAMP")
 	public User getExTime(@Param("token") String token);
+	
+	 @Query(value = "SELECT u.* FROM user u "
+	            + "LEFT JOIN (SELECT o.email, COUNT(*) AS order_count FROM orders o GROUP BY o.email) o "
+	            + "ON u.email = o.email "
+	            + "WHERE o.order_count > 0  "
+	            + "ORDER BY o.order_count DESC", nativeQuery = true)
+	 public List<User> findAllByOrderCountDesc();
+	 
+//	 @Query("SELECT u FROM User u"+
+//			 " LEFT JOIN ( SELECT o.email, COUNT(o.email) AS order_count FROM Orders o GROUP BY o.email ) o "
+//			 +"ON u.email = o.email WHERE o.order_count > 0"
+//			 +" ORDER BY o.order_count DESC")
+//	 public List<User> findAllByOrderCountDesc();
+
+
 	
 }
