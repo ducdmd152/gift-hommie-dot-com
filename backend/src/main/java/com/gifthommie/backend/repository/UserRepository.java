@@ -66,6 +66,14 @@ public interface UserRepository extends JpaRepository<User, String> {
 	            + "ORDER BY o.order_count DESC", nativeQuery = true)
 	 public List<User> findAllByOrderCountDesc();
 	 
+	 @Query(value = "SELECT u.* FROM user u "
+			+"LEFT JOIN ( SELECT o.email, COUNT(od.id) AS total_products FROM orders o "
+			+"LEFT JOIN order_detail od ON o.id = od.order_id GROUP BY o.email) t"
+			+" ON u.email = t.email"
+	 		+ "WHERE total_products > 0"
+	 		+ "ORDER BY t.total_products DESC", nativeQuery = true)
+	 public List<User> findAllByProductCountDesc();
+	 
 //	 @Query("SELECT u FROM User u"+
 //			 " LEFT JOIN ( SELECT o.email, COUNT(o.email) AS order_count FROM Orders o GROUP BY o.email ) o "
 //			 +"ON u.email = o.email WHERE o.order_count > 0"
