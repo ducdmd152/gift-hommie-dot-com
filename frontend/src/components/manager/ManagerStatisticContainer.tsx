@@ -62,6 +62,7 @@ export default function ManagerStatisticContainer({
   return (
     <Box minH="100vh" mt="-40px" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
+        setCombo={setCombo}
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
       />
@@ -75,7 +76,7 @@ export default function ManagerStatisticContainer({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent setCombo={setCombo} onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
@@ -89,9 +90,10 @@ export default function ManagerStatisticContainer({
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
+  setCombo: (value: number) => void;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, setCombo, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
@@ -109,8 +111,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+      {LinkItems.map((link, index) => (
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          onClick={() => setCombo(index)}
+        >
           {link.name}
         </NavItem>
       ))}

@@ -5,6 +5,7 @@ import StatisticOverviewRevenue from "../../components/manager/StatisticOverview
 import StatisticOverviewOrder from "../../components/manager/StatisticOverviewOrder";
 import StatisticOverviewProduct from "../../components/manager/StatisticOverviewProduct";
 import StatisticOverviewCustomer from "../../components/manager/StatisticOverviewCustomer";
+import StatisticRevenue from "../../components/manager/StatisticRevenue";
 
 const ManagerStatisticPage = () => {
   const [combo, setCombo] = useState(0);
@@ -32,6 +33,7 @@ const ManagerStatisticPage = () => {
           </HStack>
         </Box>
       )}
+      {combo == 1 && <StatisticRevenue />}
     </ManagerStatisticContainer>
   );
 };
