@@ -17,10 +17,20 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { VictoryPie } from "Victory";
 import ORDER_STATUS_MAP from "../../data/OrderStatusData";
+import StatisticRevenueDTO from "../../type/StatisticRevenueDTO";
+import statisticService from "../../services/statistic-service";
+import moneyService from "../../services/money-service";
 const StatisticRevenue = () => {
+  const [revenue, setRevenue] = useState({} as StatisticRevenueDTO);
+
+  useEffect(() => {
+    (async () => {
+      setRevenue(await statisticService.getRevenue());
+    })();
+  }, []);
   return (
     <VStack>
       <HStack w="100%">
@@ -31,7 +41,7 @@ const StatisticRevenue = () => {
               {/* (trong tháng) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.month.revenue)}
             </Text>
           </Card>
         </Box>
@@ -42,7 +52,7 @@ const StatisticRevenue = () => {
               {/* (trong tuần) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.week.revenue)}
             </Text>
           </Card>
         </Box>
@@ -53,7 +63,7 @@ const StatisticRevenue = () => {
               {/* (trong ngày) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.day.revenue)}
             </Text>
           </Card>
         </Box>
