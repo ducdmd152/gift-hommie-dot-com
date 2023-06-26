@@ -39,10 +39,7 @@ const ManagerPage = () => {
 
       <GridItem area="main" maxW={"1280px"} mt={HEADER_HEIGHT}>
         <Routes>
-          <Route
-            index
-            element={<ManagerStaffListPage setUserId={setUserId} />}
-          />
+          <Route index element={<ManagerStatisticPage />} />
           <Route
             path="/staff"
             element={<ManagerStaffListPage setUserId={setUserId} />}
