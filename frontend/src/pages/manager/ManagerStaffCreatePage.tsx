@@ -117,10 +117,24 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
         navigate("/staff");
       })
       .catch(() => {
-        alert(
-          `Không thể tạo mới nhân viên "${staff.username}". \n Vui lòng thử lại.`
-        );
-        navigate("/staff/create");
+        // alert(
+        //   `Không thể tạo mới nhân viên "${staff.username}". \n Vui lòng thử lại.`
+        // );
+        // navigate("/staff/create");
+        Swal.fire({
+          title: `Không thể tạo mới nhân viên "${staff.username}". \n Vui lòng thử lại`,
+          // text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/staff/create");
+            window.scrollTo(0, 0);
+          }
+        })
       });
   };
 
