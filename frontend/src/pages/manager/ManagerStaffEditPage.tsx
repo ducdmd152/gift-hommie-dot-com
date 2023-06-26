@@ -138,7 +138,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
                 <Input
                   {...register("email", { required: true })}
                   maxW="450px"
-                  isReadOnly
+                  // isReadOnly
                   color="black"
                   defaultValue={staff.email}
                   fontWeight="bold"

@@ -41,12 +41,11 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
       managerStaffService
         .delete(staff.id)
         .then(() => {
-          // alert(`Đã xóa "${staff.username}" khỏi danh sách nhân viên.`);
           Swal.fire({
             position: 'center',
             icon: 'success',
             title: `Đã xóa "${staff.username}" khỏi danh sách nhân viên.`,
-            showConfirmButton: true,
+            showConfirmButton: false,
             timer: 1500,
           })
           navigate("/staff")

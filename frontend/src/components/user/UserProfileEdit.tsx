@@ -1,20 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import {
-  Box,
-  FormControl,
-  FormLabel,
-  Wrap,
-  WrapItem,
-  Avatar,
-  HStack,
-  Heading,
-  Input,
-  Radio,
-  RadioGroup,
-  Stack,
-  VStack,
-  Button,
-  Select,
+  Box, FormControl, FormLabel, Wrap, WrapItem, Avatar, HStack, Heading,
+  Input, Radio, RadioGroup, Stack, VStack, Button, Select
 } from "@chakra-ui/react";
 import managerStaffService, { } from "../../services/manager-staff-service";
 import { useNavigate } from "react-router-dom";
@@ -84,8 +71,10 @@ const schema = z
 
 interface Props {
   userDTO: AccountDTO;
+
 }
 interface FormData extends AccountDTO { }
+
 
 // type FormData = z.infer<typeof schema>;
 
@@ -95,9 +84,6 @@ const UserProfileEdit = ({ userDTO }: Props) => {
   const [yob, setYob] = useState(userDTO.yob);
   const navigate = useNavigate();
 
-  // console.log("UserDTO: ", userDTO);
-
-  // console.log("Address before: " + address);
   const {
     register,
     handleSubmit,
@@ -112,11 +98,6 @@ const UserProfileEdit = ({ userDTO }: Props) => {
     updateUser.id = "";
     if (!address) updateUser.address = userDTO.address;
     if (!yob) updateUser.yob = userDTO.yob;
-
-    // console.log("Address: " + address);
-
-    // console.log("Updating: ", updateUser);
-    // console.log(user);
 
     accountService
       .update(updateUser)
@@ -172,13 +153,13 @@ const UserProfileEdit = ({ userDTO }: Props) => {
           </FormControl>
 
           <FormControl marginTop="50px">
-            <HStack justifyContent="space-between" alignItems={"flex-start"}>
+            <HStack justifyContent="space-between" alignItems={"flex-start"} >
               <FormLabel size="md" fontWeight="bold" mt="3">
                 Tên
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("lastName", { required: true })}
+                  {...register("lastName")}
                   w="100%"
                   color="black"
                   defaultValue={userDTO.lastName}
@@ -202,7 +183,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 <Input
                   {...register("email")}
                   w="100%"
-                  isReadOnly
+                  // isReadOnly
                   color="black"
                   defaultValue={userDTO.email}
                   fontWeight="bold"
@@ -220,10 +201,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("phone", { required: true })}
+                  {...register("phone")}
                   w="100%"
                   color="black"
-                  type="number"
                   defaultValue={userDTO.phone}
                   fontWeight="bold"
                 />
