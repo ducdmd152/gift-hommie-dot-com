@@ -1,6 +1,5 @@
 package com.gifthommie.backend.repository;
 
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	public List<Orders> findAllByEmail(@Param("email") String email);
 	
 	//===========NEW=================
-	@Query("SELECT SUM(od.price) FROM Orders o JOIN o.orderDetails od "
+	@Query("SELECT SUM(od.price * od.quantity) FROM Orders o JOIN o.orderDetails od "
 			+ "WHERE o.status = 'SUCCESSFUL' "
 			+ "AND :startDate <= o.orderTime "
 			+ "AND o.orderTime <= :endDate")
