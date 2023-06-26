@@ -85,7 +85,7 @@ const ShopProductReview = () => {
               </Text>
 
               <Text color="gray" p="2" fontStyle="italic" overflowY={"auto"}>
-                Đã đánh vào{" "}
+                Đã đánh giá vào{" "}
                 {new Date(feedback.time).toLocaleDateString("en-GB")}
               </Text>
             </Card>

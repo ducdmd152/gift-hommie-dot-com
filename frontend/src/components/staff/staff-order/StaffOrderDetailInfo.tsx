@@ -48,6 +48,30 @@ const StaffOrderDetailInfo = ({
       cancelButtonText: "Hủy",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        // let timerInterval: string | number | NodeJS.Timeout | undefined;
+        // Swal.fire({
+        //   title: "Đang xử lí!",
+        //   html: "Đơn hàng đang được xác nh <b id='timer'></b> milliseconds.",
+        //   timer: 2000,
+        //   timerProgressBar: true,
+        //   didOpen: () => {
+        //     Swal.showLoading();
+        //     const b = window.document.querySelector("#timer");
+        //     timerInterval = setInterval(() => {
+        //       if (b != null)
+        //         b.innerHTML = Swal.getTimerLeft()?.toString() || "";
+        //     }, 100);
+        //   },
+        //   willClose: () => {
+        //     clearInterval(timerInterval);
+        //   },
+        // }).then((result) => {
+        //   /* Read more about handling dismissals below */
+        //   if (result.dismiss === Swal.DismissReason.timer) {
+        //     console.log("I was closed by the timer");
+        //   }
+        // });
+
         const orderDTO = await staffUpdateOrder({
           ...order,
           status: "CONFIRMED",

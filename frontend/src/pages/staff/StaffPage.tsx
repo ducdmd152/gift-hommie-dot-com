@@ -41,12 +41,7 @@ const StaffPage = () => {
 
       <GridItem area="main" mt={HEADER_HEIGHT}>
         <Routes>
-          <Route
-            index
-            element={
-              <StaffProductListPage setCurrentProductId={setCurrentProductId} />
-            }
-          />
+          <Route index element={<StaffOrderPage />} />
           <Route
             path="/product"
             element={
