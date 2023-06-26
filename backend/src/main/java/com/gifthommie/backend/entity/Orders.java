@@ -356,5 +356,9 @@ public class Orders {
 				+ proviceId + ", message=" + message + ", status=" + status + ", comment=" + comment
 				+ ", lastUpdatedTime=" + lastUpdatedTime + "]";
 	}
+	
+	public LocalDateTime getUpdatedTime() {
+		return lastUpdatedTime;
+	}
 
 }

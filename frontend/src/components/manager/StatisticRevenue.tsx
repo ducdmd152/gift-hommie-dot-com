@@ -17,10 +17,28 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { VictoryPie } from "Victory";
 import ORDER_STATUS_MAP from "../../data/OrderStatusData";
+import StatisticRevenueDTO from "../../type/StatisticRevenueDTO";
+import statisticService from "../../services/statistic-service";
+import moneyService from "../../services/money-service";
+import OrderDTO from "../../type/OrderDTO";
 const StatisticRevenue = () => {
+  const [revenue, setRevenue] = useState({} as StatisticRevenueDTO);
+  const [orders, setOrders] = useState<OrderDTO[] | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setRevenue(await statisticService.getRevenue());
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      setOrders(await statisticService.getTodaySuccessfulOrders());
+    })();
+  }, []);
+
   return (
     <VStack>
       <HStack w="100%">
@@ -31,7 +49,7 @@ const StatisticRevenue = () => {
               {/* (trong tháng) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.month?.revenue)}
             </Text>
           </Card>
         </Box>
@@ -42,7 +60,7 @@ const StatisticRevenue = () => {
               {/* (trong tuần) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.week?.revenue)}
             </Text>
           </Card>
         </Box>
@@ -53,7 +71,7 @@ const StatisticRevenue = () => {
               {/* (trong ngày) */}
             </Text>
             <Text fontSize="2xl" color="teal" fontStyle={"bold"}>
-              1.000.0000đ
+              {moneyService.getVND(revenue.day?.revenue)}
             </Text>
           </Card>
         </Box>
@@ -72,43 +90,57 @@ const StatisticRevenue = () => {
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 2:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[0].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 3:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[1].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 4:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[2].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 5:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[3].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 6:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[4].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 7:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[5].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Chủ nhật:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week?.days[6].revenue)}
+                  </strong>
                 </HStack>
               </Card>
             </List>
@@ -127,13 +159,34 @@ const StatisticRevenue = () => {
                 "",
               ]}
               data={[
-                { x: "Thứ 2", y: 15 },
-                { x: "Thứ 3", y: 10 },
-                { x: "Thứ 4", y: 25 },
-                { x: "Thứ 5", y: 15 },
-                { x: "Thứ 6", y: 20 },
-                { x: "Thứ 7", y: 15 },
-                { x: "Chủ nhật", y: 20 },
+                {
+                  x: revenue.week?.days[0].revenue ? "Thứ 2" : "",
+                  y: revenue.week?.days[0].revenue,
+                },
+                {
+                  x: revenue.week?.days[1].revenue ? "Thứ 3" : "",
+                  y: revenue.week?.days[1].revenue,
+                },
+                {
+                  x: revenue.week?.days[2].revenue ? "Thứ 4" : "",
+                  y: revenue.week?.days[2].revenue,
+                },
+                {
+                  x: revenue.week?.days[3].revenue ? "Thứ 5" : "",
+                  y: revenue.week?.days[3].revenue,
+                },
+                {
+                  x: revenue.week?.days[4].revenue ? "Thứ 6" : "",
+                  y: revenue.week?.days[4].revenue,
+                },
+                {
+                  x: revenue.week?.days[5].revenue ? "Thứ 7" : "",
+                  y: revenue.week?.days[5].revenue,
+                },
+                {
+                  x: revenue.week?.days[6].revenue ? "Chủ nhật" : "",
+                  y: revenue.week?.days[6].revenue,
+                },
               ]}
               labels={({ datum }) => `${datum.x}`}
             />
@@ -142,47 +195,67 @@ const StatisticRevenue = () => {
       </Card>
 
       <Card w="100%" p="4">
+        <Text
+          mb="2"
+          textAlign={"center"}
+          fontSize="xl"
+          fontWeight="bold"
+          color="teal"
+        >
+          Doanh thu hôm nay
+        </Text>
         <TableContainer borderRadius="12" border="solid 1px gray">
           <Table variant="striped" colorScheme="gray">
             <Thead>
               <Tr>
-                <Th textAlign={"center"}>Thời gian đặt hàng</Th>
+                <Th textAlign={"center"}>Cập nhật</Th>
                 <Th textAlign={"center"}>Mã đơn hàng</Th>
                 <Th textAlign={"center"}>Trạng thái</Th>
-                <Th textAlign={"center"}>Tổng đơn</Th>
+                <Th textAlign={"center"}>Thu về</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {/* {orders.map((order) => ( */}
-              <Tr key={"order.id"}>
-                <Td textAlign={"center"}>
-                  <strong>{"18:00 18/06/2023"}</strong>
-                </Td>
-                <Td textAlign={"center"}>
-                  <strong>{"order.id"}</strong>
-                </Td>
-                <Td textAlign={"center"}>
-                  <Badge
-                    colorScheme={ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme}
-                    border={
-                      ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme == "gray"
-                        ? "1px solid gray"
-                        : "none"
-                    }
-                    w="unset"
-                  >
-                    {ORDER_STATUS_MAP["SUCCESSFUL"].label}
-                  </Badge>
-                </Td>
-                <Td
-                  //   textAlign={"right"}
-                  color={"yellow.500"}
-                  textAlign={"center"}
-                >
-                  <strong>100.00đ</strong>
-                </Td>
-              </Tr>
-              {/* ))} */}
+              {orders != null &&
+                orders.map((order) => (
+                  <Tr key={order.id}>
+                    <Td textAlign={"center"}>
+                      <strong>
+                        {new Date(order.updatedTime).toLocaleTimeString()}
+                      </strong>
+                    </Td>
+                    <Td textAlign={"center"}>
+                      <strong>{order.id}</strong>
+                    </Td>
+                    <Td textAlign={"center"}>
+                      <Badge
+                        colorScheme={ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme}
+                        border={
+                          ORDER_STATUS_MAP["SUCCESSFUL"].colorScheme == "gray"
+                            ? "1px solid gray"
+                            : "none"
+                        }
+                        w="unset"
+                      >
+                        {ORDER_STATUS_MAP["SUCCESSFUL"].label}
+                      </Badge>
+                    </Td>
+                    <Td
+                      //   textAlign={"right"}
+                      color={"green.500"}
+                      textAlign={"center"}
+                    >
+                      <strong>
+                        {"+ "}
+                        {moneyService.getVND(
+                          order.orderDetails.reduce(
+                            (acc, item) => item.price * item.quantity + acc,
+                            0
+                          )
+                        )}
+                      </strong>
+                    </Td>
+                  </Tr>
+                ))}
             </Tbody>
           </Table>
         </TableContainer>
