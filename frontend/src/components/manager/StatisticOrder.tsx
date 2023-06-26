@@ -38,11 +38,39 @@ const StatisticOrder = () => {
           </Card>
         </VStack>
       </HStack>
-      <Card w="100%" mt="4">
+      <Card mt="4" w="100%" background="blue.100">
+        <Card p="4" m="4" border="2px lightgrays solid">
+          <Text fontSize="xl">Đơn hàng hôm nay</Text>
+          <List mt="2" spacing={2}>
+            <HStack justifyContent={"space-between"} color="blue.600">
+              <Text fontSize="lg">Tổng:</Text>
+              <Text fontSize="lg">10 đơn hàng</Text>
+            </HStack>
+            <HStack justifyContent={"space-between"} color="green.500">
+              <Text fontSize="lg">Thành công:</Text>
+              <Text fontSize="lg">10 đơn hàng</Text>
+            </HStack>
+
+            <HStack justifyContent={"space-between"} color="#FF9800">
+              <Text fontSize="lg">Đang xử lí:</Text>
+              <Text fontSize="lg">10 đơn hàng</Text>
+            </HStack>
+            <HStack justifyContent={"space-between"} color="#fd5660">
+              <Text fontSize="lg">Thất bại:</Text>
+              <Text fontSize="lg">10 đơn hàng</Text>
+            </HStack>
+            <HStack justifyContent={"space-between"} color="#546E7A">
+              <Text fontSize="lg">Khác:</Text>
+              <Text fontSize="lg">10 đơn hàng</Text>
+            </HStack>
+          </List>
+        </Card>
+      </Card>
+      <Card w="100%" mt="4" background="blue.100">
         <HStack w="100%" p="2" alignItems={"stretch"}>
-          <VStack w="100%" flex="4">
-            <Card w="100%" p="4" m="4" border="2px teal solid">
-              <Text fontSize="xl">Đơn hàng trong tháng</Text>
+          <VStack w="100%" flex="4" spacing="2">
+            <Card w="100%" p="4" border="2px lightgrays solid">
+              <Text fontSize="xl">Đơn hàng trong tuần</Text>
               <List mt="2" spacing={2}>
                 <HStack justifyContent={"space-between"} color="blue.600">
                   <Text fontSize="lg">Tổng:</Text>
@@ -67,8 +95,8 @@ const StatisticOrder = () => {
                 </HStack>
               </List>
             </Card>
-            <Card w="100%" p="4" m="4" border="2px teal solid">
-              <Text fontSize="xl">Đơn hàng trong tuần</Text>
+            <Card w="100%" p="4" border="2px lightgrays solid">
+              <Text fontSize="xl">Đơn hàng trong tháng</Text>
               <List mt="2" spacing={2}>
                 <HStack justifyContent={"space-between"} color="blue.600">
                   <Text fontSize="lg">Tổng:</Text>
