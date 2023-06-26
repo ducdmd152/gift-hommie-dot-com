@@ -52,7 +52,7 @@ const StatisticProduct = () => {
           </Card>
         </HStack>
       </Card> */}
-      <HStack mt="2">
+      <HStack mt="2" alignItems={"flex-start"}>
         <Card flex="1" p="4">
           <HStack>
             <Text fontSize="xl" color="teal" fontWeight={"bold"}>
