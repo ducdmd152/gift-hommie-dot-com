@@ -165,6 +165,23 @@ const StatisticOrder = () => {
 export default StatisticOrder;
 
 const TasksChart = ({ order }: { order: StatisticOrderDTO }) => {
+  const getDays = () => {
+    const data = [
+      "Chủ nhật",
+      "Thứ 2",
+      "Thứ 3",
+      "Thứ 4",
+      "Thứ 5",
+      "Thứ 6",
+      "Thứ 7",
+    ] as string[];
+    let today = new Date().getDay();
+    const res = ["0", "1", "2", "3", "4", "5", "6", "7"] as string[];
+    for (let i = 0; i < 7; i++) {
+      res[7 - 1 - i] = data[(today - i + 7) % 7];
+    }
+    return res;
+  };
   const options = {
     chart: {
       height: 350,
@@ -173,7 +190,7 @@ const TasksChart = ({ order }: { order: StatisticOrderDTO }) => {
       },
     },
     colors: ["#2E93fA", "#5cb85c", "#fd5660", "#FF9800", "#546E7A", "#FF9800"],
-    labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+    labels: getDays(),
   };
 
   const series = [
