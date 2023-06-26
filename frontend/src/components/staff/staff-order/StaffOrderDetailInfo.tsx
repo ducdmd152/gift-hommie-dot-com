@@ -22,9 +22,11 @@ import { staffUpdateOrder } from "../../../services/staff-order-service";
 const StaffOrderDetailInfo = ({
   order,
   setOrder,
+  transition,
 }: {
   order: OrderDTO;
   setOrder: (order: OrderDTO) => void;
+  transition: (order: OrderDTO) => void;
 }) => {
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
@@ -78,6 +80,7 @@ const StaffOrderDetailInfo = ({
         });
 
         setOrder(orderDTO);
+        transition(orderDTO);
         Swal.fire({
           position: "center",
           icon: "success",

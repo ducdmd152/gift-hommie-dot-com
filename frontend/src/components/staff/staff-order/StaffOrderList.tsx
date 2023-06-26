@@ -122,6 +122,9 @@ const StaffOrderList = ({
       </TableContainer>
       <StaffOrderDetailModal
         order={order}
+        transition={(order) => {
+          setOrders(orders.filter((o) => o.id != order.id));
+        }}
         setOrder={onSetOrder}
         isOpen={isOpen}
         onOpen={onOpen}
