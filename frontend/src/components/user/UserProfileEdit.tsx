@@ -159,7 +159,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("lastName")}
+                  {...register("lastName", { required: true })}
                   w="100%"
                   color="black"
                   defaultValue={userDTO.lastName}
@@ -181,7 +181,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("email")}
+                  {...register("email", { required: true })}
                   w="100%"
                   // isReadOnly
                   color="black"
@@ -201,8 +201,9 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("phone")}
+                  {...register("phone", { required: true })}
                   w="100%"
+                  type="number"
                   color="black"
                   defaultValue={userDTO.phone}
                   fontWeight="bold"
@@ -221,7 +222,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("address")}
+                  {...register("address", { required: true })}
                   w="100%"
                   color="black"
                   defaultValue={userDTO.address}
