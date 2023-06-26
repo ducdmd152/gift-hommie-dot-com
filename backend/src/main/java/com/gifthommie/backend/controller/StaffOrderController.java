@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -101,23 +102,30 @@ public class StaffOrderController {
 			order.autoUpdateFromDTO(orderDTO);		
 			orderService.save(order);
 //			if (order.getStatus().equals("CONFIRMED"))
-			if (CONFIRM_MODE)
-				sendEmailConfirmOrder(order);
+			if (CONFIRM_MODE) {
+				Thread newThread = new Thread(() -> {
+					sendEmailConfirmOrder(order);
+				});
+				newThread.start();
+			}
+				
 			
 			return orderService.getOrderDTOByOrderId(orderId);
 		}
 		
+//		@Async
 		public void sendEmailConfirmOrder (Orders order) {	
 			try {
 			
 				SimpleMailMessage message = new SimpleMailMessage();
 				    message.setTo(order.getEmail());
-				    message.setSubject("Đơn Hàng Mã Số #" + order.getId() + " Đã Được Xác Nhận");
+				    message.setSubject("Đơn Hàng Mã Số #" + order.getId() + (order.getStatus().equals("CONFIRMED") ? " Đã Được Xác Nhận" : " Đã Bị Từ Chối"));
 
-				    message.setText("Chào bạn,\n\nĐơn Hàng Mã Số #" + order.getId() + " Đã Được Xác Nhận tại HommieStore. "
+				    message.setText("Chào bạn,\n\nĐơn Hàng Mã Số #" + order.getId() + (order.getStatus().equals("CONFIRMED") ? " Đã Được Xác Nhận" : " Đã Bị Từ Chối")
 				    		+ "\n\nĐơn hàng của bạn được cập nhật vào lúc: " +    order.getLastUpdatedTime()  + " ."
-				    		+ "\n\nBạn sẽ nhận được email thông báo khi đơn hàng của bạn được giao\n\n" 
-				    		+ "Thời gian giao hàng dự kiến cho đơn hàng của bạn là : "+ order.getExpectedDeliveryTime()  +"."
+				    		+ (order.getStatus().equals("CONFIRMED") ? "\n\nNhân viên của shop đang chuẩn bị hàng và nhanh chóng gửi đi\n\n" + "Thời gian giao hàng dự kiến cho đơn hàng của bạn là : "+ order.getExpectedDeliveryTime()  +"."
+				    					: "Lí do từ chối: Sản phẩm đang tạm hết hàng, chúng tôi sẽ liên hệ trong thời gian sớm nhất, xin lỗi vì sự bất tiện này!") 
+				    		
 				    		+ "\n\nCảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi"
 				    		+ "\n\nTrân trọng,\nHommieStore");
 				    mailSender.send(message);			

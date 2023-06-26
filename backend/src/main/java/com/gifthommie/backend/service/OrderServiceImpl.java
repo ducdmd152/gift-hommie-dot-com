@@ -348,7 +348,7 @@ public class OrderServiceImpl implements OrderService {
 				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
 				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
 				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
-				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("DELIVERYING")) DELIVERING+=1;
 				if(orders.getStatus().equals("FAIL")) FAIL+=1;
 			}
 		}
@@ -369,13 +369,16 @@ public class OrderServiceImpl implements OrderService {
 	public void getOrderStatisticByWeek(String date, OrderStatisticsDTO orderStatisticsDTO) {
 		LocalDateTime dateTime = convertStringToLocalDateTime(date);
 		//Minus , Plus day formatter
-        LocalDateTime firstDayOfWeek = dateTime;
-        while (firstDayOfWeek.getDayOfWeek() != DayOfWeek.MONDAY)
-            firstDayOfWeek = firstDayOfWeek.minusDays(1);
-        LocalDateTime lastDayOfWeek = dateTime;
-        while (lastDayOfWeek.getDayOfWeek() != DayOfWeek.SUNDAY)
-            lastDayOfWeek = lastDayOfWeek.plusDays(1);
+//        LocalDateTime firstDayOfWeek = dateTime;
+//        while (firstDayOfWeek.getDayOfWeek() != DayOfWeek.MONDAY)
+//            firstDayOfWeek = firstDayOfWeek.minusDays(1);
+//        LocalDateTime lastDayOfWeek = dateTime;
+//        while (lastDayOfWeek.getDayOfWeek() != DayOfWeek.SUNDAY)
+//            lastDayOfWeek = lastDayOfWeek.plusDays(1);
 		
+		LocalDateTime firstDayOfWeek = convertStringToLocalDateTime(date).minusDays(6);
+		LocalDateTime lastDayOfWeek = convertStringToLocalDateTime(date);
+//		System.out.println(firstDayOfWeek + " " + lastDayOfWeek);
         List<Orders> orderList = orderRepository.findOrderByDay(firstDayOfWeek, lastDayOfWeek);
         
         //set data for day[] of week
@@ -403,7 +406,7 @@ public class OrderServiceImpl implements OrderService {
     				if(orders.getStatus().equals("CANCELLED")) dayCANCELLED+=1;
     				if(orders.getStatus().equals("REFUSED")) dayREFUSED+=1;
     				if(orders.getStatus().equals("CONFIRMED")) dayCONFIRMED+=1;
-    				if(orders.getStatus().equals("DELIVERING")) dayDELIVERING+=1;
+    				if(orders.getStatus().equals("DELIVERYING")) dayDELIVERING+=1;
     				if(orders.getStatus().equals("FAIL")) dayFAIL+=1;
     			}
     		}
@@ -431,7 +434,7 @@ public class OrderServiceImpl implements OrderService {
 				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
 				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
 				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
-				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("DELIVERYING")) DELIVERING+=1;
 				if(orders.getStatus().equals("FAIL")) FAIL+=1;
 			}
 		}
@@ -483,7 +486,7 @@ public class OrderServiceImpl implements OrderService {
 	    				if(orders.getStatus().equals("CANCELLED")) weekCANCELLED+=1;
 	    				if(orders.getStatus().equals("REFUSED")) weekREFUSED+=1;
 	    				if(orders.getStatus().equals("CONFIRMED")) weekCONFIRMED+=1;
-	    				if(orders.getStatus().equals("DELIVERING")) weekDELIVERING+=1;
+	    				if(orders.getStatus().equals("DELIVERYING")) weekDELIVERING+=1;
 	    				if(orders.getStatus().equals("FAIL")) weekFAIL+=1;
 	    			}
 	    		}
@@ -512,7 +515,7 @@ public class OrderServiceImpl implements OrderService {
 					if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
 					if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
 					if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
-					if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+					if(orders.getStatus().equals("DELIVERYING")) DELIVERING+=1;
 					if(orders.getStatus().equals("FAIL")) FAIL+=1;
 				}
 			}
@@ -563,7 +566,7 @@ public class OrderServiceImpl implements OrderService {
     				if(orders.getStatus().equals("CANCELLED")) monthCANCELLED+=1;
     				if(orders.getStatus().equals("REFUSED")) monthREFUSED+=1;
     				if(orders.getStatus().equals("CONFIRMED")) monthCONFIRMED+=1;
-    				if(orders.getStatus().equals("DELIVERING")) monthDELIVERING+=1;
+    				if(orders.getStatus().equals("DELIVERYING")) monthDELIVERING+=1;
     				if(orders.getStatus().equals("FAIL")) monthFAIL+=1;
     			}
     		}
@@ -591,7 +594,7 @@ public class OrderServiceImpl implements OrderService {
 				if(orders.getStatus().equals("CANCELLED")) CANCELLED+=1;
 				if(orders.getStatus().equals("REFUSED")) REFUSED+=1;
 				if(orders.getStatus().equals("CONFIRMED")) CONFIRMED+=1;
-				if(orders.getStatus().equals("DELIVERING")) DELIVERING+=1;
+				if(orders.getStatus().equals("DELIVERYING")) DELIVERING+=1;
 				if(orders.getStatus().equals("FAIL")) FAIL+=1;
 			}
 		}

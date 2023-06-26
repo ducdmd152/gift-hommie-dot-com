@@ -24,6 +24,7 @@ interface Props {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  transition: (order: OrderDTO) => void;
 }
 const StaffOrderDetailModal = ({
   isOpen,
@@ -31,6 +32,7 @@ const StaffOrderDetailModal = ({
   onClose,
   order,
   setOrder,
+  transition,
 }: Props) => {
   // const globalContext = useContext(GLOBAL_CONTEXT);
   // const [order, setOrder] = useState<OrderDTO>({
@@ -60,7 +62,11 @@ const StaffOrderDetailModal = ({
         {/* <ModalHeader>Chi tiết đơn hàng</ModalHeader> */}
         <ModalCloseButton zIndex={4} />
         <ModalBody>
-          <StaffOrderDetailInfo order={order} setOrder={setOrder} />
+          <StaffOrderDetailInfo
+            order={order}
+            setOrder={setOrder}
+            transition={transition}
+          />
           <Card p="4" w="100%" mt="4">
             <Heading size="md" textAlign={"center"} mb="4">
               Thông tin sản phẩm

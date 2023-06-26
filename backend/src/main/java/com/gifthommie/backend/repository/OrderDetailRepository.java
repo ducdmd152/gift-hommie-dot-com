@@ -22,7 +22,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 			+ "o.rating IS NOT NULL AND o.rating <> 0")
 	public Page<OrderDetail> findRatedOrderDetailsByProductId(Pageable pageable, @Param("productId") int productId);
 	
-	@Query("SELECT SUM(o.quantity) FROM OrderDetail o "
+	@Query("SELECT COALESCE(SUM(o.quantity), 0) FROM OrderDetail o "
 			+ "WHERE (o.rating IS NOT NULL AND o.rating <> 0) AND "
 			+ "o.productId = :productId")
 	public Integer getSoldProductQuantityByProductId(@Param("productId") int productId);

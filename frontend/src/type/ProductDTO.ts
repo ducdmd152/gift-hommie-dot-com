@@ -9,6 +9,6 @@ export default interface ProductDTO {
   avatar: string;
 
   available: number;
-  // sold: number;
+  sold: number;
   // ordered: number;
 }

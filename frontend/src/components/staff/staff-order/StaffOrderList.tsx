@@ -22,6 +22,7 @@ import useFetchStaffOrder, {
 import ORDER_STATUS_MAP from "../../../data/OrderStatusData";
 import OrderDTO from "../../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../../App";
+import moneyService from "../../../services/money-service";
 
 interface Props {
   orders: OrderDTO[];
@@ -91,14 +92,12 @@ const StaffOrderList = ({
                 </Td>
                 <Td textAlign={"right"} color={"yellow.500"}>
                   <strong>
-                    {(
-                      (order.orderDetails.reduce(
+                    {moneyService.getVND(
+                      order.orderDetails.reduce(
                         (acc, item) => acc + item.total,
                         0
-                      ) +
-                        order.shippingFee) /
-                      1000
-                    ).toFixed(3) + "đ"}
+                      ) + order.shippingFee
+                    )}
                   </strong>
                 </Td>
 
@@ -122,6 +121,9 @@ const StaffOrderList = ({
       </TableContainer>
       <StaffOrderDetailModal
         order={order}
+        transition={(order) => {
+          setOrders(orders.filter((o) => o.id != order.id));
+        }}
         setOrder={onSetOrder}
         isOpen={isOpen}
         onOpen={onOpen}

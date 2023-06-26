@@ -16,7 +16,7 @@ const ManagerStatisticPage = () => {
     <ManagerStatisticContainer setCombo={setCombo}>
       {combo == 0 && (
         <Box>
-          <HStack spacing="2">
+          {/* <HStack spacing="2">
             <Box flex="1">
               <StatisticOverviewRevenue />
             </Box>
@@ -24,20 +24,20 @@ const ManagerStatisticPage = () => {
             <Box flex="1">
               <StatisticOverviewOrder />
             </Box>
-          </HStack>
+          </HStack> */}
           <Box mt="2">
-            <StatisticOrder />
+            <StatisticRevenue overview={true} />
           </Box>
           <Box mt="2">
-            <StatisticRevenue />
+            <StatisticOrder overview={true} />
           </Box>
-          <HStack spacing="2" mt="4" alignItems={"flex-start"}>
+          <HStack spacing="2" mt="4" alignItems={"stretch"}>
             <Box flex="1">
-              <StatisticOverviewCustomer />
+              <StatisticCustomer overview={true} />
             </Box>
 
             <Box flex="1">
-              <StatisticOverviewProduct />
+              <StatisticProduct overview={true} />
             </Box>
           </HStack>
         </Box>

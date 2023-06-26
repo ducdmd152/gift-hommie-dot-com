@@ -104,12 +104,14 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 			+ "AND od.rating IS NOT NULL")
 	public Float getAverageRatingByProductId(@Param("productId") int productId);
 	
-	@Query("SELECT AVG(od.rating) FROM Orders o JOIN "
+	@Query("SELECT coalesce(AVG(od.rating), 0) FROM Orders o JOIN "
 			+ "o.orderDetails od "
 			+ "WHERE od.productId = :productId "
 			+ "AND o.status = 'SUCCESSFUL' "
 			+ "AND :startDate <= o.orderTime "
-			+ "AND o.orderTime <= :endDate")
+			+ "AND o.orderTime <= :endDate "
+			+ "AND od.rating IS NOT NULL "
+			+ "AND od.rating > 0 ")
 	public Float getAverageRatingByProductIdFromTo(@Param("productId") int productId,  
 								@Param("startDate") LocalDateTime startDate, 
 								@Param("endDate") LocalDateTime endDate);
@@ -130,7 +132,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 			+ "AND :startDate <= o.orderTime "
 			+ "AND o.orderTime <= :endDate "
 			+ "GROUP BY od.productId "
-			+ "ORDER BY AVG(od.rating) DESC")
+			+ "ORDER BY coalesce(AVG(od.rating), 0) DESC")
 	public List<Integer> findTopRatingProductFromTo(@Param("startDate") LocalDateTime startDate, 
 							@Param("endDate") LocalDateTime endDate);
 }
