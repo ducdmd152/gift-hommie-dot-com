@@ -82,43 +82,57 @@ const StatisticRevenue = () => {
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 2:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[0].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 3:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[1].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 4:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[2].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 5:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[3].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 6:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[4].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Thứ 7:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[5].revenue)}
+                  </strong>
                 </HStack>
               </Card>
               <Card p="2" backgroundColor="teal.100">
                 <HStack justifyContent={"space-between"}>
                   <strong>Chủ nhật:</strong>
-                  <strong>100.000đ / 2 đơn</strong>
+                  <strong>
+                    {moneyService.getVND(revenue.week.days[6].revenue)}
+                  </strong>
                 </HStack>
               </Card>
             </List>
@@ -137,13 +151,34 @@ const StatisticRevenue = () => {
                 "",
               ]}
               data={[
-                { x: "Thứ 2", y: 15 },
-                { x: "Thứ 3", y: 10 },
-                { x: "Thứ 4", y: 25 },
-                { x: "Thứ 5", y: 15 },
-                { x: "Thứ 6", y: 20 },
-                { x: "Thứ 7", y: 15 },
-                { x: "Chủ nhật", y: 20 },
+                {
+                  x: revenue.week.days[0].revenue ? "Thứ 2" : "",
+                  y: revenue.week.days[0].revenue,
+                },
+                {
+                  x: revenue.week.days[1].revenue ? "Thứ 3" : "",
+                  y: revenue.week.days[1].revenue,
+                },
+                {
+                  x: revenue.week.days[2].revenue ? "Thứ 4" : "",
+                  y: revenue.week.days[2].revenue,
+                },
+                {
+                  x: revenue.week.days[3].revenue ? "Thứ 5" : "",
+                  y: revenue.week.days[3].revenue,
+                },
+                {
+                  x: revenue.week.days[4].revenue ? "Thứ 6" : "",
+                  y: revenue.week.days[4].revenue,
+                },
+                {
+                  x: revenue.week.days[5].revenue ? "Thứ 7" : "",
+                  y: revenue.week.days[5].revenue,
+                },
+                {
+                  x: revenue.week.days[6].revenue ? "Chủ nhật" : "",
+                  y: revenue.week.days[6].revenue,
+                },
               ]}
               labels={({ datum }) => `${datum.x}`}
             />
