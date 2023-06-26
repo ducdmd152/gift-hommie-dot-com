@@ -154,7 +154,7 @@ const StatisticOrder = () => {
           </VStack>
 
           <Card flex="5" p="8">
-            <TasksChart />
+            <TasksChart order={order} />
           </Card>
         </HStack>
       </Card>
@@ -164,7 +164,7 @@ const StatisticOrder = () => {
 
 export default StatisticOrder;
 
-const TasksChart = ({}) => {
+const TasksChart = ({ order }: { order: StatisticOrderDTO }) => {
   const options = {
     chart: {
       height: 350,
@@ -173,29 +173,32 @@ const TasksChart = ({}) => {
       },
     },
     colors: ["#2E93fA", "#5cb85c", "#fd5660", "#FF9800", "#546E7A", "#FF9800"],
+    labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
   };
 
   const series = [
     {
       name: "Tổng",
-      data: [11, 32, 45, 32, 34, 52, 41],
+      data: order?.week?.day?.map((value) => value.total),
     },
     {
       name: "Thành công",
-      data: [31, 40, 28, 51, 42, 109, 100],
+      data: order?.week?.day?.map((value) => value.successful),
     },
     {
       name: "Thất bại",
-      data: [41, 90, 28, 51, 42, 239, 112],
+      data: order?.week?.day?.map((value) => value.fail),
     },
 
     {
       name: "Đang xử lí",
-      data: [41, 90, 28, 51, 42, 239, 112],
+      data: order?.week?.day?.map(
+        (value) => value.pending + value.confirmed + value.delivering
+      ),
     },
     {
       name: "Khác",
-      data: [41, 90, 28, 51, 42, 239, 112],
+      data: order?.week?.day?.map((value) => value.cancelled + value.refused),
     },
   ];
 
