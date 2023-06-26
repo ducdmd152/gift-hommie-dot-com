@@ -4,6 +4,7 @@ import utilService from "./util-service";
 import StatisticRevenueDTO from "../type/StatisticRevenueDTO";
 import OrderDTO from "../type/OrderDTO";
 import StatisticOrderDTO from "../type/StatisticOrderDTO";
+import StatisticProductDTO from "../type/StatisticProductDTO";
 
 const getRevenue = async () => {
   let result = {} as StatisticRevenueDTO;
@@ -50,9 +51,25 @@ const getOrder = async () => {
     .catch((err) => {});
   return result;
 };
+const getProduct = async () => {
+  let result = {} as StatisticProductDTO;
+  await apiClient
+    .get("manager/statistic/product", {
+      headers: {
+        auth: utilService.getCurrentUser(),
+      },
+      auth: utilService.getCurrentUser(),
+    })
+    .then((res) => {
+      result = res.data as StatisticProductDTO;
+    })
+    .catch((err) => {});
+  return result;
+};
 
 export default {
   getRevenue,
   getTodaySuccessfulOrders,
   getOrder,
+  getProduct,
 };
