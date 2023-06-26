@@ -6,7 +6,7 @@ import ReactApexChart from "react-apexcharts";
 import StatisticOrderDTO from "../../type/StatisticOrderDTO";
 import statisticService from "../../services/statistic-service";
 
-const StatisticOrder = () => {
+const StatisticOrder = ({ overview }: { overview?: boolean }) => {
   const [order, setOrder] = useState({} as StatisticOrderDTO);
   useEffect(() => {
     (async () => {
@@ -47,41 +47,43 @@ const StatisticOrder = () => {
           </Card>
         </VStack>
       </HStack>
-      <Card mt="4" w="100%" background="blue.100">
-        <Card p="4" m="4" border="2px lightgrays solid">
-          <Text fontSize="xl">Đơn hàng hôm nay</Text>
-          <List mt="2" spacing={2}>
-            <HStack justifyContent={"space-between"} color="blue.600">
-              <Text fontSize="lg">Tổng:</Text>
-              <Text fontSize="lg">{order.day?.total} đơn hàng</Text>
-            </HStack>
-            <HStack justifyContent={"space-between"} color="green.500">
-              <Text fontSize="lg">Thành công:</Text>
-              <Text fontSize="lg">{order.day?.successful} đơn hàng</Text>
-            </HStack>
+      {!overview && (
+        <Card mt="4" w="100%" background="blue.100">
+          <Card p="4" m="4" border="2px lightgrays solid">
+            <Text fontSize="xl">Đơn hàng hôm nay</Text>
+            <List mt="2" spacing={2}>
+              <HStack justifyContent={"space-between"} color="blue.600">
+                <Text fontSize="lg">Tổng:</Text>
+                <Text fontSize="lg">{order.day?.total} đơn hàng</Text>
+              </HStack>
+              <HStack justifyContent={"space-between"} color="green.500">
+                <Text fontSize="lg">Thành công:</Text>
+                <Text fontSize="lg">{order.day?.successful} đơn hàng</Text>
+              </HStack>
 
-            <HStack justifyContent={"space-between"} color="#FF9800">
-              <Text fontSize="lg">Đang xử lí:</Text>
-              <Text fontSize="lg">
-                {order.day?.pending +
-                  order.day?.confirmed +
-                  order.day?.delivering}{" "}
-                đơn hàng
-              </Text>
-            </HStack>
-            <HStack justifyContent={"space-between"} color="#fd5660">
-              <Text fontSize="lg">Thất bại:</Text>
-              <Text fontSize="lg">{order.day?.fail} đơn hàng</Text>
-            </HStack>
-            <HStack justifyContent={"space-between"} color="#546E7A">
-              <Text fontSize="lg">Khác:</Text>
-              <Text fontSize="lg">
-                {order.day?.cancelled + order.day?.refused} đơn hàng
-              </Text>
-            </HStack>
-          </List>
+              <HStack justifyContent={"space-between"} color="#FF9800">
+                <Text fontSize="lg">Đang xử lí:</Text>
+                <Text fontSize="lg">
+                  {order.day?.pending +
+                    order.day?.confirmed +
+                    order.day?.delivering}{" "}
+                  đơn hàng
+                </Text>
+              </HStack>
+              <HStack justifyContent={"space-between"} color="#fd5660">
+                <Text fontSize="lg">Thất bại:</Text>
+                <Text fontSize="lg">{order.day?.fail} đơn hàng</Text>
+              </HStack>
+              <HStack justifyContent={"space-between"} color="#546E7A">
+                <Text fontSize="lg">Khác:</Text>
+                <Text fontSize="lg">
+                  {order.day?.cancelled + order.day?.refused} đơn hàng
+                </Text>
+              </HStack>
+            </List>
+          </Card>
         </Card>
-      </Card>
+      )}
       <Card w="100%" mt="4" background="blue.100">
         <HStack w="100%" p="2" alignItems={"stretch"}>
           <VStack w="100%" flex="4" spacing="2">

@@ -11,7 +11,7 @@ import moneyService from "../../services/money-service";
 import { FcNeutralTrading } from "react-icons/fc";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
-const StatisticCustomer = () => {
+const StatisticCustomer = ({ overview }: { overview?: boolean }) => {
   const [customer, setCustomer] = useState({} as StatisticCustomerDTO);
   useEffect(() => {
     (async () => {
@@ -109,57 +109,64 @@ const StatisticCustomer = () => {
             })}
           </VStack>
         </Card>
-        <Card flex="1" p="4">
-          <HStack>
-            <Text fontSize="xl" color="teal" fontWeight={"bold"}>
-              Top khách hàng tiềm năng
+        {!overview && (
+          <Card flex="1" p="4">
+            <HStack>
+              <Text fontSize="xl" color="teal" fontWeight={"bold"}>
+                Top khách hàng tiềm năng
+              </Text>
+              <RiMoneyDollarCircleLine color="teal.800" fontSize="2xl" />
+            </HStack>
+            <Text fontSize="md" color="gray" fontStyle={"italic"}>
+              (theo tổng tiền)
             </Text>
-            <RiMoneyDollarCircleLine color="teal.800" fontSize="2xl" />
-          </HStack>
-          <Text fontSize="md" color="gray" fontStyle={"italic"}>
-            (theo tổng tiền)
-          </Text>
-          <VStack w="100%" mt="4">
-            {customer?.amountDTO?.userTopAmountDTOList?.map((data) => {
-              const user = data.user;
-              const amount = data.amount;
+            <VStack w="100%" mt="4">
+              {customer?.amountDTO?.userTopAmountDTOList?.map((data) => {
+                const user = data.user;
+                const amount = data.amount;
 
-              return (
-                <Card w="100%" p="2">
-                  <HStack justifyContent={"space-between"}>
-                    <HStack spacing="3" className="product-card">
-                      <Avatar
-                        // borderRadius={"8px"}
-                        boxSize="50px"
-                        objectFit="cover"
-                        src={user.avatar}
-                      />
-                      <Text
-                        fontSize="md"
-                        fontWeight="bold"
-                        color="dark.200"
-                        letterSpacing="2px"
-                      >
-                        <Badge
-                          fontSize="xs"
-                          colorScheme="teal"
-                          className="none-text-transform"
+                return (
+                  <Card w="100%" p="2">
+                    <HStack justifyContent={"space-between"}>
+                      <HStack spacing="3" className="product-card">
+                        <Avatar
+                          // borderRadius={"8px"}
+                          boxSize="50px"
+                          objectFit="cover"
+                          src={user.avatar}
+                        />
+                        <Text
+                          fontSize="md"
+                          fontWeight="bold"
+                          color="dark.200"
+                          letterSpacing="2px"
                         >
-                          {"@" + user.id}
-                        </Badge>
-                        <br />
-                        {user.firstName + " " + user.lastName}
+                          <Badge
+                            fontSize="xs"
+                            colorScheme="teal"
+                            className="none-text-transform"
+                          >
+                            {"@" + user.id}
+                          </Badge>
+                          <br />
+                          {user.firstName + " " + user.lastName}
+                        </Text>
+                      </HStack>
+                      <Text
+                        color="teal"
+                        fontSize="sm"
+                        fontWeight={"bold"}
+                        mr="4"
+                      >
+                        {moneyService.getVND(amount)}{" "}
                       </Text>
                     </HStack>
-                    <Text color="teal" fontSize="sm" fontWeight={"bold"} mr="4">
-                      {moneyService.getVND(amount)}{" "}
-                    </Text>
-                  </HStack>
-                </Card>
-              );
-            })}
-          </VStack>
-        </Card>
+                  </Card>
+                );
+              })}
+            </VStack>
+          </Card>
+        )}
       </HStack>
     </Box>
   );
