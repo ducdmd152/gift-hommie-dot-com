@@ -68,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 		for(Product product : page) {
 //			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
-			product.setSold(getSoldOfProduct(product.getId()));
+//			product.setSold(getSoldOfProduct(product.getId()));
 //			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
 //			System.out.println("---------------------------");
 		}
@@ -145,7 +145,7 @@ public class ProductServiceImpl implements ProductService {
 		if(result.isPresent()) {
 			Product product = result.get();
 			product.setAvailable(cartService.getShopAvailableQuantity(productId));
-			product.setSold(getSoldOfProduct(productId));
+//			product.setSold(getSoldOfProduct(productId));
 			return product;
 		}
 		
