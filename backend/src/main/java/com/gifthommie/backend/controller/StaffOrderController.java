@@ -60,7 +60,7 @@ public class StaffOrderController {
 			return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
 		}
 		
-		orderService.getOrderDTOList_noEmail(0, 1000, status); // FIRST-SHOT FOR AUTO-UPDATE
+		orderService.getOrderDTOList_noEmail(0, 100, status); // FIRST-SHOT FOR AUTO-UPDATE
 		return orderService.getOrderDTOList_noEmail(pageNo, pageSize, status); // SECOND-SHOT FOR RETURN
     }
 		
