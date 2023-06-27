@@ -1,13 +1,11 @@
 package com.gifthommie.backend.service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	UserRepository userRepository;
 
-	@Autowired
+	@Autowired	
 	OrderDetailRepository orderDetailRepository;
 	private final String ORDER_PENDING_STATUS = "PENDING";
 	@Autowired
@@ -287,10 +285,14 @@ public class OrderServiceImpl implements OrderService {
 
 		long exp = getTimeMillis(order.getExpectedDeliveryTime());
 		long cur = System.currentTimeMillis();
-		long ort = getTimeMillis(order.getOrderTime());
+		long ort = getTimeMillis(order.getLastUpdatedTime());
+		if(cur >= exp && order.getStatus().equals("DELIVERYING") == false)  {
+			order.setExpectedDeliveryTime(LocalDateTime.now().plusDays(1));
+		}
+		
 
 		long part = (exp - ort) / 10;
-		long currentPart = (cur - ort) / part;
+		long currentPart = part == 0 ? 10 : ((cur - ort) / part);
 
 		if (order.getStatus().equals("DELIVERYING") == false && currentPart >= 1) {
 			order.setStatus("DELIVERYING");

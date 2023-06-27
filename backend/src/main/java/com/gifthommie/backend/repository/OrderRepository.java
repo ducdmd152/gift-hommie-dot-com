@@ -97,14 +97,15 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 									@Param("endDate") LocalDateTime endDate);
 	
 	
-	@Query("SELECT AVG(od.rating) FROM Orders o JOIN "
+	@Query("SELECT coalesce(AVG(od.rating), 5) FROM Orders o JOIN "
 			+ "o.orderDetails od "
 			+ "WHERE od.productId = :productId "
 			+ "AND o.status = 'SUCCESSFUL' "
-			+ "AND od.rating IS NOT NULL")
+			+ "AND od.rating IS NOT NULL "
+			+ "AND od.rating > 0 ")
 	public Float getAverageRatingByProductId(@Param("productId") int productId);
 	
-	@Query("SELECT coalesce(AVG(od.rating), 0) FROM Orders o JOIN "
+	@Query("SELECT coalesce(AVG(od.rating), 5) FROM Orders o JOIN "
 			+ "o.orderDetails od "
 			+ "WHERE od.productId = :productId "
 			+ "AND o.status = 'SUCCESSFUL' "
