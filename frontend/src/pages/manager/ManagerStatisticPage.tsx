@@ -13,7 +13,7 @@ import StatisticCustomer from "../../components/manager/StatisticCustomer";
 const ManagerStatisticPage = () => {
   const [combo, setCombo] = useState(0);
   return (
-    <ManagerStatisticContainer setCombo={setCombo}>
+    <ManagerStatisticContainer setCombo={setCombo} combo={combo}>
       {combo == 0 && (
         <Box>
           {/* <HStack spacing="2">
