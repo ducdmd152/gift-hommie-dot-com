@@ -1,27 +1,47 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import UserProfileEdit from "../../components/user/UserProfileEdit";
-import managerStaffService, { ManagerStaffDTO } from '../../services/manager-staff-service';
-import { Link, useNavigate } from 'react-router-dom';
+import managerStaffService, {
+  ManagerStaffDTO,
+} from "../../services/manager-staff-service";
+import { Link, useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import {
-  Badge, Box, Button, Card, CardBody, FormControl, FormHelperText, FormLabel, HStack,
-  Heading, Input, NumberInput, NumberInputField, Select, Textarea, VStack,
-  Image, Flex, WrapItem, Wrap, Avatar, Radio, RadioGroup, Stack
+  Badge,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  HStack,
+  Heading,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Select,
+  Textarea,
+  VStack,
+  Image,
+  Flex,
+  WrapItem,
+  Wrap,
+  Avatar,
+  Radio,
+  RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
-import UserDTO from '../../type/UserDTO';
-import staffService from '../../services/staff-service';
-
+import UserDTO from "../../type/UserDTO";
+import staffService from "../../services/staff-service";
 
 interface Props {
   userId: string;
 }
-interface FormData extends ManagerStaffDTO { }
+interface FormData extends ManagerStaffDTO {}
 
 const ManagerStaffEditPage = ({ userId }: Props) => {
-  const [staff, setStaff] = useState<ManagerStaffDTO>(
-    {} as ManagerStaffDTO
-  );
+  const [staff, setStaff] = useState<ManagerStaffDTO>({} as ManagerStaffDTO);
 
   const navigate = useNavigate();
 
@@ -38,10 +58,10 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
       })
       .catch((err) => {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-          footer: '<a href="">Vui lòng thử lại sau</a>'
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="">Vui lòng thử lại sau</a>',
         });
       });
   }, []);
@@ -60,10 +80,12 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
     managerStaffService
       .update(updateStaff)
       .then(() => {
-        navigate("/staff");
+        navigate("/staff/detail");
       })
       .catch(() => {
-        alert(`Không thể sửa thông tin của "${staff.username}".\n Vui lòng thử lại.`);
+        alert(
+          `Không thể sửa thông tin của "${staff.username}".\n Vui lòng thử lại.`
+        );
       });
   };
 
@@ -76,12 +98,16 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-
           <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
             <Wrap>
               <Box>
                 <WrapItem justifyContent="center">
-                  <Avatar size="2xl" name="" src="" border="1px lightgray solid" />{" "}
+                  <Avatar
+                    size="2xl"
+                    name=""
+                    src=""
+                    border="1px lightgray solid"
+                  />{" "}
                 </WrapItem>
                 <Heading
                   size="sm"
@@ -210,27 +236,28 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
               </HStack>
             </FormControl>
           </Box>
-          <HStack justifyContent='center' marginTop='50px' marginLeft='400px'>
+          <HStack justifyContent="center" marginTop="50px" marginLeft="400px">
             <Button type="submit" colorScheme="blue" size="md">
               Cập nhật
             </Button>
-            <Button colorScheme="red" size="md"
+            <Button
+              colorScheme="red"
+              size="md"
               onClick={() => {
                 Swal.fire({
-                  title: 'Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.',
-                  icon: 'warning',
+                  title: "Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.",
+                  icon: "warning",
                   showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes'
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes",
                 }).then((result) => {
                   if (result.isConfirmed) {
                     navigate("/staff/detail");
                     window.scrollTo(0, 0);
                   }
-                })
-              }
-              }
+                });
+              }}
             >
               Hủy
             </Button>
@@ -238,7 +265,7 @@ const ManagerStaffEditPage = ({ userId }: Props) => {
         </Card>
       </form>
     </>
-  )
+  );
 };
 
 export default ManagerStaffEditPage;

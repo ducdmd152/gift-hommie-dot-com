@@ -114,7 +114,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
       .create(staff)
       .then((res) => {
         setUserId(res.data.id);
-        navigate("/staff");
+        navigate("/staff/detail");
       })
       .catch(() => {
         // alert(
@@ -124,17 +124,17 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
         Swal.fire({
           title: `Không thể tạo mới nhân viên "${staff.username}". \n Vui lòng thử lại`,
           // text: "You won't be able to revert this!",
-          icon: 'warning',
+          icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes'
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes",
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/staff/create");
             window.scrollTo(0, 0);
           }
-        })
+        });
       });
   };
 
@@ -163,18 +163,19 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               <Button
                 onClick={() => {
                   Swal.fire({
-                    title: 'Bạn muốn hủy tạo mới nhân viên, thông tin sẽ không được lưu.',
-                    icon: 'warning',
+                    title:
+                      "Bạn muốn hủy tạo mới nhân viên, thông tin sẽ không được lưu.",
+                    icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes",
                   }).then((result) => {
                     if (result.isConfirmed) {
                       navigate("/staff");
                       window.scrollTo(0, 0);
                     }
-                  })
+                  });
                 }}
               >
                 Hủy
@@ -242,7 +243,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                     fontWeight="bold"
                   />
                   {errors.lastName && (
-                    <p className="form-error-message">{errors.lastName?.message}</p>
+                    <p className="form-error-message">
+                      {errors.lastName?.message}
+                    </p>
                   )}
                 </Box>
               </HStack>
@@ -262,7 +265,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                     fontWeight="bold"
                   />
                   {errors.email && (
-                    <p className="form-error-message">{errors.email?.message}</p>
+                    <p className="form-error-message">
+                      {errors.email?.message}
+                    </p>
                   )}
                 </Box>
               </HStack>
@@ -281,7 +286,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                     fontWeight="bold"
                   />
                   {errors.phone && (
-                    <p className="form-error-message">{errors.phone?.message}</p>
+                    <p className="form-error-message">
+                      {errors.phone?.message}
+                    </p>
                   )}
                 </Box>
               </HStack>
@@ -301,7 +308,9 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
                     fontWeight="bold"
                   />
                   {errors.address && (
-                    <p className="form-error-message">{errors.address?.message}</p>
+                    <p className="form-error-message">
+                      {errors.address?.message}
+                    </p>
                   )}
                 </Box>
               </HStack>
@@ -342,8 +351,8 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
               </HStack>
             </FormControl>
           </Box>
-        </Card >
-      </form >
+        </Card>
+      </form>
     </>
   );
 };

@@ -54,9 +54,11 @@ const LinkItems: Array<LinkItemProps> = [
 export default function ManagerStatisticContainer({
   children,
   setCombo,
+  combo,
 }: {
   children: ReactNode;
   setCombo: (value: number) => void;
+  combo?: number;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -65,6 +67,7 @@ export default function ManagerStatisticContainer({
         setCombo={setCombo}
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
+        combo={combo}
       />
       <Drawer
         autoFocus={false}
@@ -91,9 +94,15 @@ export default function ManagerStatisticContainer({
 interface SidebarProps extends BoxProps {
   onClose: () => void;
   setCombo: (value: number) => void;
+  combo?: number;
 }
 
-const SidebarContent = ({ onClose, setCombo, ...rest }: SidebarProps) => {
+const SidebarContent = ({
+  onClose,
+  setCombo,
+  combo,
+  ...rest
+}: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
@@ -113,6 +122,7 @@ const SidebarContent = ({ onClose, setCombo, ...rest }: SidebarProps) => {
       </Flex>
       {LinkItems.map((link, index) => (
         <NavItem
+          background={combo == index ? "teal.100" : "white"}
           key={link.name}
           icon={link.icon}
           onClick={() => setCombo(index)}

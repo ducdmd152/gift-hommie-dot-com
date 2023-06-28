@@ -183,7 +183,7 @@ const CartListItem = ({ cart, onDelete }: Props) => {
                     type="number"
                     defaultValue={currentQuantity}
                     height="32px"
-                    width="32px"
+                    width="42px"
                     color="black"
                     fontSize={"20px"}
                     p="0"
