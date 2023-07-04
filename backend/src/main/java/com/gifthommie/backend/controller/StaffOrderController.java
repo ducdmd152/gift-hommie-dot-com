@@ -1,10 +1,17 @@
 package com.gifthommie.backend.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +25,10 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
+import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.repository.OrderRepository;
+import com.gifthommie.backend.service.MailService;
 import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.UserService;
 
@@ -32,6 +41,13 @@ public class StaffOrderController {
 	
 	@Autowired
 	JavaMailSender mailSender;
+	
+	@Autowired
+	UserService userService;
+	
+	
+	@Autowired
+    MailService mailService;
 	
 	/// ------- NOTICE ------------- ///
 		// Make sure name Orders Table in Database is Order
@@ -115,20 +131,36 @@ public class StaffOrderController {
 		
 //		@Async
 		public void sendEmailConfirmOrder (Orders order) {	
+			User u = new User();
 			try {
-			
-				SimpleMailMessage message = new SimpleMailMessage();
-				    message.setTo(order.getEmail());
-				    message.setSubject("Đơn Hàng Mã Số #" + order.getId() + (order.getStatus().equals("CONFIRMED") ? " Đã Được Xác Nhận" : " Đã Bị Từ Chối"));
-
-				    message.setText("Chào bạn,\n\nĐơn Hàng Mã Số #" + order.getId() + (order.getStatus().equals("CONFIRMED") ? " Đã Được Xác Nhận" : " Đã Bị Từ Chối")
-				    		+ "\n\nĐơn hàng của bạn được cập nhật vào lúc: " +    order.getLastUpdatedTime()  + " ."
-				    		+ (order.getStatus().equals("CONFIRMED") ? "\n\nNhân viên của shop đang chuẩn bị hàng và nhanh chóng gửi đi\n\n" + "Thời gian giao hàng dự kiến cho đơn hàng của bạn là : "+ order.getExpectedDeliveryTime()  +"."
-				    					: "Lí do từ chối: Sản phẩm đang tạm hết hàng, chúng tôi sẽ liên hệ trong thời gian sớm nhất, xin lỗi vì sự bất tiện này!") 
-				    		
-				    		+ "\n\nCảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi"
-				    		+ "\n\nTrân trọng,\nHommieStore");
-				    mailSender.send(message);			
+				
+					MimeMessage message = mailSender.createMimeMessage();
+					MimeMessageHelper helper = new MimeMessageHelper(message,
+												MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+												StandardCharsets.UTF_8.name());
+					u = userService.getUserByEmail(order.getEmail());
+					// Set người gửi, người nhận
+					helper.setFrom("quyettcse160862@fpt.edu.vn");
+					helper.setTo(order.getEmail());
+					helper.setSubject("Đơn Hàng Mã Số #" + order.getId() + (order.getStatus().equals("CONFIRMED") ? " Đã Được Xác Nhận" : " Đã Bị Từ Chối"));
+				    
+					String confirmed_refuse = (order.getStatus().equals("CONFIRMED") 
+							? "Đã Được Xác Nhận \nĐơn hàng của bạn được cập nhật vào lúc: "+ order.getLastUpdatedTime()  + "." 
+							: "Đã Bị Từ Chối");
+					String order_status_info = (order.getStatus().equals("CONFIRMED") 
+							? "Nhân viên của shop đang chuẩn bị hàng và nhanh chóng gửi đi" + "\nThời gian giao hàng dự kiến cho đơn hàng của bạn là : "
+								+ ""+ order.getExpectedDeliveryTime()  +"."
+							: "Sản phẩm đang tạm hết hàng, chúng tôi sẽ liên hệ trong thời gian sớm nhất, xin lỗi vì sự bất tiện này!");
+					
+					// Truyền dữ liệu vào email
+					Map<String, Object> variables = new HashMap<>();
+					 	variables.put("user_name", u.getLastName());
+					 	variables.put("order_id", order.getId());
+			            variables.put("confirmed_refuse", confirmed_refuse);
+			            variables.put("order_status_info", order_status_info);
+			           
+			        helper.setText(mailService.createContent("conform-order.html", variables), true);
+					mailSender.send(message);    
 			} catch (Exception e) {
 					
 			}
