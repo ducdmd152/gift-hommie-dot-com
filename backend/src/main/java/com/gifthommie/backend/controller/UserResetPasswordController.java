@@ -1,6 +1,10 @@
 package com.gifthommie.backend.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
@@ -19,7 +23,7 @@ import org.thymeleaf.Thymeleaf;
 import com.gifthommie.backend.dto.VerifyPasswordDTO;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.UserRepository;
-import com.gifthommie.backend.service.ThymeleafService;
+import com.gifthommie.backend.service.MailService;
 import com.gifthommie.backend.service.UserService;
 
 import net.bytebuddy.utility.RandomString;
@@ -38,7 +42,7 @@ public class UserResetPasswordController {
 	JavaMailSender mailSender;
 	
 	@Autowired
-    ThymeleafService thymeleafService;
+    MailService mailService;
 	
 	
 	
@@ -62,11 +66,19 @@ public class UserResetPasswordController {
 			MimeMessageHelper helper = new MimeMessageHelper(message,
 										MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
 										StandardCharsets.UTF_8.name());
+			
+			// Set người gửi, người nhận
 			helper.setFrom("quyettcse160862@fpt.edu.vn");
 			helper.setTo(verifyPasswordDTO.getEmail());
-			helper.setText(thymeleafService.createContent("create-customer-mail-template.html", null), true);
-			helper.setSubject("Mail Test With Template HTML");
+			helper.setSubject("Đặt lại mật khẩu tài khoản");
+			// truyền dữ liệu vào template có sẵn
+			 Map<String, Object> variables = new HashMap<>();
+	            variables.put("user_name", u.getLastName());
+	            variables.put("token", token);
+	            variables.put("getExpired_verification_code", u.getExpired_verification_code());
 
+			helper.setText(mailService.createContent("create-customer-mail-template.html", variables), true);
+			
 			mailSender.send(message);
 		} catch (Exception e) {
 			return e.getMessage();			
@@ -124,23 +136,5 @@ public class UserResetPasswordController {
 	}
 	
 	
-//	String resetPasswordLink = "http://localhost:8080/account/reset_password?token=" + token;
-//	SimpleMailMessage message = new SimpleMailMessage();
-//	    message.setTo(verifyPasswordDTO.getEmail());
-//	    message.setSubject("Reset Password");
-//	    
-//	    // Phần này là chổ gửi kèm link và code token
-//	    //message.setText(MessageFormat.format(resetPasswordLink, token));	
-//	    message.setSubject("Đặt lại mật khẩu");
-//	    message.setText("Chào bạn,\n\nBạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình tại HommieStore. "
-//	    		+ "\n\nMã xác nhận của bạn là: [ "  + token + " ]  ."
-//	    		+ "\n\nĐể tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã thông báo khi được yêu cầu:\n\n" + resetPasswordLink 
-//	    		+ "\n\nMã thông báo của bạn sẽ hết hạn vào lúc "
-//	    		+ "\n\n[" + u.getExpired_verification_code() + "]. "
-//	    		+ "\nVui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc."
-//	    		+ "\nNếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này. "
-//	    		+ "Nếu bạn tin rằng có ai đó đang cố gắng truy cập vào tài khoản của bạn, vui lòng liên hệ với chúng tôi ngay lập tức để được trợ giúp."
-//	    		+ "\n\nTrân trọng,\nHommieStore");
-//
-//	    mailSender.send(message);			
+		
 }
