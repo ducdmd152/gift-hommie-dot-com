@@ -21,12 +21,14 @@ import { ManagerStaffQuery } from "../../hooks/useFetchManagerStaff";
 import useFetchManagerStaff from "../../hooks/useFetchManagerStaff";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import accountService from "../../services/account-service";
 
 interface Props {
   userId: string;
 }
 const ManagerStaffDetailPage = ({ userId }: Props) => {
   const [staff, setStaff] = useState<ManagerStaffDTO>({} as ManagerStaffDTO);
+  const [status, setStatus] = useState(false);
   useEffect(() => {
     let id = userId;
 
@@ -37,6 +39,7 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
       .get(id)
       .then((res) => {
         setStaff(res.data);
+        setStatus(res.data.enabled);
       })
       .catch((err) => {
         navigate("/staff");
@@ -44,35 +47,55 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
   }, []);
   const navigate = useNavigate();
 
-  const onDeleteStaff = (id: string) => {
-    if (
-      confirm(
-        `Bạn có muốn xóa "${staff.username}" khỏi danh sách nhân viên không?`
-      )
-    ) {
-      managerStaffService
-        .delete(staff.id)
-        .then(() => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: `Đã xóa "${staff.username}" khỏi danh sách nhân viên.`,
-            showConfirmButton: false,
-            timer: 1500,
+  const onStatus = (id: string) => {
+    if (staff.enabled)
+      Swal.fire({
+        title: `Bạn muốn khóa tài khoản @` + staff.username + `?`,
+        text: "Tài khoản sẽ không được phép hoạt động cho đến khi bạn mở khóa.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orange",
+        cancelButtonColor: "gray",
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await accountService
+            .update({ ...staff, enabled: !staff.enabled })
+            .then((res) => {
+              setStaff(res.data);
+              Swal.fire({
+                title: "Đã khóa tài khoản @" + staff.username + ".",
+                icon: "info",
+                showConfirmButton: false,
+                timer: 2200,
+              });
+              setStatus(!status);
+            })
+            .catch((error) => {
+              alert("Không thể khóa tài khoản.");
+            });
+        }
+      });
+    else {
+      (async () => {
+        await accountService
+          .update({ ...staff, enabled: !staff.enabled })
+          .then((res) => {
+            setStaff(res.data);
+            Swal.fire({
+              title: "Đã mở khóa tài khoản @" + staff.username + ".",
+              text: "Tài khoản này có thể đăng nhập và hoạt động trở lại.",
+              icon: "info",
+              showConfirmButton: false,
+              timer: 2200,
+            });
+            setStatus(!status);
+          })
+          .catch((error) => {
+            alert("Không thể mở khóa tài khoản.");
           });
-          navigate("/staff");
-        })
-        .catch(() => {
-          // alert(
-          //   `Không thể xóa "${staff.username}" khỏi danh sách nhân viên. \n Vui lòng thử lại.`
-          // );
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: `Không thể xóa "${staff.username}" khỏi danh sách nhân viên`,
-            footer: `Vui lòng thử lại`,
-          });
-        });
+      })();
     }
   };
 
@@ -92,11 +115,11 @@ const ManagerStaffDetailPage = ({ userId }: Props) => {
           </Link>
 
           <Button
-            colorScheme="red"
+            colorScheme={status ? "orange" : "teal"}
             size="md"
-            onClick={() => onDeleteStaff(staff.id)}
+            onClick={() => onStatus(staff.id)}
           >
-            {staff.enabled ? "Khóa" : "Mở khóa"}
+            {status ? "Khóa" : "Mở khóa"}
           </Button>
         </HStack>
 
