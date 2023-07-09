@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gifthommie.backend.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
-
+//	public User getUserByUsernameOrEmail(String usernameOrEmail);
+	
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	public User getUserByUsername(@Param("username") String username);
 
