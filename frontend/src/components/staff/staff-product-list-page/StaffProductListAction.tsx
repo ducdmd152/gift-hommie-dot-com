@@ -4,6 +4,7 @@ import Selector from "../../Selector";
 import CATEGORIES from "../../../data/Categories";
 import { StaffProductQuery } from "../../../hooks/useFetchStaffProduct";
 import { Link } from "react-router-dom";
+import CategoryManagement from "./CategoryManagement";
 interface Props {
   staffProductQuery: StaffProductQuery;
   setStaffProductQuery: (staffProductQuery: StaffProductQuery) => void;
@@ -15,6 +16,7 @@ const StaffProductListAction = ({
 }: Props) => {
   return (
     <VStack width="100%" p={4} m={4} marginTop={8} spacing={8}>
+      <CategoryManagement />
       <Link to="/product/create">
         <Button colorScheme="teal" size="md">
           Tạo mới sản phẩm
