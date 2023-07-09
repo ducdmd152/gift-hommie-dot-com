@@ -10,5 +10,6 @@ export default interface ProductDTO {
 
   available: number;
   sold: number;
+  status: boolean;
   // ordered: number;
 }

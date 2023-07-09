@@ -98,7 +98,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int getShopAvailableQuantity(int productId) {
-		Product product = productRepository.findProductById(productId, true);
+		Product product = productRepository.getById(productId);
 		// GET PRODUCT QUANTITY THAT ORDERED WITHOUT CANCEL
 		Integer orderedQuantity = orderRepository.getOrderedProductQuantityWithoutStatus(productId, CANCEL_STATUS_LIST);
 		

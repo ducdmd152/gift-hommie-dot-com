@@ -11,6 +11,13 @@ public class ProductRequestDTO implements Serializable {
 	private String avatar;
 	private Integer categoryId;
 	private Integer available;
+	private Boolean status;
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 	public Integer getId() {
 		return id;
 	}

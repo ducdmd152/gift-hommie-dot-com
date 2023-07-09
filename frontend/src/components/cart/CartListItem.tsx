@@ -84,7 +84,15 @@ const CartListItem = ({ cart, onDelete }: Props) => {
   // }, []);
 
   return (
-    <Card width="100%" paddingX="6" paddingY="4" border="1px solid #dddd">
+    <Card
+      width="100%"
+      paddingX="6"
+      paddingY="4"
+      border="1px solid #dddd"
+      display={cart.product.status ? "block" : "none"}
+      opacity={cart.product.status ? "100%" : "70%"}
+      className={cart.product.status ? "" : "disable-link"}
+    >
       <HStack spacing={4}>
         <Box>
           <Checkbox

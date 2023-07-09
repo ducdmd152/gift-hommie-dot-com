@@ -30,6 +30,9 @@ import imageService from "../../services/image-service";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ImageUpload from "../../components/image/ImageUpload";
+import useFetchCategories, {
+  CategoryQuery,
+} from "../../hooks/useFetchCategory";
 const schema = z.object({
   name: z
     .string({
@@ -81,6 +84,8 @@ interface Props {
 const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
   const navigate = useNavigate();
   const [productAvatarURL, setProductAvatarURL] = useState<string>("");
+  const [query, setQuery] = useState({} as CategoryQuery);
+  const { categories, setCategories } = useFetchCategories(query);
 
   // FORM HANDLING
   const {
@@ -180,11 +185,13 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                     color="black"
                     placeholder="Lựa chọn danh mục"
                   >
-                    {CATEGORIES.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
+                    {categories
+                      .filter((category) => category.status)
+                      .map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
                   </Select>
                   {errors.categoryId && (
                     <p className="form-error-message">

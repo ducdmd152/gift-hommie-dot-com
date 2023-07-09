@@ -1,9 +1,13 @@
 import { Box, Button, Heading, VStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Selector from "../../Selector";
 import CATEGORIES from "../../../data/Categories";
 import { StaffProductQuery } from "../../../hooks/useFetchStaffProduct";
 import { Link } from "react-router-dom";
+import CategoryManagement from "./CategoryManagement";
+import useFetchCategories, {
+  CategoryQuery,
+} from "../../../hooks/useFetchCategory";
 interface Props {
   staffProductQuery: StaffProductQuery;
   setStaffProductQuery: (staffProductQuery: StaffProductQuery) => void;
@@ -13,8 +17,18 @@ const StaffProductListAction = ({
   staffProductQuery,
   setStaffProductQuery,
 }: Props) => {
+  const [query, setQuery] = useState({} as CategoryQuery);
+  const { categories, setCategories } = useFetchCategories(query);
   return (
     <VStack width="100%" p={4} m={4} marginTop={8} spacing={8}>
+      <CategoryManagement
+        updateCategories={(categories) => {
+          setCategories(categories);
+        }}
+        refresh={() => {
+          setStaffProductQuery({ ...staffProductQuery, category: 0 });
+        }}
+      />
       <Link to="/product/create">
         <Button colorScheme="teal" size="md">
           Tạo mới sản phẩm
@@ -34,7 +48,7 @@ const StaffProductListAction = ({
 
         <Selector
           field="Danh mục"
-          choices={CATEGORIES}
+          choices={categories.filter((c) => c.status)}
           onSelect={(id) => {
             if (isNaN(id as number)) {
               id = 0;

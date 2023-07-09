@@ -58,6 +58,7 @@
   transition: all 0.2s ease-in-out;
   scale: 1.01;
   transform: translate(1px, -1px);
+  cursor: pointer;
 }
 
 .none-text-transform {
@@ -136,4 +137,7 @@ svg.star-svg {
 
 .flex-start {
   align-items: flex-start !important;
+}
+.disable-link {
+  pointer-events: none;
 }

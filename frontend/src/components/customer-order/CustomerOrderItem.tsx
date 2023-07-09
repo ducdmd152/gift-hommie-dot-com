@@ -16,8 +16,9 @@ const CustomerOrderItem = ({ item }: { item: OrderDetailDTO }) => {
         w="100%"
         justifyContent={"space-between"}
       >
-        <Box flex="1">
+        <Box flex="1" opacity={item.product.status ? "100%" : "70%"}>
           <Link
+            className={item.product.status ? "" : "disable-link"}
             to="/shop/detail"
             onClick={() => {
               productContext.setProductId(item.product.id);

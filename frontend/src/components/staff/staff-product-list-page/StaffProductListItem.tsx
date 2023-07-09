@@ -10,6 +10,7 @@ import {
   HStack,
   VStack,
   Heading,
+  position,
 } from "@chakra-ui/react";
 
 const IMG_URL_EXAMPLE =
@@ -32,7 +33,28 @@ const StaffProductListItem = ({ product, setCurrentProductId }: Props) => {
         navigate("/product/detail");
         // <Redirect to="/product/edit" />;
       }}
+      opacity={product.status ? "100%" : "60%"}
+      _hover={{
+        opacity: "100%",
+      }}
     >
+      {product.status == false && (
+        <Badge
+          className="none-text-transform"
+          colorScheme="yellow"
+          style={{
+            position: "absolute",
+            width: "105px",
+            paddingLeft: "6px",
+            paddingRight: "6px",
+            top: "-2px",
+            right: "-2px",
+          }}
+        >
+          Đã ẩn sản phẩm
+        </Badge>
+      )}
+
       <HStack spacing={4}>
         <Image
           boxSize="100px"
