@@ -24,10 +24,12 @@ import com.gifthommie.backend.dto.OrderStatisticsDTO;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Day;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Month;
 import com.gifthommie.backend.dto.OrderStatisticsDTO.Week;
+import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.User;
+import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.repository.UserRepository;
@@ -36,6 +38,9 @@ import com.gifthommie.backend.repository.UserRepository;
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 
 	@Autowired
 	UserRepository userRepository;
@@ -108,6 +113,8 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderDetailDTO> orderDetailDTOs = new ArrayList(); // CONVERT DETAILS TO DETAIL-DTOs
 		for (OrderDetail orderDetail : order.getOrderDetails()) {
 			Product product = productService.getProductById(orderDetail.getProductId());
+			Category cate = categoryRepository.getById(product.getCategoryId());
+			if (cate.isStatus() == false) product.setStatus(false);
 			orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
 		}
 
@@ -141,6 +148,8 @@ public class OrderServiceImpl implements OrderService {
 			;
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
 				Product product = productService.getProductById(orderDetail.getProductId());
+				Category cate = categoryRepository.getById(product.getCategoryId());
+				if (cate.isStatus() == false) product.setStatus(false);
 				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
 			}
 
@@ -185,6 +194,8 @@ public class OrderServiceImpl implements OrderService {
 			;
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
 				Product product = productService.getProductById(orderDetail.getProductId());
+				Category cate = categoryRepository.getById(product.getCategoryId());
+				if (cate.isStatus() == false) product.setStatus(false);
 				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
 			}
 
@@ -232,6 +243,8 @@ public class OrderServiceImpl implements OrderService {
 			;
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
 				Product product = productService.getProductById(orderDetail.getProductId());
+				Category cate = categoryRepository.getById(product.getCategoryId());
+				if (cate.isStatus() == false) product.setStatus(false);
 				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
 			}
 
