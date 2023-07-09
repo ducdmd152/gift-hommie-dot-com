@@ -106,11 +106,11 @@ public class UserServiceImpl implements UserService {
 	// updateUserProfile : get value from RequestBody by UserProfileDTO
 	@Override
 	public User updateUserProfileDTO(String userEmail, UserProfileDTO userDTO) {
-		if (userRepository.getUserByEmail(userEmail) == null) {
+		if (userRepository.getUserByUsernameOrEmail(userEmail) == null) {
 			throw new RuntimeException("Email Not Exist!!!");
 			
 		}
-		User user = userRepository.getUserByEmail(userEmail);
+		User user = userRepository.getUserByUsernameOrEmail(userEmail);
 		
 		
 			user.setUsername(userDTO.getUsername());
@@ -121,6 +121,7 @@ public class UserServiceImpl implements UserService {
 			user.setYob(userDTO.getYob());
 			user.setAvatar(userDTO.getAvatar());
 			user.setAddress(userDTO.getAddress());
+			
 //			user.setWardId(userDTO.getWardId());
 //			user.setGender(userDTO.getGender());
 			userRepository.save(user);

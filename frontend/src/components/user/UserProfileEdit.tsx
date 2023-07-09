@@ -47,9 +47,6 @@ interface FormData extends AccountDTO {}
 const UserProfileEdit = ({ user, setUser }: Props) => {
   const [errors, setErrors] = useState<UserFormErrors>({} as UserFormErrors);
   const navigate = useNavigate();
-
-  console.log(user);
-
   //{ resolver: zodResolver(schema) }
   const onValid = () => {
     let isErrors = false;
@@ -57,7 +54,7 @@ const UserProfileEdit = ({ user, setUser }: Props) => {
     if (!user.lastName) {
       isErrors = true;
       tmpErrors.lastName = "Vui lòng nhập tên ít nhất 6 kí tự.";
-      console.log(user.lastName);
+      // console.log(user.lastName);
     } else if (user.lastName && user.lastName.length < 6) {
       isErrors = true;
       tmpErrors.lastName = "Vui lòng nhập tên ít nhất 6 kí tự.";
@@ -91,10 +88,9 @@ const UserProfileEdit = ({ user, setUser }: Props) => {
       accountService
         .update(user)
         .then(() => {
-          // if (window.location.pathname === "staff/edit")
-          //   navigate("staff/detail");
-          // else
-          navigate("/account");
+          if (window.location.pathname === "/staff/edit")
+            navigate("/staff/detail");
+          else navigate("/account");
         })
         .catch(() => {
           alert(

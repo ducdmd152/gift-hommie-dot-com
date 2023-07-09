@@ -29,6 +29,9 @@ public interface UserRepository extends JpaRepository<User, String> {
 	// with enabled status
 	@Query("SELECT u FROM User u WHERE u.enabled = :enabled and (u.email = :check OR u.username = :check)")
 	public User getUserByUsernameOrEmail(@Param("check") String check, @Param("enabled") boolean enabled);
+	
+	@Query("SELECT u FROM User u WHERE (u.email = :check OR u.username = :check)")
+	public User getUserByUsernameOrEmail(@Param("check") String check);
 
 	// Get User List by Role ID with enabled status
 	@Query("SELECT u FROM User u WHERE u.role.id = :roleId AND u.enabled = :enabled")
