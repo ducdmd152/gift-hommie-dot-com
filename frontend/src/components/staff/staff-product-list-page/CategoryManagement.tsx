@@ -39,41 +39,41 @@ const CategoryManagement = ({
   refresh: () => void;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
   const [query, setQuery] = useState({} as CategoryQuery);
   const { categories, setCategories } = useFetchCategories(query);
   const [newCate, setNewCate] = useState("");
+  const [updateCate, setUpdateCate] = useState({} as CategoryDTO);
   const navigate = useNavigate();
 
-  const onDelete = (id: number) => {
-    // Swal.fire({
-    //   title: "Đây là thao tác xóa vĩnh viễn?",
-    //   text: "Đây là c!",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "orange",
-    //   cancelButtonColor: "gray",
-    //   confirmButtonText: "Có",
-    //   cancelButtonText: "Không",
-    // }).then(async (result) => {
-    //   if (result.isConfirmed) {
-    //     order.status = "CANCELLED";
-    //     const orderDTO = await updateOrder(order);
-    //     if (order === orderDTO) {
-    //       alert("Không thể hủy đơn hàng.");
-    //       order.status = "PENDING";
-    //     } else {
-    //       setOrder(orderDTO);
-    //       Swal.fire({
-    //         position: "center",
-    //         icon: "info",
-    //         title: "Đã hủy đơn hàng.",
-    //         showConfirmButton: false,
-    //         timer: 2000,
-    //       });
-    //     }
-    //   }
-    // });
-    // alert("Delete " + id);
+  const onUpdate = (id: number) => {
+    categoryService
+      .update(updateCate)
+      .then(() => {
+        setCategories(
+          categories.map((c) => (c.id == updateCate.id ? updateCate : c))
+        );
+        onEditClose();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Cập nhật thành công.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Không thể chỉnh sửa. \n Vui lòng thử lại.",
+          showConfirmButton: true,
+        });
+      });
   };
   const onStatus = (category: CategoryDTO, status: boolean) => {
     let cate = category;
@@ -225,22 +225,25 @@ const CategoryManagement = ({
                           isChecked={category.status}
                           onChange={(e) => onStatus(category, !category.status)}
                         />
-                        {/* <Badge
+                        <Badge
                           fontSize={"sm"}
                           variant="outline"
                           className="badge-button none-text-transform"
-                          colorScheme="red"
+                          colorScheme="blue"
                           borderRadius={"4px"}
                           paddingX="4"
                           paddingY="4px"
                           fontWeight={"500"}
                           _hover={{
-                            background: "red.200",
+                            background: "blue.200",
                           }}
-                          onClick={() => onDelete(category.id)}
+                          onClick={() => {
+                            setUpdateCate(category);
+                            onEditOpen();
+                          }}
                         >
-                          Xóa
-                        </Badge> */}
+                          Sửa
+                        </Badge>
                       </HStack>
                     </HStack>
                   </Card>
@@ -262,6 +265,59 @@ const CategoryManagement = ({
             </Button>
             {/* <Button variant="ghost">Secondary Action</Button> */}
           </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal
+        isOpen={isEditOpen}
+        onClose={onEditClose}
+        preserveScrollBarGap={false}
+      >
+        <ModalOverlay />
+        <ModalContent padding="2" mt="30vh">
+          {/* <ModalHeader>Chi tiết đơn hàng</ModalHeader> */}
+          <ModalCloseButton zIndex={4} onClick={() => refresh()} />
+          <ModalBody>
+            <Box w="100%">
+              <Heading size="md">Chỉnh sửa danh mục</Heading>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onUpdate(0);
+                }}
+              >
+                <Card p="4" mt="2">
+                  <HStack
+                    justifyContent={"space-between"}
+                    alignItems={"stretch"}
+                  >
+                    <Input
+                      value={updateCate.name}
+                      paddingX="2"
+                      borderRadius={"6px"}
+                      size="xl"
+                      fontWeight={"bold"}
+                      background={"white"}
+                      color="black"
+                      placeholder="Nhập tên mới..."
+                      onChange={(e) =>
+                        setUpdateCate({ ...updateCate, name: e.target.value })
+                      }
+                    />
+                    <Button
+                      type="submit"
+                      colorScheme="teal"
+                      size="sm"
+                      fontWeight={"300"}
+                    >
+                      Hoàn tất
+                    </Button>
+                  </HStack>
+                </Card>
+              </form>
+            </Box>
+          </ModalBody>
+
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
