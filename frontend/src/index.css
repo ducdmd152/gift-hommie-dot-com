@@ -5,6 +5,12 @@
 .body {
   font-family: Microsoft Yahei, Arial, Helvetica, sans-serif !important;
 }
+
+.child-100vw {
+  width: 99vw;
+  position: relative;
+  left: calc(-50vw + 50%);
+}
 .logo {
   font-size: 24px;
   font-weight: bold;

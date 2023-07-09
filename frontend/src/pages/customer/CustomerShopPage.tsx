@@ -4,6 +4,7 @@ import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
 import utilService from "../../services/util-service";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
+import Footer from "../../components/Footer";
 
 const CustomerShopPage = () => {
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>(
@@ -13,7 +14,7 @@ const CustomerShopPage = () => {
     <Grid
       // marginTop={utilService.HEADER_HEIGHT}
       templateAreas={{
-        base: `"aside-left main"`,
+        base: `"aside-left main" "footer footer"`,
         // sm: `"header header" "aside-left main"`,
         // lg: `"header header" "aside-left main"`,
       }}
@@ -37,6 +38,10 @@ const CustomerShopPage = () => {
           shopProductQuery={shopProductQuery}
           setShopProductQuery={setShopProductQuery}
         />
+      </GridItem>
+
+      <GridItem area="footer" mt="-2">
+        <Footer />
       </GridItem>
     </Grid>
   );
