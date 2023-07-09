@@ -17,6 +17,8 @@ import {
   VStack,
   Image,
   Flex,
+  Switch,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -133,9 +135,27 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               </FormControl> */}
 
               <FormControl>
-                <FormLabel size="md" fontWeight="bold">
-                  Tên sản phẩm
-                </FormLabel>
+                <HStack
+                  w="100%"
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <FormLabel size="md" fontWeight="bold">
+                    Tên sản phẩm
+                  </FormLabel>
+                  <HStack alignItems="center">
+                    <Switch
+                      isReadOnly={true}
+                      size="lg"
+                      isChecked={product.status}
+                      onChange={() => {
+                        setProduct({ ...product, status: !product.status });
+                      }}
+                    />
+                    <Text color="gray">Hiển thị</Text>
+                  </HStack>
+                </HStack>
+
                 <Input
                   isReadOnly
                   color="gray"
@@ -143,6 +163,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   fontWeight="bold"
                 />
               </FormControl>
+
               <FormControl>
                 <FormLabel size="md" fontWeight="bold">
                   Danh mục sản phẩm
