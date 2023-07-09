@@ -74,9 +74,9 @@ public class PublicController {
 		}
 
 		if(category == null || category==0) {
-			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
+			return productService.searchProductsByName(pageNo, pageSize, search, sortField, true);
 		}
-		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
+		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField, true);
 	}
 	
 	//View Product Detail: get product by id
