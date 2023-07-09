@@ -17,6 +17,8 @@ import {
   VStack,
   Image,
   Flex,
+  Switch,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
@@ -87,6 +89,7 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
   const [productAvatarURL, setProductAvatarURL] = useState<string>("");
   const [query, setQuery] = useState({} as CategoryQuery);
   const { categories, setCategories } = useFetchCategories(query);
+  const [status, setStatus] = useState(true);
 
   // FORM HANDLING
   const {
@@ -99,6 +102,8 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
     const product = data as StaffProductDTO;
     product.id = 0;
     product.avatar = productAvatarURL;
+
+    product.status = status;
 
     staffProductService
       .create(product)
@@ -114,9 +119,13 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
         navigate("/product/detail");
       })
       .catch(() => {
-        alert(
-          `Không thể tạo mới sản phẩm "${product.name}". \n Vui lòng thử lại.`
-        );
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Không thể tạo mới. \n Vui lòng thử lại.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate("/product/create");
       });
   };
@@ -171,9 +180,25 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
             <Flex width="100%" gap="8">
               <VStack spacing="8" flex="1">
                 <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Tên sản phẩm
-                  </FormLabel>
+                  <HStack
+                    w="100%"
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <FormLabel size="md" fontWeight="bold" mt="3">
+                      Tên sản phẩm
+                    </FormLabel>
+                    <HStack alignItems="center">
+                      <Switch
+                        size="lg"
+                        isChecked={status}
+                        onChange={() => {
+                          setStatus(!status);
+                        }}
+                      />
+                      <Text color="gray">Hiển thị</Text>
+                    </HStack>
+                  </HStack>
                   <Input
                     {...register("name")}
                     color="black"
