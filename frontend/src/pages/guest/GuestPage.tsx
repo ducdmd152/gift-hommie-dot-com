@@ -37,6 +37,7 @@ const GuestPage = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<GuestShopPage />} />
+          <Route path="/about" element={<GuestShopPage />} />
           <Route path="/shop/detail" element={<GuestShopDetailPage />} />
           <Route
             path="/forgot-password"

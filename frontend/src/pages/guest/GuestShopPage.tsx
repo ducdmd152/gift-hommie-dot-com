@@ -45,7 +45,7 @@ const GuestShopPage = () => {
             setShopProductQuery={setShopProductQuery}
           />
         </GridItem>
-        <GridItem area="footer" mt="-8">
+        <GridItem area="footer" mt="-2">
           <Footer />
         </GridItem>
       </Grid>

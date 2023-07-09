@@ -98,24 +98,22 @@ export default function Footer() {
               </Stack>
             </Stack>
             <Stack align={"flex-start"}>
-              <ListHeader>Shop</ListHeader>
-              <Link href={"#"}>About us</Link>
+              <ListHeader>Cửa hàng</ListHeader>
+              <Link href={"#"}>Thông tin</Link>
               <Link href={"#"}>Blog</Link>
-              <Link href={"#"}>Contact us</Link>
-              <Link href={"#"}>Testimonials</Link>
+              <Link href={"#"}>Liên hệ</Link>
+              <Link href={"#"}>Đánh giá</Link>
             </Stack>
             <Stack align={"flex-start"}>
-              <ListHeader>Support</ListHeader>
-              <Link href={"#"}>Help Center</Link>
-              <Link href={"#"}>Terms of Service</Link>
-              <Link href={"#"}>Legal</Link>
-              <Link href={"#"}>Privacy Policy</Link>
+              <ListHeader>Hỗ trợ</ListHeader>
+              <Link href={"#"}>Trung tâm hỗ trợ</Link>
+              <Link href={"#"}>Liên hệ trực tiếp</Link>
             </Stack>
             <Stack align={"flex-start"}>
-              <ListHeader>Stay up to date</ListHeader>
+              <ListHeader>Đăng ký để nhận thông tin</ListHeader>
               <Stack direction={"row"}>
                 <Input
-                  placeholder={"Your email address"}
+                  placeholder={"Email của bạn..."}
                   bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
                   border={0}
                   _focus={{
