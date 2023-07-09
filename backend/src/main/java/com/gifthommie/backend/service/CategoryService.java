@@ -6,4 +6,8 @@ import com.gifthommie.backend.entity.Product;
 
 public interface CategoryService {
 	public APIPageableResponseDTO<Category> getPageableCategories();
+
+	public Category save(Category category);
+
+	public void remove(int id);
 }

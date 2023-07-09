@@ -24,4 +24,18 @@ public class CategoryServiceImpl implements CategoryService {
 		return new APIPageableResponseDTO<Category>(page);
 	}
 
+	@Override
+	public Category save(Category category) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
+
+	@Override
+	public void remove(int id) {
+		// TODO Auto-generated method stub
+		categoryRepository.deleteById(id);
+	}
+	
+	
+
 }
