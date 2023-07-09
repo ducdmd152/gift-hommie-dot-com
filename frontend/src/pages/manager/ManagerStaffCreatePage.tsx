@@ -118,7 +118,7 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
           icon: "success",
           title: "Hoàn tất thêm nhân viên mới.",
           showConfirmButton: false,
-          timer: 1000,
+          timer: 2000,
         });
         setUserId(res.data.id);
         navigate("/staff/detail");

@@ -33,6 +33,7 @@ import ImageUpload from "../../components/image/ImageUpload";
 import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";
+import Swal from "sweetalert2";
 const schema = z.object({
   name: z
     .string({
@@ -102,6 +103,13 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
     staffProductService
       .create(product)
       .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Tạo mới thành công.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setCurrentProductId(res.data.id);
         navigate("/product/detail");
       })

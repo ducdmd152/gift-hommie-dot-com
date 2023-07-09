@@ -93,7 +93,7 @@ const UserProfileEdit = ({ user, setUser }: Props) => {
             icon: "success",
             title: "Cập nhật thông tin thành công.",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 2000,
           });
           if (window.location.pathname === "/staff/edit")
             navigate("/staff/detail");

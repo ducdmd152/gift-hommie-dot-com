@@ -32,6 +32,7 @@ import imageService from "../../services/image-service";
 import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";
+import Swal from "sweetalert2";
 
 interface Props {
   currentProductId: number | null;
@@ -138,11 +139,21 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
         .update(product)
         .then(() => {
           navigate("/product/detail");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Cập nhật thành công.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
         .catch(() => {
-          alert(
-            `Không thể sửa thông của "${product.name}".\n Vui lòng thử lại.`
-          );
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Không thể sửa thông tin sản phẩm. \n Vui lòng thử lại.",
+            showConfirmButton: true,
+          });
         });
     }
   };
