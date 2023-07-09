@@ -45,7 +45,7 @@ const StaffProductListAction = ({
         >
           Bộ lọc
         </Heading>
-
+        <Box mt="4"></Box>
         <Selector
           field="Danh mục"
           choices={categories.filter((c) => c.status)}
@@ -58,6 +58,28 @@ const StaffProductListAction = ({
               search: "",
               page: 0,
               category: id as number,
+            });
+          }}
+        />
+        <Box mt="4"></Box>
+        <Selector
+          field="Trạng thái"
+          choices={[
+            { id: 1, name: "Hiển thị" },
+            { id: 2, name: "Đã ẩn" },
+          ]}
+          onSelect={(id) => {
+            let num = 0;
+            if (isNaN(id as number)) {
+              num = 0;
+            } else {
+              num = id as number;
+            }
+
+            setStaffProductQuery({
+              ...staffProductQuery,
+              page: 0,
+              status: num == 0 ? null : num == 1,
             });
           }}
         />
