@@ -43,7 +43,7 @@ const CategoryManagement = () => {
           <ModalBody>
             <Box>
               <Heading size="xl">Quản lý danh mục</Heading>
-              <SimpleGrid columns={2} spacing={10}>
+              <SimpleGrid columns={2} spacing={10} mt="6">
                 <Card p="4" bg="teal.100">
                   <HStack
                     justifyContent={"space-between"}
