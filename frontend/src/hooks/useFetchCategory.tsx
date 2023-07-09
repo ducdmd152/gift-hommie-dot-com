@@ -1,6 +1,7 @@
 import { PaginationQuery } from "../components/Pagination";
 import cartService from "../services/cart-service";
 import categoryService from "../services/category-service";
+import publicCategoryService from "../services/public-category-service";
 import CartDTO from "../type/CartDTO";
 import CategoryDTO from "../type/CategoryDTO";
 import HttpRequestQuery from "../type/HttpRequestQuery";
@@ -11,7 +12,7 @@ export interface CategoryQuery extends HttpRequestQuery, PaginationQuery {}
 const useFetchCategories = (requestQuery: CategoryQuery) => {
   const { entities, pageable, error, isLoading, setEntities, setError } =
     useFetchEntities<CategoryDTO>(
-      categoryService,
+      publicCategoryService,
       {
         params: {
           page: requestQuery?.page,
