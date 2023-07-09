@@ -138,3 +138,6 @@ svg.star-svg {
 .flex-start {
   align-items: flex-start !important;
 }
+.disable-link {
+  pointer-events: none;
+}
