@@ -6,10 +6,11 @@ export default interface UserDTO {
   firstName: string;
   lastName: string;
   phone: string;
-  yob: number;
+  yob: number | null;
   avatar: string;
   address: string;
   wardId: number;
   roleId: number;
   authority: string;
+  enabled: boolean;
 }

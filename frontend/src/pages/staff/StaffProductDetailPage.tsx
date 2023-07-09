@@ -26,6 +26,7 @@ import staffProductService, {
   StaffProductDTO,
 } from "../../services/staff-product-service";
 import { getCategoryName } from "../../data/Categories";
+import utilService from "../../services/util-service";
 
 interface Props {
   currentProductId: number | null;
@@ -215,7 +216,7 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
                   borderRadius="8px"
                   height="280px"
                   objectFit="cover"
-                  src={product.avatar}
+                  src={product.avatar || utilService.getProductSampleImage()}
                   alt={product.name}
                 />
               </Box>

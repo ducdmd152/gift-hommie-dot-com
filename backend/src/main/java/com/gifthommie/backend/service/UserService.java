@@ -45,4 +45,6 @@ public interface UserService {
 	public void getUserStatictisByProduct(String date,UserStatisticsDTO userStatisticsDTO);
 	public void getUserStatictisByAmount(String date,UserStatisticsDTO userStatisticsDTO);
 	public UserStatisticsDTO getUserStatictis(String date);
+
+	APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, String search);
 }

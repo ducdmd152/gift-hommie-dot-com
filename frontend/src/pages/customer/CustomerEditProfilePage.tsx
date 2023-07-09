@@ -20,7 +20,6 @@ import { useState, useEffect } from "react";
 import UserDTO from "../../type/UserDTO";
 import { FieldValues, useForm } from "react-hook-form";
 
-
 const CustomerEditProfilePage = () => {
   const [customer, setCustomer] = useState<UserDTO>({} as UserDTO);
 
@@ -41,14 +40,11 @@ const CustomerEditProfilePage = () => {
       });
   }, []);
 
-
   return (
     <>
-
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
-        <UserProfileEdit userDTO={customer} />
+        <UserProfileEdit user={customer} setUser={setCustomer} />
       </Card>
-
     </>
   );
 };

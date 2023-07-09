@@ -50,11 +50,13 @@ public class AccountController {
 		String email = user.getEmail();
 		return userService.getUserByEmail(email);
 	}
-	@PutMapping()
-	public User updateUserDTO(@RequestBody UserProfileDTO userRequestDTO) {
-		// phan quyen chi co manager & customer co the edit (chua quan trong)
-		String email = SecurityUtils.getPrincipal().getUser().getEmail();
-		User user = userService.updateUserProfileDTO(email, userRequestDTO);
+	@PutMapping("/{username}")
+	public User updateUserDTO(@PathVariable String username, @RequestBody UserProfileDTO userRequestDTO) {
+		String request_username = SecurityUtils.getPrincipal().getUser().getUsername();
+		if (request_username.toLowerCase().equals(username.toLowerCase()) == false && SecurityUtils.getPrincipal().getUser().getRole().getId() != 3)
+			throw new RuntimeException("401 Unauthorized!!!!");
+				
+		User user = userService.updateUserProfileDTO(username, userRequestDTO);
 		return user;
 	}
 

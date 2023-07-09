@@ -1,9 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import {
-  Box, FormControl, FormLabel, Wrap, WrapItem, Avatar, HStack, Heading,
-  Input, Radio, RadioGroup, Stack, VStack, Button, Select
+  Box,
+  FormControl,
+  FormLabel,
+  Wrap,
+  WrapItem,
+  Avatar,
+  HStack,
+  Heading,
+  Input,
+  Radio,
+  RadioGroup,
+  Stack,
+  VStack,
+  Button,
+  Select,
 } from "@chakra-ui/react";
-import managerStaffService, { } from "../../services/manager-staff-service";
+import managerStaffService from "../../services/manager-staff-service";
 import { useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import UserDTO from "../../type/UserDTO";
@@ -11,104 +24,86 @@ import accountService, { AccountDTO } from "../../services/account-service";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Swal from "sweetalert2";
-
-const schema = z
-  .object({
-    username: z
-      .string({
-        required_error: "Vui lòng nhập tên đăng nhập.",
-        invalid_type_error: "First name must be a string",
-      })
-      .min(6, {
-        message: "Vui lòng nhập tên đăng nhập ít nhất 6 kí tự.",
-      }),
-
-    lastName: z
-      .string({
-        required_error: "Vui lòng nhập Tên.",
-        invalid_type_error: "First name must be a string",
-      })
-      .min(6, {
-        message: "Vui lòng nhập tên đầy đủ ít nhất 6 kí tự.",
-      }),
-    email: z
-      .string({
-        required_error: "Vui lòng nhập Email.",
-        invalid_type_error: "First name must be a string",
-      })
-      .email("Vui lòng nhập đúng địa chỉ email."),
-    phone: z
-      .string({
-        required_error: "Vui lòng nhập số điện thoại.",
-        invalid_type_error: "First name must be a string",
-      })
-      .min(10, {
-        message: "Số điện thoại phải từ 10 số trở lên.",
-      }),
-
-    address: z.string({
-      required_error: "Vui lòng nhập địa chỉ.",
-      invalid_type_error: "First name must be a string",
-    }),
-
-    yob: z.string({
-      required_error: "Vui lòng nhập năm sinh.",
-      invalid_type_error: "First name must be a string",
-    }),
-  })
-  .refine(
-    (data) => {
-      let phone = data?.phone;
-      if (phone === undefined || phone.length === 0) {
-        return true;
-      }
-      return phone.match(
-        /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
-      );
-    },
-    { message: "Số điện thoại không hợp lệ.", path: ["phone"] }
-  );
-
-interface Props {
-  userDTO: AccountDTO;
-
+interface UserFormErrors {
+  id: string;
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  yob: string;
+  avatar: string;
+  address: string;
 }
-interface FormData extends AccountDTO { }
-
+interface Props {
+  user: AccountDTO;
+  setUser(user: AccountDTO): void;
+}
+interface FormData extends AccountDTO {}
 
 // type FormData = z.infer<typeof schema>;
 
-const UserProfileEdit = ({ userDTO }: Props) => {
-  const [user, setUser] = useState<AccountDTO>({} as AccountDTO);
-  const [address, setAddress] = useState(userDTO.address);
-  const [yob, setYob] = useState(userDTO.yob);
+const UserProfileEdit = ({ user, setUser }: Props) => {
+  const [errors, setErrors] = useState<UserFormErrors>({} as UserFormErrors);
   const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormData>();
-
   //{ resolver: zodResolver(schema) }
+  const onValid = () => {
+    let isErrors = false;
+    let tmpErrors = {} as UserFormErrors;
+    if (!user.lastName) {
+      isErrors = true;
+      tmpErrors.lastName = "Vui lòng nhập tên ít nhất 6 kí tự.";
+      // console.log(user.lastName);
+    } else if (user.lastName && user.lastName.length < 6) {
+      isErrors = true;
+      tmpErrors.lastName = "Vui lòng nhập tên ít nhất 6 kí tự.";
+    }
 
-  const onSubmit = (data: FieldValues) => {
-    let updateUser = data as UserDTO;
-    updateUser.username = userDTO.username;
-    updateUser.id = "";
-    if (!address) updateUser.address = userDTO.address;
-    if (!yob) updateUser.yob = userDTO.yob;
+    if (user.yob != null && (user.yob as number) <= 0) {
+      user.yob = null;
+    }
 
-    accountService
-      .update(updateUser)
-      .then(() => {
-        navigate("/account");
-      })
-      .catch(() => {
-        alert(
-          `Không thể sửa thông tin của "${userDTO.username}".\n Vui lòng thử lại.`
-        );
-      });
+    if (
+      user.phone &&
+      !user.phone.match(
+        /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+      )
+    ) {
+      isErrors = true;
+      tmpErrors.phone = "Vui lòng nhập số điện thoại hợp lệ.";
+    } else tmpErrors.phone = "";
+
+    setErrors(tmpErrors);
+    if (isErrors) {
+      return false;
+    }
+    return true;
+  };
+
+  const onSubmit = () => {
+    console.log("onSubmit");
+
+    if (onValid())
+      accountService
+        .update(user)
+        .then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Cập nhật thông tin thành công.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          if (window.location.pathname === "/staff/edit")
+            navigate("/staff/detail");
+          else navigate("/account");
+        })
+        .catch(() => {
+          alert(
+            `Không thể sửa thông tin của "${user.username}".\n Vui lòng thử lại.`
+          );
+        });
   };
 
   const years = [];
@@ -117,7 +112,12 @@ const UserProfileEdit = ({ userDTO }: Props) => {
   }
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
         <VStack flex="1" h="100%" px="8" spacing="4" marginTop="8px">
           <Wrap justifyContent="center">
             <WrapItem>
@@ -125,7 +125,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             </WrapItem>
           </Wrap>
           <Heading size="sm" textAlign="center" marginBottom="4" marginTop="30">
-            {userDTO.firstName + " " + userDTO.lastName}
+            {user.firstName + " " + user.lastName}
           </Heading>
         </VStack>
         <Heading
@@ -145,7 +145,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                   w="100%"
                   isReadOnly
                   color="black"
-                  value={userDTO.username}
+                  value={user.username}
                   fontWeight="bold"
                 />
               </Box>
@@ -153,22 +153,24 @@ const UserProfileEdit = ({ userDTO }: Props) => {
           </FormControl>
 
           <FormControl marginTop="50px">
-            <HStack justifyContent="space-between" alignItems={"flex-start"} >
+            <HStack justifyContent="space-between" alignItems={"flex-start"}>
               <FormLabel size="md" fontWeight="bold" mt="3">
                 Tên
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("lastName", { required: true })}
+                  onChange={(e) => {
+                    user.lastName = e.target.value;
+                    onValid();
+                    setUser({ ...user });
+                  }}
                   w="100%"
                   color="black"
-                  defaultValue={userDTO.lastName}
+                  value={user.lastName}
                   fontWeight="bold"
                 />
                 {errors.lastName && (
-                  <p className="form-error-message">
-                    {errors.lastName?.message}
-                  </p>
+                  <p className="form-error-message">{errors.lastName}</p>
                 )}
               </Box>
             </HStack>
@@ -181,15 +183,19 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("email", { required: true })}
+                  onChange={(e) => {
+                    user.email = e.target.value;
+                    setUser({ ...user });
+                    onValid();
+                  }}
                   w="100%"
-                  // isReadOnly
+                  isReadOnly={true}
                   color="black"
-                  defaultValue={userDTO.email}
+                  defaultValue={user.email}
                   fontWeight="bold"
                 />
                 {errors.email && (
-                  <p className="form-error-message">{errors.email?.message}</p>
+                  <p className="form-error-message">{errors.email}</p>
                 )}
               </Box>
             </HStack>
@@ -201,16 +207,18 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("phone", { required: true })}
+                  onChange={(e) => {
+                    user.phone = e.target.value;
+                    onValid();
+                    setUser({ ...user });
+                  }}
                   w="100%"
                   type="number"
                   color="black"
-                  defaultValue={userDTO.phone}
+                  defaultValue={user.phone}
                   fontWeight="bold"
                 />
-                {errors.phone && (
-                  <p className="form-error-message">{errors.phone?.message}</p>
-                )}
+                {<p className="form-error-message">{errors.phone}</p>}
               </Box>
             </HStack>
           </FormControl>
@@ -222,11 +230,14 @@ const UserProfileEdit = ({ userDTO }: Props) => {
               </FormLabel>
               <Box maxW="450px" flex="1">
                 <Input
-                  {...register("address", { required: true })}
+                  onChange={(e) => {
+                    user.address = e.target.value;
+                    setUser({ ...user });
+                    onValid();
+                  }}
                   w="100%"
                   color="black"
-                  defaultValue={userDTO.address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  defaultValue={user.address}
                   fontWeight="bold"
                 />
                 {/* {errors.address && (
@@ -257,16 +268,19 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                 Năm sinh
               </FormLabel>
               <Select
-                {...register("yob")}
+                defaultValue={user.yob == null ? 0 : (user.yob as number)}
+                onChange={(e) => {
+                  let value = parseInt(e.target.value);
+                  user.yob = !value ? -1 : value;
+                  setUser({
+                    ...user,
+                  });
+                  onValid();
+                }}
                 maxW="100px"
                 color="black"
-                defaultValue={userDTO.yob}
                 fontWeight="bold"
                 placeholder="Chọn năm sinh"
-                onChange={(e) => {
-                  let method = parseInt(e.target.value);
-                  userDTO.yob = method;
-                }}
               >
                 {years.map((year) => (
                   <option
@@ -276,7 +290,7 @@ const UserProfileEdit = ({ userDTO }: Props) => {
                     //   setYob(year);
                     //   console.log(yob);
                     // }}
-                    selected={userDTO.yob == year}
+                    selected={user.yob == year}
                   >
                     {year}
                   </option>
@@ -291,27 +305,26 @@ const UserProfileEdit = ({ userDTO }: Props) => {
             <Button
               onClick={() => {
                 Swal.fire({
-                  title: 'Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.',
+                  title: "Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.",
                   // text: "You won't be able to revert this!",
-                  icon: 'warning',
+                  icon: "warning",
                   showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes'
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes",
                 }).then((result) => {
                   if (result.isConfirmed) {
                     navigate("/account");
                     window.scrollTo(0, 0);
                   }
-                })
-              }
-              }
+                });
+              }}
             >
               Hủy
             </Button>
           </HStack>
         </Box>
-      </form >
+      </form>
     </>
   );
 };

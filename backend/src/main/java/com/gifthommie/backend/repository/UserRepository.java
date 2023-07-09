@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gifthommie.backend.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
-
+//	public User getUserByUsernameOrEmail(String usernameOrEmail);
+	
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	public User getUserByUsername(@Param("username") String username);
 
@@ -28,6 +29,9 @@ public interface UserRepository extends JpaRepository<User, String> {
 	// with enabled status
 	@Query("SELECT u FROM User u WHERE u.enabled = :enabled and (u.email = :check OR u.username = :check)")
 	public User getUserByUsernameOrEmail(@Param("check") String check, @Param("enabled") boolean enabled);
+	
+	@Query("SELECT u FROM User u WHERE (u.email = :check OR u.username = :check)")
+	public User getUserByUsernameOrEmail(@Param("check") String check);
 
 	// Get User List by Role ID with enabled status
 	@Query("SELECT u FROM User u WHERE u.role.id = :roleId AND u.enabled = :enabled")
@@ -48,6 +52,13 @@ public interface UserRepository extends JpaRepository<User, String> {
 			+ "OR u.email LIKE %:search% OR (u.firstName || ' ' || u.lastName LIKE %:search%))")
 	public Page<User> filterUsersByRoleId(Pageable pageable, @Param("roleId") int roleId, 
 								@Param("enabled") boolean enabled, 
+								@Param("search") String search);
+	
+	@Query("SELECT u FROM User u "
+			+ "WHERE u.role.id = :roleId "
+			+ "AND (u.username LIKE %:search% "
+			+ "OR u.email LIKE %:search% OR (u.firstName || ' ' || u.lastName LIKE %:search%))")
+	public Page<User> filterUsersByRoleId(Pageable pageable, @Param("roleId") int roleId, 
 								@Param("search") String search);
 	
 	

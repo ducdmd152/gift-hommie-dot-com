@@ -54,7 +54,7 @@ public class User {
 	
 
 	@Column(name = "enabled")
-	@JsonIgnore
+//	@JsonIgnore
 	private boolean enabled;
 	
 

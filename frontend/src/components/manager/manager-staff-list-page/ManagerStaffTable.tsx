@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Heading,
@@ -39,7 +40,7 @@ const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
               <Th>Tên đăng nhập</Th>
               <Th>Email</Th>
               <Th>Điện thoại</Th>
-              <Th>Địa chỉ</Th>
+              {/* <Th>Địa chỉ</Th> */}
               <Th>Chi tiết</Th>
             </Tr>
           </Thead>
@@ -53,7 +54,14 @@ const ManagerStaffTable = ({ staffs, setUserId }: Props) => {
                   <Td>{staff.username}</Td>
                   <Td>{staff.email}</Td>
                   <Td>{staff.phone}</Td>
-                  <Td>{staff.address}</Td>
+                  <Td>
+                    {staff.enabled ? (
+                      <Badge colorScheme="teal">Hoạt động</Badge>
+                    ) : (
+                      <Badge colorScheme="orange">Đã khóa</Badge>
+                    )}
+                  </Td>
+                  {/* <Td>{staff.address}</Td> */}
                   <Td>
                     {/* <Link to="/staff/detail"> */}
                     <Button
