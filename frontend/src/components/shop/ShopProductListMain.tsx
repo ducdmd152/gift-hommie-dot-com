@@ -37,7 +37,7 @@ const ShopProductListMain = ({
         <ShopProductListItems products={products} />
       </Box>
 
-      <HStack justifyContent={"center"} mt={4} mb={8}>
+      <HStack justifyContent={"center"} mt={4} mb={2}>
         <Pagination
           pageable={pageable}
           onSelectPageIndex={(index: number) =>

@@ -8,6 +8,7 @@ import useFetchShopProduct, {
 import { useContext, useState } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
 import utilService from "../../services/util-service";
+import Footer from "../../components/Footer";
 
 const GuestShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);
@@ -15,23 +16,30 @@ const GuestShopDetailPage = () => {
 
   console.log(productId);
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>({
-    size: 4,
+    size: 12,
     related: productId,
   } as ShopProductQuery);
   const { products, pageable, isLoading, error } =
     useFetchShopProduct(shopProductQuery);
 
   return (
-    <VStack spacing="2" marginX="2" marginTop={utilService.HEADER_HEIGHT}>
-      <ShopProductDetail />
+    <>
+      <VStack
+        spacing="2"
+        marginX="2"
+        marginTop={utilService.HEADER_HEIGHT}
+        mb="2"
+      >
+        <ShopProductDetail />
 
-      <Box borderRadius="8" p="2" border="1px solid lightgray" width="100%">
-        <VStack width="100%" padding="4" spacing="4">
-          <Heading fontSize="3xl">Sản phẩm tương tự</Heading>
-          <ShopProductListItems products={products} />
-        </VStack>
-      </Box>
-    </VStack>
+        <Box borderRadius="8" p="2" border="1px solid lightgray" width="100%">
+          <VStack width="100%" padding="4" spacing="4">
+            <Heading fontSize="3xl">Sản phẩm tương tự</Heading>
+            <ShopProductListItems products={products} />
+          </VStack>
+        </Box>
+      </VStack>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
 import ShopProductReview from "../../components/shop/ShopProductReview";
+import Footer from "../../components/Footer";
 const HEADER_HEIGHT = "100px";
 const GuestShopPage = () => {
   const [shopProductQuery, setShopProductQuery] = useState<ShopProductQuery>(
@@ -18,7 +19,7 @@ const GuestShopPage = () => {
       <Grid
         marginTop={HEADER_HEIGHT}
         templateAreas={{
-          base: `"aside-left main"`,
+          base: `"aside-left main" "footer footer"`,
           // sm: `"header header" "aside-left main"`,
           // lg: `"header header" "aside-left main"`,
         }}
@@ -43,6 +44,9 @@ const GuestShopPage = () => {
             shopProductQuery={shopProductQuery}
             setShopProductQuery={setShopProductQuery}
           />
+        </GridItem>
+        <GridItem area="footer" mt="-8">
+          <Footer />
         </GridItem>
       </Grid>
     </>
