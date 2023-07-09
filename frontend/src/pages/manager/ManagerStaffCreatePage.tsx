@@ -113,6 +113,13 @@ const ManagerStaffCreatePage = ({ setUserId }: Props) => {
     managerStaffService
       .create(staff)
       .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Hoàn tất thêm nhân viên mới.",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setUserId(res.data.id);
         navigate("/staff/detail");
       })

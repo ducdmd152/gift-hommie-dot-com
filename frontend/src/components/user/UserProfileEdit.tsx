@@ -88,6 +88,13 @@ const UserProfileEdit = ({ user, setUser }: Props) => {
       accountService
         .update(user)
         .then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Cập nhật thông tin thành công.",
+            showConfirmButton: false,
+            timer: 1000,
+          });
           if (window.location.pathname === "/staff/edit")
             navigate("/staff/detail");
           else navigate("/account");
