@@ -51,6 +51,17 @@ const CategoryManagement = ({
   const navigate = useNavigate();
 
   const onUpdate = (id: number) => {
+    if (
+      categories.find((c) => c.id != updateCate.id && c.name == updateCate.name)
+    ) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Trùng tên danh mục \n Vui lòng thử lại.",
+        showConfirmButton: true,
+      });
+      return;
+    }
     categoryService
       .update(updateCate)
       .then(() => {
@@ -140,6 +151,15 @@ const CategoryManagement = ({
   };
 
   const onsubmit = () => {
+    if (categories.find((c) => c.name == newCate)) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Trùng tên danh mục \n Vui lòng thử lại.",
+        showConfirmButton: true,
+      });
+      return;
+    }
     categoryService
       .create({ id: 0, name: newCate, status: true } as CategoryDTO)
       .then((res) => {
