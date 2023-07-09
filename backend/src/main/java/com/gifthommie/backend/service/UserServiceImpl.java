@@ -130,6 +130,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, 
+			String search) {
+		Page<User> page = userRepository.filterUsersByRoleId(PageRequest.of(pageNo, pageSize), roleId, search);
+
+		return new APIPageableResponseDTO<User>(page);
+	}
+	@Override
 	public APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, boolean enabled,
 			String search) {
 		Page<User> page = userRepository.filterUsersByRoleId(PageRequest.of(pageNo, pageSize), roleId, enabled, search);

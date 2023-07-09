@@ -49,19 +49,22 @@ public class ManagerStaffController {
 	public APIPageableResponseDTO<User> getStaffList(
 			@RequestParam(defaultValue = PAGE, name = "page") Integer pageNo,
 			@RequestParam(defaultValue = PAGE_SIZE, name = "size") Integer pageSize,
-			@RequestParam(defaultValue = "", name = "search") String search) {
+			@RequestParam(defaultValue = "", name = "search") String search,
+			@RequestParam(required = false, name = "status") Boolean status) {
 		Role role = roleService.getRoleByRoleName(ROLE_STAFF);
-		if (search != null)
-			return userService.searchUsers(pageNo, pageSize, role.getId(), ACTIVE_ENABLED, search);
+		if (search == null) search = "";
 		
-		return userService.getPageableUsers(pageNo, pageSize, role.getId(), ACTIVE_ENABLED);
+		return status == null ? userService.searchUsers(pageNo, pageSize, role.getId(), search) : userService.searchUsers(pageNo, pageSize, role.getId(), status, search);
+		
+//		return userService.getPageableUsers(pageNo, pageSize, role.getId(), ACTIVE_ENABLED);
 	}
 	
 	//VIEW A ENABLED STAFF WITH USERNAME OR EMAIL
 	@GetMapping("/{check}")
 	public User getStaff(@PathVariable String check) {
-		User u = userService.getUserByEmailOrUsername(check, ACTIVE_ENABLED);
-		
+		User u1 = userService.getUserByEmailOrUsername(check, ACTIVE_ENABLED);
+		User u2 = userService.getUserByEmailOrUsername(check, !ACTIVE_ENABLED);
+		User u = u1 != null ? u1 : u2;
 		//CANNOT FOUND USER
 		if (u == null)
 			throw new NotFoundException("Cannot find User");

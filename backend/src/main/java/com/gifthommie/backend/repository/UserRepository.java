@@ -54,6 +54,13 @@ public interface UserRepository extends JpaRepository<User, String> {
 								@Param("enabled") boolean enabled, 
 								@Param("search") String search);
 	
+	@Query("SELECT u FROM User u "
+			+ "WHERE u.role.id = :roleId "
+			+ "AND (u.username LIKE %:search% "
+			+ "OR u.email LIKE %:search% OR (u.firstName || ' ' || u.lastName LIKE %:search%))")
+	public Page<User> filterUsersByRoleId(Pageable pageable, @Param("roleId") int roleId, 
+								@Param("search") String search);
+	
 	
 	
 	// Tìm reset password token
