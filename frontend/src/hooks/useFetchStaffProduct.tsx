@@ -8,6 +8,7 @@ import useFetchEntities from "./useFetchEntities";
 
 export interface StaffProductQuery extends HttpRequestQuery, PaginationQuery {
   category: number;
+  status: boolean | null;
 }
 
 const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
@@ -22,6 +23,7 @@ const useFetchStaffProduct = (requestQuery: StaffProductQuery | null) => {
           category: requestQuery?.category,
           sort: requestQuery?.sort,
           _order: requestQuery?.order,
+          status: requestQuery?.status,
         },
       },
       [requestQuery]

@@ -55,12 +55,17 @@ public class StaffProductController {
 			@RequestParam(defaultValue = "", name = "search") String search,
 			@RequestParam(name = "category", required = false) Integer category,
 			@RequestParam(name = "sort", defaultValue = "id") String sortField,
-			@RequestParam(name = "order", required = false) Boolean sortOrder
+			@RequestParam(name = "order", required = false) Boolean sortOrder,
+			@RequestParam(name = "status", required = false) Boolean status
 			) {
 		
 		if(category == null || category==0) {
+			if (status != null) 
+				return productService.searchProductsByName(pageNo, pageSize, search, sortField, status);
 			return productService.searchProductsByName(pageNo, pageSize, search, sortField);
 		}
+		if (status != null) 
+			return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField, status);
 		return productService.searchProductsByNameInCategory(pageNo, pageSize, search, category, sortField);
 	}
 	
