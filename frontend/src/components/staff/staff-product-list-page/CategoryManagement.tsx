@@ -24,17 +24,25 @@ import useFetchCategories, {
 import Swal from "sweetalert2";
 import categoryService from "../../../services/category-service";
 import CategoryDTO from "../../../type/CategoryDTO";
+import { useNavigate } from "react-router-dom";
 // interface Props {
 //   isOpen: boolean;
 //   onOpen: () => void;
 //   onClose: () => void;
 // }
 // const CategoryManagement = ({ isOpen, onOpen, onClose }: Props) => {
-const CategoryManagement = () => {
+const CategoryManagement = ({
+  updateCategories,
+  refresh,
+}: {
+  updateCategories: (categories: CategoryDTO[]) => void;
+  refresh: () => void;
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [query, setQuery] = useState({} as CategoryQuery);
   const { categories, setCategories } = useFetchCategories(query);
   const [newCate, setNewCate] = useState("");
+  const navigate = useNavigate();
 
   const onDelete = (id: number) => {
     // Swal.fire({
@@ -88,6 +96,9 @@ const CategoryManagement = () => {
               setCategories(
                 categories.map((ca) => (ca.id == cate.id ? cate : ca))
               );
+              updateCategories(
+                categories.map((ca) => (ca.id == cate.id ? cate : ca))
+              );
               Swal.fire({
                 title: "Đã ẩn danh mục " + category.name + ".",
                 text: "Các sản phẩm liên quan cũng sẽ được ẩn, khi danh mục ẩn.",
@@ -108,6 +119,9 @@ const CategoryManagement = () => {
           .then((res) => {
             cate = res.data;
             setCategories(
+              categories.map((ca) => (ca.id == cate.id ? cate : ca))
+            );
+            updateCategories(
               categories.map((ca) => (ca.id == cate.id ? cate : ca))
             );
             Swal.fire({
@@ -163,7 +177,7 @@ const CategoryManagement = () => {
           style={{ overflowY: "scroll", height: "90vh" }}
         >
           {/* <ModalHeader>Chi tiết đơn hàng</ModalHeader> */}
-          <ModalCloseButton zIndex={4} />
+          <ModalCloseButton zIndex={4} onClick={() => refresh()} />
           <ModalBody>
             <Box>
               <Heading size="xl">Quản lý danh mục</Heading>
@@ -236,7 +250,14 @@ const CategoryManagement = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                onClose();
+                refresh();
+              }}
+            >
               Close
             </Button>
             {/* <Button variant="ghost">Secondary Action</Button> */}

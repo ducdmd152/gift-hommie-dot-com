@@ -21,7 +21,14 @@ const StaffProductListAction = ({
   const { categories, setCategories } = useFetchCategories(query);
   return (
     <VStack width="100%" p={4} m={4} marginTop={8} spacing={8}>
-      <CategoryManagement />
+      <CategoryManagement
+        updateCategories={(categories) => {
+          setCategories(categories);
+        }}
+        refresh={() => {
+          setStaffProductQuery({ ...staffProductQuery, category: 0 });
+        }}
+      />
       <Link to="/product/create">
         <Button colorScheme="teal" size="md">
           Tạo mới sản phẩm
