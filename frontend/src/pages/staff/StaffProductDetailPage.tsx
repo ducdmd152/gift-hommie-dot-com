@@ -108,13 +108,13 @@ const StaffProductDetailPage = ({ currentProductId }: Props) => {
               </Button>
             </Link>
 
-            <Button
+            {/* <Button
               colorScheme="red"
               size="md"
               onClick={() => onDeleteProduct(product.id)}
             >
               Xóa
-            </Button>
+            </Button> */}
           </HStack>
         </HStack>
         <VStack mt={6} p="4">

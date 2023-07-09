@@ -166,6 +166,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setPrice(productRequestDTO.getPrice());
 		product.setQuantity(productRequestDTO.getQuantity());
 		product.setAvatar(productRequestDTO.getAvatar());
+		product.setStatus(productRequestDTO.getStatus());
 		Category category = categoryRepository.findById(productRequestDTO.getCategoryId()).get();
 		product.setCategory(category);
 		

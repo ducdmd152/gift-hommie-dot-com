@@ -17,6 +17,8 @@ import {
   VStack,
   Image,
   Flex,
+  Switch,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -211,10 +213,28 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   />
                 </FormControl> */}
 
+                {/* <HStack w="100%" justifyContent={"space-between"}> */}
                 <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Tên sản phẩm
-                  </FormLabel>
+                  <HStack
+                    w="100%"
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <FormLabel size="md" fontWeight="bold" mt="3">
+                      Tên sản phẩm
+                    </FormLabel>
+                    <HStack alignItems="center">
+                      <Switch
+                        size="lg"
+                        isChecked={product.status}
+                        onChange={() => {
+                          setProduct({ ...product, status: !product.status });
+                        }}
+                      />
+                      <Text color="gray">Hiển thị</Text>
+                    </HStack>
+                  </HStack>
+
                   <Input
                     onChange={(e) => {
                       // console.log(e.target.value.trim());
@@ -234,6 +254,19 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     <p className="form-error-message">{errors.name}</p>
                   )}
                 </FormControl>
+                {/* <FormControl>
+                  <FormLabel size="md" fontWeight="bold">
+                    Hiển thị
+                  </FormLabel>
+                  <Switch
+                    size="lg"
+                    isChecked={product.status}
+                    onChange={() => {
+                      setProduct({ ...product, status: !product.status });
+                    }}
+                  />
+                </FormControl> */}
+                {/* </HStack> */}
                 <FormControl>
                   <FormLabel size="md" fontWeight="bold">
                     Danh mục sản phẩm
@@ -318,9 +351,11 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   imageURL={productAvatarURL}
                   setImageURL={(url) => {
                     setProductAvatarURL(url);
+                    setProduct({ ...product, avatar: url });
                   }}
                   getImageURL={(url) => {
                     setProductAvatarURL(url);
+                    setProduct({ ...product, avatar: url });
                   }}
                 />
                 <Input hidden value={productAvatarURL} />

@@ -40,7 +40,7 @@ public class Product {
 	private float price;
 	
 	@Column(name = "status")
-	@JsonIgnore
+//	@JsonIgnore
 	private boolean status = true;
 	
 	@ManyToOne
