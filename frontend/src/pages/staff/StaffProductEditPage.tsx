@@ -27,6 +27,9 @@ import CATEGORIES from "../../data/Categories";
 import { FieldValues, useForm } from "react-hook-form";
 import ImageUpload from "../../components/image/ImageUpload";
 import imageService from "../../services/image-service";
+import useFetchCategories, {
+  CategoryQuery,
+} from "../../hooks/useFetchCategory";
 
 interface Props {
   currentProductId: number | null;
@@ -48,6 +51,8 @@ interface FormData extends StaffProductDTO {}
 
 const StaffProductEditPage = ({ currentProductId }: Props) => {
   // FETCH DATA
+  const [query, setQuery] = useState({} as CategoryQuery);
+  const { categories, setCategories } = useFetchCategories(query);
   const [product, setProduct] = useState<StaffProductDTO>(
     {} as StaffProductDTO
   );
@@ -247,11 +252,13 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                     placeholder="Lựa chọn danh mục"
                     value={product.categoryId}
                   >
-                    {CATEGORIES.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
+                    {categories
+                      .filter((category) => category.status)
+                      .map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
                   </Select>
                   {errors.categoryId && (
                     <p className="form-error-message">{errors.categoryId}</p>
