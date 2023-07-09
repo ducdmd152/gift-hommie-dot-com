@@ -46,6 +46,36 @@ public class ProductServiceImpl implements ProductService {
 	// searchProductsByName
 	// FIXED BY DUY ĐỨC (NO NEED TO MODIFY MORE)
 	@Override
+	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField, boolean status) {
+		Pageable pageable = null;
+		
+		if(sortField.equals("id")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+		}
+		else {
+			String field = sortField.split("-")[0];
+			if (sortField.toLowerCase().contains("desc")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).descending());
+			}
+			else {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+			}
+		}
+		
+		
+		Page<Product> page = productRepository.findAllByName(status, search, pageable);	
+		
+		for(Product product : page) {
+//			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+			product.setSold(getSoldOfProduct(product.getId()));
+//			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+//			System.out.println("---------------------------");
+		}
+		return new APIPageableResponseDTO<Product>(page);
+	}
+	
+	@Override
 	public APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField) {
 		Pageable pageable = null;
 		
@@ -63,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		
-		Page<Product> page = productRepository.findAllByName(true, search, pageable);	
+		Page<Product> page = productRepository.findAllByName(search, pageable);	
 		
 		for(Product product : page) {
 //			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
@@ -74,7 +104,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return new APIPageableResponseDTO<Product>(page);
 	}
-	
 	
 	private int getSoldOfProduct(int productId) {
 		return orderDetailRepository.getSoldProductQuantityByProductId(productId);
@@ -103,6 +132,27 @@ public class ProductServiceImpl implements ProductService {
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
+	@Override
+	public APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize,
+			String search, Integer category, String sortField, boolean status) {
+		Pageable pageable = null;
+		
+		if(sortField.equals("id")) {
+			pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+		}
+		else {
+			String field = sortField.split("-")[0];
+			if (sortField.toLowerCase().contains("desc")) {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).descending());
+			}
+			else {
+				pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+			}
+		}
+		
+		Page<Product> page = productRepository.findAllByStatusByNameByCategory(status, search, category, pageable);
+		return new APIPageableResponseDTO<Product>(page);
+	}
 	// Get related product
 	@Override
 	public APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated) {

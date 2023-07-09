@@ -18,9 +18,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p JOIN p.category c WHERE c.status = true AND p.status = :status AND p.category.id = :category AND p.name LIKE %:search%")
 	public Page<Product> findAllByStatusByNameByCategory(@Param("status") boolean status, @Param("search") String search, @Param("category") Integer category, Pageable pageable);
 
+	@Query("SELECT p FROM Product p JOIN p.category c WHERE c.status = true AND p.category.id = :category AND p.name LIKE %:search%")
+	public Page<Product> findAllByStatusByNameByCategory( @Param("search") String search, @Param("category") Integer category, Pageable pageable);
 	
 	@Query("SELECT p FROM Product p JOIN p.category c WHERE c.status = true AND p.name LIKE %:search% AND p.status = :status")
 	public Page<Product> findAllByName(@Param("status") boolean status, @Param("search") String search, Pageable pageable);
+	
+	@Query("SELECT p FROM Product p JOIN p.category c WHERE c.status = true AND p.name LIKE %:search%")
+	public Page<Product> findAllByName(@Param("search") String search, Pageable pageable);
 
 	
 	// related chính productID, từ đó lấy ra sản phẩm tương tự với cateID của product ID đó

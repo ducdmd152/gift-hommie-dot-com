@@ -39,4 +39,10 @@ public interface ProductService {
 	APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated);
 	
 	float totalPrice(List<CartRequestDTO> cartList);
+
+	APIPageableResponseDTO<Product> searchProductsByName(int pageNo, int pageSize, String search, String sortField,
+			boolean status);
+
+	APIPageableResponseDTO<Product> searchProductsByNameInCategory(Integer pageNo, Integer pageSize, String search,
+			Integer category, String sortField, boolean status);
 }
