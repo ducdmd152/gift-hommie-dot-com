@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		
-		Page<Product> page = productRepository.finfAllByName(true, search, pageable);	
+		Page<Product> page = productRepository.findAllByName(true, search, pageable);	
 		
 		for(Product product : page) {
 //			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
@@ -106,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
 	// Get related product
 	@Override
 	public APIPageableResponseDTO<Product> getProductByRelated(Integer pageNo, Integer pageSize, Integer realated) {
-		Page<Product> page = productRepository.finfAllByRealated(true, realated, PageRequest.of(pageNo, pageSize));
+		Page<Product> page = productRepository.findAllByRelated(true, realated, PageRequest.of(pageNo, pageSize));
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
