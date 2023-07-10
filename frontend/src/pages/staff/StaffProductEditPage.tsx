@@ -196,13 +196,21 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 variant="outline"
                 size="md"
                 onClick={() => {
-                  if (
-                    confirm(
-                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                    )
-                  ) {
-                    navigate("/product/detail");
-                  }
+                  Swal.fire({
+                    title:
+                      "Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.",
+                    // text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "orange",
+                    cancelButtonColor: "gray",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không",
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                      navigate("/product/detail");
+                    }
+                  });
                 }}
               >
                 Hủy

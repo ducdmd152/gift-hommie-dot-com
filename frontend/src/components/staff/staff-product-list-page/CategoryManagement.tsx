@@ -214,6 +214,8 @@ const CategoryManagement = ({
                       alignItems={"stretch"}
                     >
                       <Input
+                        required
+                        title="Vui lòng nhập tên danh mục!"
                         value={newCate}
                         paddingX="2"
                         borderRadius={"6px"}
@@ -311,6 +313,8 @@ const CategoryManagement = ({
                     alignItems={"stretch"}
                   >
                     <Input
+                      required
+                      title="Vui lòng nhập tên danh mục!"
                       value={updateCate.name}
                       paddingX="2"
                       borderRadius={"6px"}
