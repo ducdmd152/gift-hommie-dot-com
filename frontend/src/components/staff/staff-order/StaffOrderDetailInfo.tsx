@@ -147,7 +147,16 @@ const StaffOrderDetailInfo = ({
               fontWeight={"medium"}
               color="gray"
             >
-              Ngày tạo đơn: {order.createTime}
+              Ngày tạo đơn: {order.createTime} | Tạo bởi{" "}
+              <Link to="/customer/detail">
+                <Text
+                  display="inline"
+                  color="teal !important"
+                  fontWeight={"bold"}
+                >
+                  {order.user.lastName}
+                </Text>
+              </Link>
             </Badge>
           </VStack>
 
