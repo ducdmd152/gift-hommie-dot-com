@@ -35,7 +35,7 @@ public class AuthController {
 		Authentication auth = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(username, password)
 				);
-		User user = userRepository.getUserByUsername(username);
+		User user = userRepository.getUserByUsernameOrEmail(username);
 		return user;
 	}
 	

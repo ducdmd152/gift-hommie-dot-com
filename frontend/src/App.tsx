@@ -120,19 +120,19 @@ function App() {
 
   // console.log(user?.authority);
 
-  const navigate = useNavigate();
-  if (user != null) {
-    const checkLogin = async () => {
-      const { username, password } = { ...user };
-      let res = await authService.login(username as string, password as string);
-      if (!res) {
-        utilService.logout();
-        navigate("/login");
-      }
-    };
+  // const navigate = useNavigate();
+  // if (user != null) {
+  //   const checkLogin = async () => {
+  //     const { username, password } = { ...user };
+  //     let res = await authService.login(username as string, password as string);
+  //     if (!res) {
+  //       utilService.logout();
+  //       navigate("/login");
+  //     }
+  //   };
 
-    checkLogin();
-  }
+  //   checkLogin();
+  // }
 
   if (user == null) {
     return <GuestPage />;
