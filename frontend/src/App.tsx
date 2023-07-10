@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import "./App.css";
 import Register from "./pages/guest/Register";
 import Community from "./pages/staff/StaffProductListPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import StaffProductList from "./pages/staff/StaffProductListPage";
 import StaffProductListPage from "./pages/staff/StaffProductListPage";
 import { HttpUser } from "./services/user-service";
@@ -13,6 +13,7 @@ import ManagerPage from "./pages/manager/ManagerPage";
 import CustomerPage from "./pages/customer/CustomerPage";
 import utilService from "./services/util-service";
 import CartDTO from "./type/CartDTO";
+import authService from "./services/auth-service";
 
 export interface GlobalContext {
   productContext: ProductContext;
@@ -118,6 +119,20 @@ function App() {
   }
 
   // console.log(user?.authority);
+
+  const navigate = useNavigate();
+  if (user != null) {
+    const checkLogin = async () => {
+      const { username, password } = { ...user };
+      let res = await authService.login(username as string, password as string);
+      if (!res) {
+        utilService.logout();
+        navigate("/login");
+      }
+    };
+
+    checkLogin();
+  }
 
   if (user == null) {
     return <GuestPage />;
