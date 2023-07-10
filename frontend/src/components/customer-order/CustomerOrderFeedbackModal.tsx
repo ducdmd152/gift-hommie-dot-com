@@ -96,6 +96,7 @@ const CustomerOrderFeedbackModal = ({
               />
 
               <Textarea
+                maxLength={320}
                 _placeholder={{
                   fontStyle: "italic",
                 }}

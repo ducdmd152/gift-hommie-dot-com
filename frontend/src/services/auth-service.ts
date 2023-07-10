@@ -57,6 +57,22 @@ class AuthService {
       });
   }
 
+  async enabled(username: string, password: string) {
+    let auth = {
+      username,
+      password,
+    };
+
+    return await this.apiClient
+      .post(this.endpoints.login, auth)
+      .then((response) => {
+        return true;
+      })
+      .catch((err) => {
+        return false;
+      });
+  }
+
   logout() {
     localStorage.removeItem("USER");
     window.location.href = "/";

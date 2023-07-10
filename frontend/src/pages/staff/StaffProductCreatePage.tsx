@@ -163,13 +163,20 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                 variant="outline"
                 size="md"
                 onClick={() => {
-                  if (
-                    confirm(
-                      `Bạn muốn hủy thay đổi, thông tin sẽ không được lưu.`
-                    )
-                  ) {
-                    navigate("/product");
-                  }
+                  Swal.fire({
+                    title: "Bạn muốn hủy tạo mới, thông tin sẽ không được lưu.",
+                    // text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "orange",
+                    cancelButtonColor: "gray",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không",
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                      navigate("/product");
+                    }
+                  });
                 }}
               >
                 Hủy
