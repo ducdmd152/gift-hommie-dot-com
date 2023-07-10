@@ -20,11 +20,17 @@ export interface GlobalContext {
   orderContext: OrderContext;
   rerender: () => void;
   selectedCartContext: SelectedCartContext;
+  userContext: UserContext;
 }
 
 export interface ProductContext {
   getProductId: () => number;
   setProductId: (productId: number) => number;
+}
+
+export interface UserContext {
+  getUserId: () => string;
+  setUserId: (id: string) => string;
 }
 
 export interface OrderContext {
@@ -46,6 +52,7 @@ export const GLOBAL_CONTEXT = createContext({} as GlobalContext);
 function App() {
   const [productId, setProductId] = useState(0);
   const [orderId, setOrderId] = useState(0);
+  const [userId, setUserId] = useState("");
   const [user, setUser] = useState<UserDTO | null>(null);
   const [hook, setHook] = useState(false);
   const [selectedCartItems, setSelectedCartItems] = useState([] as CartDTO[]);
@@ -70,6 +77,16 @@ function App() {
       return orderId;
     },
   } as OrderContext;
+
+  globalContext.userContext = {
+    getUserId() {
+      return userId;
+    },
+    setUserId(id: string) {
+      setUserId(id);
+      return userId;
+    },
+  } as UserContext;
 
   globalContext.rerender = () => {
     setHook(!hook);

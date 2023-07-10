@@ -49,7 +49,8 @@ public class StaffOrderController {
     public APIPageableResponseDTO<OrderDTO> getOrderList(
     		@RequestParam(defaultValue = "0", name = "page") Integer pageNo,
             @RequestParam(defaultValue = "12", name = "size") Integer pageSize,
-            @RequestParam(name = "status", required = false) String status){
+            @RequestParam(name = "status", required = false) String status,
+            @RequestParam(name = "search", defaultValue = "") String search){
 //        User user = SecurityUtils.getPrincipal().getUser();
         //String email = user.getEmail();
 		if(status!=null && status.isEmpty())
@@ -57,11 +58,11 @@ public class StaffOrderController {
 		
 		if(status == null) {
 //			orderService.getOrderDTOList_noEmail(pageNo, pageSize);
-			return orderService.getOrderDTOList_noEmail(pageNo, pageSize);
+			return orderService.getOrderDTOList_noEmail_withSearch(pageNo, pageSize, search);
 		}
 		
-		orderService.getOrderDTOList_noEmail(0, 100, status); // FIRST-SHOT FOR AUTO-UPDATE
-		return orderService.getOrderDTOList_noEmail(pageNo, pageSize, status); // SECOND-SHOT FOR RETURN
+		orderService.getOrderDTOList_noEmail_withSearch(0, 100, status, search); // FIRST-SHOT FOR AUTO-UPDATE
+		return orderService.getOrderDTOList_noEmail_withSearch(pageNo, pageSize, status, search); // SECOND-SHOT FOR RETURN
     }
 		
 		@GetMapping("/{orderId}")

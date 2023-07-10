@@ -52,12 +52,27 @@ public class AccountController {
 	}
 	@PutMapping("/{username}")
 	public User updateUserDTO(@PathVariable String username, @RequestBody UserProfileDTO userRequestDTO) {
-		String request_username = SecurityUtils.getPrincipal().getUser().getUsername();
-		if (request_username.toLowerCase().equals(username.toLowerCase()) == false && SecurityUtils.getPrincipal().getUser().getRole().getId() != 3)
+		User currentUser = SecurityUtils.getPrincipal().getUser();
+		User reqUser = userService.getUserByEmailOrUsername(username);
+		if (currentUser == null)
 			throw new RuntimeException("401 Unauthorized!!!!");
-				
+		
+		if ((currentUser.getUsername().toLowerCase().equals(username.toLowerCase()) == false) 
+				&& currentUser.getRoleId() != 3
+				&& !(currentUser.getRoleId() == 2 && reqUser.getRoleId() == 1))
+			throw new RuntimeException("401 Unauthorized!!!!");
+		if (reqUser == null)
+			throw new NotFoundException();
 		User user = userService.updateUserProfileDTO(username, userRequestDTO);
 		return user;
 	}
-
+	
+	@GetMapping("/{username}")
+	public User getUserByUsername(@PathVariable String username) {
+		User currentUser = SecurityUtils.getPrincipal().getUser();
+		User result = userService.getUserByEmailOrUsername(username);
+		if (currentUser == null || !(currentUser.getRoleId() == 2 && result.getRoleId() == 1))
+			throw new RuntimeException("401 Unauthorized!!!!");
+		return result;
+	}
 }

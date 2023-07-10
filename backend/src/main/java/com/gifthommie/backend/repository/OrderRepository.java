@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,6 +45,25 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 	@Query("SELECT o FROM Orders o WHERE "
 			+ "o.status in :statuses ORDER BY o.orderTime DESC")
 	public Page<Orders> findAllWithStatus(@Param("statuses") List<String> statuses, PageRequest pageRequest);
+	 @Query("SELECT o FROM Orders o JOIN User u ON u.email = o.email WHERE "
+	            + "o.status IN :statuses "
+	            + "AND "
+	            + "("
+	            + "u.email LIKE %:searchText% "
+				+ "OR u.lastName LIKE %:searchText% "
+				+ "OR u.firstName LIKE %:searchText% "
+				+ "OR u.username LIKE %:searchText% "
+				+ "OR o.id LIKE %:searchText% "
+				+ "OR o.name LIKE %:searchText% "
+				+ "OR o.phone LIKE %:searchText% "
+				+ "OR o.address LIKE %:searchText%"
+	            + ") "
+	            + "ORDER BY o.orderTime DESC")
+	    Page<Orders> findAllWithStatusBySearch(
+	            @Param("statuses") List<String> statuses,
+	            @Param("searchText") String searchText,
+	            Pageable pageable);
+	
 	
 	//SET STATUS FOR ORDER BY ID
 	@Transactional
@@ -136,4 +156,16 @@ public interface OrderRepository extends JpaRepository<Orders, Integer>{
 			+ "ORDER BY coalesce(AVG(od.rating), 0) DESC")
 	public List<Integer> findTopRatingProductFromTo(@Param("startDate") LocalDateTime startDate, 
 							@Param("endDate") LocalDateTime endDate);
+
+	@Query("SELECT o FROM Orders o "
+			+ "JOIN User u ON u.email = o.email "
+			+ "WHERE u.email LIKE %:searchText% "
+			+ "OR u.lastName LIKE %:searchText% "
+			+ "OR u.firstName LIKE %:searchText% "
+			+ "OR u.username LIKE %:searchText% "
+			+ "OR o.id LIKE %:searchText% "
+			+ "OR o.name LIKE %:searchText% "
+			+ "OR o.phone LIKE %:searchText% "
+			+ "OR o.address LIKE %:searchText%")
+    Page<Orders> findAllBySearch(Pageable pageable, String searchText);
 }

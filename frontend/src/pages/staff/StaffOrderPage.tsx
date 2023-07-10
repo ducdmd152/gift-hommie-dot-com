@@ -16,6 +16,7 @@ import PageableDTO from "../../type/PageableDTO";
 import useFetchStaffOrder, {
   StaffOrderQuery,
 } from "../../hooks/useFetchStaffOrder";
+import SearchInput from "../../components/SearchInput";
 
 const StaffOrderPage = () => {
   const [staffOrderQuery, setStaffOrderQuery] = useState({} as StaffOrderQuery);
@@ -37,6 +38,12 @@ const StaffOrderPage = () => {
       </Heading>
 
       <StaffOrderTabs onStatus={onStatus} />
+
+      <SearchInput
+        onSearch={(search: string) => {
+          setStaffOrderQuery({ ...staffOrderQuery, search });
+        }}
+      />
       <StaffOrderList
         orders={orders}
         setOrders={setOrders}
