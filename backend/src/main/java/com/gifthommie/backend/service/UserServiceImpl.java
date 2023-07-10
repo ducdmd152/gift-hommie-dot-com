@@ -95,6 +95,12 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmailOrUsername(String check, boolean enabled) {
 		return userRepository.getUserByUsernameOrEmail(check, enabled);
 	}
+	
+	// getUserByEmailOrUsername
+		@Override
+		public User getUserByEmailOrUsername(String check) {
+			return userRepository.getUserByUsernameOrEmail(check);
+		}
 
 	
 	// updateUserProfile

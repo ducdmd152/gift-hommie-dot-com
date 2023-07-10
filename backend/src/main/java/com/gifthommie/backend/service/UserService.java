@@ -47,4 +47,6 @@ public interface UserService {
 	public UserStatisticsDTO getUserStatictis(String date);
 
 	APIPageableResponseDTO<User> searchUsers(int pageNo, int pageSize, int roleId, String search);
+
+	User getUserByEmailOrUsername(String check);
 }

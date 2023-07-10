@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Badge,
   Card,
@@ -18,6 +18,7 @@ import ORDER_STATUS_MAP, {
 } from "../../../data/OrderStatusData";
 import Swal from "sweetalert2";
 import { staffUpdateOrder } from "../../../services/staff-order-service";
+import { GLOBAL_CONTEXT } from "../../../App";
 
 const StaffOrderDetailInfo = ({
   order,
@@ -28,6 +29,7 @@ const StaffOrderDetailInfo = ({
   setOrder: (order: OrderDTO) => void;
   transition: (order: OrderDTO) => void;
 }) => {
+  const globalContext = useContext(GLOBAL_CONTEXT);
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
   const total =
@@ -148,7 +150,12 @@ const StaffOrderDetailInfo = ({
               color="gray"
             >
               Ngày tạo đơn: {order.createTime} | Tạo bởi{" "}
-              <Link to="/customer/detail">
+              <Link
+                to="/customer/detail"
+                onClick={() => {
+                  globalContext.userContext.setUserId(order.user.username);
+                }}
+              >
                 <Text
                   display="inline"
                   color="teal !important"
