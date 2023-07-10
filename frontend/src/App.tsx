@@ -120,22 +120,28 @@ function App() {
 
   // console.log(user?.authority);
 
-  // const navigate = useNavigate();
-  // if (user != null) {
-  //   const checkLogin = async () => {
-  //     const { username, password } = { ...user };
-  //     let res = await authService.login(username as string, password as string);
-  //     if (!res) {
-  //       utilService.logout();
-  //       navigate("/login");
-  //     }
-  //   };
-
-  //   checkLogin();
-  // }
+  const navigate = useNavigate();
 
   if (user == null) {
     return <GuestPage />;
+  }
+
+  if (user != null) {
+    const checkLogin = async () => {
+      const { username, password } = { ...user };
+      let res = await authService.enabled(
+        username as string,
+        password as string
+      );
+      if (res == false) {
+        utilService.logout();
+        setUser(null);
+        navigate("/login");
+      }
+    };
+    (async () => {
+      await checkLogin();
+    })();
   }
 
   if (user.authority == "ROLE_CUSTOMER") {
