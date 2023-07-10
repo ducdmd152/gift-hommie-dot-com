@@ -48,4 +48,10 @@ public interface OrderService {
 	public void getOrderStatisticByMonth(String date, OrderStatisticsDTO orderStatisticsDTO);
 	
 	public void getOrderStatisticByQuarter(String date, OrderStatisticsDTO orderStatisticsDTO);
+
+	APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail_withSearch(Integer pageNo, Integer pageSize,
+			String search);
+
+	APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail_withSearch(Integer pageNo, Integer pageSize, String status,
+			String search);
 }

@@ -84,11 +84,11 @@ const StaffCustomerDetailPage = () => {
 
   return (
     <>
-      {/* <Link to="/customer">
-        <Button colorScheme="teal" size="sm" ml="12">
-          {"<< Danh sách khách hàng"}
-        </Button>
-      </Link> */}
+      {/* <Link to="-1"> */}
+      <Button colorScheme="teal" size="sm" ml="12" onClick={() => navigate(-1)}>
+        {"<< Quay lại"}
+      </Button>
+      {/* </Link> */}
       <Card marginX="200" marginY="6" p="8" border="1px lightgray solid">
         <HStack justifyContent="space-between" marginTop="10px">
           {/* <Link to={"/staff/edit"}>

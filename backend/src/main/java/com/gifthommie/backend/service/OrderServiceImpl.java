@@ -166,6 +166,49 @@ public class OrderServiceImpl implements OrderService {
 		apiResponse.setPageable(apiPageble);
 		return apiResponse;
 	}
+	
+	@Override
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail_withSearch(Integer pageNo, Integer pageSize, String search) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("orderTime").descending()); // MODIFIED BY DUY DUC
+		Page<Orders> page = orderRepository.findAllBySearch(pageable, search);
+//        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+// <<<<<<< hoangthien0623
+		List<OrderDTO> orderDTOList = new ArrayList<>();
+		for (Orders order : page) {
+			order = updateStatus(order);
+			OrderDTO orderDTO = new OrderDTO(order);
+// =======
+//         List<OrderDTO> orderDTOList = new ArrayList<>();
+//         for (Orders order : page) {
+//         	order = updateStatus(order); // AUTO-UPDATE STATUS
+        	
+//             OrderDTO orderDTO = new OrderDTO(order);
+// >>>>>>> main
+
+			User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
+
+			List<OrderDetailDTO> orderDetailDTOs = new ArrayList<OrderDetailDTO>(); // CONVERT DETAILS TO DETAIL-DTOs
+			;
+			for (OrderDetail orderDetail : order.getOrderDetails()) {
+				Product product = productService.getProductById(orderDetail.getProductId());
+				Category cate = categoryRepository.getById(product.getCategoryId());
+				if (cate.isStatus() == false) product.setStatus(false);
+				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
+			}
+
+			// SET
+			orderDTO.setUser(tmpUser);
+			orderDTO.setOrderDetails(orderDetailDTOs);
+
+			orderDTOList.add(orderDTO);
+		}
+
+		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
+		apiResponse.setContent(orderDTOList);
+		APIPageableDTO apiPageble = new APIPageableDTO(page);
+		apiResponse.setPageable(apiPageble);
+		return apiResponse;
+	}
 
 	@Override
 	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail(Integer pageNo, Integer pageSize, String status) {
@@ -181,6 +224,52 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		Page<Orders> page = orderRepository.findAllWithStatus(statuses, PageRequest.of(pageNo, pageSize));
+
+//        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+		List<OrderDTO> orderDTOList = new ArrayList<>();
+		for (Orders order : page) {
+			order = updateStatus(order);
+			OrderDTO orderDTO = new OrderDTO(order);
+
+			User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
+
+			List<OrderDetailDTO> orderDetailDTOs = new ArrayList<OrderDetailDTO>(); // CONVERT DETAILS TO DETAIL-DTOs
+			;
+			for (OrderDetail orderDetail : order.getOrderDetails()) {
+				Product product = productService.getProductById(orderDetail.getProductId());
+				Category cate = categoryRepository.getById(product.getCategoryId());
+				if (cate.isStatus() == false) product.setStatus(false);
+				orderDetailDTOs.add(new OrderDetailDTO(orderDetail, product));
+			}
+
+			// SET
+			orderDTO.setUser(tmpUser);
+			orderDTO.setOrderDetails(orderDetailDTOs);
+
+			orderDTOList.add(orderDTO);
+		}
+
+		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
+		apiResponse.setContent(orderDTOList);
+		APIPageableDTO apiPageble = new APIPageableDTO(page);
+		apiResponse.setPageable(apiPageble);
+		return apiResponse;
+	}
+
+	@Override
+	public APIPageableResponseDTO<OrderDTO> getOrderDTOList_noEmail_withSearch(Integer pageNo, Integer pageSize, String status,  String search) {
+		if (status == null)
+			return getOrderDTOList_noEmail(pageNo, pageSize);
+
+		List<String> statuses = new ArrayList<>();
+		if (status.toLowerCase().equals("others")) {
+			statuses.add("CANCELLED");
+			statuses.add("REFUSED");
+		} else {
+			statuses.add(status);
+		}
+
+		Page<Orders> page = orderRepository.findAllWithStatusBySearch(statuses, search, PageRequest.of(pageNo, pageSize));
 
 //        List<OrderDTO> orderList = page.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
 		List<OrderDTO> orderDTOList = new ArrayList<>();
