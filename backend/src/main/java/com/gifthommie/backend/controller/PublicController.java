@@ -1,7 +1,5 @@
 package com.gifthommie.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +12,9 @@ import com.gifthommie.backend.dto.FeedbackDTO;
 import com.gifthommie.backend.dto.ProductReportDTO;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Product;
-import com.gifthommie.backend.entity.Review;
 import com.gifthommie.backend.exception.NotFoundException;
 import com.gifthommie.backend.service.CategoryService;
 import com.gifthommie.backend.service.FeedbackService;
-import com.gifthommie.backend.service.OrderDetailService;
 import com.gifthommie.backend.service.ProductService;
 import com.gifthommie.backend.service.ReviewService;
 

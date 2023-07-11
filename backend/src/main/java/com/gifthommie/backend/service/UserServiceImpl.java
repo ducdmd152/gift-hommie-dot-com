@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.repository.ProductRepository;
 import com.gifthommie.backend.repository.UserRepository;
-import com.gifthommie.backend.utils.SecurityUtils;
 
 @Service
 public class UserServiceImpl implements UserService {

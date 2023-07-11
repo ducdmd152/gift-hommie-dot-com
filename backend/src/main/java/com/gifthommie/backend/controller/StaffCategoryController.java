@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
-import com.gifthommie.backend.dto.OrderDTO;
-import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.service.CategoryService;
 

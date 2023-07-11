@@ -16,8 +16,6 @@ import com.gifthommie.backend.dto.RevenueObject.Day;
 import com.gifthommie.backend.dto.RevenueObject.Month;
 import com.gifthommie.backend.dto.RevenueObject.Quarter;
 import com.gifthommie.backend.dto.RevenueObject.Week;
-import com.gifthommie.backend.entity.OrderDetail;
-import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.repository.OrderRepository;
 
 @Service

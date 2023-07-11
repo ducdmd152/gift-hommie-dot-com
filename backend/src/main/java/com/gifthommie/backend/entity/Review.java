@@ -9,13 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gifthommie.backend.dto.RatingRequestDTO;
-import com.gifthommie.backend.repository.OrderDetailRepository;
-import com.gifthommie.backend.repository.OrderRepository;
-import com.gifthommie.backend.service.OrderDetailService;
 
 @Entity
 @Table(name = "review")

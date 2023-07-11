@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +14,6 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CartResponseDTO;
 import com.gifthommie.backend.entity.Cart;
-import com.gifthommie.backend.entity.OrderDetail;
-import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.repository.CartRepository;
 import com.gifthommie.backend.repository.OrderRepository;

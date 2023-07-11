@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.OrderDTO;
-import com.gifthommie.backend.dto.OrderDetailDTO;
 import com.gifthommie.backend.dto.RatingRequestDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;

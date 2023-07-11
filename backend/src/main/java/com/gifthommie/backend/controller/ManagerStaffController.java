@@ -1,7 +1,5 @@
 package com.gifthommie.backend.controller;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,6 @@ import com.gifthommie.backend.dto.UserProfileDTO;
 import com.gifthommie.backend.entity.Role;
 import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.exception.NotFoundException;
-import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.RoleService;
 import com.gifthommie.backend.service.UserService;
 

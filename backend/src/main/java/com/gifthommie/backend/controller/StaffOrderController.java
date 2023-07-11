@@ -1,11 +1,8 @@
 package com.gifthommie.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,12 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.OrderDTO;
-import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.exception.NotFoundException;
-import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.service.OrderService;
-import com.gifthommie.backend.service.UserService;
 
 @RestController
 @RequestMapping("/staff/order")

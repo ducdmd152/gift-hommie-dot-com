@@ -17,8 +17,6 @@ import com.gifthommie.backend.dto.ProductStatisticDTO.Month;
 import com.gifthommie.backend.dto.ProductStatisticDTO.ProductStatisticValue;
 import com.gifthommie.backend.dto.ProductStatisticDTO.Quarter;
 import com.gifthommie.backend.dto.ProductStatisticDTO.Week;
-import com.gifthommie.backend.entity.OrderDetail;
-import com.gifthommie.backend.entity.Orders;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.repository.ProductRepository;
