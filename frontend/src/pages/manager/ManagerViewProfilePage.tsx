@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Card, HStack } from "@chakra-ui/react";
+import { Card } from "@chakra-ui/react";
 import UserDTO from "../../type/UserDTO";
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import managerService from "../../services/manager-service";
 import Swal from "sweetalert2";
 import UserProfileView from "../../components/user/UserProfileView";

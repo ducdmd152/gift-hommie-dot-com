@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { Grid, GridItem, Text } from "@chakra-ui/react";
+import React from "react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "../../components/header/Header";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import GuestShopPage from "./GuestShopPage";
-import CustomerPage from "../customer/CustomerPage";
 import Register from "./Register";
 import GuestShopDetailPage from "./GuestShopDetailPage";
-import ImageUpload from "../../components/image/ImageUpload";
 import GuestForgotPasswordPage from "./GuestForgotPasswordPage";
 
 const GuestPage = () => {

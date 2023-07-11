@@ -2,7 +2,6 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
-import utilService from "../../services/util-service";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
 import Footer from "../../components/Footer";
 

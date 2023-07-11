@@ -1,6 +1,5 @@
 import { Box, Card, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import CartDTO from "../../type/CartDTO";
 import { Link } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../../App";
 import OrderDetailDTO from "../../type/OrderDetailDTO";

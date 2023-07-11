@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import SearchInput from "../../components/SearchInput";
 import ManagerStaffTable from "../../components/manager/manager-staff-list-page/ManagerStaffTable";
 import Pagination from "../../components/Pagination";
-import PageableDTO from "../../type/PageableDTO";
 import useFetchManagerStaff, {
   ManagerStaffQuery,
 } from "../../hooks/useFetchManagerStaff";

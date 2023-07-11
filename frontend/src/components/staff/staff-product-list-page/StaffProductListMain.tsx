@@ -1,13 +1,11 @@
 import React from "react";
 import SearchInput from "../../SearchInput";
-import { StaffProductDTO } from "../../../services/staff-product-service";
-import { Stack, Box, VStack, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import StaffProductListItems from "./StaffProductListItems";
 import Pagination from "../../Pagination";
 import useFetchStaffProduct, {
   StaffProductQuery,
 } from "../../../hooks/useFetchStaffProduct";
-import PageableDTO from "../../../type/PageableDTO";
 interface Props {
   setCurrentProductId: (productId: number) => void;
   staffProductQuery: StaffProductQuery;

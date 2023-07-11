@@ -1,9 +1,6 @@
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
-  Heading,
   Image,
   Input,
   Spinner,

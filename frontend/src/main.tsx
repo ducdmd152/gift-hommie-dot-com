@@ -5,7 +5,6 @@ import App from "./App";
 import theme from "./theme";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import Footer from "./components/Footer";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

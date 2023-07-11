@@ -3,25 +3,21 @@ import {
   Badge,
   Box,
   Button,
-  Flex,
   HStack,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { HttpUser } from "../../services/user-service";
+import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import authService from "../../services/auth-service";
 import utilService from "../../services/util-service";
 import UserDTO from "../../type/UserDTO";
 import { Link } from "react-router-dom";
 import useAfterAuthenticated from "../../hooks/useAfterAuthenticated";
-import { BsCartFill } from "react-icons/bs";
 
 const HeaderUser = () => {
   const USER = utilService.getCurrentUser() as UserDTO;

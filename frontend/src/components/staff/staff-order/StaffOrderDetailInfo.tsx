@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Badge,
   Card,
@@ -7,11 +7,8 @@ import {
   VStack,
   Text,
   Button,
-  Show,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import useFetchCart, { CartQuery } from "../../../hooks/useFetchCart";
-import Selector from "../../Selector";
 import OrderDTO from "../../../type/OrderDTO";
 import ORDER_STATUS_MAP, {
   OrderStatusItem,

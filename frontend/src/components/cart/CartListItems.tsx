@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import CartListItem from "./CartListItem";
 import { VStack } from "@chakra-ui/react";
-import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import cartActionSerivce from "../../services/cart-action-service";
 import CartDTO from "../../type/CartDTO";
 import PageableDTO from "../../type/PageableDTO";

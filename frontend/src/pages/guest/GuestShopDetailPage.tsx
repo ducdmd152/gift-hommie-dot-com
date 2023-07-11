@@ -1,6 +1,5 @@
 import { Box, Heading, VStack } from "@chakra-ui/layout";
 import ShopProductDetail from "../../components/shop/ShopProductDetail";
-import { Card } from "@chakra-ui/card";
 import ShopProductListItems from "../../components/shop/ShopProductListItems";
 import useFetchShopProduct, {
   ShopProductQuery,
@@ -8,7 +7,6 @@ import useFetchShopProduct, {
 import { useContext, useState } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
 import utilService from "../../services/util-service";
-import Footer from "../../components/Footer";
 
 const GuestShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);

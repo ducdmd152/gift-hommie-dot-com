@@ -1,28 +1,10 @@
 import {
-  Box,
-  Card,
-  HStack,
   VStack,
-  Badge,
-  Text,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  List,
-  ListItem,
-  Button,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
-import CheckoutBillList, {
-  CheckoutBillItem,
-} from "../checkout/CheckoutBillList";
-import { GLOBAL_CONTEXT } from "../../App";
-import CartDTO from "../../type/CartDTO";
+import React from "react";
+
+
 import CustomerOrderItem from "./CustomerOrderItem";
-import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
 import OrderDetailDTO from "../../type/OrderDetailDTO";
 interface Props {
   orderDetails: OrderDetailDTO[];

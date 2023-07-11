@@ -1,9 +1,8 @@
 import React from "react";
 import SearchInput from "../SearchInput";
-import { Box, HStack, VStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import ShopProductListItems from "./ShopProductListItems";
 import Pagination from "../Pagination";
-import PageableDTO from "../../type/PageableDTO";
 import useFetchShopProduct, {
   ShopProductQuery,
 } from "../../hooks/useFetchShopProduct";

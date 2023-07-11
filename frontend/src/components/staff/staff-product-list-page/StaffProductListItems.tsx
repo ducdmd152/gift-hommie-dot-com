@@ -1,10 +1,9 @@
 import React from "react";
 import { StaffProductDTO } from "../../../services/staff-product-service";
-import { SimpleGrid, VStack } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import StaffProductListItem from "./StaffProductListItem";
-import useFetchStaffProduct, {
-  StaffProductQuery,
-} from "../../../hooks/useFetchStaffProduct";
+
+
 interface Props {
   setCurrentProductId: (productId: number) => void;
   products: StaffProductDTO[];

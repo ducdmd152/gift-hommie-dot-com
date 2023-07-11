@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { GLOBAL_CONTEXT } from "../App";
 
 export default {
   HEADER_HEIGHT: "100px",

@@ -11,16 +11,12 @@ import {
   Checkbox,
   Input,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import imageService from "../../services/image-service";
-import { Link, useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
-import { red } from "@cloudinary/url-gen/actions/adjust";
 import CartDTO from "../../type/CartDTO";
-import ProductDTO from "../../type/ProductDTO";
-import shopProductService, {
-  ShopProductDTO,
-} from "../../services/shop-product-service";
+
+
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";

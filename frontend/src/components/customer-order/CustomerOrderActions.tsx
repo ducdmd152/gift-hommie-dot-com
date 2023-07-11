@@ -1,14 +1,12 @@
-import { Box, Button, HStack, useDisclosure } from "@chakra-ui/react";
+import { Button, HStack, useDisclosure } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
-import CartDTO from "../../type/CartDTO";
 import Swal from "sweetalert2";
 import CustomerOrderFeedbackModal from "./CustomerOrderFeedbackModal";
-import { Rating } from "react-simple-star-rating";
 
 const CustomerOrderActions = ({
   order,

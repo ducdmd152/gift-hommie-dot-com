@@ -2,10 +2,8 @@ import { PaginationQuery } from "../components/Pagination";
 import shopProductService, {
   ShopProductDTO,
 } from "../services/shop-product-service";
-import staffProductService, {
-  StaffProductDTO,
-} from "../services/staff-product-service";
-import CategoryDTO from "../type/CategoryDTO";
+
+
 import HttpRequestQuery from "../type/HttpRequestQuery";
 import useFetchEntities from "./useFetchEntities";
 

@@ -3,37 +3,11 @@ import UserProfileEdit from "../../components/user/UserProfileEdit";
 import managerStaffService, {
   ManagerStaffDTO,
 } from "../../services/manager-staff-service";
-import { Link, useNavigate } from "react-router-dom";
-import { FieldValues, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import {
-  Badge,
-  Box,
-  Button,
   Card,
-  CardBody,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  HStack,
-  Heading,
-  Input,
-  NumberInput,
-  NumberInputField,
-  Select,
-  Textarea,
-  VStack,
-  Image,
-  Flex,
-  WrapItem,
-  Wrap,
-  Avatar,
-  Radio,
-  RadioGroup,
-  Stack,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
-import UserDTO from "../../type/UserDTO";
-import staffService from "../../services/staff-service";
 
 interface Props {
   userId: string;

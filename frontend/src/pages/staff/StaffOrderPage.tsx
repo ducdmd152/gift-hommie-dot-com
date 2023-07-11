@@ -1,18 +1,12 @@
 import {
-  Badge,
-  Box,
   HStack,
   Heading,
-  Tab,
-  TabList,
-  Tabs,
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import StaffOrderList from "../../components/staff/staff-order/StaffOrderList";
 import StaffOrderTabs from "../../components/staff/staff-order/StaffOrderTabs";
 import Pagination from "../../components/Pagination";
-import PageableDTO from "../../type/PageableDTO";
 import useFetchStaffOrder, {
   StaffOrderQuery,
 } from "../../hooks/useFetchStaffOrder";

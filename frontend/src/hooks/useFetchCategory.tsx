@@ -1,8 +1,5 @@
 import { PaginationQuery } from "../components/Pagination";
-import cartService from "../services/cart-service";
-import categoryService from "../services/category-service";
 import publicCategoryService from "../services/public-category-service";
-import CartDTO from "../type/CartDTO";
 import CategoryDTO from "../type/CategoryDTO";
 import HttpRequestQuery from "../type/HttpRequestQuery";
 import useFetchEntities from "./useFetchEntities";

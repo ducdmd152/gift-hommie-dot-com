@@ -1,7 +1,6 @@
-import { Box, Flex, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import Logo from "./Logo";
-import Nav from "./HeaderNav";
 import HeaderNav from "./HeaderNav";
 import HeaderUser from "./HeaderUser";
 import { Link } from "react-router-dom";

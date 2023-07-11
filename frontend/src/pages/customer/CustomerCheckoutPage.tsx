@@ -2,8 +2,6 @@ import { Box, HStack, VStack } from "@chakra-ui/layout";
 import React, { useContext, useEffect, useState } from "react";
 import CheckoutDeliveryInfo from "../../components/checkout/CheckoutDeliveryInfo";
 import CheckoutBillList from "../../components/checkout/CheckoutBillList";
-import CheckoutPaymentSelector from "../../components/checkout/CheckoutPaymentSelector";
-import { Button } from "@chakra-ui/button";
 import CheckoutSummary from "../../components/checkout/CheckoutSummary";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import { GLOBAL_CONTEXT } from "../../App";

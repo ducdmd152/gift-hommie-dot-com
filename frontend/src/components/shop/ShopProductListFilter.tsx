@@ -1,7 +1,6 @@
 import { Box, Button, Heading, List, ListItem, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Selector from "../Selector";
-import CATEGORIES from "../../data/Categories";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
 import useFetchCategories, {
   CategoryQuery,

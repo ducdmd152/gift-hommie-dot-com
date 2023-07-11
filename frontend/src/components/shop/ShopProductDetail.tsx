@@ -3,26 +3,17 @@ import {
   Box,
   Button,
   Card,
-  Flex,
-  FormControl,
-  FormLabel,
-  GridItem,
   HStack,
   Heading,
-  Input,
-  NumberInput,
-  NumberInputField,
-  Select,
   VStack,
   Image,
   Text,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FcShipped } from "react-icons/fc";
 import { SiFastify, SiGrab } from "react-icons/si";
 import { BsFillCartPlusFill } from "react-icons/bs";
-import { AiFillStar } from "react-icons/ai";
 import { GLOBAL_CONTEXT } from "../../App";
 import shopProductService, {
   ShopProductDTO,

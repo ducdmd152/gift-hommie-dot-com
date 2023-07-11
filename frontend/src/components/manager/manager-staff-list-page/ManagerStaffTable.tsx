@@ -2,7 +2,6 @@ import {
   Badge,
   Box,
   Button,
-  Heading,
   Table,
   TableCaption,
   TableContainer,
@@ -14,11 +13,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
-import useFetchManagerStaff, {
-  ManagerStaffQuery,
-} from "../../../hooks/useFetchManagerStaff";
+
+
 import { ManagerStaffDTO } from "../../../services/manager-staff-service";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   staffs: ManagerStaffDTO[];

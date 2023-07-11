@@ -9,8 +9,6 @@ import {
   HStack,
   Heading,
   Image,
-  Text,
-  VStack,
 } from "@chakra-ui/react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";

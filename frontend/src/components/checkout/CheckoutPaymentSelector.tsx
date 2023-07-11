@@ -1,9 +1,8 @@
 import { Card } from "@chakra-ui/card";
 import { Heading, VStack } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
-import React, { useState } from "react";
+import React from "react";
 import CheckoutDTO from "../../type/CheckoutDTO";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 interface Props {
   checkoutData: CheckoutDTO;
   setCheckoutData: (data: CheckoutDTO) => void;

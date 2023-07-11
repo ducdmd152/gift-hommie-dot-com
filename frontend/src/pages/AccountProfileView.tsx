@@ -2,19 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import UserDTO from "../type/UserDTO";
 import { Link, useNavigate } from "react-router-dom";
-import userService, { HttpUser } from "../services/user-service";
 import {
   Button,
   Card,
   HStack,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  Wrap,
-  WrapItem,
-  Avatar,
 } from "@chakra-ui/react";
 import UserProfileView from "../components/user/UserProfileView";
 import customerService from "../services/customer-service";

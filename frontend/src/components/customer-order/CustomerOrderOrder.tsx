@@ -5,29 +5,14 @@ import {
   VStack,
   Badge,
   Text,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  List,
-  ListItem,
-  Button,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
-import CheckoutBillList, {
-  CheckoutBillItem,
-} from "../checkout/CheckoutBillList";
-import { GLOBAL_CONTEXT } from "../../App";
-import CartDTO from "../../type/CartDTO";
-import CustomerOrderItem from "./CustomerOrderItem";
-import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
+import React from "react";
+
+
 import CustomerOrderItems from "./CustomerOrderItems";
 import OrderDTO from "../../type/OrderDTO";
 import CustomerOrderActions from "./CustomerOrderActions";
 import ORDER_STATUS_MAP from "../../data/OrderStatusData";
-import { italic } from "@cloudinary/url-gen/qualifiers/fontStyle";
 
 const CustomerOrderOrder = ({
   order,

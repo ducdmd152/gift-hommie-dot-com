@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import useFetchCart, { CartQuery } from "../../hooks/useFetchCart";
+import React from "react";
 import { Badge, Card, HStack, Heading, VStack, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import OrderDTO from "../../type/OrderDTO";
 import ORDER_STATUS_MAP, { OrderStatusItem } from "../../data/OrderStatusData";
-import utilService from "../../services/util-service";
 
 const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   //CODE FAKE DATA (TEMPORARY)

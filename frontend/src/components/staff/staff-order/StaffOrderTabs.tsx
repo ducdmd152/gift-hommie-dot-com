@@ -3,8 +3,6 @@ import {
   Tab,
   TabIndicator,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
 } from "@chakra-ui/react";
 import React from "react";

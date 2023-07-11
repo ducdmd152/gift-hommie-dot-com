@@ -1,31 +1,20 @@
 import {
-  Badge,
   Box,
   Button,
   Card,
-  CardBody,
   FormControl,
-  FormHelperText,
   FormLabel,
-  Radio,
-  RadioGroup,
-  Stack,
   HStack,
   Heading,
   Input,
-  NumberInput,
-  NumberInputField,
   Select,
   Wrap,
   WrapItem,
   Avatar,
-  Textarea,
   VStack,
-  Image,
-  Flex,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";

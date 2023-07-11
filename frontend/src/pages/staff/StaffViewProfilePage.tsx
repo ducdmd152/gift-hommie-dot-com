@@ -1,14 +1,8 @@
 import React from "react";
 import {
-  Button,
   Card,
-  HStack,
-  VStack,
-  Wrap,
-  WrapItem,
-  Avatar,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserDTO from "../../type/UserDTO";
 import staffService from "../../services/staff-service";
