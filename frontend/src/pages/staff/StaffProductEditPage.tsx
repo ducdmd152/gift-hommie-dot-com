@@ -238,7 +238,8 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                         size="lg"
                         isChecked={product.status}
                         onChange={() => {
-                          setProduct({ ...product, status: !product.status });
+                          product.status = !product.status;
+                          setProduct({ ...product });
                         }}
                       />
                       <Text color="gray">Hiển thị</Text>
@@ -248,10 +249,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   <Input
                     onChange={(e) => {
                       // console.log(e.target.value.trim());
-
+                      product.name = e.target.value.trim();
                       setProduct({
                         ...product,
-                        name: e.target.value.trim(),
                       });
                       // console.log(product);
                       onValid();
@@ -284,9 +284,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   <Select
                     onChange={(e) => {
                       let value = parseInt(e.target.value);
+                      product.categoryId = !value || value == 0 ? -1 : value;
                       setProduct({
                         ...product,
-                        categoryId: !value || value == 0 ? -1 : value,
                       });
                       onValid();
                     }}
@@ -315,9 +315,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   <Input
                     onChange={(e) => {
                       let value = parseInt(e.target.value);
+                      product.price = !value ? -1 : value;
                       setProduct({
                         ...product,
-                        price: !value ? -1 : value,
                       });
                       onValid();
                     }}
@@ -339,9 +339,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                   <Input
                     onChange={(e) => {
                       let value = parseInt(e.target.value);
+                      product.available = !value ? -1 : value;
                       setProduct({
                         ...product,
-                        available: !value ? -1 : value,
                       });
                       onValid();
                     }}
@@ -377,9 +377,9 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
               </FormLabel>
               <Textarea
                 onChange={(e) => {
+                  product.description = e.target.value;
                   setProduct({
                     ...product,
-                    description: e.target.value,
                   });
                   onValid();
                 }}
