@@ -27,6 +27,7 @@ const StaffProductMain = ({
           setStaffProductQuery({
             ...staffProductQuery,
             search: text,
+            page: 0,
           });
         }}
       />
