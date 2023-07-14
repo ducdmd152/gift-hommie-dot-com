@@ -1,13 +1,5 @@
 package com.gifthommie.backend.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gifthommie.backend.entity.Role;
-
 public class UserProfileDTO {
 	private String email;
 	

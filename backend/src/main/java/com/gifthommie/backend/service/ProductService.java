@@ -2,8 +2,6 @@ package com.gifthommie.backend.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
-
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;

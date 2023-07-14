@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
 import React from "react";
 import {
-  Badge,
   Box,
-  Button,
-  Card,
-  CardBody,
   FormControl,
-  FormHelperText,
   FormLabel,
   Wrap,
   WrapItem,
@@ -15,24 +9,8 @@ import {
   HStack,
   Heading,
   Input,
-  NumberInput,
-  NumberInputField,
-  Select,
-  Textarea,
-  Radio,
-  RadioGroup,
-  Stack,
   VStack,
-  Image,
-  Flex,
-  Grid,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
-import { ManagerStaffDTO } from "../../services/manager-staff-service";
-import managerStaffService from "../../services/manager-staff-service";
-import StaffProductMain from "../staff/staff-product-list-page/StaffProductListMain";
-import { HttpUser } from "../../services/user-service";
-import userService from "../../services/user-service";
 import UserDTO from "../../type/UserDTO";
 
 interface Props {

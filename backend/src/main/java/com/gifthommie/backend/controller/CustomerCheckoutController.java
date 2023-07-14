@@ -9,16 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.CheckOutDTO;
 import com.gifthommie.backend.dto.OrderDTO;
 import com.gifthommie.backend.dto.OrderDetailDTO;
-import com.gifthommie.backend.dto.OrderResponseDTO;
 import com.gifthommie.backend.entity.OrderDetail;
 import com.gifthommie.backend.entity.Orders;
-import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.entity.User;
-import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.OrderDetailService;
 import com.gifthommie.backend.service.OrderService;

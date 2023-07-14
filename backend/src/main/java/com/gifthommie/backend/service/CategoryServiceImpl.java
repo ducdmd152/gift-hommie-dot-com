@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.entity.Category;
-import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.repository.CategoryRepository;
 
 @Service

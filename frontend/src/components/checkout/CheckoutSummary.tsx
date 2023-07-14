@@ -1,15 +1,13 @@
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { HStack, VStack, Text } from "@chakra-ui/layout";
-import React, { useContext } from "react";
+import React from "react";
 import CheckoutPaymentSelector from "./CheckoutPaymentSelector";
 import { Button } from "@chakra-ui/button";
 import { Card } from "@chakra-ui/card";
 import CheckoutShippingMethod from "./CheckoutShippingMethod";
-import { GLOBAL_CONTEXT } from "../../App";
 import CheckoutDTO from "../../type/CheckoutDTO";
-import { Box, useDisclosure } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import CheckoutPaymentModal from "./CheckoutPaymentModal";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { DeliveryFormData } from "../../pages/customer/CustomerCheckoutPage";
 export interface UseDisclosureReturn {
   isOpen: boolean;

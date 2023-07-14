@@ -1,6 +1,6 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Card } from "@chakra-ui/card";
-import { Box, HStack, VStack, Text, Flex } from "@chakra-ui/layout";
+import { Box, HStack, VStack, Text } from "@chakra-ui/layout";
 import React, { useContext, useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { GLOBAL_CONTEXT } from "../../App";
@@ -8,7 +8,6 @@ import shopProductService, {
   FeedBackResponseQuery,
 } from "../../services/shop-product-service-additional";
 import { FeedbackResponse } from "../../services/shop-product-service-additional";
-import PageableDTO from "../../type/PageableDTO";
 import Pagination from "../Pagination";
 import FeedbackDTO from "../../type/FeedbackDTO";
 const ShopProductReview = () => {

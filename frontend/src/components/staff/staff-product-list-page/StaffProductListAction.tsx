@@ -1,7 +1,6 @@
 import { Box, Button, Heading, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Selector from "../../Selector";
-import CATEGORIES from "../../../data/Categories";
 import { StaffProductQuery } from "../../../hooks/useFetchStaffProduct";
 import { Link } from "react-router-dom";
 import CategoryManagement from "./CategoryManagement";

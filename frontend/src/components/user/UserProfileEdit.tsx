@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
   Box,
   FormControl,
@@ -9,20 +9,12 @@ import {
   HStack,
   Heading,
   Input,
-  Radio,
-  RadioGroup,
-  Stack,
   VStack,
   Button,
   Select,
 } from "@chakra-ui/react";
-import managerStaffService from "../../services/manager-staff-service";
 import { useNavigate } from "react-router-dom";
-import { FieldValues, useForm } from "react-hook-form";
-import UserDTO from "../../type/UserDTO";
 import accountService, { AccountDTO } from "../../services/account-service";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import Swal from "sweetalert2";
 interface UserFormErrors {
   id: string;

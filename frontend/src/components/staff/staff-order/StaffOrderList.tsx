@@ -3,20 +3,17 @@ import {
   Box,
   Button,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import StaffOrderDetailModal from "./StaffOrderDetailModal";
-import useFetchStaffOrder, {
+import {
   StaffOrderQuery,
 } from "../../../hooks/useFetchStaffOrder";
 import ORDER_STATUS_MAP from "../../../data/OrderStatusData";

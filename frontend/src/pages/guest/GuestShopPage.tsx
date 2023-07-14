@@ -4,7 +4,6 @@ import Header from "../../components/header/Header";
 import ShopProductListMain from "../../components/shop/ShopProductListMain";
 import ShopProductListFilter from "../../components/shop/ShopProductListFilter";
 import { ShopProductQuery } from "../../hooks/useFetchShopProduct";
-import ShopProductReview from "../../components/shop/ShopProductReview";
 import Footer from "../../components/Footer";
 const HEADER_HEIGHT = "100px";
 const GuestShopPage = () => {

@@ -5,7 +5,6 @@ import {
   Box,
   HStack,
   List,
-  ListItem,
   Badge,
 } from "@chakra-ui/layout";
 import {

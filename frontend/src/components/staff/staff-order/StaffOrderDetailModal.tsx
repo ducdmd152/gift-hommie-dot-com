@@ -7,17 +7,12 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import StaffOrderDetailInfo from "./StaffOrderDetailInfo";
 import StaffOrderItems from "./StaffOrderItems";
 import OrderDTO from "../../../type/OrderDTO";
-import staffOrderService from "../../../services/staff-order-service";
-import { useNavigate } from "react-router-dom";
-import OrderDetailDTO from "../../../type/OrderDetailDTO";
-import { GLOBAL_CONTEXT } from "../../../App";
 interface Props {
   order: OrderDTO;
   setOrder: (order: OrderDTO) => void;

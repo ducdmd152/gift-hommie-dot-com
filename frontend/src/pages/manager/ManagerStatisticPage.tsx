@@ -1,10 +1,6 @@
 import { Box, HStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ManagerStatisticContainer from "../../components/manager/ManagerStatisticContainer";
-import StatisticOverviewRevenue from "../../components/manager/StatisticOverviewRevenue";
-import StatisticOverviewOrder from "../../components/manager/StatisticOverviewOrder";
-import StatisticOverviewProduct from "../../components/manager/StatisticOverviewProduct";
-import StatisticOverviewCustomer from "../../components/manager/StatisticOverviewCustomer";
 import StatisticRevenue from "../../components/manager/StatisticRevenue";
 import StatisticOrder from "../../components/manager/StatisticOrder";
 import StatisticProduct from "../../components/manager/StatisticProduct";

@@ -2,8 +2,6 @@ package com.gifthommie.backend.dto;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class AuthUserRequestDTO implements Serializable {
 	private String username;
 	private String password;

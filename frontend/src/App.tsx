@@ -1,11 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import "./App.css";
-import Register from "./pages/guest/Register";
-import Community from "./pages/staff/StaffProductListPage";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import StaffProductList from "./pages/staff/StaffProductListPage";
-import StaffProductListPage from "./pages/staff/StaffProductListPage";
-import { HttpUser } from "./services/user-service";
+import { useNavigate } from "react-router-dom";
 import StaffPage from "./pages/staff/StaffPage";
 import UserDTO from "./type/UserDTO";
 import GuestPage from "./pages/guest/GuestPage";

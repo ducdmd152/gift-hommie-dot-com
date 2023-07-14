@@ -2,7 +2,6 @@ import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
 import ProductDTO from "../../type/ProductDTO";
-import { Link } from "react-router-dom";
 import utilService from "../../services/util-service";
 
 const StatisticOverviewProduct = () => {

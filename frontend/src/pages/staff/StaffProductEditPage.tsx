@@ -1,21 +1,15 @@
 import {
   Badge,
-  Box,
   Button,
   Card,
-  CardBody,
   FormControl,
-  FormHelperText,
   FormLabel,
   HStack,
   Heading,
   Input,
-  NumberInput,
-  NumberInputField,
   Select,
   Textarea,
   VStack,
-  Image,
   Flex,
   Switch,
   Text,
@@ -25,10 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import staffProductService, {
   StaffProductDTO,
 } from "../../services/staff-product-service";
-import CATEGORIES from "../../data/Categories";
-import { FieldValues, useForm } from "react-hook-form";
 import ImageUpload from "../../components/image/ImageUpload";
-import imageService from "../../services/image-service";
 import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";

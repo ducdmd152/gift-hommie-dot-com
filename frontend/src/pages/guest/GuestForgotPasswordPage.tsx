@@ -1,13 +1,9 @@
 import {
-  Box,
   Center,
   FormLabel,
   HStack,
-  PinInput,
-  PinInputField,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
-import utilService from "../../services/util-service";
+import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -18,7 +14,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { set, z } from "zod";
+import { z } from "zod";
 import authService from "../../services/auth-service";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";

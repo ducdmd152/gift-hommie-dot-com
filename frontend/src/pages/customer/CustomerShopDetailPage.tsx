@@ -1,13 +1,11 @@
 import { Box, Heading, VStack } from "@chakra-ui/layout";
 import ShopProductDetail from "../../components/shop/ShopProductDetail";
-import { Card } from "@chakra-ui/card";
 import ShopProductListItems from "../../components/shop/ShopProductListItems";
 import useFetchShopProduct, {
   ShopProductQuery,
 } from "../../hooks/useFetchShopProduct";
 import { useContext, useState } from "react";
 import { GLOBAL_CONTEXT } from "../../App";
-import Footer from "../../components/Footer";
 
 const CustomerShopDetailPage = () => {
   const globalContext = useContext(GLOBAL_CONTEXT);

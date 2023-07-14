@@ -1,6 +1,6 @@
-import { Badge, Button, Card, HStack, Heading } from "@chakra-ui/react";
+import { Badge, Button, Card, HStack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { GLOBAL_CONTEXT } from "../../App";
 import UserProfileView from "../../components/user/UserProfileView";

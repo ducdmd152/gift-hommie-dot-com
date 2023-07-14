@@ -1,6 +1,5 @@
-import { Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import React from "react";
-import CustomerOrderTabs from "../../components/customer-order/CustomerOrderTabs";
 import CustomerOrderList from "../../components/customer-order/CustomerOrderList";
 
 const CustomerOrderPage = () => {

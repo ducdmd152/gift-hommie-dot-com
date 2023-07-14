@@ -1,8 +1,6 @@
 import { Card } from "@chakra-ui/card";
-import { Image } from "@chakra-ui/image";
 import { Badge, Box, HStack, Text } from "@chakra-ui/layout";
 import React, { useEffect, useState } from "react";
-import utilService from "../../services/util-service";
 import { Avatar } from "@chakra-ui/avatar";
 import StatisticCustomerDTO from "../../type/StatisticCustomerDTO";
 import statisticService from "../../services/statistic-service";

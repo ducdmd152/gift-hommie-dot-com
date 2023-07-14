@@ -2,20 +2,14 @@ import {
   Box,
   Card,
   HStack,
-  Heading,
   Table,
-  TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
   Text,
-  VStack,
   Image,
-  Badge,
-  Button,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { GLOBAL_CONTEXT } from "../../App";

@@ -3,8 +3,6 @@ package com.gifthommie.backend.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.gifthommie.backend.entity.Cart;
-
 public class CheckOutDTO {
 		
 	private String name;

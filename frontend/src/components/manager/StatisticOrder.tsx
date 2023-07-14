@@ -1,7 +1,5 @@
 import { Box, Card, HStack, List, Text, VStack } from "@chakra-ui/react";
-import ApexCharts from "apexcharts";
 import React, { useEffect, useState } from "react";
-import { VictoryChart } from "Victory";
 import ReactApexChart from "react-apexcharts";
 import StatisticOrderDTO from "../../type/StatisticOrderDTO";
 import statisticService from "../../services/statistic-service";

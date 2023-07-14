@@ -1,4 +1,3 @@
-import axios from "axios";
 import apiClient from "./api-client";
 import utilService from "./util-service";
 import StatisticRevenueDTO from "../type/StatisticRevenueDTO";

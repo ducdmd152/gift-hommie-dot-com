@@ -1,19 +1,17 @@
 import { Card } from "@chakra-ui/card";
 import {
   FormControl,
-  FormHelperText,
   FormLabel,
 } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { HStack, Heading, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import { Textarea } from "@chakra-ui/textarea";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import addressService from "../../services/address-service";
 import ProvinceDTO from "../../type/ProvinceDTO";
 import shippingService from "../../services/shipping-service";
 import CheckoutDTO from "../../type/CheckoutDTO";
-import { GLOBAL_CONTEXT } from "../../App";
 import { DeliveryFormData } from "../../pages/customer/CustomerCheckoutPage";
 import { UseFormReturn } from "react-hook-form";
 

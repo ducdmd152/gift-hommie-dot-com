@@ -2,7 +2,6 @@ import {
   Button,
   Card,
   HStack,
-  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,14 +11,12 @@ import {
   ModalOverlay,
   Image,
   Text,
-  Box,
   VStack,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import OrderDetailDTO from "../../type/OrderDetailDTO";
-import { CheckoutBillItem } from "../checkout/CheckoutBillList";
 import ProductDTO from "../../type/ProductDTO";
 import { Link } from "react-router-dom";
 import { GLOBAL_CONTEXT } from "../../App";

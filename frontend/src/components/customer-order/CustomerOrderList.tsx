@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CustomerOrderTabs from "./CustomerOrderTabs";
-import CustomerOrderItems from "./CustomerOrderItems";
-import { Box, Card, HStack, VStack, Text } from "@chakra-ui/react";
+import { Card, VStack, Text } from "@chakra-ui/react";
 import CustomerOrderOrder from "./CustomerOrderOrder";
 import useFetchCustomerOrder, {
   CustomerOrderQuery,

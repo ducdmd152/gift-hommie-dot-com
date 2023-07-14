@@ -1,15 +1,7 @@
 import {
-  Box,
-  Button,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Select,
 } from "@chakra-ui/react";
 import React from "react";
-import { BsChevronDown } from "react-icons/bs";
 interface Props {
   field: string;
   selected?: string;

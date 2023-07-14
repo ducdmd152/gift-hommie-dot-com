@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.apache.tomcat.jni.Time;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;import com.gifthommie.backend.exception.NotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileServiceImpl implements FileService {

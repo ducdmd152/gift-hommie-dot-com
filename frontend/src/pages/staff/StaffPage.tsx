@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import StaffProductListPage from "./StaffProductListPage";
-import { Grid, GridItem, Text } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "../../components/header/Header";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import StaffProductEditPage from "./StaffProductEditPage";
 import StaffProductDetailPage from "./StaffProductDetailPage";
 import StaffProductCreatePage from "./StaffProductCreatePage";
-import StaffViewProfilePage from "./StaffViewProfilePage";
 import StaffOrderPage from "./StaffOrderPage";
 import AccountViewProfilePage from "../AccountProfileView";
 import Login from "../guest/Login";

@@ -7,7 +7,6 @@ import CustomerShopPage from "./CustomerShopPage";
 import CustomerCartPage from "./CustomerCartPage";
 import CustomerShopDetailPage from "./CustomerShopDetailPage";
 import CustomerCheckoutPage from "./CustomerCheckoutPage";
-import CustomerViewProfilePage from "./CustomerViewProfilePage";
 import { useState } from "react";
 import CustomerOrderPage from "./CustomerOrderPage";
 import CustomerOrderDetailPage from "./CustomerOrderDetailPage";

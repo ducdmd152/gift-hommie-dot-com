@@ -1,24 +1,13 @@
 import UserDTO from "../../type/UserDTO";
 import React from "react";
 import UserProfileEdit from "../../components/user/UserProfileEdit";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
   Card,
-  HStack,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  Wrap,
-  WrapItem,
-  Avatar,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import managerService from "../../services/manager-service";
-import { FieldValues, useForm } from "react-hook-form";
 
 interface FormData extends UserDTO {}
 

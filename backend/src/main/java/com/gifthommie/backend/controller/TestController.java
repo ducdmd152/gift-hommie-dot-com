@@ -2,30 +2,22 @@ package com.gifthommie.backend.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gifthommie.backend.dto.ProductStatisticDTO;
-import com.gifthommie.backend.dto.ProductStatisticDTO.Day;
-import com.gifthommie.backend.dto.ProductStatisticDTO.ProductStatisticValue;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Orders;
-import com.gifthommie.backend.entity.Product;
-import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.OrderRepository;
 import com.gifthommie.backend.repository.ProductRepository;
 import com.gifthommie.backend.repository.UserRepository;
 import com.gifthommie.backend.service.FeedbackService;
-import com.gifthommie.backend.service.OrderService;
 import com.gifthommie.backend.service.ProductStatisticService;
 import com.gifthommie.backend.service.RevenueService;
-import com.gifthommie.backend.service.UserService;
 import com.gifthommie.backend.utils.SecurityUtils;
 
 @RestController

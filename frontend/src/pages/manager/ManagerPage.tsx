@@ -6,7 +6,6 @@ import ManagerStaffListPage from "./ManagerStaffListPage";
 import ManagerStaffCreatePage from "./ManagerStaffCreatePage";
 import ManagerStaffEditPage from "./ManagerStaffEditPage";
 import ManagerStaffDetailPage from "./ManagerStaffDetailPage";
-import ManagerViewProfilePage from "./ManagerViewProfilePage";
 import AccountViewProfilePage from "../AccountProfileView";
 import ManagerEditProfilePage from "./ManagerEditProfilePage";
 import Login from "../guest/Login";

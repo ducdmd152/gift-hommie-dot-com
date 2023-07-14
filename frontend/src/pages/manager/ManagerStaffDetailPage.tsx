@@ -4,21 +4,11 @@ import {
   Button,
   Card,
   HStack,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  Wrap,
-  WrapItem,
-  Avatar,
 } from "@chakra-ui/react";
 import UserProfileView from "../../components/user/UserProfileView";
 import managerStaffService, {
   ManagerStaffDTO,
 } from "../../services/manager-staff-service";
-import { ManagerStaffQuery } from "../../hooks/useFetchManagerStaff";
-import useFetchManagerStaff from "../../hooks/useFetchManagerStaff";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import accountService from "../../services/account-service";

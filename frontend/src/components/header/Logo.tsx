@@ -1,7 +1,4 @@
 import {
-  Text,
-  useColorModeValue,
-  useBreakpointValue,
   Heading,
 } from "@chakra-ui/react";
 import React from "react";

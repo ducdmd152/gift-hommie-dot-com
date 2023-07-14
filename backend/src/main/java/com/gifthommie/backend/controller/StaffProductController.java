@@ -15,7 +15,6 @@ import com.gifthommie.backend.dto.APIPageableResponseDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Product;
 import com.gifthommie.backend.exception.NotFoundException;
-import com.gifthommie.backend.service.CartService;
 import com.gifthommie.backend.service.ProductService;
 
 @RestController

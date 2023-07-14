@@ -15,8 +15,6 @@ import com.gifthommie.backend.dto.CartRequestDTO;
 import com.gifthommie.backend.dto.ProductRequestDTO;
 import com.gifthommie.backend.entity.Category;
 import com.gifthommie.backend.entity.Product;
-import com.gifthommie.backend.entity.ProductImage;
-import com.gifthommie.backend.entity.User;
 import com.gifthommie.backend.repository.CategoryRepository;
 import com.gifthommie.backend.repository.OrderDetailRepository;
 import com.gifthommie.backend.repository.ProductRepository;

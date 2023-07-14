@@ -1,14 +1,11 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { HttpUser } from "../../services/user-service";
-import useFetchStaffProduct, {
+import {
   StaffProductQuery,
 } from "../../hooks/useFetchStaffProduct";
-import Header from "../../components/header/Header";
 import StaffProductMain from "../../components/staff/staff-product-list-page/StaffProductListMain";
 import StaffProductListFilter from "../../components/staff/staff-product-list-page/StaffProductListAction";
-import { PaginationQuery } from "../../components/Pagination";
-import CategoryDTO from "../../type/CategoryDTO";
 
 interface Props {
   setCurrentProductId: (productId: number) => void;

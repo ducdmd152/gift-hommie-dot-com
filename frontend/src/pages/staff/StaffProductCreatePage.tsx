@@ -1,33 +1,25 @@
 import {
   Badge,
-  Box,
   Button,
   Card,
-  CardBody,
   FormControl,
-  FormHelperText,
   FormLabel,
   HStack,
   Heading,
   Input,
-  NumberInput,
-  NumberInputField,
   Select,
   Textarea,
   VStack,
-  Image,
   Flex,
   Switch,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import staffProductService, {
   StaffProductDTO,
 } from "../../services/staff-product-service";
-import CATEGORIES from "../../data/Categories";
-import { FieldValues, set, useForm } from "react-hook-form";
-import imageService from "../../services/image-service";
+import { FieldValues, useForm } from "react-hook-form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

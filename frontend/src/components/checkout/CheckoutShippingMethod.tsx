@@ -1,7 +1,7 @@
 import { Card } from "@chakra-ui/card";
 import { Heading, VStack, Text } from "@chakra-ui/layout";
 import { Radio, RadioGroup } from "@chakra-ui/radio";
-import React, { useState } from "react";
+import React from "react";
 import CheckoutDTO from "../../type/CheckoutDTO";
 import shippingService from "../../services/shipping-service";
 interface Props {

@@ -13,11 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gifthommie.backend.service.CartService;
-import com.gifthommie.backend.service.ProductService;
 
 @Entity
 @Table(name = "product")

@@ -1,16 +1,13 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { StaffProductDTO } from "../../../services/staff-product-service";
 import {
   Badge,
   Image,
-  Box,
-  Button,
   Card,
   HStack,
   VStack,
   Heading,
-  position,
 } from "@chakra-ui/react";
 import utilService from "../../../services/util-service";
 
