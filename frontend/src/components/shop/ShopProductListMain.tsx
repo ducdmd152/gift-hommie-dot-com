@@ -1,6 +1,6 @@
 import React from "react";
 import SearchInput from "../SearchInput";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, Card, HStack, Text } from "@chakra-ui/react";
 import ShopProductListItems from "./ShopProductListItems";
 import Pagination from "../Pagination";
 import useFetchShopProduct, {
@@ -36,14 +36,22 @@ const ShopProductListMain = ({
         <ShopProductListItems products={products} />
       </Box>
 
-      <HStack justifyContent={"center"} mt={4} mb={2}>
-        <Pagination
-          pageable={pageable}
-          onSelectPageIndex={(index: number) =>
-            setShopProductQuery({ ...shopProductQuery, page: index })
-          }
-        />
-      </HStack>
+      {products.length > 0 ? (
+        <HStack justifyContent={"center"} mt={4} mb={2}>
+          <Pagination
+            pageable={pageable}
+            onSelectPageIndex={(index: number) =>
+              setShopProductQuery({ ...shopProductQuery, page: index })
+            }
+          />
+        </HStack>
+      ) : (
+        <Card width={"100%"} p="4">
+          <Text size="lg" textAlign="center">
+            Không có sản phẩm nào ở khớp kết quả.
+          </Text>
+        </Card>
+      )}
     </Box>
   );
 };
