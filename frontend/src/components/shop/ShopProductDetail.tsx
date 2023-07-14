@@ -233,7 +233,7 @@ const ShopProductDetail = () => {
           <Text>{product.description}</Text>
         </Box>
       </Box>
-      <Box borderRadius="8" m="2" border="1px solid lightgray" width="100%">
+      <Box borderRadius="8" m="2" border="1px solid lightgray">
         <VStack width="100%" padding="4" spacing="4">
           <Heading fontSize="lg" textAlign="left" w="100%">
             ĐÁNH GIÁ SẢN PHẨM

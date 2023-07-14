@@ -25,10 +25,11 @@ const ShopProductReview = () => {
     })();
   }, []);
 
-  return (
-    <Box w="100%">
-      <VStack w="100%" spacing={"2"}>
-        {/* <Card w="100%" paddingX="4" paddingY="2">
+  if (feedbackResponse?.feedbacks?.length)
+    return (
+      <Box w="100%">
+        <VStack w="100%" spacing={"2"}>
+          {/* <Card w="100%" paddingX="4" paddingY="2">
           <HStack>
             <Avatar
               size="md"
@@ -57,52 +58,61 @@ const ShopProductReview = () => {
           </Text>
         </Card> */}
 
-        {feedbackResponse.feedbacks &&
-          feedbackResponse.feedbacks.map((feedback) => (
-            <Card w="100%" paddingX="4" paddingY="2" background={"gray.100"}>
-              <HStack>
-                <Avatar size="md" src={feedback.user.avatar} />
+          {feedbackResponse.feedbacks &&
+            feedbackResponse.feedbacks.map((feedback) => (
+              <Card w="100%" paddingX="4" paddingY="2" background={"gray.100"}>
+                <HStack>
+                  <Avatar size="md" src={feedback.user.avatar} />
 
-                <VStack
-                  justifyContent={"flex-start"}
-                  alignItems={"flex-start"}
-                  spacing="0"
-                >
-                  <Text size="md" mt="2" mb="0">
-                    @{feedback.user.username}
-                  </Text>
-                  <Rating
-                    initialValue={feedback.rating}
-                    readonly={true}
-                    size={18}
-                  ></Rating>
-                </VStack>
-              </HStack>
+                  <VStack
+                    justifyContent={"flex-start"}
+                    alignItems={"flex-start"}
+                    spacing="0"
+                  >
+                    <Text size="md" mt="2" mb="0">
+                      @{feedback.user.username}
+                    </Text>
+                    <Rating
+                      initialValue={feedback.rating}
+                      readonly={true}
+                      size={18}
+                    ></Rating>
+                  </VStack>
+                </HStack>
 
-              <Text color="gray" p="2" maxH="100px" overflowY={"auto"}>
-                {feedback.feedback}
-              </Text>
+                <Text color="gray" p="2" maxH="100px" overflowY={"auto"}>
+                  {feedback.feedback}
+                </Text>
 
-              <Text color="gray" p="2" fontStyle="italic" overflowY={"auto"}>
-                Đã đánh giá vào{" "}
-                {new Date(feedback.time).toLocaleDateString("en-GB")}
-              </Text>
-            </Card>
-          ))}
-      </VStack>
-      {feedbackResponse.pageable?.pageNumber &&
-      feedbackResponse.pageable?.pageNumber > 1 ? (
-        <Pagination
-          pageable={feedbackResponse.pageable}
-          onSelectPageIndex={(index: number) =>
-            setRequestQuery({ ...requestQuery, page: index })
-          }
-        />
-      ) : (
-        <Box />
-      )}
-    </Box>
-  );
+                <Text color="gray" p="2" fontStyle="italic" overflowY={"auto"}>
+                  Đã đánh giá vào{" "}
+                  {new Date(feedback.time).toLocaleDateString("en-GB")}
+                </Text>
+              </Card>
+            ))}
+        </VStack>
+        {feedbackResponse.pageable?.pageNumber &&
+        feedbackResponse.pageable?.pageNumber > 1 ? (
+          <Pagination
+            pageable={feedbackResponse.pageable}
+            onSelectPageIndex={(index: number) =>
+              setRequestQuery({ ...requestQuery, page: index })
+            }
+          />
+        ) : (
+          <Box />
+        )}
+      </Box>
+    );
+  else {
+    return (
+      // <Card width={"100%"} p="4">
+      <Text size="lg" textAlign="center">
+        Chưa có đánh giá nào.
+      </Text>
+      // </Card>
+    );
+  }
 };
 
 export default ShopProductReview;
