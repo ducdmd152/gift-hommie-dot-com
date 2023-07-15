@@ -86,7 +86,7 @@ public class UserResetPasswordController {
 			MimeMessageHelper helper = new MimeMessageHelper(message,
 										MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
 										StandardCharsets.UTF_8.name());
-			
+			String resetPasswordLink = "http://localhost:8080/account/reset_password?token=" + token;
 			// Set người gửi, người nhận
 			helper.setFrom("quyettcse160862@fpt.edu.vn");
 			helper.setTo(verifyPasswordDTO.getEmail());
@@ -96,7 +96,7 @@ public class UserResetPasswordController {
 	            variables.put("user_name", u.getLastName());
 	            variables.put("token", token);
 	            variables.put("getExpired_verification_code", u.getExpired_verification_code());
-
+	            variables.put("url", resetPasswordLink);
 			helper.setText(mailService.createContent("create-customer-mail-template.html", variables), true);
 			
 			mailSender.send(message);

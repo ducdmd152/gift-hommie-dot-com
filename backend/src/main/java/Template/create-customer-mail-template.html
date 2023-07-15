@@ -49,6 +49,26 @@
             margin: 0;
             line-height: 1.5;
         }
+
+
+        .container a {
+    display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+text-align: end;
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s;
+  /* justify-content:  center; */
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
     </style>
 </head>
 <body>
@@ -82,13 +102,20 @@
             <p>Mã thông báo của bạn sẽ hết hạn vào lúc:</p>
             <p><strong>Thời gian:</strong> <strong><span th:text="${getExpired_verification_code}">  </span></strong></p>
 
-            <br>
-            <p>Để tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã xác nhận khi được yêu cầu</p>
-            <br>
-
+           
 
             <br>
         </div>
+
+        <br>
+
+        <p>Để tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã xác nhận khi được yêu cầu</p>
+        <div style="display: flex; justify-content: center;">
+
+             <a href="${url}" class="btn"> Reset Password</a> 
+        </div>
+        <br>
+
         <div class="content">
             
             <p> <i>Vui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc.</i></p>
@@ -104,7 +131,12 @@
          
           
         </div>
-        <p><b>[ĐÂY LÀ TIN NHẮN TỰ ĐỘNG - VUI LÒNG KHÔNG TRẢ LỜI TRỰC TIẾP ĐẾN EMAIL NÀY]</b></p>
+        <div>
+
+
+
+        </div>
+        
     </div>
 </body>
 </html>
