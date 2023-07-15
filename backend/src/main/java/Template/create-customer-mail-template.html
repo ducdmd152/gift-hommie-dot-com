@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Email Template</title>
+    <style>
+        /* CSS styles for the email template */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .logo img {
+            max-height: 100px;
+        }
+        
+        .info {
+            margin : auto
+        }
+        
+        .info p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .content {
+            margin-bottom: 20px;
+        }
+        
+        .content p {
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function copyToClipboard() {
+          var text = document.getElementById("confirmationCode").innerText;
+          navigator.clipboard.writeText(text)
+            .then(function() {
+              alert("Đã sao chép mã xác nhận vào clipboard!");
+            })
+            .catch(function(error) {
+              console.error("Lỗi khi sao chép vào clipboard:", error);
+            });
+        }
+      </script>
+
+
+
+    <div class="container">
+        <div class="logo" style="background-color: antiquewhite;">
+            <img width="100px" src="https://tse3.mm.bing.net/th/id/OIP.oCvTGk1UfHZw2QgoqZcm7QHaH0?pid=ImgDet&rs=1" alt="Company Logo">
+            <p style="font-weight: bold; font-size: large; margin-bottom: 5px;"> HOMMIE STORE</p>
+        </div>
+        <div class="info">
+            <p>Chào bạn <b><i><span th:text="${user_name}">,</span></i></b><p></p>
+            <p>Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình tại <strong>HommieStore</strong>.</p>
+            <br>
+            <p id="confirmationCode"><strong>Mã Xác Nhận:</strong> [<strong><span th:text="${token}">  </span></strong>] </p>
+            
+            <br>
+            <p>Mã thông báo của bạn sẽ hết hạn vào lúc:</p>
+            <p><strong>Thời gian:</strong> <strong><span th:text="${getExpired_verification_code}">  </span></strong></p>
+
+            <br>
+            <p>Để tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã xác nhận khi được yêu cầu</p>
+            <br>
+
+
+            <br>
+        </div>
+        <div class="content">
+            
+            <p> <i>Vui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc.</i></p>
+            <br>
+            <p>Nếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này.</p>
+            <p>Nếu bạn tin rằng có ai đó đang cố gắng truy cập vào tài khoản của bạn, vui lòng liên hệ với chúng tôi ngay lập tức để được trợ giúp.</p>
+           <br>
+            <p>Trân trọng. Hommie Store</p>
+        </div>
+        
+        <br>
+        <div class="info" style="background-color: antiquewhite; height: 25px;" >
+         
+          
+        </div>
+        <p><b>[ĐÂY LÀ TIN NHẮN TỰ ĐỘNG - VUI LÒNG KHÔNG TRẢ LỜI TRỰC TIẾP ĐẾN EMAIL NÀY]</b></p>
+    </div>
+</body>
+</html>
