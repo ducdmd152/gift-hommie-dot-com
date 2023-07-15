@@ -69,19 +69,6 @@ public class StaffOrderController {
 			return orderDTO;
 		}
 		
-//	@PutMapping("/{orderID}")
-//	public void updateOrderState(@PathVariable int orderID,@RequestParam int status,@RequestParam String comment) {
-//		
-//		String STATUS[] = {"PENDING","CONFIRMED","DELIVERYING","SUCCESSFUL","CANCELED"};
-//		Orders order = orderService.getOrderByOrderId(orderID);
-//		if (order == null)
-//			throw new NotFoundException("ORDER CANNOT BE FOUND");
-//		if (order.getStatus().equals(STATUS[0]) || order.getStatus().equals(STATUS[1]) || order.getStatus().equals(STATUS[2])) {
-//			order.setStatus(STATUS[status]);
-//			order.setComment(comment);
-//			orderService.save(order);
-//		}
-//	}
 		//UPDATE ORDER
 		@PutMapping("/{orderId}")
 		public OrderDTO updateOrder(@PathVariable Integer orderId, 

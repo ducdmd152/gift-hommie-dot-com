@@ -56,29 +56,6 @@ public class UserResetPasswordController {
 		String token  = RandomString.make(7);
 		User u = new User();
 		try {
-//			userService.updateResetPassword(token, verifyPasswordDTO.getEmail());
-//			u = userService.getUserByEmail(verifyPasswordDTO.getEmail());
-//			
-//			// Phần url tạm để là local host
-//			String resetPasswordLink = "http://localhost:8080/account/reset_password?token=" + token;
-//			SimpleMailMessage message = new SimpleMailMessage();
-//			    message.setTo(verifyPasswordDTO.getEmail());
-//			    message.setSubject("Reset Password");
-//			    
-//			    // Phần này là chổ gửi kèm link và code token
-//			    //message.setText(MessageFormat.format(resetPasswordLink, token));
-//			
-//			    message.setSubject("Đặt lại mật khẩu");
-//
-//			    message.setText("Chào bạn,\n\nBạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình tại HommieStore. "
-//			    		+ "\n\nMã xác nhận của bạn là: [ "  + token + " ]  ."
-//			    		+ "\n\nĐể tiếp tục quá trình đặt lại mật khẩu, vui lòng nhấp vào liên kết bên dưới và nhập mã thông báo khi được yêu cầu:\n\n" + resetPasswordLink 
-//			    		+ "\n\nMã thông báo của bạn sẽ hết hạn vào lúc "
-//			    		+ "\n\n[" + u.getExpired_verification_code() + "]. "
-//			    		+ "\nVui lòng đặt lại mật khẩu của bạn trước khi thời gian này kết thúc."
-//			    		+ "\nNếu bạn không yêu cầu đặt lại mật khẩu này, vui lòng bỏ qua email này. "
-//			    		+ "Nếu bạn tin rằng có ai đó đang cố gắng truy cập vào tài khoản của bạn, vui lòng liên hệ với chúng tôi ngay lập tức để được trợ giúp."
-//			    		+ "\n\nTrân trọng,\nHommieStore");
 			userService.updateResetPassword(token, verifyPasswordDTO.getEmail());
 			u = userService.getUserByEmail(verifyPasswordDTO.getEmail());
 
@@ -99,7 +76,12 @@ public class UserResetPasswordController {
 	            variables.put("url", resetPasswordLink);
 			helper.setText(mailService.createContent("create-customer-mail-template.html", variables), true);
 			
-			mailSender.send(message);
+			// Tạo luồng xử lý nhanh chóng 
+			Thread newThread = new Thread(() -> {
+				mailSender.send(message);
+			});
+			newThread.start();
+			
 
 					
 		} catch (Exception e) {
@@ -136,12 +118,7 @@ public class UserResetPasswordController {
 	}
 	
 	
-	
-	
-	
-	
 
-	
 	// json value
 	/* 
 	 * {
