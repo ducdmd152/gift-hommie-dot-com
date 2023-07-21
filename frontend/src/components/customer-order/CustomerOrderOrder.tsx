@@ -1,13 +1,5 @@
-import {
-  Box,
-  Card,
-  HStack,
-  VStack,
-  Badge,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, HStack, VStack, Badge, Text } from "@chakra-ui/react";
 import React from "react";
-
 
 import CustomerOrderItems from "./CustomerOrderItems";
 import OrderDTO from "../../type/OrderDTO";
@@ -27,6 +19,15 @@ const CustomerOrderOrder = ({
   // GET DATA
   let items = order.orderDetails;
   let status = ORDER_STATUS_MAP[order.status];
+  if (["PENDING", "CONFIRMED"].includes(order.status.toUpperCase()))
+    status = {
+      label: "ORDERED",
+      desc: "Đã đặt hàng",
+      descStaff: "Đã đặt hàng",
+      descCustomer: "Shop đang chuẩn bị hàng",
+      colorScheme: "teal",
+      backgroundColor: "teal.300",
+    };
   return (
     <Box w="100%">
       <Card
