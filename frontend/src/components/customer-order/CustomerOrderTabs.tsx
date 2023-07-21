@@ -35,7 +35,7 @@ const CustomerOrderTabs = ({ onStatus }: Props) => {
             _selected={{ color: "white", bg: "teal.300" }}
             onClick={() => onStatus("ORDERED")}
           >
-            Đặt hàng thành công
+            Đã đặt hàng
           </Tab>
           <Tab
             className="customer-order-tab"

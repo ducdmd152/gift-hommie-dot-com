@@ -311,10 +311,17 @@ public class OrderServiceImpl implements OrderService {
 			page = orderRepository.findAllByEmail(email, PageRequest.of(pageNo, pageSize));
 		} else {
 			List<String> statuses = new ArrayList<>();
+			if (status.toLowerCase().equals("ordered")) {
+//				System.out.println("ORDERED STATUS");
+				statuses.add("PENDING");
+				statuses.add("CONFIRMED");
+			}
+			else
 			if (status.toLowerCase().equals("others")) {
 				statuses.add("CANCELLED");
 				statuses.add("REFUSED");
-			} else {
+			}
+			else {
 				statuses.add(status);
 			}
 			page = orderRepository.findAllByEmailWithStatus(email, statuses, PageRequest.of(pageNo, pageSize));
