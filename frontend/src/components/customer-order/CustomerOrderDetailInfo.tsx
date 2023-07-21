@@ -50,6 +50,7 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
               Ngày tạo đơn: {order.createTime}
             </Badge>
           </VStack>
+
           <VStack flex="1" spacing="0">
             <Badge
               w="100%"
@@ -71,6 +72,7 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
                 </Badge>
               </HStack>
             </Badge>
+
             <Badge
               w="100%"
               paddingX="2"
@@ -85,6 +87,25 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
             </Badge>
           </VStack>
         </HStack>
+        {order.comment ? (
+          <Badge
+            style={{
+              marginTop: 0,
+            }}
+            w="100%"
+            padding="2"
+            fontSize={"md"}
+            className="none-text-transform"
+            fontStyle={"italic"}
+            color="orange"
+            textAlign={"right"}
+            fontWeight={"medium"}
+          >
+            Chú thích: {order.comment}
+          </Badge>
+        ) : (
+          <></>
+        )}
 
         {/* CUSTOMER INFO */}
         <Card p="4" w="100%">

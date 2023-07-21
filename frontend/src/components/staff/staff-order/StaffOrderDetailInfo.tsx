@@ -160,7 +160,7 @@ const StaffOrderDetailInfo = ({
           <ModalCloseButton />
           <ModalBody>
             <Heading fontSize="md">Chú thích</Heading>
-            <Textarea ref={commentRef} marginTop="2" />
+            <Textarea ref={commentRef} marginTop="2" maxLength={120} />
           </ModalBody>
 
           <ModalFooter>
@@ -277,7 +277,25 @@ const StaffOrderDetailInfo = ({
             </Badge>
           </VStack>
         </HStack>
-
+        {order.comment ? (
+          <Badge
+            style={{
+              marginTop: 0,
+            }}
+            w="100%"
+            padding="2"
+            fontSize={"md"}
+            className="none-text-transform"
+            fontStyle={"italic"}
+            color="orange"
+            textAlign={"right"}
+            fontWeight={"medium"}
+          >
+            Chú thích: {order.comment}
+          </Badge>
+        ) : (
+          <></>
+        )}
         {/* CUSTOMER INFO */}
         <Card p="4" w="100%">
           <Heading size="sm" mb="2" color="gray">
