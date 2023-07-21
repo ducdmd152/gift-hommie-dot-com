@@ -16,9 +16,18 @@ const CustomerOrderDetailInfo = ({ order }: { order: OrderDTO }) => {
   const total =
     (items.reduce((acc, item) => acc + item.total, 0) + order.shippingFee) /
     1000;
-  const status = order?.status
+  let status = order?.status
     ? ORDER_STATUS_MAP[order.status]
     : ({} as OrderStatusItem);
+  if (["PENDING", "CONFIRMED"].includes(order?.status))
+    status = {
+      label: "ORDERED",
+      desc: "Đã đặt hàng",
+      descStaff: "Đã đặt hàng",
+      descCustomer: "Shop đang chuẩn bị hàng",
+      colorScheme: "teal",
+      backgroundColor: "teal.300",
+    };
   return (
     <Card>
       <VStack w="100%" alignItems={"flex-start"}>
