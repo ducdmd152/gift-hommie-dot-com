@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CustomerOrderTabs from "./CustomerOrderTabs";
-import { Card, VStack, Text } from "@chakra-ui/react";
+import { Card, VStack, Text, Spinner } from "@chakra-ui/react";
 import CustomerOrderOrder from "./CustomerOrderOrder";
 import useFetchCustomerOrder, {
   CustomerOrderQuery,
@@ -12,7 +12,7 @@ const CustomerOrderList = () => {
   const [customerOrderQuery, setCustomerOrderQuery] = useState({
     size: 4,
   } as CustomerOrderQuery);
-  const { orders, pageable, error, setOrders } =
+  const { orders, pageable, error, setOrders, isLoading } =
     useFetchCustomerOrder(customerOrderQuery);
 
   const setOrder = (order: OrderDTO) => {
@@ -26,7 +26,8 @@ const CustomerOrderList = () => {
   return (
     <VStack w="100%" spacing="4" paddingX="4" mb="12">
       <CustomerOrderTabs onStatus={onStatus} />
-      {!orders?.length ? (
+      {isLoading && <Spinner />}
+      {!isLoading && !orders?.length ? (
         <Card width={"100%"} p="4">
           <Text size="lg" textAlign="center">
             Bạn không có đơn hàng nào ở mục này.
