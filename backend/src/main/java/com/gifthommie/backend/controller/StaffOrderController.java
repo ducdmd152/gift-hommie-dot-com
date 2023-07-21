@@ -151,7 +151,7 @@ public class StaffOrderController {
 					String order_status_info = (order.getStatus().equals("CONFIRMED") 
 							? "Nhân viên của shop đang chuẩn bị hàng và nhanh chóng gửi đi" + "\nThời gian giao hàng dự kiến cho đơn hàng của bạn là : "
 								+ ""+ order.getExpectedDeliveryTime()  +"."
-							: "Sản phẩm đang tạm hết hàng, chúng tôi sẽ liên hệ trong thời gian sớm nhất, xin lỗi vì sự bất tiện này!");
+							: "Chú thích: " + order.getComment() + " \n Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất, xin lỗi vì sự bất tiện này!");
 					
 					// Truyền dữ liệu vào email
 					Map<String, Object> variables = new HashMap<>();
