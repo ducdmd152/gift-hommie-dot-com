@@ -108,6 +108,7 @@ public class OrderServiceImpl implements OrderService {
 		Orders order = getOrderByOrderId(orderId);
 		order = updateStatus(order);
 		OrderDTO orderDTO = new OrderDTO(order);
+		orderDTO.setComment(order.getComment());
 		User tmpUser = userRepository.getUserByEmail(order.getEmail()); // GET USER
 
 		List<OrderDetailDTO> orderDetailDTOs = new ArrayList(); // CONVERT DETAILS TO DETAIL-DTOs
@@ -157,7 +158,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setUser(tmpUser);
 			orderDTO.setOrderDetails(orderDetailDTOs);
 
-			orderDTOList.add(orderDTO);
+			orderDTO.setComment(order.getComment()); orderDTOList.add(orderDTO);
 		}
 
 		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
@@ -200,7 +201,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setUser(tmpUser);
 			orderDTO.setOrderDetails(orderDetailDTOs);
 
-			orderDTOList.add(orderDTO);
+			orderDTO.setComment(order.getComment()); orderDTOList.add(orderDTO);
 		}
 
 		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
@@ -246,7 +247,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setUser(tmpUser);
 			orderDTO.setOrderDetails(orderDetailDTOs);
 
-			orderDTOList.add(orderDTO);
+			orderDTO.setComment(order.getComment()); orderDTOList.add(orderDTO);
 		}
 
 		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
@@ -292,7 +293,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setUser(tmpUser);
 			orderDTO.setOrderDetails(orderDetailDTOs);
 
-			orderDTOList.add(orderDTO);
+			orderDTO.setComment(order.getComment()); orderDTOList.add(orderDTO);
 		}
 
 		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();
@@ -348,7 +349,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setUser(tmpUser);
 			orderDTO.setOrderDetails(orderDetailDTOs);
 
-			orderDTOList.add(orderDTO);
+			orderDTO.setComment(order.getComment()); orderDTOList.add(orderDTO);
 		}
 
 		APIPageableResponseDTO<OrderDTO> apiResponse = new APIPageableResponseDTO<>();

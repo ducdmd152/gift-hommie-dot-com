@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Badge,
   Card,
@@ -7,6 +7,15 @@ import {
   VStack,
   Text,
   Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Textarea,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import OrderDTO from "../../../type/OrderDTO";
@@ -26,6 +35,8 @@ const StaffOrderDetailInfo = ({
   setOrder: (order: OrderDTO) => void;
   transition: (order: OrderDTO) => void;
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const commentRef = useRef<HTMLTextAreaElement>(null);
   const globalContext = useContext(GLOBAL_CONTEXT);
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
@@ -91,6 +102,26 @@ const StaffOrderDetailInfo = ({
     });
   };
 
+  const onPreRefuse = () => {
+    onOpen();
+  };
+  const onNewRefuse = async () => {
+    const orderDTO = await staffUpdateOrder({
+      ...order,
+      comment: commentRef?.current?.value || "",
+      status: "REFUSED",
+    });
+    onClose();
+
+    setOrder(orderDTO);
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title: "Đã từ chối \n đơn hàng số: " + order.id + ".",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
   const onRefuse = async () => {
     Swal.fire({
       title: "Từ chối đơn hàng?",
@@ -122,6 +153,35 @@ const StaffOrderDetailInfo = ({
   // UI
   return (
     <Card mt="8">
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent marginTop="40vh">
+          <ModalHeader>Bạn muốn từ chối đơn hàng #{order.id}?</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Heading fontSize="md">Chú thích</Heading>
+            <Textarea ref={commentRef} marginTop="2" maxLength={120} />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="yellow"
+              onClick={() => onNewRefuse()}
+              marginRight="2"
+            >
+              Xác nhận từ chối
+            </Button>
+            <Button
+              colorScheme="yellow"
+              variant="outline"
+              mr={3}
+              onClick={onClose}
+            >
+              Hủy
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <VStack w="100%" alignItems={"flex-start"} className="child-full-width">
         {/* HEADER INFO */}
 
@@ -176,7 +236,7 @@ const StaffOrderDetailInfo = ({
             <Button
               colorScheme="red"
               variant={"outline"}
-              onClick={() => onRefuse()}
+              onClick={() => onPreRefuse()}
             >
               Từ chối
             </Button>
@@ -217,7 +277,25 @@ const StaffOrderDetailInfo = ({
             </Badge>
           </VStack>
         </HStack>
-
+        {order.comment ? (
+          <Badge
+            style={{
+              marginTop: 0,
+            }}
+            w="100%"
+            padding="2"
+            fontSize={"md"}
+            className="none-text-transform"
+            fontStyle={"italic"}
+            color="orange"
+            textAlign={"right"}
+            fontWeight={"medium"}
+          >
+            Chú thích: {order.comment}
+          </Badge>
+        ) : (
+          <></>
+        )}
         {/* CUSTOMER INFO */}
         <Card p="4" w="100%">
           <Heading size="sm" mb="2" color="gray">
