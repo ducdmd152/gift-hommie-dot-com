@@ -312,7 +312,7 @@ public class OrderServiceImpl implements OrderService {
 		} else {
 			List<String> statuses = new ArrayList<>();
 			if (status.toLowerCase().equals("ordered")) {
-				System.out.println("ORDERED STATUS");
+//				System.out.println("ORDERED STATUS");
 				statuses.add("PENDING");
 				statuses.add("CONFIRMED");
 			}
