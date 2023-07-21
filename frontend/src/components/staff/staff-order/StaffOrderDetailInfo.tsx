@@ -7,6 +7,14 @@ import {
   VStack,
   Text,
   Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import OrderDTO from "../../../type/OrderDTO";
@@ -26,6 +34,7 @@ const StaffOrderDetailInfo = ({
   setOrder: (order: OrderDTO) => void;
   transition: (order: OrderDTO) => void;
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const globalContext = useContext(GLOBAL_CONTEXT);
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
@@ -91,6 +100,9 @@ const StaffOrderDetailInfo = ({
     });
   };
 
+  const onPreRefuse = () => {
+    onOpen();
+  };
   const onRefuse = async () => {
     Swal.fire({
       title: "Từ chối đơn hàng?",
@@ -122,6 +134,32 @@ const StaffOrderDetailInfo = ({
   // UI
   return (
     <Card mt="8">
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent marginTop="40vh">
+          <ModalHeader>Bạn muốn từ chối đơn hàng #{order.id}?</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Chú thích</ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="yellow"
+              onClick={() => onRefuse()}
+              marginRight="2"
+            >
+              Xác nhận từ chối
+            </Button>
+            <Button
+              colorScheme="yellow"
+              variant="outline"
+              mr={3}
+              onClick={onClose}
+            >
+              Hủy
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <VStack w="100%" alignItems={"flex-start"} className="child-full-width">
         {/* HEADER INFO */}
 
@@ -176,7 +214,7 @@ const StaffOrderDetailInfo = ({
             <Button
               colorScheme="red"
               variant={"outline"}
-              onClick={() => onRefuse()}
+              onClick={() => onPreRefuse()}
             >
               Từ chối
             </Button>
