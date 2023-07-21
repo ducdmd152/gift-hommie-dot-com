@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Badge,
   Card,
@@ -15,6 +15,7 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Textarea,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import OrderDTO from "../../../type/OrderDTO";
@@ -35,6 +36,7 @@ const StaffOrderDetailInfo = ({
   transition: (order: OrderDTO) => void;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const commentRef = useRef<HTMLTextAreaElement>(null);
   const globalContext = useContext(GLOBAL_CONTEXT);
   let items = order.orderDetails;
   const amount = items.reduce((acc, item) => acc + item.total, 0) / 1000;
@@ -103,6 +105,23 @@ const StaffOrderDetailInfo = ({
   const onPreRefuse = () => {
     onOpen();
   };
+  const onNewRefuse = async () => {
+    const orderDTO = await staffUpdateOrder({
+      ...order,
+      comment: commentRef?.current?.value || "",
+      status: "REFUSED",
+    });
+    onClose();
+
+    setOrder(orderDTO);
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title: "Đã từ chối \n đơn hàng số: " + order.id + ".",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
   const onRefuse = async () => {
     Swal.fire({
       title: "Từ chối đơn hàng?",
@@ -139,12 +158,15 @@ const StaffOrderDetailInfo = ({
         <ModalContent marginTop="40vh">
           <ModalHeader>Bạn muốn từ chối đơn hàng #{order.id}?</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Chú thích</ModalBody>
+          <ModalBody>
+            <Heading fontSize="md">Chú thích</Heading>
+            <Textarea ref={commentRef} marginTop="2" />
+          </ModalBody>
 
           <ModalFooter>
             <Button
               colorScheme="yellow"
-              onClick={() => onRefuse()}
+              onClick={() => onNewRefuse()}
               marginRight="2"
             >
               Xác nhận từ chối
