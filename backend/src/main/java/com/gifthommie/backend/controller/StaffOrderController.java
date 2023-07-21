@@ -115,7 +115,8 @@ public class StaffOrderController {
 			
 			final boolean CONFIRM_MODE = orderDTO.getStatus().equals("PENDING") == false && order.getStatus().equals("PENDING");
 //			Orders update = new Orders(orderDTO);
-			order.autoUpdateFromDTO(orderDTO);		
+			order.autoUpdateFromDTO(orderDTO);	
+			order.setComment(orderDTO.getComment());
 			orderService.save(order);
 //			if (order.getStatus().equals("CONFIRMED"))
 			if (CONFIRM_MODE) {
