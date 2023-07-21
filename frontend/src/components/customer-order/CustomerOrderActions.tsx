@@ -7,6 +7,7 @@ import { updateOrder } from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
 import CustomerOrderFeedbackModal from "./CustomerOrderFeedbackModal";
+import utilService from "../../services/util-service";
 
 const CustomerOrderActions = ({
   order,
@@ -49,6 +50,7 @@ const CustomerOrderActions = ({
       }
     });
   };
+  // console.log(order.createTime);
 
   return (
     <HStack w="100%" justifyContent={"right"} p="4">
@@ -59,17 +61,21 @@ const CustomerOrderActions = ({
         onOpen={onOpen}
         onClose={onClose}
       />
-      {status == "SUCCESSFUL" && !order.evaluated && (
-        <Button
-          colorScheme="blue"
-          onClick={() => {
-            onOpen();
-            setOrder(order);
-          }}
-        >
-          Đánh giá{" "}
-        </Button>
-      )}
+      {status == "SUCCESSFUL" &&
+        !order.evaluated &&
+        utilService.isOver30DaysFromToday(
+          utilService.fconvertStringToDate(order.createTime)
+        ) && (
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              onOpen();
+              setOrder(order);
+            }}
+          >
+            Đánh giá{" "}
+          </Button>
+        )}
 
       {order.evaluated && (
         <Button colorScheme="blue" isDisabled={true}>
