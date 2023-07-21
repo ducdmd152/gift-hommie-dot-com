@@ -63,7 +63,7 @@ const CustomerOrderActions = ({
       />
       {status == "SUCCESSFUL" &&
         !order.evaluated &&
-        utilService.isOver30DaysFromToday(
+        !utilService.isOver30DaysFromToday(
           utilService.fconvertStringToDate(order.createTime)
         ) && (
           <Button
