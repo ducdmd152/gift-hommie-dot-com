@@ -1,5 +1,3 @@
-import utilService from "../services/util-service";
-
 export interface OrderStatusItem {
   label: string;
   desc: string;
