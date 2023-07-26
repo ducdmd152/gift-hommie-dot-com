@@ -117,6 +117,8 @@ public class StaffOrderController {
 //			Orders update = new Orders(orderDTO);
 			order.autoUpdateFromDTO(orderDTO);	
 			order.setComment(orderDTO.getComment());
+			if (orderDTO.getShippingOrderCode() != null && orderDTO.getShippingOrderCode().length()>0)
+				order.setShippingOrderCode(orderDTO.getShippingOrderCode());
 			orderService.save(order);
 //			if (order.getStatus().equals("CONFIRMED"))
 			if (CONFIRM_MODE) {

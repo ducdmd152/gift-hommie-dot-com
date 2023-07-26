@@ -27,7 +27,18 @@ public class OrderDTO {
 	private float shippingFee;
 	private int shippingMethod;
 	private Boolean isEvaluated = false;
+	private String shippingOrderCode = "";
 	
+	
+	
+	public String getShippingOrderCode() {
+		return shippingOrderCode;
+	}
+
+	public void setShippingOrderCode(String shippingOrderCode) {
+		this.shippingOrderCode = shippingOrderCode;
+	}
+
 	public Boolean isEvaluated() {
 		return isEvaluated;
 	}

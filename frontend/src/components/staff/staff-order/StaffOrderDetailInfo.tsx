@@ -85,11 +85,13 @@ const StaffOrderDetailInfo = ({
         //   }
         // });
 
-        let orderCode = await shippingService.createOrder(order);
         const orderDTO = await staffUpdateOrder({
           ...order,
           status: "CONFIRMED",
         });
+
+        let orderCode = await shippingService.createOrder(order);
+        // console.log(orderCode);
 
         staffUpdateOrder({
           ...order,

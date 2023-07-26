@@ -135,7 +135,7 @@ let createOrder = async (orderDTO: OrderDTO) => {
   const url = GHN.orderUrls.create;
 
   let result = {} as ShippingDTO;
-  (async () => {
+  await (async () => {
     await axios
       .post(url, data, {
         headers: { "Content-Type": "application/json", token: GHN.token },
@@ -144,6 +144,8 @@ let createOrder = async (orderDTO: OrderDTO) => {
         result = response.data.data as ShippingDTO;
       });
   })();
+
+  // console.log(result, result?.order_code);
 
   return result?.order_code;
 };
