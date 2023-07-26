@@ -34,4 +34,6 @@ export default interface OrderDTO {
   expectedDeliveryTime: string; // ADD MORE // DATETIME
 
   evaluated: boolean;
+
+  shippingOrderCode: string;
 }

@@ -25,6 +25,7 @@ import ORDER_STATUS_MAP, {
 import Swal from "sweetalert2";
 import { staffUpdateOrder } from "../../../services/staff-order-service";
 import { GLOBAL_CONTEXT } from "../../../App";
+import shippingService from "../../../services/shipping-service";
 
 const StaffOrderDetailInfo = ({
   order,
@@ -86,6 +87,15 @@ const StaffOrderDetailInfo = ({
 
         const orderDTO = await staffUpdateOrder({
           ...order,
+          status: "CONFIRMED",
+        });
+
+        let orderCode = await shippingService.createOrder(order);
+        // console.log(orderCode);
+
+        staffUpdateOrder({
+          ...order,
+          shippingOrderCode: orderCode,
           status: "CONFIRMED",
         });
 
