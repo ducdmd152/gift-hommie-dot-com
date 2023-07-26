@@ -166,6 +166,7 @@ const CategoryManagement = ({
         const cate = res.data as CategoryDTO;
         setNewCate("");
         setCategories([cate, ...categories]);
+        updateCategories([cate, ...categories]);
 
         Swal.fire({
           title: "Đã thêm " + newCate + " vào danh mục sản phẩm.",
