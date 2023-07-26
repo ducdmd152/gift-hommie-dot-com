@@ -28,6 +28,7 @@ import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";
 import Swal from "sweetalert2";
+import CategoryManagement from "../../components/staff/staff-product-list-page/CategoryManagement";
 const schema = z.object({
   name: z
     .string({
@@ -209,9 +210,23 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                   )}
                 </FormControl>
                 <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Danh mục sản phẩm
-                  </FormLabel>
+                  <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    marginBottom={2}
+                  >
+                    <FormLabel size="md" fontWeight="bold">
+                      Danh mục sản phẩm
+                    </FormLabel>
+                    <CategoryManagement
+                      small={true}
+                      updateCategories={(categories) => {
+                        setCategories(categories);
+                      }}
+                      refresh={() => {}}
+                    />
+                  </HStack>
+
                   <Select
                     {...register("categoryId", { valueAsNumber: true })}
                     color="black"

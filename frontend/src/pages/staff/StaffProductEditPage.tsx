@@ -24,6 +24,7 @@ import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";
 import Swal from "sweetalert2";
+import CategoryManagement from "../../components/staff/staff-product-list-page/CategoryManagement";
 
 interface Props {
   currentProductId: number | null;
@@ -278,9 +279,22 @@ const StaffProductEditPage = ({ currentProductId }: Props) => {
                 </FormControl> */}
                 {/* </HStack> */}
                 <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Danh mục sản phẩm
-                  </FormLabel>
+                  <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    marginBottom={2}
+                  >
+                    <FormLabel size="md" fontWeight="bold">
+                      Danh mục sản phẩm
+                    </FormLabel>
+                    <CategoryManagement
+                      small={true}
+                      updateCategories={(categories) => {
+                        setCategories(categories);
+                      }}
+                      refresh={() => {}}
+                    />
+                  </HStack>
                   <Select
                     onChange={(e) => {
                       let value = parseInt(e.target.value);

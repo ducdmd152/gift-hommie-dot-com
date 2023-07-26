@@ -34,9 +34,11 @@ import { useNavigate } from "react-router-dom";
 const CategoryManagement = ({
   updateCategories,
   refresh,
+  small,
 }: {
   updateCategories: (categories: CategoryDTO[]) => void;
   refresh: () => void;
+  small?: boolean;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -186,9 +188,25 @@ const CategoryManagement = ({
   };
   return (
     <>
-      <Button colorScheme="teal" size="md" onClick={() => onOpen()}>
-        Quản lý danh mục
-      </Button>
+      {!small ? (
+        <Button colorScheme="teal" size="md" onClick={() => onOpen()}>
+          {" "}
+          Quản lý danh mục
+        </Button>
+      ) : (
+        <Badge
+          colorScheme="teal"
+          size="md"
+          onClick={() => onOpen()}
+          fontSize={12}
+          paddingX="2"
+          paddingY="4px"
+          className="badge-button"
+        >
+          Quản lý danh mục
+        </Badge>
+      )}
+
       <Modal isOpen={isOpen} onClose={onClose} preserveScrollBarGap={false}>
         <ModalOverlay />
         <ModalContent
