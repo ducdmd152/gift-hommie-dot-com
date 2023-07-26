@@ -81,7 +81,7 @@ let previewOrder = async (
 
 let createOrder = async (orderDTO: OrderDTO) => {
   const data = {
-    payment_type_id: 2,
+    payment_type_id: orderDTO.paymentMethod == 1 ? 2 : 1,
     note: "",
     from_name: "Hommie Store",
     from_phone: "0934968393",
