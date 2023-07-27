@@ -144,7 +144,7 @@ const ShopProductDetail = () => {
                   paddingX="2"
                 >
                   {product.available > 0
-                    ? product.available + " sản phẩm có sẵn sản phẩm có sẵn"
+                    ? product.available + " sản phẩm có sẵn"
                     : "Sản phẩm tạm hết hàng"}
                 </Badge>
               </HStack>
