@@ -54,7 +54,11 @@ const CategoryManagement = ({
 
   const onUpdate = (id: number) => {
     if (
-      categories.find((c) => c.id != updateCate.id && c.name == updateCate.name)
+      categories.find(
+        (c) =>
+          c.id != updateCate.id &&
+          c.name.toLowerCase() == updateCate.name.toLowerCase()
+      )
     ) {
       Swal.fire({
         position: "center",
@@ -153,7 +157,7 @@ const CategoryManagement = ({
   };
 
   const onsubmit = () => {
-    if (categories.find((c) => c.name == newCate)) {
+    if (categories.find((c) => c.name.toLowerCase() == newCate.toLowerCase())) {
       Swal.fire({
         position: "center",
         icon: "error",
