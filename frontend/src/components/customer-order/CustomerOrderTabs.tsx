@@ -58,6 +58,13 @@ const CustomerOrderTabs = ({ onStatus }: Props) => {
           >
             Đã hủy
           </Tab>
+          <Tab
+            className="customer-order-tab"
+            _selected={{ color: "white", bg: "orange.400" }}
+            onClick={() => onStatus("FAIL")}
+          >
+            Thất bại
+          </Tab>
         </TabList>
         <TabIndicator
           mt="-1.5px"
