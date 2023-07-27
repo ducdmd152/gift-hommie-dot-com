@@ -3,7 +3,9 @@ import React, { useContext } from "react";
 import OrderDTO from "../../type/OrderDTO";
 import { GLOBAL_CONTEXT } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { updateOrder } from "../../services/customer-order-service";
+import customerOrderService, {
+  updateOrder,
+} from "../../services/customer-order-service";
 import cartActionSerivce from "../../services/cart-action-service";
 import Swal from "sweetalert2";
 import CustomerOrderFeedbackModal from "./CustomerOrderFeedbackModal";
@@ -32,6 +34,23 @@ const CustomerOrderActions = ({
       cancelButtonText: "Không",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        let cur = order;
+        await customerOrderService
+          .get(order.id)
+          .then((res) => (cur = res.data as OrderDTO))
+          .catch((error) => {});
+        if (cur.status != "PENDING") {
+          setOrder(cur);
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title:
+              "Đơn hàng đã chuyển trạng thái, không thể hủy, vui lòng thử lại.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          return;
+        }
         order.status = "CANCELLED";
         const orderDTO = await updateOrder(order);
         if (order === orderDTO) {
@@ -119,7 +138,7 @@ const CustomerOrderActions = ({
         </Button>
       )}
 
-      {["PENDING", "DELIVERYING"].includes(status) && (
+      {["PENDING", "CONFIRMED", "DELIVERYING"].includes(status) && (
         <Button
           background="gray.600"
           color="white"
