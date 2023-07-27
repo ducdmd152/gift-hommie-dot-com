@@ -127,6 +127,15 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		Page<Product> page = productRepository.findAllByStatusByNameByCategory(true, search, category, pageable);
+		
+		for(Product product : page) {
+//			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+			product.setSold(getSoldOfProduct(product.getId()));
+//			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+//			System.out.println("---------------------------");
+		}
+		
 		return new APIPageableResponseDTO<Product>(page);
 	}
 
@@ -149,6 +158,15 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		Page<Product> page = productRepository.findAllByStatusByNameByCategory(status, search, category, pageable);
+		
+		for(Product product : page) {
+//			System.out.println(product.getQuantity() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+			product.setAvailable(cartService.getShopAvailableQuantity(product.getId()));
+			product.setSold(getSoldOfProduct(product.getId()));
+//			System.out.println(product.getAvailable() + " : " + cartService.getShopAvailableQuantity(product.getId()));
+//			System.out.println("---------------------------");
+		}
+		
 		return new APIPageableResponseDTO<Product>(page);
 	}
 	// Get related product

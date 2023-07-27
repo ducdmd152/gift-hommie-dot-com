@@ -34,9 +34,11 @@ import { useNavigate } from "react-router-dom";
 const CategoryManagement = ({
   updateCategories,
   refresh,
+  small,
 }: {
   updateCategories: (categories: CategoryDTO[]) => void;
   refresh: () => void;
+  small?: boolean;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -52,7 +54,11 @@ const CategoryManagement = ({
 
   const onUpdate = (id: number) => {
     if (
-      categories.find((c) => c.id != updateCate.id && c.name == updateCate.name)
+      categories.find(
+        (c) =>
+          c.id != updateCate.id &&
+          c.name.toLowerCase() == updateCate.name.toLowerCase()
+      )
     ) {
       Swal.fire({
         position: "center",
@@ -151,7 +157,7 @@ const CategoryManagement = ({
   };
 
   const onsubmit = () => {
-    if (categories.find((c) => c.name == newCate)) {
+    if (categories.find((c) => c.name.toLowerCase() == newCate.toLowerCase())) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -166,6 +172,7 @@ const CategoryManagement = ({
         const cate = res.data as CategoryDTO;
         setNewCate("");
         setCategories([cate, ...categories]);
+        updateCategories([cate, ...categories]);
 
         Swal.fire({
           title: "Đã thêm " + newCate + " vào danh mục sản phẩm.",
@@ -185,9 +192,25 @@ const CategoryManagement = ({
   };
   return (
     <>
-      <Button colorScheme="teal" size="md" onClick={() => onOpen()}>
-        Quản lý danh mục
-      </Button>
+      {!small ? (
+        <Button colorScheme="teal" size="md" onClick={() => onOpen()}>
+          {" "}
+          Quản lý danh mục
+        </Button>
+      ) : (
+        <Badge
+          colorScheme="teal"
+          size="md"
+          onClick={() => onOpen()}
+          fontSize={12}
+          paddingX="2"
+          paddingY="4px"
+          className="badge-button"
+        >
+          Quản lý danh mục
+        </Badge>
+      )}
+
       <Modal isOpen={isOpen} onClose={onClose} preserveScrollBarGap={false}>
         <ModalOverlay />
         <ModalContent

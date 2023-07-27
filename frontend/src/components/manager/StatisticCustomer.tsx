@@ -63,66 +63,23 @@ const StatisticCustomer = ({ overview }: { overview?: boolean }) => {
             (theo tổng đơn)
           </Text>
           <VStack w="100%" mt="4">
-            {customer?.order?.userTopOrderDTOList?.map((data) => {
-              const user = data.user;
-              const list = data.orderList;
-              return (
-                <Card w="100%" p="2">
-                  <HStack justifyContent={"space-between"}>
-                    <HStack spacing="3" className="product-card">
-                      <Avatar
-                        // borderRadius={"8px"}
-                        boxSize="50px"
-                        objectFit="cover"
-                        src={user.avatar}
-                      />
-                      <Text
-                        fontSize="md"
-                        fontWeight="bold"
-                        color="dark.200"
-                        letterSpacing="2px"
-                      >
-                        <Badge
-                          fontSize="xs"
-                          colorScheme="teal"
-                          className="none-text-transform"
-                        >
-                          {"@" + user.id}
-                        </Badge>
-                        <br />
-                        {user.firstName + " " + user.lastName}
-                      </Text>
-                    </HStack>
-                    <Text color="teal" fontSize="sm" fontWeight={"bold"} mr="4">
-                      {list.reduce(
-                        (cnt, item) =>
-                          item.status == "SUCCESSFUL" ? cnt + 1 : cnt,
-                        0
-                      )}{" "}
-                      đơn hàng thành công
-                    </Text>
-                  </HStack>
-                </Card>
-              );
-            })}
-          </VStack>
-        </Card>
-        {!overview && (
-          <Card flex="1" p="4">
-            <HStack>
-              <Text fontSize="xl" color="teal" fontWeight={"bold"}>
-                Top khách hàng tiềm năng
-              </Text>
-              <RiMoneyDollarCircleLine color="teal.800" fontSize="2xl" />
-            </HStack>
-            <Text fontSize="md" color="gray" fontStyle={"italic"}>
-              (theo tổng tiền)
-            </Text>
-            <VStack w="100%" mt="4">
-              {customer?.amountDTO?.userTopAmountDTOList?.map((data) => {
+            {customer?.order?.userTopOrderDTOList
+              ?.sort(
+                (a, b) =>
+                  b.orderList.reduce(
+                    (cnt, item) =>
+                      item.status == "SUCCESSFUL" ? cnt + 1 : cnt,
+                    0
+                  ) -
+                  a.orderList.reduce(
+                    (cnt, item) =>
+                      item.status == "SUCCESSFUL" ? cnt + 1 : cnt,
+                    0
+                  )
+              )
+              .map((data) => {
                 const user = data.user;
-                const amount = data.amount;
-
+                const list = data.orderList;
                 return (
                   <Card w="100%" p="2">
                     <HStack justifyContent={"space-between"}>
@@ -156,12 +113,76 @@ const StatisticCustomer = ({ overview }: { overview?: boolean }) => {
                         fontWeight={"bold"}
                         mr="4"
                       >
-                        {moneyService.getVND(amount)}{" "}
+                        {list.reduce(
+                          (cnt, item) =>
+                            item.status == "SUCCESSFUL" ? cnt + 1 : cnt,
+                          0
+                        )}{" "}
+                        đơn hàng thành công
                       </Text>
                     </HStack>
                   </Card>
                 );
               })}
+          </VStack>
+        </Card>
+        {!overview && (
+          <Card flex="1" p="4">
+            <HStack>
+              <Text fontSize="xl" color="teal" fontWeight={"bold"}>
+                Top khách hàng tiềm năng
+              </Text>
+              <RiMoneyDollarCircleLine color="teal.800" fontSize="2xl" />
+            </HStack>
+            <Text fontSize="md" color="gray" fontStyle={"italic"}>
+              (theo tổng tiền)
+            </Text>
+            <VStack w="100%" mt="4">
+              {customer?.amountDTO?.userTopAmountDTOList
+                ?.sort((a, b) => b.amount - a.amount)
+                .map((data) => {
+                  const user = data.user;
+                  const amount = data.amount;
+
+                  return (
+                    <Card w="100%" p="2">
+                      <HStack justifyContent={"space-between"}>
+                        <HStack spacing="3" className="product-card">
+                          <Avatar
+                            // borderRadius={"8px"}
+                            boxSize="50px"
+                            objectFit="cover"
+                            src={user.avatar}
+                          />
+                          <Text
+                            fontSize="md"
+                            fontWeight="bold"
+                            color="dark.200"
+                            letterSpacing="2px"
+                          >
+                            <Badge
+                              fontSize="xs"
+                              colorScheme="teal"
+                              className="none-text-transform"
+                            >
+                              {"@" + user.id}
+                            </Badge>
+                            <br />
+                            {user.firstName + " " + user.lastName}
+                          </Text>
+                        </HStack>
+                        <Text
+                          color="teal"
+                          fontSize="sm"
+                          fontWeight={"bold"}
+                          mr="4"
+                        >
+                          {moneyService.getVND(amount)}{" "}
+                        </Text>
+                      </HStack>
+                    </Card>
+                  );
+                })}
             </VStack>
           </Card>
         )}

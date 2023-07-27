@@ -28,6 +28,7 @@ import useFetchCategories, {
   CategoryQuery,
 } from "../../hooks/useFetchCategory";
 import Swal from "sweetalert2";
+import CategoryManagement from "../../components/staff/staff-product-list-page/CategoryManagement";
 const schema = z.object({
   name: z
     .string({
@@ -129,7 +130,11 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
           {"<< Danh sách sản phẩm"}
         </Button>
       </Link>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <Card marginX="12" marginY="8" p="8" border="1px lightgray solid">
           <HStack justifyContent="space-between">
             <VStack alignItems="start">
@@ -147,7 +152,12 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
             </VStack>
 
             <HStack>
-              <Button type="submit" colorScheme="blue" size="md">
+              <Button
+                type="submit"
+                colorScheme="blue"
+                size="md"
+                onClick={handleSubmit(onSubmit)}
+              >
                 Hoàn tất
               </Button>
               <Button
@@ -209,9 +219,23 @@ const StaffProductCreatePage = ({ setCurrentProductId }: Props) => {
                   )}
                 </FormControl>
                 <FormControl>
-                  <FormLabel size="md" fontWeight="bold">
-                    Danh mục sản phẩm
-                  </FormLabel>
+                  <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    marginBottom={2}
+                  >
+                    <FormLabel size="md" fontWeight="bold">
+                      Danh mục sản phẩm
+                    </FormLabel>
+                    <CategoryManagement
+                      small={true}
+                      updateCategories={(categories) => {
+                        setCategories(categories);
+                      }}
+                      refresh={() => {}}
+                    />
+                  </HStack>
+
                   <Select
                     {...register("categoryId", { valueAsNumber: true })}
                     color="black"
