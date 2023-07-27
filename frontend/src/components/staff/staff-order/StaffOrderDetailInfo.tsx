@@ -23,7 +23,9 @@ import ORDER_STATUS_MAP, {
   OrderStatusItem,
 } from "../../../data/OrderStatusData";
 import Swal from "sweetalert2";
-import { staffUpdateOrder } from "../../../services/staff-order-service";
+import staffOrderService, {
+  staffUpdateOrder,
+} from "../../../services/staff-order-service";
 import { GLOBAL_CONTEXT } from "../../../App";
 import shippingService from "../../../services/shipping-service";
 
@@ -61,6 +63,24 @@ const StaffOrderDetailInfo = ({
       cancelButtonText: "Hủy",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        let cur = order;
+        await staffOrderService
+          .get(order.id)
+          .then((res) => (cur = res.data as OrderDTO))
+          .catch((error) => {});
+        if (cur.status != "PENDING") {
+          setOrder(cur);
+          transition(cur);
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title:
+              "Không thể hủy, đơn hàng đã chuyển trạng thái trước khi hủy, vui lòng thử lại.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          return;
+        }
         // let timerInterval: string | number | NodeJS.Timeout | undefined;
         // Swal.fire({
         //   title: "Đang xử lí!",
@@ -106,7 +126,7 @@ const StaffOrderDetailInfo = ({
           icon: "success",
           title: "Đã xác nhận thành công \n đơn hàng số: " + order.id + ".",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 3000,
         });
       }
     });
@@ -116,6 +136,26 @@ const StaffOrderDetailInfo = ({
     onOpen();
   };
   const onNewRefuse = async () => {
+    let cur = order;
+    await staffOrderService
+      .get(order.id)
+      .then((res) => (cur = res.data as OrderDTO))
+      .catch((error) => {});
+    if (cur.status != "PENDING") {
+      onClose();
+      setOrder(cur);
+      transition(cur);
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title:
+          "Không thể hủy, đơn hàng đã chuyển trạng thái trước khi hủy, vui lòng thử lại.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      return;
+    }
+
     const orderDTO = await staffUpdateOrder({
       ...order,
       comment: commentRef?.current?.value || "",
