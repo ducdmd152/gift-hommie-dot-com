@@ -6,7 +6,7 @@
 --------------------------------------------------
 ## Table of Contents
 - [Description](#description)
-- [Screenshots]()
+- [Live Demo](#live-demo--here)
 - [Technology](#technology)
 - [Documentation](#documentation)
 - [How can get started](#how-can-get-started)
@@ -24,14 +24,16 @@
 	- Vite + TypeScript
 	- ChakraUI
 - **Back-end:** 
-	- Spring Boot
+	- Spring
 	- MySQL
+
+![techs](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/screenshots/tech.png)
 ## Documentation
 - [Gift E-commerce Website | SRS](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/docs/%5BCodies%5D%5BGift%20E-Commerce%20website%5D%20SRS.pdf)
 - [Gift E-commerce Website | Design Document](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/docs/%5BCodies%5D%5BGift%20E-Commerce%20website%5D%20Design%20Document.pdf)
 
-## Screenshots
-comming soon....
+## Live Demo: 👉 [here]()
+ ![HomePage](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/screenshots/HomePage.png)
 ## How can Get Started
 
 -   **Download/Clone the source code.**
