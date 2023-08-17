@@ -32,7 +32,7 @@
 - [Gift E-commerce Website | SRS](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/docs/%5BCodies%5D%5BGift%20E-Commerce%20website%5D%20SRS.pdf)
 - [Gift E-commerce Website | Design Document](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/docs/%5BCodies%5D%5BGift%20E-Commerce%20website%5D%20Design%20Document.pdf)
 
-## Live Demo: 👉 [here]()
+## Live Demo: 👉 [here](https://youtu.be/_TBL_Nbsyo4)
  ![HomePage](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/materials/screenshots/HomePage.png)
 ## How can Get Started
 
