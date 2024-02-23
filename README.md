@@ -57,4 +57,4 @@
 ## License & Copyright
 &copy; 2023 Codies Team Licensed under the [GNU LICENSE](https://github.com/ducdmd152/gift-hommie-dot-com/blob/main/LICENSE).
 
-> 🤟 Feel free to use my repository and star it if you find something interesting 🤟
+> 🤟 Take a star if you find something interesting 🤟
